@@ -39,7 +39,9 @@ public final class NSProtocolInterceptor: NSObject, NSCoding {
         }
         
         for eachProtocol in _interceptedProtocols {
-            class_addProtocol(self.dynamicType, eachProtocol)
+            if !class_conformsToProtocol(self.dynamicType, eachProtocol) {
+                class_addProtocol(self.dynamicType, eachProtocol)
+            }
         }
     }
     
@@ -52,14 +54,18 @@ public final class NSProtocolInterceptor: NSObject, NSCoding {
     public init(aProtocol: Protocol) {
         _interceptedProtocols = [aProtocol]
         super.init()
-        class_addProtocol(self.dynamicType, aProtocol)
+        if !class_conformsToProtocol(self.dynamicType, aProtocol) {
+            class_addProtocol(self.dynamicType, aProtocol)
+        }
     }
     
     public init(protocols: [Protocol]) {
         _interceptedProtocols = protocols
         super.init()
         for eachProtocol in protocols {
-            class_addProtocol(self.dynamicType, eachProtocol)
+            if !class_conformsToProtocol(self.dynamicType, eachProtocol) {
+                class_addProtocol(self.dynamicType, eachProtocol)
+            }
         }
     }
     
@@ -67,7 +73,9 @@ public final class NSProtocolInterceptor: NSObject, NSCoding {
         _interceptedProtocols = protocols
         super.init()
         for eachProtocol in protocols {
-            class_addProtocol(self.dynamicType, eachProtocol)
+            if !class_conformsToProtocol(self.dynamicType, eachProtocol) {
+                class_addProtocol(self.dynamicType, eachProtocol)
+            }
         }
     }
     
