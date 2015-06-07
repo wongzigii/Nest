@@ -1,4 +1,4 @@
-==~~Nest is a library which makes Foundation and Swift works more seamlessly and offers some great missing helpers, utilities in Foundation.
+Nest is a library which makes Foundation and Swift works more seamlessly and offers some great missing helpers, utilities in Foundation.
 
 #How to Get Started
 
