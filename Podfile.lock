@@ -1,0 +1,10 @@
+PODS:
+  - SwiftExt (0.0.2)
+
+DEPENDENCIES:
+  - SwiftExt
+
+SPEC CHECKSUMS:
+  SwiftExt: b22453a2aaa1bfd0dc5cc36e85bf6f2cd836cf58
+
+COCOAPODS: 0.37.2
