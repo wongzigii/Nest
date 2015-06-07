@@ -15,16 +15,13 @@ public final class NSProtocolInterceptor: NSObject, NSCoding {
         static let middleManKey = "middleMan"
     }
     
-    private var _interceptedProtocols = [Protocol]()
+    private var _interceptedProtocols: [Protocol]
     public var interceptedProtocols: [Protocol] {
         return _interceptedProtocols
     }
     
-    private var _receiver: NSObject?
-    private var _middleMan: NSObject?
-    
-    public var receiver: NSObject? { return _receiver }
-    public var middleMan: NSObject? { return _middleMan }
+    public var receiver: NSObject?
+    public var middleMan: NSObject?
     
     public init(coder aDecoder: NSCoder) {
         if aDecoder.containsValueForKey(CodingKeys.interceptedProcotolsKey) {
@@ -34,11 +31,15 @@ public final class NSProtocolInterceptor: NSObject, NSCoding {
         }
         
         if aDecoder.containsValueForKey(CodingKeys.receiverKey) {
-            _receiver = aDecoder.decodeObjectForKey(CodingKeys.receiverKey) as? NSObject
+            receiver = aDecoder.decodeObjectForKey(CodingKeys.receiverKey) as? NSObject
         }
         
         if aDecoder.containsValueForKey(CodingKeys.middleManKey) {
-            _middleMan = aDecoder.decodeObjectForKey(CodingKeys.middleManKey) as? NSObject
+            middleMan = aDecoder.decodeObjectForKey(CodingKeys.middleManKey) as? NSObject
+        }
+        
+        for eachProtocol in _interceptedProtocols {
+            class_addProtocol(self.dynamicType, eachProtocol)
         }
     }
     
@@ -48,17 +49,13 @@ public final class NSProtocolInterceptor: NSObject, NSCoding {
         aCoder.encodeObject(middleMan, forKey: CodingKeys.interceptedProcotolsKey)
     }
     
-    public init(receiver aReceiver: NSObject, middleMan aMiddleMan: NSObject, aProtocol: Protocol) {
-        _receiver = aReceiver
-        _middleMan = aMiddleMan
+    public init(aProtocol: Protocol) {
         _interceptedProtocols = [aProtocol]
         super.init()
         class_addProtocol(self.dynamicType, aProtocol)
     }
     
-    public init(receiver aReceiver: NSObject, middleMan aMiddleMan: NSObject, protocols: [Protocol]) {
-        _receiver = aReceiver
-        _middleMan = aMiddleMan
+    public init(protocols: [Protocol]) {
         _interceptedProtocols = protocols
         super.init()
         for eachProtocol in protocols {
@@ -66,9 +63,7 @@ public final class NSProtocolInterceptor: NSObject, NSCoding {
         }
     }
     
-    public init(receiver aReceiver: NSObject, middleMan aMiddleMan: NSObject, protocols: Protocol ...) {
-        _receiver = aReceiver
-        _middleMan = aMiddleMan
+    public init(protocols: Protocol ...) {
         _interceptedProtocols = protocols
         super.init()
         for eachProtocol in protocols {
