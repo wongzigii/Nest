@@ -1,4 +1,4 @@
-Nest is a library which makes Foundation and Swift works more seamlessly and offers some great missing helpers, utilities in Foundation.
+==~~Nest is a library which makes Foundation and Swift works more seamlessly and offers some great missing helpers, utilities in Foundation.
 
 #How to Get Started
 
@@ -161,9 +161,6 @@ There might be a situation you had encountered before where you wanted to find a
 
 ##Runtime Functions
 
-###Circumstance:
-I wrote this function while making `NSProtocolInterceptor` which needs to identify the coming message is contained in a specific protocol.
-
 ###Functions:
 
 - **Check** if selector belongs to a protocol.
@@ -237,4 +234,5 @@ let anError = NSError(errors: errors)
 #Dependancies
 
 - [Swift Extended Library](https://github.com/WeZZard/Swift-Extended-Library)
+
 
