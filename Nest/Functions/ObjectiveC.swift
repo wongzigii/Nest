@@ -8,15 +8,16 @@
 
 import Foundation
 
-public func sel_belongsToProtocol(aSelector: Selector, aProtocol: Protocol) -> Bool
-{
+public func sel_belongsToProtocol(aSelector: Selector, aProtocol: Protocol) -> Bool {
     for optionBits: UInt in 0..<(1 << 2) {
         let isRequired = optionBits & 1 != 0
         let isInstance = !(optionBits & (1 << 1) != 0)
         
         let methodDescription = protocol_getMethodDescription(aProtocol, aSelector, isRequired, isInstance)
         
-        return (!methodDescription.name.description.isEmpty || methodDescription.types.memory != 0)
+        if (!methodDescription.name.description.isEmpty || methodDescription.types.memory != 0) {
+            return true
+        }
     }
     return false
 }
