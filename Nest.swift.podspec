@@ -2,7 +2,7 @@ Pod::Spec.new do |s|
 
   s.name         = "Nest.swift"
   s.module_name  = "Nest"
-  s.version      = "0.0.2"
+  s.version      = "0.0.3"
   s.summary      = "A library offers missing conveniences, helpers in Foundation and written in Swift."
 
   s.description  = <<-DESC
