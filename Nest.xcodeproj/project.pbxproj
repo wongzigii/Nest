@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		39A1E929EF8AA44DCACEC972 /* Pods_Nest_for_OS_XTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DAD595767D9807896A88A9A4 /* Pods_Nest_for_OS_XTests.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		3D315F3A52FD57B8CBA6DB66 /* Pods_Nest_for_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B1FEEFDC8C75AC2EF470ADA4 /* Pods_Nest_for_iOS.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		63204CD11B26D844003647C8 /* NSHierarchicalPickablePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63204CD01B26D844003647C8 /* NSHierarchicalPickablePicker.swift */; };
+		63204CD21B26D844003647C8 /* NSHierarchicalPickablePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63204CD01B26D844003647C8 /* NSHierarchicalPickablePicker.swift */; };
 		6347114F1B22D91B00FA2C76 /* Nest-for-iOS.h in Headers */ = {isa = PBXBuildFile; fileRef = 6347114E1B22D91B00FA2C76 /* Nest-for-iOS.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		634711551B22D91B00FA2C76 /* Nest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 634711491B22D91B00FA2C76 /* Nest.framework */; };
 		6347116D1B22D92600FA2C76 /* Nest-for-OS-X.h in Headers */ = {isa = PBXBuildFile; fileRef = 6347116C1B22D92600FA2C76 /* Nest-for-OS-X.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -59,6 +61,7 @@
 /* Begin PBXFileReference section */
 		2BA32910F7B0AE09BB9CEA3D /* Pods-Nest-for-OS-XTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Nest-for-OS-XTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Nest-for-OS-XTests/Pods-Nest-for-OS-XTests.release.xcconfig"; sourceTree = "<group>"; };
 		5709564D5625CF43CD104231 /* Pods-Nest-for-iOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Nest-for-iOS.release.xcconfig"; path = "Pods/Target Support Files/Pods-Nest-for-iOS/Pods-Nest-for-iOS.release.xcconfig"; sourceTree = "<group>"; };
+		63204CD01B26D844003647C8 /* NSHierarchicalPickablePicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSHierarchicalPickablePicker.swift; sourceTree = "<group>"; };
 		634711491B22D91B00FA2C76 /* Nest.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Nest.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6347114D1B22D91B00FA2C76 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6347114E1B22D91B00FA2C76 /* Nest-for-iOS.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Nest-for-iOS.h"; sourceTree = "<group>"; };
@@ -267,6 +270,7 @@
 			children = (
 				6347119E1B22DEC700FA2C76 /* NSProtocolInterceptor.swift */,
 				634711A11B22E4B700FA2C76 /* NSReuseCenter.swift */,
+				63204CD01B26D844003647C8 /* NSHierarchicalPickablePicker.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -642,6 +646,7 @@
 			files = (
 				634711971B22D9A200FA2C76 /* NSString+RangesOfString.swift in Sources */,
 				634711A21B22E4B700FA2C76 /* NSReuseCenter.swift in Sources */,
+				63204CD11B26D844003647C8 /* NSHierarchicalPickablePicker.swift in Sources */,
 				634711A61B22E4CE00FA2C76 /* NSReusable.swift in Sources */,
 				6347119B1B22D9A200FA2C76 /* Collections.swift in Sources */,
 				634711B11B22FC6300FA2C76 /* ObjectiveC.swift in Sources */,
@@ -667,6 +672,7 @@
 			files = (
 				634711981B22D9A200FA2C76 /* NSString+RangesOfString.swift in Sources */,
 				634711A31B22E4B700FA2C76 /* NSReuseCenter.swift in Sources */,
+				63204CD21B26D844003647C8 /* NSHierarchicalPickablePicker.swift in Sources */,
 				634711A71B22E4CE00FA2C76 /* NSReusable.swift in Sources */,
 				6347119C1B22D9A200FA2C76 /* Collections.swift in Sources */,
 				634711B21B22FC6300FA2C76 /* ObjectiveC.swift in Sources */,
