@@ -2,9 +2,20 @@ PODS:
   - SwiftExt (0.0.2)
 
 DEPENDENCIES:
-  - SwiftExt
+  - SwiftExt (from `https://github.com/WeZZard/Swift-Extended-Library.git`, branch
+    `swift-2`)
+
+EXTERNAL SOURCES:
+  SwiftExt:
+    :branch: swift-2
+    :git: https://github.com/WeZZard/Swift-Extended-Library.git
+
+CHECKOUT OPTIONS:
+  SwiftExt:
+    :commit: b213bb5c33846b671dc46ce25d8f49ef35dea667
+    :git: https://github.com/WeZZard/Swift-Extended-Library.git
 
 SPEC CHECKSUMS:
-  SwiftExt: b22453a2aaa1bfd0dc5cc36e85bf6f2cd836cf58
+  SwiftExt: 08eabc2fef2ea84f52e3f2d1a97bee65911047ec
 
-COCOAPODS: 0.37.2
+COCOAPODS: 0.38.0.beta.1
