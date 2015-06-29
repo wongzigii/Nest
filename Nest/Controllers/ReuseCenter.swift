@@ -1,5 +1,5 @@
 //
-//  NSReuseCenter.swift
+//  ReuseCenter.swift
 //  Nest
 //
 //  Created by Manfred Lau on 12/17/14.
@@ -9,7 +9,7 @@
 import SwiftExt
 import Foundation
 
-public final class NSReuseCenter<R: NSReusable> {
+public final class ReuseCenter<R: NSReusable> {
     public typealias ReusableType = R
     private var reusablesDict: [String: [ReusableType]] = [:]
     
