@@ -420,7 +420,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0700;
-				LastUpgradeCheck = 0630;
+				LastUpgradeCheck = 0700;
 				TargetAttributes = {
 					634711481B22D91B00FA2C76 = {
 						CreatedOnToolsVersion = 6.3.2;
@@ -712,6 +712,8 @@
 		634711421B22D90600FA2C76 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ENABLE_TESTABILITY = YES;
+				ONLY_ACTIVE_ARCH = YES;
 			};
 			name = Debug;
 		};
@@ -769,6 +771,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.WeZZard.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = Nest;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
@@ -820,6 +823,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.WeZZard.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = Nest;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
@@ -876,6 +880,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.WeZZard.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = NestTest;
 				SDKROOT = iphoneos;
 			};
@@ -920,6 +925,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.WeZZard.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = NestTest;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
@@ -975,6 +981,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.WeZZard.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = Nest;
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
@@ -1026,6 +1033,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.WeZZard.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = Nest;
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
@@ -1080,6 +1088,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.WeZZard.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = NestTest;
 				SDKROOT = macosx;
 			};
@@ -1124,6 +1133,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.WeZZard.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = NestTest;
 				SDKROOT = macosx;
 			};
