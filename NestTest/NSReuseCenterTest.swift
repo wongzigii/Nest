@@ -112,19 +112,19 @@ class ParticularReusable: NSObject, NSReusable, StringLiteralConvertible {
     }
     
     required init(stringLiteral value: String) {
-        let splits = split(value, isSeparator: {$0 == ","})
+        let splits = split(value.characters, isSeparator: {$0 == ","}).map { String($0) }
         contentString = splits.first!
         reuseIdentifier = splits.last!
     }
     
     required init(extendedGraphemeClusterLiteral value: String) {
-        let splits = split(value, isSeparator: {$0 == ","})
+        let splits = split(value.characters, isSeparator: {$0 == ","}).map { String($0) }
         contentString = splits.first!
         reuseIdentifier = splits.last!
     }
     
     required init(unicodeScalarLiteral value: String) {
-        let splits = split(value, isSeparator: {$0 == ","})
+        let splits = split(value.characters, isSeparator: {$0 == ","}).map { String($0) }
         contentString = splits.first!
         reuseIdentifier = splits.last!
     }

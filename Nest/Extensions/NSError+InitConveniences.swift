@@ -20,9 +20,7 @@ extension NSError {
         
         if let firstError = error {
             if firstError.code == NSValidationMultipleErrorsError {
-                if let originalUserInfo = firstError.userInfo {
-                    userInfo += originalUserInfo
-                }
+                userInfo += firstError.userInfo
                 
                 if let detailErrors = userInfo[NSDetailedErrorsKey] as? Array<NSError> {
                     errors += detailErrors
@@ -48,9 +46,7 @@ extension NSError {
         if errorPointer.memory != nil {
             let firstError = errorPointer.memory!
             if firstError.code == NSValidationMultipleErrorsError {
-                if let originalUserInfo = firstError.userInfo {
-                    userInfo += originalUserInfo
-                }
+                userInfo += firstError.userInfo
                 
                 if let detailErrors = userInfo[NSDetailedErrorsKey] as? Array<NSError> {
                     errors += detailErrors

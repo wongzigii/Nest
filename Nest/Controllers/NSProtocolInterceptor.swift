@@ -23,7 +23,7 @@ public final class NSProtocolInterceptor: NSObject, NSCoding {
     public var receiver: NSObject?
     public var middleMan: NSObject?
     
-    public init(coder aDecoder: NSCoder) {
+    public init?(coder aDecoder: NSCoder) {
         if aDecoder.containsValueForKey(CodingKeys.interceptedProcotolsKey) {
             _interceptedProtocols = aDecoder.decodeObjectForKey(CodingKeys.interceptedProcotolsKey) as! [Protocol]
         } else {
@@ -81,7 +81,7 @@ public final class NSProtocolInterceptor: NSObject, NSCoding {
     
     private func doesSelectorBelongToAnyInterceptedProtocol(aSelector: Selector) -> Bool {
         for aProtocol in interceptedProtocols {
-            return sel_belongsToProtocol(aSelector, aProtocol)
+            return sel_belongsToProtocol(aSelector, aProtocol: aProtocol)
         }
         return false
     }
