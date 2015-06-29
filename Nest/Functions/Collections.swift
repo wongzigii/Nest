@@ -94,7 +94,7 @@ extension RangeReplaceableCollectionType where
     Generator.Element : NSObjectProtocol,
     Index: protocol<Comparable, BidirectionalIndexType>
 {
-    public mutating func removeNSObjectProtocol(elements: Self) -> Self {
+    public mutating func removeNSObjectProtocols(elements: Self) -> Self {
         var indices: [Index] = []
         
         for eachElement in elements {
