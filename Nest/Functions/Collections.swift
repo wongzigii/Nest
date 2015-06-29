@@ -9,102 +9,118 @@
 import Foundation
 import SwiftExt
 
-public func NSContains<C where C: CollectionType, C.Generator.Element: NSObjectProtocol>(domain: C, element: C.Generator.Element) -> Bool {
-    for each in domain {
-        if each === element {
-            return true
-        } else {
-            if each.isEqual(element) {
+extension CollectionType where Generator.Element: NSObjectProtocol {
+    public func containsNSObjectProtocol(element: Generator.Element)
+        -> Bool
+    {
+        for each in self {
+            if each === element {
                 return true
-            }
-        }
-    }
-    return false
-}
-
-public func NSFind<C : CollectionType where C.Generator.Element: NSObjectProtocol>(domain: C, value: C.Generator.Element) -> C.Index? {
-    if count(domain) > 0 {
-        var index = domain.startIndex
-        for each in domain {
-            if each === value {
-                return index
             } else {
-                if each.isEqual(value) {
-                    return index
+                if each.isEqual(element) {
+                    return true
                 }
             }
-            index = index.successor()
         }
+        return false
     }
     
-    return nil
-}
-
-public func NSIntersected<C : ExtensibleCollectionType where C.Generator.Element : NSObjectProtocol>(collectionA: C, collectionB: C) -> C {
-    var newCollection = C()
-    
-    for eachElement in collectionA {
-        if !NSContains(newCollection, eachElement) && NSContains(collectionB, eachElement) {
-            newCollection.append(eachElement)
+    public func indexOfNSObjectProtocol(value: Generator.Element)
+        -> Index?
+    {
+        if count > 0 {
+            var index = startIndex
+            for each in self {
+                if each === value {
+                    return index
+                } else {
+                    if each.isEqual(value) {
+                        return index
+                    }
+                }
+                index = index.successor()
+            }
         }
+        
+        return nil
     }
-    
-    return newCollection
 }
 
-public func NSDiff<Seq: SequenceType where Seq.Generator.Element: NSObjectProtocol>
-    (from fromSequence: Seq?, to toSequence: Seq?,
-    #differences: SequenceDifference,
-    unchangedComparator: ((Seq.Generator.Element, Seq.Generator.Element)->Bool) = {$0.isEqual($1)},
-    usingClosure changesHandler: (change: SequenceDifference, fromElement: (index: Int, element: Seq.Generator.Element)?, toElement: (index: Int, element: Seq.Generator.Element)?) -> Void)
+extension ExtensibleCollectionType where
+Generator.Element : NSObjectProtocol
 {
-    diff(from: fromSequence, to: toSequence, differences: differences, equalComparator: {$0.isEqual($1)}, unchangedComparator: unchangedComparator, usingClosure: changesHandler)
+    public func intersectedWithNSObjectProtocols(
+        collection: Self) -> Self
+    {
+        var newCollection = Self()
+        
+        for eachElement in self {
+            if (!newCollection.containsNSObjectProtocol(eachElement) &&
+                collection.containsNSObjectProtocol(eachElement))
+            {
+                newCollection.append(eachElement)
+            }
+        }
+        
+        return newCollection
+    }
 }
 
-private func NSGetAffectedIndex<I: protocol<Comparable, BidirectionalIndexType>>
-    (originalIndex: I, removedIndicesCount: Int)
-    -> I
-{
-    var affectedIndex = originalIndex
-    for _ in 0..<removedIndicesCount {
-        affectedIndex = affectedIndex.predecessor()
+extension CollectionType where Generator.Element: NSObjectProtocol {
+    public typealias NSObjectProtocolCollectionElementComparator = (
+        Generator.Element, Generator.Element) -> Bool
+    
+    public typealias NSObjectProtocolCollectionDiffHandler = (
+        change: CollectionDiff,
+        fromElement: (index: Index, element: Generator.Element)?,
+        toElement: (index: Index, element: Generator.Element)?) -> Void
+    
+    public func diffWithNSObjectProtocols(
+        comparedCollection: Self,
+        differences: CollectionDiff,
+        contentComparator:
+        NSObjectProtocolCollectionElementComparator = {$0.isEqual($1)},
+        withHandler diffHandler: NSObjectProtocolCollectionDiffHandler)
+    {
+        self.diff(comparedCollection,
+            differences: differences,
+            indexComparator: {$0.isEqual($1)},
+            contentComparator: contentComparator,
+            withHandler: diffHandler)
     }
-    return affectedIndex
 }
 
-public func NSRemove<C : RangeReplaceableCollectionType where
-    C.Generator.Element : NSObjectProtocol,
-    C.Index: protocol<Comparable, BidirectionalIndexType>>
-    (inout collection: C, elements: C)
-    -> C
+extension RangeReplaceableCollectionType where
+    Generator.Element : NSObjectProtocol,
+    Index: protocol<Comparable, BidirectionalIndexType>
 {
-    var indices = [Any]()
-    
-    for eachElement in elements {
-        if let index = NSFind(collection, eachElement) {
-            indices.append(index)
+    public mutating func removeNSObjectProtocol(elements: Self) -> Self {
+        var indices: [Index] = []
+        
+        for eachElement in elements {
+            if let index = indexOfNSObjectProtocol(eachElement) {
+                indices.append(index)
+            }
         }
-    }
-    
-    var removed = C()
-    
-    var removedIndicesCount = 0
-    
-    let sortedIndices = indices.sorted {
-        if let index1 = $0 as? C.Index,
-            let index2 = $1 as? C.Index{
-                return index1 < index2
+        
+        var removed = Self()
+        
+        var removedIndicesCount = 0
+        
+        let sortedIndices = indices.sort {$0 < $1}
+        
+        for eachIndex in sortedIndices {
+            let finalIndex = advance(eachIndex,
+                distance(removed.endIndex, removed.startIndex))
+            if let target = self[finalIndex] as? Generator.Element
+            {
+                removed.append(target)
+                removedIndicesCount += 1
+                removeAtIndex(finalIndex)
+            }
         }
-        return true
-        } as! [C.Index]
-    
-    for eachIndex in sortedIndices {
-        let finalIndex = NSGetAffectedIndex(eachIndex, removedIndicesCount)
-        let target = collection[finalIndex]
-        removed.append(target)
-        removedIndicesCount += 1
-        collection.removeAtIndex(finalIndex)
+        
+        return removed
     }
-    
-    return removed
 }
+
