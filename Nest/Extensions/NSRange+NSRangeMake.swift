@@ -8,6 +8,6 @@
 
 import Foundation
 
-public func NSRangeMake(location: Int, length: Int) -> NSRange {
+public func NSRangeMake(location: Int, _ length: Int) -> NSRange {
     return NSMakeRange(location, length)
 }
