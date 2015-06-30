@@ -12,7 +12,7 @@ EXTERNAL SOURCES:
 
 CHECKOUT OPTIONS:
   SwiftExt:
-    :commit: b213bb5c33846b671dc46ce25d8f49ef35dea667
+    :commit: 6ba79cccc0aa3376186cd68d2968bb9d813fdb34
     :git: https://github.com/WeZZard/Swift-Extended-Library.git
 
 SPEC CHECKSUMS:
