@@ -22,7 +22,9 @@ extension NSError {
             if firstError.code == NSValidationMultipleErrorsError {
                 userInfo += firstError.userInfo
                 
-                if let detailErrors = userInfo[NSDetailedErrorsKey] as? Array<NSError> {
+                if let detailErrors =
+                    userInfo[NSDetailedErrorsKey] as? [NSError]
+                {
                     errors += detailErrors
                 }
             } else {
@@ -32,10 +34,14 @@ extension NSError {
         
         userInfo[NSDetailedErrorsKey] = errors
         
-        self.init(domain: NSCocoaErrorDomain, code: NSValidationMultipleErrorsError, userInfo: userInfo)
+        self.init(domain: NSCocoaErrorDomain,
+            code: NSValidationMultipleErrorsError,
+            userInfo: userInfo)
     }
     
-    public convenience init(errorPointer: NSErrorPointer, secondError: NSError?) {
+    public convenience init(errorPointer: NSErrorPointer,
+        secondError: NSError?)
+    {
         var userInfo = [NSObject: AnyObject]()
         var errors = [NSError]()
         
@@ -48,7 +54,9 @@ extension NSError {
             if firstError.code == NSValidationMultipleErrorsError {
                 userInfo += firstError.userInfo
                 
-                if let detailErrors = userInfo[NSDetailedErrorsKey] as? Array<NSError> {
+                if let detailErrors =
+                    userInfo[NSDetailedErrorsKey] as? [NSError]
+                {
                     errors += detailErrors
                 }
             } else {
@@ -58,12 +66,16 @@ extension NSError {
         
         userInfo[NSDetailedErrorsKey] = errors
         
-        self.init(domain: NSCocoaErrorDomain, code: NSValidationMultipleErrorsError, userInfo: userInfo)
+        self.init(domain: NSCocoaErrorDomain,
+            code: NSValidationMultipleErrorsError,
+            userInfo: userInfo)
     }
     
     public convenience init(errors: [NSError]) {
         var userInfo = [NSObject: AnyObject]()
         userInfo[NSDetailedErrorsKey] = errors
-        self.init(domain: NSCocoaErrorDomain, code: NSValidationMultipleErrorsError, userInfo: userInfo)
+        self.init(domain: NSCocoaErrorDomain,
+            code: NSValidationMultipleErrorsError,
+            userInfo: userInfo)
     }
 }

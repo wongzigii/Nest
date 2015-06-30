@@ -123,32 +123,42 @@ public class HierarchicalPickablePicker<P: HierarchicalPickable where
     }
     
     private var _flattenedPickedPickables = Set<PickableType>()
-    public var flattenedPickedPickables: [PickableType] { return Array<PickableType>(_flattenedPickedPickables) }
+    public var flattenedPickedPickables: [PickableType] {
+        return [PickableType](_flattenedPickedPickables)
+    }
     
     public init() {
         
     }
     
-    public func pick(aHierarchicalPickable: PickableType, atLevel level: Int, andItsDescendants pickDscendants: Bool) {
-        if let containerAtLevel = _hierarchicalPickedPickables[level] {
-            _hierarchicalPickedPickables[level] = containerAtLevel + aHierarchicalPickable
+    public func pick(aPickable: PickableType,
+        atLevel level: Int,
+        andItsDescendants pickDscendants: Bool)
+    {
+        if let container = _hierarchicalPickedPickables[level] {
+            _hierarchicalPickedPickables[level] = container + aPickable
         } else {
-            _hierarchicalPickedPickables[level] = [aHierarchicalPickable]
+            _hierarchicalPickedPickables[level] = [aPickable]
         }
         
-        _flattenedPickedPickables.insert(aHierarchicalPickable)
+        _flattenedPickedPickables.insert(aPickable)
         
         
         if pickDscendants {
-            pickDescendantsOfHierarchicalPickables([aHierarchicalPickable], atLevel: level)
+            pickDescendantsOfHierarchicalPickables([aPickable],
+                atLevel: level)
         }
     }
     
-    public func unpick(aHierarchicalPickable: PickableType, atLevel level: Int, andItsDescendants unpickDscendants: Bool) -> [PickableType] {
+    public func unpick(aHierarchicalPickable: PickableType,
+        atLevel level: Int,
+        andItsDescendants unpickDscendants: Bool) -> [PickableType]
+    {
         var removed = [PickableType]()
         
         if var containerAtLevel = _hierarchicalPickedPickables[level] {
-            if let index = containerAtLevel.indexOf(aHierarchicalPickable) {
+            if let index = containerAtLevel.indexOf(aHierarchicalPickable)
+            {
                 removed.append(containerAtLevel[index])
                 containerAtLevel.removeAtIndex(index)
                 _hierarchicalPickedPickables[level] = containerAtLevel
@@ -158,14 +168,20 @@ public class HierarchicalPickablePicker<P: HierarchicalPickable where
         }
         
         if unpickDscendants {
-            unpickDescendantsOfHierarchicalPickables([aHierarchicalPickable], atLevel: level, removed: &removed)
+            unpickDescendantsOfHierarchicalPickables(
+                [aHierarchicalPickable],
+                atLevel: level,
+                removed: &removed)
         }
         
         return removed
     }
     
     //MARK: Privates
-    private func pickDescendantsOfHierarchicalPickables(hierarchicalPickables: [PickableType], atLevel level: Int) {
+    private func pickDescendantsOfHierarchicalPickables(
+        hierarchicalPickables: [PickableType],
+        atLevel level: Int)
+    {
         let descendantsLevel = level + 1
         var nextLevelPickables = [PickableType]()
         
@@ -173,10 +189,13 @@ public class HierarchicalPickablePicker<P: HierarchicalPickable where
             if let descendants = eachHierarchicalPickable.childPickables {
                 for eachDecsendant in descendants {
                     
-                    if let descendantContainer = _hierarchicalPickedPickables[descendantsLevel] {
-                        _hierarchicalPickedPickables[descendantsLevel] = descendantContainer + eachDecsendant
+                    if let container = _hierarchicalPickedPickables[descendantsLevel]
+                    {
+                        _hierarchicalPickedPickables[descendantsLevel] =
+                            container + eachDecsendant
                     } else {
-                        _hierarchicalPickedPickables[descendantsLevel] = [eachDecsendant]
+                        _hierarchicalPickedPickables[descendantsLevel] =
+                            [eachDecsendant]
                     }
                     
                     _flattenedPickedPickables.insert(eachDecsendant)
@@ -187,23 +206,33 @@ public class HierarchicalPickablePicker<P: HierarchicalPickable where
         }
         
         if nextLevelPickables.count > 0 {
-            pickDescendantsOfHierarchicalPickables(nextLevelPickables, atLevel: descendantsLevel)
+            pickDescendantsOfHierarchicalPickables(nextLevelPickables,
+                atLevel: descendantsLevel)
         }
     }
     
-    private func unpickDescendantsOfHierarchicalPickables(hierarchicalPickables: [PickableType], atLevel level: Int, inout removed: [PickableType]) {
+    private func unpickDescendantsOfHierarchicalPickables(
+        hierarchicalPickables: [PickableType],
+        atLevel level: Int,
+        inout removed: [PickableType])
+    {
         let descendantsLevel = level + 1
         var nextLevelPickables = [PickableType]()
         
         for eachHierarchicalPickable in hierarchicalPickables {
             if let descendants = eachHierarchicalPickable.childPickables {
                 for eachDescendant in descendants {
-                    if var descendantContainer = _hierarchicalPickedPickables[descendantsLevel] {
-                        if let index = descendantContainer.indexOf(eachDescendant) {
+                    if var descendantContainer =
+                        _hierarchicalPickedPickables[descendantsLevel]
+                    {
+                        if let index =
+                            descendantContainer.indexOf(eachDescendant)
+                        {
                             removed.append(descendantContainer[index])
                             descendantContainer.removeAtIndex(index)
                         }
-                        _hierarchicalPickedPickables[descendantsLevel] = descendantContainer
+                        _hierarchicalPickedPickables[descendantsLevel] =
+                            descendantContainer
                         
                         _flattenedPickedPickables.remove(eachDescendant)
                         
@@ -214,7 +243,9 @@ public class HierarchicalPickablePicker<P: HierarchicalPickable where
         }
         
         if nextLevelPickables.count > 0 {
-            unpickDescendantsOfHierarchicalPickables(nextLevelPickables, atLevel: descendantsLevel, removed: &removed)
+            unpickDescendantsOfHierarchicalPickables(nextLevelPickables,
+                atLevel: descendantsLevel,
+                removed: &removed)
         }
     }
 }
@@ -236,7 +267,9 @@ private class PickablePrintEntryPoint<P: HierarchicalPickable where
 
 //MARK: - Printable & DebugPrintable
 private let Placeholder = "-(PLACEHOLDER)-"
-extension HierarchicalPickablePicker: CustomStringConvertible, CustomDebugStringConvertible {
+extension HierarchicalPickablePicker: CustomStringConvertible,
+CustomDebugStringConvertible
+{
     public var description: String {
         var pickedString = ""
         for each in _flattenedPickedPickables {
@@ -252,8 +285,11 @@ extension HierarchicalPickablePicker: CustomStringConvertible, CustomDebugString
     public var debugDescription: String {
         var pickedPickableString = ""
         
-        if let initialPickables: Set<PickableType> = _hierarchicalPickedPickables[0] {
-            var pendingStack = Array(Array<PickableType>(initialPickables).reverse()).map{PickablePrintEntryPoint<PickableType>($0, 0)}
+        if let initialPickables: Set<PickableType> =
+            _hierarchicalPickedPickables[0]
+        {
+            var pendingStack = initialPickables.reverse().map{
+                PickablePrintEntryPoint<PickableType>($0, 0)}
             var drawnStack = [PickablePrintEntryPoint<PickableType>]()
             var availableSiblingsMap = [ParentPickableType: [PickableType]]()
             var maxTitleLengthDict: [Int: Int] = [:]
@@ -317,9 +353,13 @@ extension HierarchicalPickablePicker: CustomStringConvertible, CustomDebugString
                 if let siblings = parent.childPickables,
                     pickedAtLevel = _hierarchicalPickedPickables[level]
                 {
-                    var availableSiblings = siblings.intersected(Array<PickableType>(pickedAtLevel))
+                    var availableSiblings = siblings.intersected(
+                        Array<PickableType>(pickedAtLevel))
                     if let initialAvoidPickable = initialAvoidPickable {
-                        if let index = availableSiblings.indexOf(initialAvoidPickable) {
+                        if let index =
+                            availableSiblings.indexOf(
+                                initialAvoidPickable)
+                        {
                             availableSiblings.removeAtIndex(index)
                         }
                     }
@@ -335,12 +375,14 @@ extension HierarchicalPickablePicker: CustomStringConvertible, CustomDebugString
         return []
     }
     
-    private func dequeueSibling(sibling: PickableType ,forPickable pickable: PickableType,
+    private func dequeueSibling(sibling: PickableType ,
+        forPickable pickable: PickableType,
         atLevel level: Int,
         inout availableSiblingsMap: [ParentPickableType: [PickableType]])
     {
         if let parent = pickable.parentPickable {
-            var availableSiblings = getAvailableSiblingsForPickable(pickable,
+            var availableSiblings = getAvailableSiblingsForPickable(
+                pickable,
                 atLevel: level,
                 availableSiblingsMap: &availableSiblingsMap,
                 initialAvoidPickable: nil)
@@ -360,7 +402,9 @@ extension HierarchicalPickablePicker: CustomStringConvertible, CustomDebugString
         
         for level in 0..<level {
             if drawnStack.filter({$0.level < level}).count == 0 {
-                let maxTitleLengthInLevel = getMaxTitleLengthForLevel(level, maxTitleLengthDict: &maxTitleLengthDict)
+                let maxTitleLengthInLevel = getMaxTitleLengthForLevel(
+                    level,
+                    maxTitleLengthDict: &maxTitleLengthDict)
                 prefixString += "|" + maxTitleLengthInLevel * " "
             } else {
                 prefixString += "+" + renderedTitleForTitle(Placeholder)
@@ -370,11 +414,13 @@ extension HierarchicalPickablePicker: CustomStringConvertible, CustomDebugString
         return prefixString
     }
     
-    private func getStringForPrintEntryPoint(entryPoint: PickablePrintEntryPoint<PickableType>,
+    private func getStringForPrintEntryPoint(
+        entryPoint: PickablePrintEntryPoint<PickableType>,
         inout maxTitleLengthDict: [Int: Int],
         inout pendingStack: [PickablePrintEntryPoint<PickableType>],
         inout drawnStack: [PickablePrintEntryPoint<PickableType>],
-        inout availableSiblingsMap: [ParentPickableType: [PickableType]]) -> String
+        inout availableSiblingsMap: [ParentPickableType: [PickableType]])
+        -> String
     {
         let level = entryPoint.level
         
@@ -395,9 +441,11 @@ extension HierarchicalPickablePicker: CustomStringConvertible, CustomDebugString
         level: Int,
         inout maxTitleLengthDict: [Int: Int],
         inout pendingStack: [PickablePrintEntryPoint<PickableType>],
-        inout availableSiblingsMap: [ParentPickableType: [PickableType]]) -> String
+        inout availableSiblingsMap: [ParentPickableType: [PickableType]])
+        -> String
     {
-        let maxTitleLengthInLevel = getMaxTitleLengthForLevel(level, maxTitleLengthDict: &maxTitleLengthDict)
+        let maxTitleLengthInLevel = getMaxTitleLengthForLevel(level,
+            maxTitleLengthDict: &maxTitleLengthDict)
         let pickableTitle = renderedTitleForTitle(pickable.pickableTitle)
         var titleString = "+" + pickableTitle
         
@@ -409,17 +457,26 @@ extension HierarchicalPickablePicker: CustomStringConvertible, CustomDebugString
         
         // Push entry point if necessary
         if let nextEntryPointPickable = availableSiblings.first {
-            dequeueSibling(nextEntryPointPickable, forPickable: pickable, atLevel: level, availableSiblingsMap: &availableSiblingsMap)
-            pendingStack.append(PickablePrintEntryPoint<PickableType>(nextEntryPointPickable, level))
+            dequeueSibling(nextEntryPointPickable,
+                forPickable: pickable,
+                atLevel: level,
+                availableSiblingsMap: &availableSiblingsMap)
+            
+            let nextEntryPoint = PickablePrintEntryPoint<PickableType>(
+                nextEntryPointPickable,
+                level)
+            pendingStack.append(nextEntryPoint)
         }
         
         // Generate string along the first child
-        if let pickedAtNextLevel = _hierarchicalPickedPickables[level + 1],
+        if let pickedAtNextLevel =
+            _hierarchicalPickedPickables[level + 1],
             var childPickables = pickable.childPickables
         {
             if childPickables.count > 0 && pickedAtNextLevel.count > 0 {
                 if let nextPickable = { () -> PickableType? in
-                    var nextPickable: PickableType = childPickables.removeLast()
+                    var nextPickable: PickableType =
+                        childPickables.removeLast()
                     while !pickedAtNextLevel.contains(nextPickable) {
                         if childPickables.count > 0 {
                             nextPickable = childPickables.removeLast()
@@ -430,8 +487,11 @@ extension HierarchicalPickablePicker: CustomStringConvertible, CustomDebugString
                     return nextPickable
                     }()
                 {
-                    titleString += (maxTitleLengthInLevel - pickableTitle.characters.count) * "-"
-                    let nextString = getStringAlongPickable(nextPickable, level: level + 1,
+                    let repeatTimes = maxTitleLengthInLevel -
+                        pickableTitle.characters.count
+                    titleString += repeatTimes * "-"
+                    let nextString = getStringAlongPickable(nextPickable,
+                        level: level + 1,
                         maxTitleLengthDict: &maxTitleLengthDict,
                         pendingStack: &pendingStack,
                         availableSiblingsMap: &availableSiblingsMap)

@@ -13,11 +13,15 @@ public final class ReuseCenter<R: NSReusable> {
     public typealias ReusableType = R
     private var reusablesDict: [String: [ReusableType]] = [:]
     
-    public func reusableForReuseIdentifier(reuseIdentifier: String) -> [ReusableType]? {
+    public func reusableForReuseIdentifier(reuseIdentifier: String) ->
+        [ReusableType]?
+    {
         return reusablesDict[reuseIdentifier]
     }
     
-    public func dequeueReusableWithReuseIdentifier(reuseIdentifier: String) -> ReusableType? {
+    public func dequeueReusableWithReuseIdentifier(
+        reuseIdentifier: String) -> ReusableType?
+    {
         if var reusables = reusablesDict[reuseIdentifier] {
             if reusables.count > 0 {
                 let reusable = reusables.removeLast()

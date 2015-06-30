@@ -10,9 +10,9 @@ import Foundation
 
 public final class NSProtocolInterceptor: NSObject, NSCoding {
     private struct CodingKeys {
-        static let interceptedProcotolsKey = "interceptedProtocols"
-        static let receiverKey = "receiver"
-        static let middleManKey = "middleMan"
+        static let interceptedProcotols = "interceptedProtocols"
+        static let receiver = "receiver"
+        static let middleMan = "middleMan"
     }
     
     private var _interceptedProtocols: [Protocol]
@@ -24,18 +24,22 @@ public final class NSProtocolInterceptor: NSObject, NSCoding {
     public var middleMan: NSObject?
     
     public init?(coder aDecoder: NSCoder) {
-        if aDecoder.containsValueForKey(CodingKeys.interceptedProcotolsKey) {
-            _interceptedProtocols = aDecoder.decodeObjectForKey(CodingKeys.interceptedProcotolsKey) as! [Protocol]
+        if aDecoder.containsValueForKey(CodingKeys.interceptedProcotols) {
+            _interceptedProtocols =
+                aDecoder.decodeObjectForKey(
+                    CodingKeys.interceptedProcotols) as! [Protocol]
         } else {
             _interceptedProtocols = []
         }
         
-        if aDecoder.containsValueForKey(CodingKeys.receiverKey) {
-            receiver = aDecoder.decodeObjectForKey(CodingKeys.receiverKey) as? NSObject
+        if aDecoder.containsValueForKey(CodingKeys.receiver) {
+            receiver = aDecoder.decodeObjectForKey(
+                CodingKeys.receiver) as? NSObject
         }
         
-        if aDecoder.containsValueForKey(CodingKeys.middleManKey) {
-            middleMan = aDecoder.decodeObjectForKey(CodingKeys.middleManKey) as? NSObject
+        if aDecoder.containsValueForKey(CodingKeys.middleMan) {
+            middleMan = aDecoder.decodeObjectForKey(
+                CodingKeys.middleMan) as? NSObject
         }
         
         for eachProtocol in _interceptedProtocols {
@@ -46,9 +50,12 @@ public final class NSProtocolInterceptor: NSObject, NSCoding {
     }
     
     public func encodeWithCoder(aCoder: NSCoder) {
-        aCoder.encodeObject(interceptedProtocols, forKey: CodingKeys.interceptedProcotolsKey)
-        aCoder.encodeObject(receiver, forKey: CodingKeys.interceptedProcotolsKey)
-        aCoder.encodeObject(middleMan, forKey: CodingKeys.interceptedProcotolsKey)
+        aCoder.encodeObject(interceptedProtocols,
+            forKey: CodingKeys.interceptedProcotols)
+        aCoder.encodeObject(receiver,
+            forKey: CodingKeys.interceptedProcotols)
+        aCoder.encodeObject(middleMan,
+            forKey: CodingKeys.interceptedProcotols)
     }
     
     public init(aProtocol: Protocol) {
@@ -79,15 +86,21 @@ public final class NSProtocolInterceptor: NSObject, NSCoding {
         }
     }
     
-    private func doesSelectorBelongToAnyInterceptedProtocol(aSelector: Selector) -> Bool {
+    private func doesSelectorBelongToAnyInterceptedProtocol(
+        aSelector: Selector) -> Bool
+    {
         for aProtocol in interceptedProtocols {
-            return sel_belongsToProtocol(aSelector, aProtocol: aProtocol)
+            return sel_belongsToProtocol(aSelector, aProtocol)
         }
         return false
     }
     
-    public override func forwardingTargetForSelector(aSelector: Selector) -> AnyObject? {
-        if middleMan?.respondsToSelector(aSelector) == true && doesSelectorBelongToAnyInterceptedProtocol(aSelector) {
+    public override func forwardingTargetForSelector(aSelector: Selector)
+        -> AnyObject?
+    {
+        if middleMan?.respondsToSelector(aSelector) == true &&
+            doesSelectorBelongToAnyInterceptedProtocol(aSelector)
+        {
             return middleMan
         }
         
@@ -99,7 +112,9 @@ public final class NSProtocolInterceptor: NSObject, NSCoding {
     }
     
     public override func respondsToSelector(aSelector: Selector) -> Bool {
-        if middleMan?.respondsToSelector(aSelector) == true && doesSelectorBelongToAnyInterceptedProtocol(aSelector) {
+        if middleMan?.respondsToSelector(aSelector) == true &&
+            doesSelectorBelongToAnyInterceptedProtocol(aSelector)
+        {
             return true
         }
         
