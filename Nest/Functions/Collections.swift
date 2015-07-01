@@ -73,9 +73,9 @@ extension CollectionType where Generator.Element: NSObjectProtocol {
     public typealias NSObjectProtocolCollectionDiffHandler = (
         change: CollectionDiff,
         fromIndex: Index?, fromElement: Generator.Element?,
-        toIndex: Index?, toElement: Generator.Element?) -> Void
+        toIndex: Index?, toElement: Generator.Element?, changed: Bool?) -> Void
     
-    public func diffWithNSObjectProtocols(
+    public func diffFromNSObjectProtocols(
         comparedCollection: Self,
         differences: CollectionDiff,
         contentComparator:
@@ -87,6 +87,18 @@ extension CollectionType where Generator.Element: NSObjectProtocol {
             indexComparator: {$0.isEqual($1)},
             contentComparator: contentComparator,
             withHandler: diffHandler)
+    }
+    
+    public func diffFromNSObjectProtocols(
+        comparedCollection: Self,
+        differences: CollectionDiff,
+        contentComparator:
+        NSObjectProtocolCollectionElementComparator = {$0.isEqual($1)})
+        -> CollectionDiffer<Self>
+    {
+        return self.diffFrom(comparedCollection,
+            equalityComparator: {$0.isEqual($1)},
+            contentComparator: contentComparator)
     }
 }
 
