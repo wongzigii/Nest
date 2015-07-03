@@ -29,7 +29,7 @@ private let testCombinations = [
 
 class ReuseCenterTest: XCTestCase {
     
-    var reuseCenter = NSReuseCenter<ParticularReusable>()
+    var reuseCenter = ReuseCenter<ParticularReusable>()
 
     override func setUp() {
         super.setUp()
@@ -41,7 +41,7 @@ class ReuseCenterTest: XCTestCase {
         super.tearDown()
     }
     
-    func enqueueTestCombination(testCombination: [String: [ParticularReusable]], handler: (reuseCenter: NSReuseCenter<ParticularReusable>,reuseIdentifier: String, unused: [ParticularReusable])->Void) {
+    func enqueueTestCombination(testCombination: [String: [ParticularReusable]], handler: (reuseCenter: ReuseCenter<ParticularReusable>,reuseIdentifier: String, unused: [ParticularReusable])->Void) {
         for (reuseIdentifier, unused) in testCombination {
             for eachUnused in unused {
                 reuseCenter.enqueueUnused(eachUnused)
@@ -81,7 +81,7 @@ class ReuseCenterTest: XCTestCase {
         enqueueTestCombination(testCombinations, handler: { (reuseCenter, reuseIdentifier, unused) -> Void in
             var dequeuedCount = 0
             
-            while let dequeued = reuseCenter.dequeueReusableWithReuseIdentifier(reuseIdentifier) {
+            while let _ = reuseCenter.dequeueReusableWithReuseIdentifier(reuseIdentifier) {
                 dequeuedCount += 1
             }
             
