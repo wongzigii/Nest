@@ -20,8 +20,8 @@ public final class NSProtocolInterceptor: NSObject, NSCoding {
         return _interceptedProtocols
     }
     
-    public var receiver: NSObject?
-    public var middleMan: NSObject?
+    public weak var receiver: NSObjectProtocol?
+    public weak var middleMan: NSObjectProtocol?
     
     public init?(coder aDecoder: NSCoder) {
         if aDecoder.containsValueForKey(CodingKeys.interceptedProcotols) {
