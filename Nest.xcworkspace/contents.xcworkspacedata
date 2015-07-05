@@ -2,9 +2,9 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:Nest.xcodeproj">
+      location = "container:Nest.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:Pods/Pods.xcodeproj">
+      location = "group:Frameworks/SwiftExt/Swift-Extended-Library.xcodeproj">
    </FileRef>
 </Workspace>

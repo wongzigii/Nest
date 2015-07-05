@@ -1,0 +1,30 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "FDC3533F588D0DD46901A9C5B7342846A9091653",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "11101EC5714C721D5CF04F765BEE97BF334E60D2" : 0,
+    "FDC3533F588D0DD46901A9C5B7342846A9091653" : 0
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "7BAD0A43-7006-4113-B30C-1153AAFD4FE3",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "11101EC5714C721D5CF04F765BEE97BF334E60D2" : "Nest\/Frameworks\/SwiftExt\/",
+    "FDC3533F588D0DD46901A9C5B7342846A9091653" : "Nest\/"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "Nest",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 203,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "Nest.xcodeproj",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/WeZZard\/Swift-Extended-Library.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "11101EC5714C721D5CF04F765BEE97BF334E60D2"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "github.com:WeZZard\/Nest.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "FDC3533F588D0DD46901A9C5B7342846A9091653"
+    }
+  ]
+}

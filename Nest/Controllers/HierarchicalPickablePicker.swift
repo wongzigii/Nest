@@ -353,7 +353,7 @@ CustomDebugStringConvertible
                 if let siblings = parent.childPickables,
                     pickedAtLevel = _hierarchicalPickedPickables[level]
                 {
-                    var availableSiblings = siblings.intersected(
+                    var availableSiblings = siblings.intersect(
                         Array<PickableType>(pickedAtLevel))
                     if let initialAvoidPickable = initialAvoidPickable {
                         if let index =

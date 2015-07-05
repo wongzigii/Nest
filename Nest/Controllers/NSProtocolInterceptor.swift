@@ -6,9 +6,9 @@
 //  Copyright (c) 2014 WeZZard. All rights reserved.
 //
 
-import Foundation
+import ObjectiveC
 
-public final class NSProtocolInterceptor: NSObject, NSCoding {
+public final class NSProtocolInterceptor: NSObject {
     private struct CodingKeys {
         static let interceptedProcotols = "interceptedProtocols"
         static let receiver = "receiver"
@@ -22,41 +22,6 @@ public final class NSProtocolInterceptor: NSObject, NSCoding {
     
     public weak var receiver: NSObjectProtocol?
     public weak var middleMan: NSObjectProtocol?
-    
-    public init?(coder aDecoder: NSCoder) {
-        if aDecoder.containsValueForKey(CodingKeys.interceptedProcotols) {
-            _interceptedProtocols =
-                aDecoder.decodeObjectForKey(
-                    CodingKeys.interceptedProcotols) as! [Protocol]
-        } else {
-            _interceptedProtocols = []
-        }
-        
-        if aDecoder.containsValueForKey(CodingKeys.receiver) {
-            receiver = aDecoder.decodeObjectForKey(
-                CodingKeys.receiver) as? NSObject
-        }
-        
-        if aDecoder.containsValueForKey(CodingKeys.middleMan) {
-            middleMan = aDecoder.decodeObjectForKey(
-                CodingKeys.middleMan) as? NSObject
-        }
-        
-        for eachProtocol in _interceptedProtocols {
-            if !class_conformsToProtocol(self.dynamicType, eachProtocol) {
-                class_addProtocol(self.dynamicType, eachProtocol)
-            }
-        }
-    }
-    
-    public func encodeWithCoder(aCoder: NSCoder) {
-        aCoder.encodeObject(interceptedProtocols,
-            forKey: CodingKeys.interceptedProcotols)
-        aCoder.encodeObject(receiver,
-            forKey: CodingKeys.interceptedProcotols)
-        aCoder.encodeObject(middleMan,
-            forKey: CodingKeys.interceptedProcotols)
-    }
     
     public init(aProtocol: Protocol) {
         _interceptedProtocols = [aProtocol]
