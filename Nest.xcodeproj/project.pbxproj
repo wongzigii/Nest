@@ -22,6 +22,7 @@
 		630B4D7F1B48DD4B00830454 /* ReuseCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 634711A11B22E4B700FA2C76 /* ReuseCenter.swift */; };
 		630B4D801B48DD4B00830454 /* HierarchicalPickablePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63204CD01B26D844003647C8 /* HierarchicalPickablePicker.swift */; };
 		630B4D811B48DD4B00830454 /* NSReusable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 634711A51B22E4CE00FA2C76 /* NSReusable.swift */; };
+		630B4DC21B48FF4C00830454 /* SwiftExt.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 630B4DC11B48FF4C00830454 /* SwiftExt.framework */; };
 		63204CD11B26D844003647C8 /* HierarchicalPickablePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63204CD01B26D844003647C8 /* HierarchicalPickablePicker.swift */; };
 		63204CD21B26D844003647C8 /* HierarchicalPickablePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63204CD01B26D844003647C8 /* HierarchicalPickablePicker.swift */; };
 		6347114F1B22D91B00FA2C76 /* Nest-for-iOS.h in Headers */ = {isa = PBXBuildFile; fileRef = 6347114E1B22D91B00FA2C76 /* Nest-for-iOS.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -72,6 +73,7 @@
 		630B4D701B48DD2F00830454 /* Nest.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Nest.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		630B4D721B48DD2F00830454 /* Nest-for-watchOS.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Nest-for-watchOS.h"; sourceTree = "<group>"; };
 		630B4D741B48DD2F00830454 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		630B4DC11B48FF4C00830454 /* SwiftExt.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftExt.framework; path = "../../../Library/Developer/Xcode/DerivedData/Nest-bzfrrjnuqyhzlggnfhrwoghdkynv/Build/Products/Debug/SwiftExt.framework"; sourceTree = "<group>"; };
 		63204CD01B26D844003647C8 /* HierarchicalPickablePicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HierarchicalPickablePicker.swift; sourceTree = "<group>"; };
 		634711491B22D91B00FA2C76 /* Nest.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Nest.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6347114D1B22D91B00FA2C76 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -101,6 +103,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				630B4DC21B48FF4C00830454 /* SwiftExt.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -142,6 +145,7 @@
 		630B4D6A1B48DC6800830454 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				630B4DC11B48FF4C00830454 /* SwiftExt.framework */,
 				630B4D661B48DC5800830454 /* SwiftExt.framework */,
 			);
 			name = Frameworks;
