@@ -93,7 +93,7 @@ class ReuseCenterTest: XCTestCase {
 
 }
 
-class ParticularReusable: NSObject, NSReusable, StringLiteralConvertible {
+class ParticularReusable: NSObject, Reusable, StringLiteralConvertible {
     let reuseIdentifier: String
     
     var contentString = ""

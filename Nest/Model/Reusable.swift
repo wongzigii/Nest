@@ -1,5 +1,5 @@
 //
-//  NSReusable.swift
+//  Reusable.swift
 //  Nest
 //
 //  Created by Manfred Lau on 12/17/14.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-public protocol NSReusable: NSObjectProtocol {
+public protocol Reusable: NSObjectProtocol {
     var reuseIdentifier: String { get }
     
     func prepareForReuse()

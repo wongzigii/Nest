@@ -9,7 +9,7 @@
 import SwiftExt
 import Foundation
 
-public final class ReuseCenter<R: NSReusable> {
+public final class ReuseCenter<R: Reusable> {
     public typealias ReusableType = R
     private var reusablesDict: [String: [ReusableType]] = [:]
     
