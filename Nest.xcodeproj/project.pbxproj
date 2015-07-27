@@ -31,8 +31,6 @@
 		632313141B65D8A700AEA8EF /* SwiftExt.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 632313131B65D8A700AEA8EF /* SwiftExt.framework */; };
 		632313161B65D8B100AEA8EF /* SwiftExt.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 632313151B65D8B100AEA8EF /* SwiftExt.framework */; };
 		632313181B65D8B600AEA8EF /* SwiftExt.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 632313171B65D8B600AEA8EF /* SwiftExt.framework */; };
-		6333F4511B6635CB001AA97C /* NotificationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6323131C1B65FE9800AEA8EF /* NotificationTests.swift */; };
-		6333F4521B6635CB001AA97C /* NotificationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6323131C1B65FE9800AEA8EF /* NotificationTests.swift */; };
 		6347114F1B22D91B00FA2C76 /* Nest-for-iOS.h in Headers */ = {isa = PBXBuildFile; fileRef = 6347114E1B22D91B00FA2C76 /* Nest-for-iOS.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6347116D1B22D92600FA2C76 /* Nest-for-OS-X.h in Headers */ = {isa = PBXBuildFile; fileRef = 6347116C1B22D92600FA2C76 /* Nest-for-OS-X.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6347118F1B22D9A200FA2C76 /* NSDate+Comparable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 634711851B22D9A200FA2C76 /* NSDate+Comparable.swift */; };
@@ -57,6 +55,8 @@
 		634711B21B22FC6300FA2C76 /* ObjectiveC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 634711B01B22FC6300FA2C76 /* ObjectiveC.swift */; };
 		634711B41B22FDBE00FA2C76 /* NSReuseCenterTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 634711B31B22FDBE00FA2C76 /* NSReuseCenterTest.swift */; };
 		634711B51B22FDBE00FA2C76 /* NSReuseCenterTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 634711B31B22FDBE00FA2C76 /* NSReuseCenterTest.swift */; };
+		6388F79A1B663CB900CDD64A /* NotificationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6323131C1B65FE9800AEA8EF /* NotificationTests.swift */; };
+		6388F79C1B663CD200CDD64A /* NotificationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6323131C1B65FE9800AEA8EF /* NotificationTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -588,7 +588,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				634711AE1B22E6FB00FA2C76 /* NSProtocolInterceptorTest.swift in Sources */,
-				6333F4511B6635CB001AA97C /* NotificationTests.swift in Sources */,
+				6388F79A1B663CB900CDD64A /* NotificationTests.swift in Sources */,
 				634711B41B22FDBE00FA2C76 /* NSReuseCenterTest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -617,7 +617,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				634711AF1B22E6FB00FA2C76 /* NSProtocolInterceptorTest.swift in Sources */,
-				6333F4521B6635CB001AA97C /* NotificationTests.swift in Sources */,
+				6388F79C1B663CD200CDD64A /* NotificationTests.swift in Sources */,
 				634711B51B22FDBE00FA2C76 /* NSReuseCenterTest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -270,10 +270,6 @@ public protocol NotificationType: NotificationCenterManageableType {
 public protocol NotificationSubscriberType: class {
     func subscribeNotificationOfType
         <N: NotificationType>
-        (notificationType: N.Type)
-    
-    func subscribeNotificationOfType
-        <N: NotificationType>
         (notificationType: N.Type,
         onQueue queue: NotificationQueue)
     
@@ -283,16 +279,8 @@ public protocol NotificationSubscriberType: class {
 extension NotificationSubscriberType {
     public func subscribeNotificationOfType
         <N: NotificationType>
-        (notificationType: N.Type)
-    {
-        NotificationCenter.shared.subscriber(self,
-            subscribeNotificationOfType: notificationType)
-    }
-    
-    public func subscribeNotificationOfType
-        <N: NotificationType>
         (notificationType: N.Type,
-        onQueue queue: NotificationQueue)
+        onQueue queue: NotificationQueue = NotificationQueue.current)
     {
         NotificationCenter.shared.subscriber(self,
             subscribeNotificationOfType: notificationType,

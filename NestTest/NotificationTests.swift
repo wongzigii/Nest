@@ -35,22 +35,46 @@ class NotificationTests: XCTestCase {
     
     override func setUp() {
         super.setUp()
+        notifiedValue = nil
         // Put setup code here. This method is called before the invocation of each test method in the class.
     }
     
     override func tearDown() {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
         super.tearDown()
+        notifiedValue = nil
     }
     
-    func testNotification() {
-        self.subscribeNotificationOfType(Notification.self)
+    func testNotificationPost() {
+        subscribeNotificationOfType(Notification.self)
         
         let notification = Notification(sender: aPoster)
         aPoster.postNotification(notification)
         
         XCTAssert(notifiedValue == notification.notifiedValue,
             "Notification has not been delivered!")
+    }
+    
+    func testNotificationPostASAP() {
+        subscribeNotificationOfType(Notification.self)
+        
+        let notification = Notification(sender: aPoster)
+        NotificationQueue.current.enqueueNotification(notification,
+            timing: .ASAP)
+        
+        XCTAssert(notifiedValue == nil,
+            "Notification has been delivered!")
+    }
+    
+    func testNotificationPostWhenIdle() {
+        subscribeNotificationOfType(Notification.self)
+        
+        let notification = Notification(sender: aPoster)
+        NotificationQueue.current.enqueueNotification(notification,
+            timing: .WhenIdle)
+        
+        XCTAssert(notifiedValue == nil,
+            "Notification has been delivered!")
     }
 }
 
