@@ -46,7 +46,7 @@ extension CollectionType where Generator.Element: NSObjectProtocol {
     }
 }
 
-extension ExtensibleCollectionType where
+extension RangeReplaceableCollectionType where
 Generator.Element : NSObjectProtocol
 {
     public func intersectedWithNSObjectProtocols(
@@ -75,7 +75,7 @@ extension CollectionType where Generator.Element: NSObjectProtocol {
         fromIndex: Index?, fromElement: Generator.Element?,
         toIndex: Index?, toElement: Generator.Element?, changed: Bool?) -> Void
     
-    public func diffFromNSObjectProtocols(
+    public func diffNSObjectProtocols(
         comparedCollection: Self,
         differences: CollectionDiff,
         contentComparator:
@@ -89,14 +89,14 @@ extension CollectionType where Generator.Element: NSObjectProtocol {
             withHandler: diffHandler)
     }
     
-    public func diffFromNSObjectProtocols(
+    public func diffNSObjectProtocols(
         comparedCollection: Self,
         differences: CollectionDiff,
         contentComparator:
         NSObjectProtocolCollectionElementComparator = {$0.isEqual($1)})
         -> CollectionDiffer<Self>
     {
-        return self.diffFrom(comparedCollection,
+        return self.diff(comparedCollection,
             equalityComparator: {$0.isEqual($1)},
             contentComparator: contentComparator)
     }
@@ -124,12 +124,10 @@ extension RangeReplaceableCollectionType where
         for eachIndex in sortedIndices {
             let finalIndex = advance(eachIndex,
                 distance(removed.endIndex, removed.startIndex))
-            if let target = self[finalIndex] as? Generator.Element
-            {
-                removed.append(target)
-                removedIndicesCount += 1
-                removeAtIndex(finalIndex)
-            }
+            let target = self[finalIndex]
+            removed.append(target)
+            removedIndicesCount += 1
+            removeAtIndex(finalIndex)
         }
         
         return removed

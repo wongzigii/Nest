@@ -5,6 +5,6 @@
       location = "container:Nest.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:Frameworks/SwiftExt/Swift-Extended-Library.xcodeproj">
+      location = "group:Frameworks/SwiftExt/SwiftExt.xcodeproj">
    </FileRef>
 </Workspace>
