@@ -198,7 +198,8 @@ public class NotificationQueue {
         var unprocessedPostRequests = [NotificationPostRequestType]()
         
         // Coalescing
-        for postRequest in queue {
+        // Reverse the qeuue to ensure posting the newest notification
+        for postRequest in queue.reverse() {
             if postRequest.modes.contains(mode) {
                 let shouldIgnorePostRequest: Bool = {
                     for eachCoalesced in coalescedPostRequest
