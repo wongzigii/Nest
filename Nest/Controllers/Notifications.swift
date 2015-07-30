@@ -10,14 +10,14 @@ import SwiftExt
 import Foundation
 
 //MARK: - Notification Center
-class NotificationCenter {
-    static var shared = NotificationCenter()
+public class NotificationCenter {
+    public static var shared = NotificationCenter()
     
     private init() {}
     
     private var subscriptions: [NotificationSubscriptionType] = []
     
-    func subscriber
+    public func subscriber
         <N: NotificationType>
         (subscriber: NotificationSubscriberType,
         subscribeNotificationOfType notificationType: N.Type,
@@ -45,7 +45,7 @@ class NotificationCenter {
         }
     }
     
-    func postNotification(notification: PrimitiveNotificationType) {
+    public func postNotification(notification: PrimitiveNotificationType) {
         for eachSubscription in NotificationCenter.shared.subscriptions {
             if eachSubscription.subscribedNotification(notification) {
                 eachSubscription.subscriber.handleNotification(notification)
@@ -317,7 +317,7 @@ public class NotificationQueue {
 }
 
 //MARK: - Notification Subscription Type
-protocol NotificationSubscriptionType: class {
+private protocol NotificationSubscriptionType: class {
     var subscriber: NotificationSubscriberType { get }
     var queue: NotificationQueue { get }
     
@@ -327,7 +327,7 @@ protocol NotificationSubscriptionType: class {
 }
 
 //MARK: - Notification Subscription
-class NotificationSubscription<N: NotificationType>:
+private class NotificationSubscription<N: NotificationType>:
     NotificationSubscriptionType, Equatable
 {
     typealias Notification = N
@@ -353,7 +353,7 @@ class NotificationSubscription<N: NotificationType>:
     }
 }
 
-func ==<N: PrimitiveNotificationType>
+private func ==<N: PrimitiveNotificationType>
     (lhs: NotificationSubscription<N>,
     rhs: NotificationSubscription<N>)
     -> Bool

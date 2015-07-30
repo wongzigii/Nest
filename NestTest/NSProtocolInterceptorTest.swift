@@ -62,7 +62,8 @@ class NSProtocolInterceptorTest: XCTestCase, MessagePool {
         aRealDelegate.messagePool = self
         realDelegate = aRealDelegate
         
-        let aProtocolInterceptor = NSProtocolInterceptor(aProtocol: OperatorDelegate.self)
+        let aProtocolInterceptor = NSProtocolInterceptor
+            .interceptorWithProtocol(OperatorDelegate.self)
         aProtocolInterceptor.receiver = aRealDelegate
         aProtocolInterceptor.middleMan = self
         protocolInterceptor = aProtocolInterceptor
@@ -76,6 +77,7 @@ class NSProtocolInterceptorTest: XCTestCase, MessagePool {
     }
     
     func testProtocolInterceptorAssignedToDelegate() {
+        NSLog("delegate: \(delegate)")
         XCTAssert(delegate is NSProtocolInterceptor, "Pass")
     }
     
