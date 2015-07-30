@@ -57,6 +57,9 @@
 		634711B51B22FDBE00FA2C76 /* NSReuseCenterTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 634711B31B22FDBE00FA2C76 /* NSReuseCenterTest.swift */; };
 		6388F79A1B663CB900CDD64A /* NotificationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6323131C1B65FE9800AEA8EF /* NotificationTests.swift */; };
 		6388F79C1B663CD200CDD64A /* NotificationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6323131C1B65FE9800AEA8EF /* NotificationTests.swift */; };
+		63A2EA381B69257D00CA9F46 /* Boolean+BooleanLiteralConvertible.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A2EA371B69257D00CA9F46 /* Boolean+BooleanLiteralConvertible.swift */; };
+		63A2EA391B69257D00CA9F46 /* Boolean+BooleanLiteralConvertible.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A2EA371B69257D00CA9F46 /* Boolean+BooleanLiteralConvertible.swift */; };
+		63A2EA3A1B69257D00CA9F46 /* Boolean+BooleanLiteralConvertible.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A2EA371B69257D00CA9F46 /* Boolean+BooleanLiteralConvertible.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -110,6 +113,7 @@
 		634711AD1B22E6FB00FA2C76 /* NSProtocolInterceptorTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NSProtocolInterceptorTest.swift; path = NestTest/NSProtocolInterceptorTest.swift; sourceTree = SOURCE_ROOT; };
 		634711B01B22FC6300FA2C76 /* ObjectiveC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObjectiveC.swift; sourceTree = "<group>"; };
 		634711B31B22FDBE00FA2C76 /* NSReuseCenterTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NSReuseCenterTest.swift; path = NestTest/NSReuseCenterTest.swift; sourceTree = SOURCE_ROOT; };
+		63A2EA371B69257D00CA9F46 /* Boolean+BooleanLiteralConvertible.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Boolean+BooleanLiteralConvertible.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -307,6 +311,7 @@
 				634711881B22D9A200FA2C76 /* NSRange+NSRangeMake.swift */,
 				634711891B22D9A200FA2C76 /* NSString+RangesOfString.swift */,
 				6323130F1B65C7AE00AEA8EF /* NSRunLoopMode.swift */,
+				63A2EA371B69257D00CA9F46 /* Boolean+BooleanLiteralConvertible.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -551,6 +556,7 @@
 			files = (
 				630B4D801B48DD4B00830454 /* HierarchicalPickablePicker.swift in Sources */,
 				630B4D7A1B48DD4B00830454 /* NSRange+NSRangeMake.swift in Sources */,
+				63A2EA3A1B69257D00CA9F46 /* Boolean+BooleanLiteralConvertible.swift in Sources */,
 				631AA5831B6515E70037CF4D /* Notifications.swift in Sources */,
 				630B4D7F1B48DD4B00830454 /* ReuseCenter.swift in Sources */,
 				630B4D7E1B48DD4B00830454 /* NSProtocolInterceptor.swift in Sources */,
@@ -570,6 +576,7 @@
 			files = (
 				634711971B22D9A200FA2C76 /* NSString+RangesOfString.swift in Sources */,
 				634711A21B22E4B700FA2C76 /* ReuseCenter.swift in Sources */,
+				63A2EA381B69257D00CA9F46 /* Boolean+BooleanLiteralConvertible.swift in Sources */,
 				631AA5811B6515E70037CF4D /* Notifications.swift in Sources */,
 				63204CD11B26D844003647C8 /* HierarchicalPickablePicker.swift in Sources */,
 				634711A61B22E4CE00FA2C76 /* Reusable.swift in Sources */,
@@ -599,6 +606,7 @@
 			files = (
 				634711981B22D9A200FA2C76 /* NSString+RangesOfString.swift in Sources */,
 				634711A31B22E4B700FA2C76 /* ReuseCenter.swift in Sources */,
+				63A2EA391B69257D00CA9F46 /* Boolean+BooleanLiteralConvertible.swift in Sources */,
 				631AA5821B6515E70037CF4D /* Notifications.swift in Sources */,
 				63204CD21B26D844003647C8 /* HierarchicalPickablePicker.swift in Sources */,
 				634711A71B22E4CE00FA2C76 /* Reusable.swift in Sources */,

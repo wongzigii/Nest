@@ -15,16 +15,14 @@ class ANotificationPoster: NotificationPosterType {
 }
 
 struct Notification: NotificationType {
-    static let name = "A Notification Name"
+    typealias PosterType = ANotificationPoster
     
-    typealias SenderType = ANotificationPoster
-    
-    let sender: SenderType
+    let poster: PosterType
     
     var notifiedValue = 3.0
     
-    init(sender: SenderType) {
-        self.sender = sender
+    init(poster: PosterType) {
+        self.poster = poster
     }
 }
 
@@ -48,7 +46,7 @@ class NotificationTests: XCTestCase {
     func testNotificationPost() {
         subscribeNotificationOfType(Notification.self)
         
-        let notification = Notification(sender: aPoster)
+        let notification = Notification(poster: aPoster)
         aPoster.postNotification(notification)
         
         XCTAssert(notifiedValue == notification.notifiedValue,
@@ -58,7 +56,7 @@ class NotificationTests: XCTestCase {
     func testNotificationPostASAP() {
         subscribeNotificationOfType(Notification.self)
         
-        let notification = Notification(sender: aPoster)
+        let notification = Notification(poster: aPoster)
         NotificationQueue.current.enqueueNotification(notification,
             timing: .ASAP)
         
@@ -69,7 +67,7 @@ class NotificationTests: XCTestCase {
     func testNotificationPostWhenIdle() {
         subscribeNotificationOfType(Notification.self)
         
-        let notification = Notification(sender: aPoster)
+        let notification = Notification(poster: aPoster)
         NotificationQueue.current.enqueueNotification(notification,
             timing: .WhenIdle)
         
@@ -79,7 +77,7 @@ class NotificationTests: XCTestCase {
 }
 
 extension NotificationTests: NotificationSubscriberType {
-    func handleNotification(notification: NotificationCenterManageableType) {
+    func handleNotification(notification: PrimitiveNotificationType) {
         switch notification {
         case let aNotification as Notification:
             notifiedValue = aNotification.notifiedValue

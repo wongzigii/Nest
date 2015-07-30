@@ -45,14 +45,81 @@ class NotificationCenter {
         }
     }
     
-    func postNotification(notification: NotificationCenterManageableType) {
+    func postNotification(notification: PrimitiveNotificationType) {
         for eachSubscription in NotificationCenter.shared.subscriptions {
-            if eachSubscription.isSubscribedNotification(notification) {
+            if eachSubscription.subscribedNotification(notification) {
                 eachSubscription.subscriber.handleNotification(notification)
             } else {
                 continue
             }
         }
+    }
+}
+
+private protocol NotificationPostRequestType {
+    var coalescing: NotificationQueue.Coalescing { get }
+    var modes: NSRunLoopMode { get }
+    var timestamp: NSTimeInterval { get }
+    
+    var poster: NotificationPosterType { get }
+    var primitiveNotification: PrimitiveNotificationType { get }
+}
+
+extension NotificationPostRequestType {
+    func isRequestingToPostNotification<N: NotificationType>(notification: N)
+        -> Bool
+    {
+        switch self  {
+        case is NotificationPostRequest<N>: return true
+        default:                            return false
+        }
+    }
+    
+    func isRequestedByPosterOfNotification<N: NotificationType>(notification: N)
+        -> Bool
+    {
+        switch self  {
+        case let notificationPostRequest as NotificationPostRequest<N>:
+            return notificationPostRequest.notification.poster
+                === notification.poster
+        default:
+            return false
+        }
+    }
+    
+    func shouldCoalesce(postRequest: NotificationPostRequestType) -> Bool {
+        if self.coalescing.contains(.OnType) {
+            return self.dynamicType == postRequest.dynamicType
+        }
+        if self.coalescing.contains(.OnPoster) {
+            return self.poster === postRequest.poster
+        }
+        return false
+    }
+}
+
+private struct NotificationPostRequest<N: NotificationType>:
+    NotificationPostRequestType
+{
+    typealias Notification = N
+    
+    let notification: Notification
+    
+    let coalescing: NotificationQueue.Coalescing
+    let modes: NSRunLoopMode
+    let timestamp: NSTimeInterval
+    
+    var poster: NotificationPosterType { return notification.poster }
+    var primitiveNotification: PrimitiveNotificationType { return notification }
+    
+    init(notification: Notification,
+        coalescing: NotificationQueue.Coalescing,
+        modes: NSRunLoopMode)
+    {
+        self.notification = notification
+        self.coalescing = coalescing
+        self.modes = modes
+        self.timestamp = NSDate.timeIntervalSinceReferenceDate()
     }
 }
 
@@ -62,8 +129,10 @@ public class NotificationQueue {
     
     private let notificationCenter: NotificationCenter
     
-    private var ASAPQueue = [NotificationCenterManageableType]()
-    private var idleQueue = [NotificationCenterManageableType]()
+    private var runLoopObserver: CFRunLoopObserverRef!
+    
+    private var ASAPQueue = [NotificationPostRequestType]()
+    private var idleQueue = [NotificationPostRequestType]()
     
     public enum PostTiming: Int {
         case WhenIdle, ASAP, Now
@@ -73,8 +142,8 @@ public class NotificationQueue {
         public let rawValue: UInt
         public init(rawValue: UInt) { self.rawValue = rawValue }
         
-        public static let CoalescingOnName      = Coalescing(rawValue: 1 << 0)
-        public static let CoalescingOnSender    = Coalescing(rawValue: 1 << 1)
+        public static let OnType    = Coalescing(rawValue: 1 << 0)
+        public static let OnPoster  = Coalescing(rawValue: 1 << 1)
     }
     
     public class var current: NotificationQueue {
@@ -99,43 +168,67 @@ public class NotificationQueue {
     {
         switch timing {
         case .Now:
-            if modes.contains(NSRunLoop.currentRunLoop().currentRunLoopMode) ||
+            if !modes.intersect(NSRunLoop.currentRunLoop().currentRunLoopMode)
+                .isEmpty ||
                 modes == []
             {
                 notificationCenter.postNotification(notification)
             }
         case .ASAP:
-            ASAPQueue.append(notification)
-            NSRunLoop.currentRunLoop().performSelector(
-                "postNotificationsInASAPQueue",
-                target: self,
-                argument: nil,
-                order: 0,
-                modes: modes.rawValues)
+            let postRequest = NotificationPostRequest(
+                notification: notification,
+                coalescing: coalesce, 
+                modes: modes)
+            ASAPQueue.append(postRequest)
         case .WhenIdle:
-            idleQueue.append(notification)
-            NSRunLoop.currentRunLoop().performSelector(
-                "postNotificationsInIdleQueue",
-                target: self,
-                argument: nil,
-                order: 0,
-                modes: modes.rawValues)
+            let postRequest = NotificationPostRequest(
+                notification: notification,
+                coalescing: coalesce,
+                modes: modes)
+            idleQueue.append(postRequest)
         }
     }
     
-    dynamic func postNotificationsInASAPQueue() {
-        for each in ASAPQueue {
-            for eachSubscription in NotificationCenter.shared.subscriptions {
-                if eachSubscription.isSubscribedNotification(each) {
-                    notificationCenter.postNotification(each)
+    private func postNotificationsInQueue(
+        inout queue: [NotificationPostRequestType],
+        mode: NSRunLoopMode)
+    {
+        var coalescedPostRequest = [NotificationPostRequestType]()
+        
+        var unprocessedPostRequests = [NotificationPostRequestType]()
+        
+        // Coalescing
+        for postRequest in queue {
+            if postRequest.modes.contains(mode) {
+                let shouldIgnorePostRequest: Bool = {
+                    for eachCoalesced in coalescedPostRequest
+                        where eachCoalesced.shouldCoalesce(postRequest)
+                    {
+                        return true
+                    }
+                    return false
+                }()
+                
+                if !shouldIgnorePostRequest {
+                    coalescedPostRequest.append(postRequest)
                 }
+            } else {
+                unprocessedPostRequests.append(postRequest)
             }
         }
         
-    }
-    
-    dynamic func postNotificationsInIdleQueue() {
+        queue = unprocessedPostRequests
         
+        for postRequest in coalescedPostRequest {
+            let primitiveNotification = postRequest.primitiveNotification
+            
+            for subscription in NotificationCenter.shared.subscriptions
+                where subscription.queue === self &&
+                    subscription.subscribedNotification(primitiveNotification)
+            {
+                notificationCenter.postNotification(primitiveNotification)
+            }
+        }
     }
     
     public func dequeueNotificationsMatching
@@ -146,33 +239,41 @@ public class NotificationQueue {
         var removedIndicesInASAPQueue = [Int]()
         var removedIndicesInIdleQueue = [Int]()
         
-        let containsCoalescingOnName    = coalesce.contains(.CoalescingOnName)
-        let containsCoalescingOnSender  = coalesce.contains(.CoalescingOnSender)
+        let containsCoalescingOnType    = coalesce.contains(.OnType)
+        let containsCoalescingOnPoster  = coalesce.contains(.OnPoster)
         
-        guard containsCoalescingOnName || containsCoalescingOnSender
+        guard containsCoalescingOnType || containsCoalescingOnPoster
             else { return }
         
-        for (index, each) in ASAPQueue.enumerate() {
-            if containsCoalescingOnName {
-                if each.isNotificationMatchingName(notification) {
+        for (index, eachPostRequest) in ASAPQueue.enumerate() {
+            if containsCoalescingOnType {
+                if eachPostRequest
+                    .isRequestingToPostNotification(notification)
+                {
                     removedIndicesInASAPQueue.append(index)
                 }
             }
-            if containsCoalescingOnSender {
-                if each.isNotificationMatchingSender(notification) {
+            if containsCoalescingOnPoster {
+                if eachPostRequest
+                    .isRequestedByPosterOfNotification(notification)
+                {
                     removedIndicesInASAPQueue.append(index)
                 }
             }
         }
         
-        for (index, each) in idleQueue.enumerate() {
-            if containsCoalescingOnName {
-                if each.isNotificationMatchingName(notification) {
+        for (index, eachPostRequest) in idleQueue.enumerate() {
+            if containsCoalescingOnType {
+                if eachPostRequest
+                    .isRequestingToPostNotification(notification)
+                {
                     removedIndicesInIdleQueue.append(index)
                 }
             }
-            if containsCoalescingOnSender {
-                if each.isNotificationMatchingSender(notification) {
+            if containsCoalescingOnPoster {
+                if eachPostRequest
+                    .isRequestedByPosterOfNotification(notification)
+                {
                     removedIndicesInIdleQueue.append(index)
                 }
             }
@@ -184,6 +285,34 @@ public class NotificationQueue {
     
     private init(_ notificationCenter: NotificationCenter) {
         self.notificationCenter = notificationCenter
+        self.runLoopObserver = CFRunLoopObserverCreateWithHandler(
+            kCFAllocatorDefault,
+            CFRunLoopActivity.AllActivities.rawValue,
+            true,
+            0) { (observer, activity) -> Void in
+                let rawRunloopMode =
+                    CFRunLoopCopyCurrentMode(CFRunLoopGetCurrent())
+                let runLoopMode =
+                    NSRunLoopMode(rawValue: rawRunloopMode as String)
+                
+                if activity.contains(.BeforeWaiting) {
+                    self.postNotificationsInQueue(&self.idleQueue,
+                        mode: runLoopMode)
+                }
+                if activity.contains(.Exit) {
+                    self.postNotificationsInQueue(&self.ASAPQueue, 
+                        mode: runLoopMode)
+                }
+        }
+        CFRunLoopAddObserver(CFRunLoopGetCurrent(),
+            runLoopObserver,
+            kCFRunLoopCommonModes)
+    }
+    
+    deinit {
+        CFRunLoopRemoveObserver(CFRunLoopGetCurrent(),
+            runLoopObserver,
+            kCFRunLoopCommonModes)
     }
 }
 
@@ -192,13 +321,13 @@ protocol NotificationSubscriptionType: class {
     var subscriber: NotificationSubscriberType { get }
     var queue: NotificationQueue { get }
     
-    func isSubscribedNotification
-        (notification: NotificationCenterManageableType)
+    func subscribedNotification
+        (notification: PrimitiveNotificationType)
         -> Bool
 }
 
 //MARK: - Notification Subscription
-class NotificationSubscription<N: NotificationCenterManageableType>:
+class NotificationSubscription<N: NotificationType>:
     NotificationSubscriptionType, Equatable
 {
     typealias Notification = N
@@ -216,15 +345,15 @@ class NotificationSubscription<N: NotificationCenterManageableType>:
         self.queue = queue
     }
     
-    func isSubscribedNotification
-        (notification: NotificationCenterManageableType)
+    func subscribedNotification
+        (notification: PrimitiveNotificationType)
         -> Bool
     {
         return notification is Notification
     }
 }
 
-func ==<N: NotificationCenterManageableType>
+func ==<N: PrimitiveNotificationType>
     (lhs: NotificationSubscription<N>,
     rhs: NotificationSubscription<N>)
     -> Bool
@@ -234,36 +363,30 @@ func ==<N: NotificationCenterManageableType>
 }
 
 //MARK: - Notification Center Manageable Type
-public protocol NotificationCenterManageableType {
-    static var name: String {get}
+public protocol PrimitiveNotificationType {
+    
 }
 
-extension NotificationCenterManageableType {
-    private func isNotificationMatchingName
-        <N: NotificationType>
-        (notification: N)
-        -> Bool
-    {
-        return N.name == self.dynamicType.name
-    }
+extension PrimitiveNotificationType {
+    public var notificationName: String { return "\(self.dynamicType)" }
     
-    private func isNotificationMatchingSender
+    private func isMatchingPosterOfNotification
         <N: NotificationType>
         (notification: N)
         -> Bool
     {
         switch self {
         case let aConcreteNotificationType as N:
-            return aConcreteNotificationType.sender === notification.sender
+            return aConcreteNotificationType.poster === notification.poster
         default: return false
         }
     }
 }
 
 //MARK: - Notification Type
-public protocol NotificationType: NotificationCenterManageableType {
-    typealias SenderType: NotificationPosterType
-    var sender: SenderType {get}
+public protocol NotificationType: PrimitiveNotificationType {
+    typealias PosterType: NotificationPosterType
+    var poster: PosterType {get}
 }
 
 //MARK: - Notification Subscriber Type
@@ -273,7 +396,7 @@ public protocol NotificationSubscriberType: class {
         (notificationType: N.Type,
         onQueue queue: NotificationQueue)
     
-    func handleNotification(notification: NotificationCenterManageableType)
+    func handleNotification(notification: PrimitiveNotificationType)
 }
 
 extension NotificationSubscriberType {
@@ -290,18 +413,14 @@ extension NotificationSubscriberType {
 
 //MARK: - Notification Poster Type
 public protocol NotificationPosterType: class {
-    func postNotification
-        <N: NotificationType where N.SenderType == Self>
-        (notification: N)
+    
 }
 
 extension NotificationPosterType {
     public func postNotification
-        <N: NotificationType where N.SenderType == Self>
+        <N: NotificationType where N.PosterType == Self>
         (notification: N)
     {
         NotificationCenter.shared.postNotification(notification)
     }
 }
-
-
