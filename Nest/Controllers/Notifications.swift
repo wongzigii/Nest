@@ -45,21 +45,34 @@ public class NotificationCenter {
         }
     }
     
-    public func postNotification(notification: PrimitiveNotificationType) {
-        for eachSubscription in NotificationCenter.shared.subscriptions {
+    public func postNotification(notification: PrimitiveNotificationType,
+        onQueue queue: NotificationQueue = NotificationQueue.current)
+    {
+        var unnecessarySubscriptionIndices = [Int]()
+        for (index, eachSubscription) in subscriptions.enumerate()
+        {
             if eachSubscription.subscribedNotification(notification) {
-                eachSubscription.subscriber.handleNotification(notification)
+                guard let subscriber = eachSubscription.subscriber,
+                    subscribedQueue = eachSubscription.queue else
+                {
+                    unnecessarySubscriptionIndices.append(index)
+                    continue
+                }
+                
+                if subscribedQueue === queue {
+                    subscriber.handleNotification(notification)
+                }
             } else {
                 continue
             }
         }
+        subscriptions.removeIndices(unnecessarySubscriptionIndices)
     }
 }
 
 private protocol NotificationPostRequestType {
     var coalescing: NotificationQueue.Coalescing { get }
     var modes: NSRunLoopMode { get }
-    var timestamp: NSTimeInterval { get }
     
     var poster: NotificationPosterType { get }
     var primitiveNotification: PrimitiveNotificationType { get }
@@ -107,7 +120,6 @@ private struct NotificationPostRequest<N: NotificationType>:
     
     let coalescing: NotificationQueue.Coalescing
     let modes: NSRunLoopMode
-    let timestamp: NSTimeInterval
     
     var poster: NotificationPosterType { return notification.poster }
     var primitiveNotification: PrimitiveNotificationType { return notification }
@@ -119,7 +131,6 @@ private struct NotificationPostRequest<N: NotificationType>:
         self.notification = notification
         self.coalescing = coalescing
         self.modes = modes
-        self.timestamp = NSDate.timeIntervalSinceReferenceDate()
     }
 }
 
@@ -221,14 +232,9 @@ public class NotificationQueue {
         queue = unprocessedPostRequests
         
         for postRequest in coalescedPostRequest {
-            let primitiveNotification = postRequest.primitiveNotification
-            
-            for subscription in NotificationCenter.shared.subscriptions
-                where subscription.queue === self &&
-                    subscription.subscribedNotification(primitiveNotification)
-            {
-                notificationCenter.postNotification(primitiveNotification)
-            }
+            NotificationCenter.shared.postNotification(
+                postRequest.primitiveNotification,
+                onQueue: self)
         }
     }
     
@@ -319,8 +325,8 @@ public class NotificationQueue {
 
 //MARK: - Notification Subscription Type
 private protocol NotificationSubscriptionType: class {
-    var subscriber: NotificationSubscriberType { get }
-    var queue: NotificationQueue { get }
+    var subscriber: NotificationSubscriberType? { get }
+    var queue: NotificationQueue? { get }
     
     func subscribedNotification
         (notification: PrimitiveNotificationType)
@@ -333,9 +339,9 @@ private class NotificationSubscription<N: NotificationType>:
 {
     typealias Notification = N
     
-    let subscriber: NotificationSubscriberType
+    weak var subscriber: NotificationSubscriberType?
     
-    let queue: NotificationQueue
+    weak var queue: NotificationQueue?
     
     init<N: NotificationType>
         (notificationType: N.Type,
