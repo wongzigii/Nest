@@ -19,7 +19,7 @@
 		630B4D7E1B48DD4B00830454 /* NSProtocolInterceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6347119E1B22DEC700FA2C76 /* NSProtocolInterceptor.swift */; };
 		630B4D7F1B48DD4B00830454 /* ReuseCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 634711A11B22E4B700FA2C76 /* ReuseCenter.swift */; };
 		630B4D801B48DD4B00830454 /* HierarchicalPickablePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63204CD01B26D844003647C8 /* HierarchicalPickablePicker.swift */; };
-		630B4D811B48DD4B00830454 /* Reusable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 634711A51B22E4CE00FA2C76 /* Reusable.swift */; };
+		630B4D811B48DD4B00830454 /* ReusableType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 634711A51B22E4CE00FA2C76 /* ReusableType.swift */; };
 		631AA5811B6515E70037CF4D /* Notifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 631AA5801B6515E70037CF4D /* Notifications.swift */; };
 		631AA5821B6515E70037CF4D /* Notifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 631AA5801B6515E70037CF4D /* Notifications.swift */; };
 		631AA5831B6515E70037CF4D /* Notifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 631AA5801B6515E70037CF4D /* Notifications.swift */; };
@@ -44,14 +44,14 @@
 		634711A01B22DEC700FA2C76 /* NSProtocolInterceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6347119E1B22DEC700FA2C76 /* NSProtocolInterceptor.swift */; };
 		634711A21B22E4B700FA2C76 /* ReuseCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 634711A11B22E4B700FA2C76 /* ReuseCenter.swift */; };
 		634711A31B22E4B700FA2C76 /* ReuseCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 634711A11B22E4B700FA2C76 /* ReuseCenter.swift */; };
-		634711A61B22E4CE00FA2C76 /* Reusable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 634711A51B22E4CE00FA2C76 /* Reusable.swift */; };
-		634711A71B22E4CE00FA2C76 /* Reusable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 634711A51B22E4CE00FA2C76 /* Reusable.swift */; };
+		634711A61B22E4CE00FA2C76 /* ReusableType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 634711A51B22E4CE00FA2C76 /* ReusableType.swift */; };
+		634711A71B22E4CE00FA2C76 /* ReusableType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 634711A51B22E4CE00FA2C76 /* ReusableType.swift */; };
 		634711B11B22FC6300FA2C76 /* ObjectiveC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 634711B01B22FC6300FA2C76 /* ObjectiveC.swift */; };
 		634711B21B22FC6300FA2C76 /* ObjectiveC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 634711B01B22FC6300FA2C76 /* ObjectiveC.swift */; };
 		634711B41B22FDBE00FA2C76 /* NSReuseCenterTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 634711B31B22FDBE00FA2C76 /* NSReuseCenterTest.swift */; };
 		634711B51B22FDBE00FA2C76 /* NSReuseCenterTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 634711B31B22FDBE00FA2C76 /* NSReuseCenterTest.swift */; };
-		6388F79A1B663CB900CDD64A /* NotificationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6323131C1B65FE9800AEA8EF /* NotificationTests.swift */; };
-		6388F79C1B663CD200CDD64A /* NotificationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6323131C1B65FE9800AEA8EF /* NotificationTests.swift */; };
+		6388F79A1B663CB900CDD64A /* NotificationDeliveryTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6323131C1B65FE9800AEA8EF /* NotificationDeliveryTest.swift */; };
+		6388F79C1B663CD200CDD64A /* NotificationDeliveryTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6323131C1B65FE9800AEA8EF /* NotificationDeliveryTest.swift */; };
 		63A2EA381B69257D00CA9F46 /* Boolean+BooleanLiteralConvertible.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A2EA371B69257D00CA9F46 /* Boolean+BooleanLiteralConvertible.swift */; };
 		63A2EA391B69257D00CA9F46 /* Boolean+BooleanLiteralConvertible.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A2EA371B69257D00CA9F46 /* Boolean+BooleanLiteralConvertible.swift */; };
 		63A2EA3A1B69257D00CA9F46 /* Boolean+BooleanLiteralConvertible.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A2EA371B69257D00CA9F46 /* Boolean+BooleanLiteralConvertible.swift */; };
@@ -90,7 +90,7 @@
 		632313131B65D8A700AEA8EF /* SwiftExt.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftExt.framework; path = "Frameworks/SwiftExt/build/Debug-iphoneos/SwiftExt.framework"; sourceTree = "<group>"; };
 		632313151B65D8B100AEA8EF /* SwiftExt.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftExt.framework; path = Frameworks/SwiftExt/build/Debug/SwiftExt.framework; sourceTree = "<group>"; };
 		632313171B65D8B600AEA8EF /* SwiftExt.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftExt.framework; path = "Frameworks/SwiftExt/build/Debug-watchos/SwiftExt.framework"; sourceTree = "<group>"; };
-		6323131C1B65FE9800AEA8EF /* NotificationTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NotificationTests.swift; path = NestTest/NotificationTests.swift; sourceTree = SOURCE_ROOT; };
+		6323131C1B65FE9800AEA8EF /* NotificationDeliveryTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NotificationDeliveryTest.swift; path = NestTest/NotificationDeliveryTest.swift; sourceTree = SOURCE_ROOT; };
 		634711491B22D91B00FA2C76 /* Nest.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Nest.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6347114D1B22D91B00FA2C76 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6347114E1B22D91B00FA2C76 /* Nest-for-iOS.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Nest-for-iOS.h"; sourceTree = "<group>"; };
@@ -108,7 +108,7 @@
 		6347118C1B22D9A200FA2C76 /* Collections.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Collections.swift; sourceTree = "<group>"; };
 		6347119E1B22DEC700FA2C76 /* NSProtocolInterceptor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSProtocolInterceptor.swift; sourceTree = "<group>"; };
 		634711A11B22E4B700FA2C76 /* ReuseCenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReuseCenter.swift; sourceTree = "<group>"; };
-		634711A51B22E4CE00FA2C76 /* Reusable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reusable.swift; sourceTree = "<group>"; };
+		634711A51B22E4CE00FA2C76 /* ReusableType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReusableType.swift; sourceTree = "<group>"; };
 		634711AD1B22E6FB00FA2C76 /* NSProtocolInterceptorTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NSProtocolInterceptorTest.swift; path = NestTest/NSProtocolInterceptorTest.swift; sourceTree = SOURCE_ROOT; };
 		634711B01B22FC6300FA2C76 /* ObjectiveC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObjectiveC.swift; sourceTree = "<group>"; };
 		634711B31B22FDBE00FA2C76 /* NSReuseCenterTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NSReuseCenterTest.swift; path = NestTest/NSReuseCenterTest.swift; sourceTree = SOURCE_ROOT; };
@@ -298,7 +298,7 @@
 			children = (
 				634711AD1B22E6FB00FA2C76 /* NSProtocolInterceptorTest.swift */,
 				634711B31B22FDBE00FA2C76 /* NSReuseCenterTest.swift */,
-				6323131C1B65FE9800AEA8EF /* NotificationTests.swift */,
+				6323131C1B65FE9800AEA8EF /* NotificationDeliveryTest.swift */,
 			);
 			path = NestTests;
 			sourceTree = "<group>";
@@ -339,7 +339,7 @@
 			isa = PBXGroup;
 			children = (
 				63A2EA3B1B69DA3900CA9F46 /* NSRunLoopMode.swift */,
-				634711A51B22E4CE00FA2C76 /* Reusable.swift */,
+				634711A51B22E4CE00FA2C76 /* ReusableType.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -563,7 +563,7 @@
 				630B4D781B48DD4B00830454 /* NSDate+Comparable.swift in Sources */,
 				630B4D791B48DD4B00830454 /* NSError+InitConveniences.swift in Sources */,
 				630B4D7B1B48DD4B00830454 /* NSString+RangesOfString.swift in Sources */,
-				630B4D811B48DD4B00830454 /* Reusable.swift in Sources */,
+				630B4D811B48DD4B00830454 /* ReusableType.swift in Sources */,
 				630B4D7C1B48DD4B00830454 /* Collections.swift in Sources */,
 				630B4D7D1B48DD4B00830454 /* ObjectiveC.swift in Sources */,
 				63A2EA3E1B69DA3900CA9F46 /* NSRunLoopMode.swift in Sources */,
@@ -579,7 +579,7 @@
 				63A2EA381B69257D00CA9F46 /* Boolean+BooleanLiteralConvertible.swift in Sources */,
 				631AA5811B6515E70037CF4D /* Notifications.swift in Sources */,
 				63204CD11B26D844003647C8 /* HierarchicalPickablePicker.swift in Sources */,
-				634711A61B22E4CE00FA2C76 /* Reusable.swift in Sources */,
+				634711A61B22E4CE00FA2C76 /* ReusableType.swift in Sources */,
 				6347119B1B22D9A200FA2C76 /* Collections.swift in Sources */,
 				634711B11B22FC6300FA2C76 /* ObjectiveC.swift in Sources */,
 				6347118F1B22D9A200FA2C76 /* NSDate+Comparable.swift in Sources */,
@@ -594,7 +594,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6388F79A1B663CB900CDD64A /* NotificationTests.swift in Sources */,
+				6388F79A1B663CB900CDD64A /* NotificationDeliveryTest.swift in Sources */,
 				634711B41B22FDBE00FA2C76 /* NSReuseCenterTest.swift in Sources */,
 				63EACCF01B6A027D0086561F /* NSProtocolInterceptorTest.swift in Sources */,
 			);
@@ -609,7 +609,7 @@
 				63A2EA391B69257D00CA9F46 /* Boolean+BooleanLiteralConvertible.swift in Sources */,
 				631AA5821B6515E70037CF4D /* Notifications.swift in Sources */,
 				63204CD21B26D844003647C8 /* HierarchicalPickablePicker.swift in Sources */,
-				634711A71B22E4CE00FA2C76 /* Reusable.swift in Sources */,
+				634711A71B22E4CE00FA2C76 /* ReusableType.swift in Sources */,
 				6347119C1B22D9A200FA2C76 /* Collections.swift in Sources */,
 				634711B21B22FC6300FA2C76 /* ObjectiveC.swift in Sources */,
 				634711901B22D9A200FA2C76 /* NSDate+Comparable.swift in Sources */,
@@ -624,7 +624,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6388F79C1B663CD200CDD64A /* NotificationTests.swift in Sources */,
+				6388F79C1B663CD200CDD64A /* NotificationDeliveryTest.swift in Sources */,
 				634711B51B22FDBE00FA2C76 /* NSReuseCenterTest.swift in Sources */,
 				63EACCF11B6A027F0086561F /* NSProtocolInterceptorTest.swift in Sources */,
 			);

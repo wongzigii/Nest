@@ -8,8 +8,13 @@
 
 import Foundation
 
-public protocol Reusable: NSObjectProtocol {
+/**
+Conforming to `ReusableType` makes an object to be manageable by `ReuseCenter`
+*/
+public protocol ReusableType: class {
+    /// Reuse identifier
     var reuseIdentifier: String { get }
     
+    /// Call this function before dequeueing
     func prepareForReuse()
 }

@@ -9,18 +9,26 @@
 import SwiftExt
 import Foundation
 
-public final class ReuseCenter<R: Reusable> {
-    public typealias ReusableType = R
-    private var reusablesDict: [String: [ReusableType]] = [:]
+/**
+`ReuseCenter` is designed to make reusing convenient. It can enqueue and dequeue
+objects by reuse identifier which confrom to `ReusableType` protocol and call
+`prepareForReuse()` during the dequeueing.
+*/
+public final class ReuseCenter<R: ReusableType> {
+    public typealias Reusable = R
+    private var reusablesDict: [String: [Reusable]] = [:]
     
+    /// Get all reusables for specified reuse identifier. This will not remove
+    /// them from the queue.
     public func reusableForReuseIdentifier(reuseIdentifier: String) ->
-        [ReusableType]?
+        [Reusable]?
     {
         return reusablesDict[reuseIdentifier]
     }
     
+    /// Dequeue a reusable object by matching the reuse identifier
     public func dequeueReusableWithReuseIdentifier(
-        reuseIdentifier: String) -> ReusableType?
+        reuseIdentifier: String) -> Reusable?
     {
         if var reusables = reusablesDict[reuseIdentifier] {
             if reusables.count > 0 {
@@ -36,7 +44,8 @@ public final class ReuseCenter<R: Reusable> {
         return nil
     }
     
-    public func enqueueUnused(unused: ReusableType) {
+    /// Enqueue a reusable object
+    public func enqueueUnused(unused: Reusable) {
         let reuseIdentifier = unused.reuseIdentifier
         if let reusables = reusablesDict[reuseIdentifier] {
             reusablesDict[reuseIdentifier] = reusables + unused

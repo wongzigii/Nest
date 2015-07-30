@@ -9,6 +9,9 @@
 import SwiftExt
 import Foundation
 
+/**
+`NSRunLoopMode` is a convenience of modes of `NSRunLoop`
+*/
 public struct NSRunLoopMode: OptionSetType {
     public typealias Element = NSRunLoopMode
     
@@ -155,34 +158,58 @@ public func==(lhs: NSRunLoopMode, rhs: NSRunLoopMode) -> Bool {
 }
 
 extension NSRunLoop {
+    /// Performs one pass through the run loop in the specified mode and returns 
+    /// the date at which the next timer is scheduled to fire.
     public func limitDateForMode(mode: NSRunLoopMode) -> NSDate? {
         return limitDateForMode(mode.rawValue)
     }
     
+    /// Registers a given timer with a given input mode.
     public func addTimer(timer: NSTimer, forMode mode: NSRunLoopMode) {
         addTimer(timer, forMode: mode.rawValue)
     }
     
+    /// Adds a port as an input source to the specified mode of the run loop.
     public func addPort(aPort: NSPort, forMode mode: NSRunLoopMode) {
         addPort(aPort, forMode: mode.rawValue)
     }
     
+    /// Removes a port from the specified input mode of the run loop.
     public func removePort(aPort: NSPort, forMode mode: NSRunLoopMode) {
         removePort(aPort, forMode: mode.rawValue)
     }
     
-    public func runMode(mode: NSRunLoopMode, beforeDate limitDate: NSDate) -> Bool {
+    /// Runs the loop once, blocking for input in the specified mode until a 
+    /// given date.
+    public func runMode(mode: NSRunLoopMode, beforeDate limitDate: NSDate)
+        -> Bool
+    {
         return runMode(mode.rawValue, beforeDate: limitDate)
     }
     
-    public func acceptInputForMode(mode: NSRunLoopMode, beforeDate limitDate: NSDate) {
+    /// Runs the loop once or until the specified date, accepting input only for
+    /// the specified mode.
+    public func acceptInputForMode(mode: NSRunLoopMode,
+        beforeDate limitDate: NSDate)
+    {
         return acceptInputForMode(mode.rawValue, beforeDate: limitDate)
     }
     
-    public func performSelector(aSelector: Selector, target: AnyObject, argument arg: AnyObject?, order: Int, modes: NSRunLoopMode) {
-        performSelector(aSelector, target: target, argument: arg, order: order, modes: modes.rawValues)
+    /// Schedules the sending of a message on the current run loop.
+    public func performSelector(aSelector: Selector,
+        target: AnyObject,
+        argument arg: AnyObject?,
+        order: Int,
+        modes: NSRunLoopMode)
+    {
+        performSelector(aSelector,
+            target: target,
+            argument: arg,
+            order: order,
+            modes: modes.rawValues)
     }
     
+    /// The receiver's current input mode. (read-only)
     public var currentRunLoopMode: NSRunLoopMode {
         guard let currentModeRawValue = currentMode else { return [] }
         return NSRunLoopMode(rawValue: currentModeRawValue)
