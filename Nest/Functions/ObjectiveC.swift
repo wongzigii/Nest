@@ -8,6 +8,9 @@
 
 import Foundation
 
+/**
+Returns true when the given selector belongs to the given protocol.
+*/
 public func sel_belongsToProtocol(aSelector: Selector,
     _ aProtocol: Protocol) -> Bool
 {
@@ -27,6 +30,10 @@ public func sel_belongsToProtocol(aSelector: Selector,
     return false
 }
 
+/**
+Swizzle `aClass`'s `selector` with specified `implementation` and add the 
+`selectorPrefix` to the swizzling selector.
+*/
 public func class_swizzleClass(aClass: AnyClass,
     _ selector: Selector,
     _ implementation: IMP,

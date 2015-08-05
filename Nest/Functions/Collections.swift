@@ -9,7 +9,8 @@
 import Foundation
 import SwiftExt
 
-extension CollectionType where Generator.Element: NSObjectProtocol {
+extension SequenceType where Generator.Element: NSObjectProtocol {
+    /// Return `true` iff `x` is in `self`.
     public func containsNSObjectProtocol(element: Generator.Element)
         -> Bool
     {
@@ -24,7 +25,14 @@ extension CollectionType where Generator.Element: NSObjectProtocol {
         }
         return false
     }
+}
+
+extension CollectionType where Generator.Element: NSObjectProtocol {
     
+    /// Returns the first index where `value` appears in `self` or `nil` if
+    /// `value` is not found.
+    ///
+    /// - Complexity: O(`self.count`).
     public func indexOfNSObjectProtocol(value: Generator.Element)
         -> Index?
     {
@@ -47,10 +55,10 @@ extension CollectionType where Generator.Element: NSObjectProtocol {
 }
 
 extension RangeReplaceableCollectionType where
-Generator.Element : NSObjectProtocol
+    Generator.Element : NSObjectProtocol
 {
-    public func intersectedWithNSObjectProtocols(
-        collection: Self) -> Self
+    /// Return all the intersected elements
+    public func intersectedWithNSObjectProtocols(collection: Self) -> Self
     {
         var newCollection = Self()
         
@@ -75,6 +83,7 @@ extension CollectionType where Generator.Element: NSObjectProtocol {
         fromIndex: Index?, fromElement: Generator.Element?,
         toIndex: Index?, toElement: Generator.Element?, changed: Bool?) -> Void
     
+    /// Diff with an `NSObjectProtocol` collection
     public func diffNSObjectProtocols(
         comparedCollection: Self,
         differences: CollectionDiff,
@@ -89,6 +98,7 @@ extension CollectionType where Generator.Element: NSObjectProtocol {
             withHandler: diffHandler)
     }
     
+    /// Diff with an `NSObjectProtocol` collection
     public func diffNSObjectProtocols(
         comparedCollection: Self,
         differences: CollectionDiff,
@@ -106,6 +116,7 @@ extension RangeReplaceableCollectionType where
     Generator.Element : NSObjectProtocol,
     Index: protocol<Comparable, BidirectionalIndexType>
 {
+    /// Remove an `NSObjectProtocol` element
     public mutating func removeNSObjectProtocols(elements: Self) -> Self {
         var indices: [Index] = []
         

@@ -9,9 +9,11 @@
 import Foundation
 
 extension NSString {
-    /// Finds and returns the range of all the occurrences of a
-    /// given string within a given range of the `String`, subject to
-    /// given options, using the specified locale, if any.
+    /** 
+    Finds and returns the range of all the occurrences of the given string 
+    within the given range, which subject to given options, and using the
+    specified locale.
+    */
     public func rangesOfString(aString: String,
         options mask: NSStringCompareOptions,
         range: NSRange?,

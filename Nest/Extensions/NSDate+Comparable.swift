@@ -10,22 +10,37 @@ import Foundation
 
 extension NSDate : Comparable {}
 
-public func < (this: NSDate, that: NSDate) -> Bool {
-    return this.compare(that) == .OrderedAscending
+/**
+Returns `true` when the `lhs` is ascending to the `rhs`
+*/
+public func < (lhs: NSDate, rhs: NSDate) -> Bool {
+    return lhs.compare(rhs) == .OrderedAscending
 }
 
-public func <= (this: NSDate, that: NSDate) -> Bool {
-    return this.compare(that) != .OrderedDescending
+/**
+Returns `true` when the `lhs` is not descending to the `rhs`
+*/
+public func <= (lhs: NSDate, rhs: NSDate) -> Bool {
+    return lhs.compare(rhs) != .OrderedDescending
 }
 
-public func > (this: NSDate, that: NSDate) -> Bool {
-    return this.compare(that) == .OrderedDescending
+/**
+Returns `true` when the `lhs` is descending to the `rhs`
+*/
+public func > (lhs: NSDate, rhs: NSDate) -> Bool {
+    return lhs.compare(rhs) == .OrderedDescending
 }
 
-public func >= (this: NSDate, that: NSDate) -> Bool {
-    return this.compare(that) != .OrderedAscending
+/**
+Returns `true` when the `lhs` is not ascending to the `rhs`
+*/
+public func >= (lhs: NSDate, rhs: NSDate) -> Bool {
+    return lhs.compare(rhs) != .OrderedAscending
 }
 
-public func == (this: NSDate, that: NSDate) -> Bool {
-    return this.compare(that) == .OrderedSame
+/**
+Returns `true` when the `lhs` is equal to the `rhs`
+*/
+public func == (lhs: NSDate, rhs: NSDate) -> Bool {
+    return lhs.compare(rhs) == .OrderedSame
 }

@@ -15,38 +15,38 @@ class ANotificationPoster: NotificationPosterType {
 }
 
 struct NowNotification: NotificationType {
-    typealias PosterType = ANotificationPoster
+    typealias NotificationPoster = ANotificationPoster
     
-    let poster: PosterType
+    let notificationPoster: NotificationPoster
     
     var notifiedValue = "Now"
     
-    init(poster: PosterType) {
-        self.poster = poster
+    init(poster: NotificationPoster) {
+        self.notificationPoster = poster
     }
 }
 
 struct ASAPNotification: NotificationType {
-    typealias PosterType = ANotificationPoster
+    typealias NotificationPoster = ANotificationPoster
     
-    let poster: PosterType
+    let notificationPoster: NotificationPoster
     
     var notifiedValue = "ASAP"
     
-    init(poster: PosterType) {
-        self.poster = poster
+    init(poster: NotificationPoster) {
+        self.notificationPoster = poster
     }
 }
 
 struct IdleNotification: NotificationType {
-    typealias PosterType = ANotificationPoster
+    typealias NotificationPoster = ANotificationPoster
     
-    let poster: PosterType
+    let notificationPoster: NotificationPoster
     
     var notifiedValue = "Idle"
     
-    init(poster: PosterType) {
-        self.poster = poster
+    init(poster: NotificationPoster) {
+        self.notificationPoster = poster
     }
 }
 

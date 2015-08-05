@@ -10,6 +10,9 @@ import SwiftExt
 import CoreData
 
 extension NSError {
+    /**
+    A convenience to combine two errors
+    */
     public convenience init(error: NSError?, anotherError: NSError?) {
         var userInfo = [NSObject: AnyObject]()
         var errors = [NSError]()
@@ -39,38 +42,9 @@ extension NSError {
             userInfo: userInfo)
     }
     
-    public convenience init(errorPointer: NSErrorPointer,
-        secondError: NSError?)
-    {
-        var userInfo = [NSObject: AnyObject]()
-        var errors = [NSError]()
-        
-        if let secondError = secondError {
-            errors += secondError
-        }
-        
-        if errorPointer.memory != nil {
-            let firstError = errorPointer.memory!
-            if firstError.code == NSValidationMultipleErrorsError {
-                userInfo += firstError.userInfo
-                
-                if let detailErrors =
-                    userInfo[NSDetailedErrorsKey] as? [NSError]
-                {
-                    errors += detailErrors
-                }
-            } else {
-                errors += firstError
-            }
-        }
-        
-        userInfo[NSDetailedErrorsKey] = errors
-        
-        self.init(domain: NSCocoaErrorDomain,
-            code: NSValidationMultipleErrorsError,
-            userInfo: userInfo)
-    }
-    
+    /**
+    A convenience to combine an array of errors
+    */
     public convenience init(errors: [NSError]) {
         var userInfo = [NSObject: AnyObject]()
         userInfo[NSDetailedErrorsKey] = errors

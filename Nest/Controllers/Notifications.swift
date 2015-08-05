@@ -10,13 +10,21 @@ import SwiftExt
 import Foundation
 
 //MARK: - Notification Center
+/**
+`NotificationCenter` is a strong typed, type value supported notification 
+system.
+
+And it works almost the same to NSNotification in Foundation.
+*/
 public class NotificationCenter {
-    public static var shared = NotificationCenter()
+    /// Get the shared notification center
+    public static let shared = NotificationCenter()
     
     private init() {}
     
     private var subscriptions: [NotificationSubscriptionType] = []
     
+    /// Subscribe a notification
     public func subscriber
         <N: NotificationType>
         (subscriber: NotificationSubscriberType,
@@ -45,6 +53,7 @@ public class NotificationCenter {
         }
     }
     
+    /// Post a notification immediately
     public func postNotification(notification: PrimitiveNotificationType,
         onQueue queue: NotificationQueue = NotificationQueue.current)
     {
@@ -93,8 +102,8 @@ extension NotificationPostRequestType {
     {
         switch self  {
         case let notificationPostRequest as NotificationPostRequest<N>:
-            return notificationPostRequest.notification.poster
-                === notification.poster
+            return notificationPostRequest.notification.notificationPoster
+                === notification.notificationPoster
         default:
             return false
         }
@@ -121,7 +130,7 @@ private struct NotificationPostRequest<N: NotificationType>:
     let coalescing: NotificationQueue.Coalescing
     let modes: NSRunLoopMode
     
-    var poster: NotificationPosterType { return notification.poster }
+    var poster: NotificationPosterType { return notification.notificationPoster }
     var primitiveNotification: PrimitiveNotificationType { return notification }
     
     init(notification: Notification,
@@ -135,6 +144,18 @@ private struct NotificationPostRequest<N: NotificationType>:
 }
 
 //MARK: - Notification Queue
+/**
+NotificationQueue objects act as buffers for notification centers (instances of
+NotificationCenter). Whereas a notification center distributes notifications
+when posted, notifications placed into the queue can be delayed until the end of
+the current pass through the run loop or until the run loop is idle. Duplicate
+notifications can also be coalesced so that only one notification is sent 
+although multiple notifications are posted. A notification queue maintains
+notifications (instances conforms to NotificationType) generally in a first in
+first out (FIFO) order. When a notification rises to the front of the queue, 
+the queue posts it to the notification center, which in turn dispatches the
+notification to all subscribed subscribers.
+*/
 public class NotificationQueue {
     private static var queues: [Weak<NSThread>: NotificationQueue] = [:]
     
@@ -145,22 +166,45 @@ public class NotificationQueue {
     private var ASAPQueue = [NotificationPostRequestType]()
     private var idleQueue = [NotificationPostRequestType]()
     
+    /// These constants specify when notifications are posted.
     public enum PostTiming: Int {
-        case WhenIdle, ASAP, Now
+        /// The notification is posted when the run loop is idle.
+        case WhenIdle
+        /// The notification is posted at the end of the current notification 
+        /// callout or timer.
+        case ASAP
+        /// The notification is posted immediately after coalescing.
+        case Now
     }
     
+    /// This option set specifies how notifications are coalesced.
     public struct Coalescing: OptionSetType {
         public let rawValue: UInt
         public init(rawValue: UInt) { self.rawValue = rawValue }
         
+        /// Coalesce notifications with the same type.
         public static let OnType    = Coalescing(rawValue: 1 << 0)
+        /// Coalesce notifications with the same poster.
         public static let OnPoster  = Coalescing(rawValue: 1 << 1)
     }
     
+    /// Returns the default notification queue for the current thread.
     public class var current: NotificationQueue {
-        let threadWrapper = Weak<NSThread>(NSThread.currentThread())
-        if let currentQueue =
-            queues[threadWrapper]
+        let currentThread = NSThread.currentThread()
+        let threadWrapper = Weak<NSThread>(currentThread)
+        
+        if let currentQueue: NotificationQueue = {
+            for (eachThreadWrapper, eachQueue) in queues {
+                if let eachThread = eachThreadWrapper.value {
+                    if eachThread === currentThread {
+                        return eachQueue
+                    }
+                } else {
+                    queues[eachThreadWrapper] = nil
+                }
+            }
+            return nil
+            }()
         {
             return currentQueue
         } else {
@@ -170,6 +214,8 @@ public class NotificationQueue {
         }
     }
     
+    /// Adds a notification to the notification queue with a specified post 
+    /// timing, criteria for coalescing, and runloop mode.
     public func enqueueNotification
         <N: NotificationType>
         (notification: N,
@@ -238,6 +284,8 @@ public class NotificationQueue {
         }
     }
     
+    /// Removes all notifications from the queue that match a provided 
+    /// notification using provided matching criteria.
     public func dequeueNotificationsMatching
         <N: NotificationType>
         (notification: N,
@@ -370,11 +418,15 @@ private func ==<N: PrimitiveNotificationType>
 }
 
 //MARK: - Notification Center Manageable Type
+/**
+PrimitiveNotificationType
+*/
 public protocol PrimitiveNotificationType {
     
 }
 
 extension PrimitiveNotificationType {
+    /// Returns the notification name
     public var notificationName: String { return "\(self.dynamicType)" }
     
     private func isMatchingPosterOfNotification
@@ -383,26 +435,36 @@ extension PrimitiveNotificationType {
         -> Bool
     {
         switch self {
-        case let aConcreteNotificationType as N:
-            return aConcreteNotificationType.poster === notification.poster
+        case let aConcreteNotification as N:
+            return aConcreteNotification.notificationPoster
+                === notification.notificationPoster
         default: return false
         }
     }
 }
 
 //MARK: - Notification Type
+/**
+All the notification should conforms to `NotificationType`
+*/
 public protocol NotificationType: PrimitiveNotificationType {
-    typealias PosterType: NotificationPosterType
-    var poster: PosterType {get}
+    typealias NotificationPoster: NotificationPosterType
+    var notificationPoster: NotificationPoster {get}
 }
 
 //MARK: - Notification Subscriber Type
+/**
+All the notification subscribers should conforms to `NotificationSubscriberType`
+*/
 public protocol NotificationSubscriberType: class {
+    /// Convenience to subscribe notifications of specific type on specified
+    /// type
     func subscribeNotificationOfType
         <N: NotificationType>
         (notificationType: N.Type,
         onQueue queue: NotificationQueue)
     
+    /// Handle notifications in this function
     func handleNotification(notification: PrimitiveNotificationType)
 }
 
@@ -419,13 +481,17 @@ extension NotificationSubscriberType {
 }
 
 //MARK: - Notification Poster Type
+/**
+All the notification posters should conforms to `NotificationPosterType`
+*/
 public protocol NotificationPosterType: class {
     
 }
 
 extension NotificationPosterType {
+    /// Convenience to post a notification
     public func postNotification
-        <N: NotificationType where N.PosterType == Self>
+        <N: NotificationType where N.NotificationPoster == Self>
         (notification: N)
     {
         NotificationCenter.shared.postNotification(notification)

@@ -17,8 +17,8 @@ which conforms to the intercepted protocols at the runtime.
 */
 public final class NSProtocolInterceptor: NSObject {
     /// Intercepted protocols
-    private var _interceptedProtocols: [Protocol] = []
     public var interceptedProtocols: [Protocol] { return _interceptedProtocols }
+    private var _interceptedProtocols: [Protocol] = []
     
     /// Messages receiver
     public weak var receiver: NSObjectProtocol?
@@ -37,6 +37,8 @@ public final class NSProtocolInterceptor: NSObject {
         return false
     }
     
+    /// Returns the object to which unrecognized messages should first be 
+    /// directed.
     public override func forwardingTargetForSelector(aSelector: Selector)
         -> AnyObject?
     {
@@ -53,6 +55,8 @@ public final class NSProtocolInterceptor: NSObject {
         return super.forwardingTargetForSelector(aSelector)
     }
     
+    /// Returns a Boolean value that indicates whether the receiver implements 
+    /// or inherits a method that can respond to a specified message.
     public override func respondsToSelector(aSelector: Selector) -> Bool {
         if middleMan?.respondsToSelector(aSelector) == true &&
             doesSelectorBelongToAnyInterceptedProtocol(aSelector)
@@ -69,23 +73,23 @@ public final class NSProtocolInterceptor: NSObject {
     
     /// Use this method to create a protocol interceptor which intercepts
     /// a single Objecitve-C protocol
-    public class func interceptorWithProtocol(aProtocol: Protocol)
+    public class func forProtocol(aProtocol: Protocol)
         -> NSProtocolInterceptor
     {
-        return interceptorWithProtocols([aProtocol])
+        return forProtocols([aProtocol])
     }
     
     /// Use this method to create a protocol interceptor which intercepts
     /// variant Objecitve-C protocols
-    public class func interceptorWithProtocols(protocols: Protocol ...)
+    public class func forProtocols(protocols: Protocol ...)
         -> NSProtocolInterceptor
     {
-        return interceptorWithProtocols(protocols)
+        return forProtocols(protocols)
     }
     
     /// Use this method to create a protocol interceptor which intercepts
     /// an array of Objecitve-C protocols
-    public class func interceptorWithProtocols(protocols: [Protocol])
+    public class func forProtocols(protocols: [Protocol])
         -> NSProtocolInterceptor
     {
         let protocolNames = protocols.map { NSStringFromProtocol($0) as String }
@@ -154,12 +158,6 @@ public final class NSProtocolInterceptor: NSObject {
             }
             
             objc_registerClassPair(theProtocolInterceptorType)
-            
-            NSLog("class name: \(className)")
-            NSLog("class: \(theProtocolInterceptorType)")
-            NSLog("super class: \(theProtocolInterceptorType.superclass())")
-            NSLog("class name from system: \(NSStringFromClass(theProtocolInterceptorType))")
-            NSLog("class from systemname: \(NSClassFromString(NSStringFromClass(theProtocolInterceptorType)))")
             
             return theProtocolInterceptorType
         }
