@@ -2,8 +2,6 @@ Nest is a library which makes Foundation and Swift works more seamlessly and off
 
 #How to Get Started
 
-##Manually Install
-
 - Download or clone the project
 - Run `git submodule update -init recursive`
 - Drag Nest’s Xcode project file to your workspace
@@ -12,7 +10,7 @@ Nest is a library which makes Foundation and Swift works more seamlessly and off
 - You may need to add dependancies manually in the same way to your project file.
 - Enjoy your journey of `Nest`
 
-##Documentation
+#Documentation
 
 [Nest at Readme.io](https://nest.readme.io/docs)
 
