@@ -18,8 +18,8 @@ public final class ReuseCenter<R: ReusableType> {
     public typealias Reusable = R
     private var reusablesDict: [String: [Reusable]] = [:]
     
-    /// Get all reusables for specified reuse identifier. This will not remove
-    /// them from the queue.
+    /// Get all reusables for specified reuse identifier. This will not get them
+    /// removed from the queue.
     public func reusableForReuseIdentifier(reuseIdentifier: String) ->
         [Reusable]?
     {

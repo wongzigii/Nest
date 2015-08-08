@@ -14,17 +14,29 @@ import Foundation
 `NotificationCenter` is a strong typed, type value supported notification 
 system.
 
-And it works almost the same to NSNotification in Foundation.
+- Discussion: And it works almost the same to `NSNotificationCenter` in
+Foundation. But doesn't like `NSNotificationCenter`, it maintains a `weak`
+relationship between itself and the notification subscriber. That means there is
+no need to unsubscribe as necessary as possible.
 */
 public class NotificationCenter {
-    /// Get the shared notification center
+    /// Get the shared notification center.
+    /// - Discussion: There is only one notification center exist in your app.
     public static let shared = NotificationCenter()
     
     private init() {}
     
     private var subscriptions: [NotificationSubscriptionType] = []
     
-    /// Subscribe a notification
+    /** 
+    Subscribe a notification.
+    
+    - Parameter     subscriber:         The subscriber itself
+    
+    - Parameter     notificationType:   Type of the notification to subscribe
+    
+    - Parameter     queue:              Specifies posting notification queue
+    */
     public func subscriber
         <N: NotificationType>
         (subscriber: NotificationSubscriberType,
@@ -53,7 +65,16 @@ public class NotificationCenter {
         }
     }
     
-    /// Post a notification immediately
+    /** 
+    Post a notification immediately on the specified notification queue
+    
+    - Parameter     notification:       The notification to post
+    
+    - Parameter     queue:              The posting notification queue
+    
+    - Discussion: If a subscriber subscribed the notification to post but 
+    specified to receive notification on another queue, it will not be notified.
+    */
     public func postNotification(notification: PrimitiveNotificationType,
         onQueue queue: NotificationQueue = NotificationQueue.current)
     {

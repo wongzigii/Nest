@@ -45,6 +45,7 @@ extension HierarchicalPickable where
     }
     
     /// Get hierarchical ancestors with handler
+    /// The handler will be execute after every ancestor has been found
     public func getHierarchicalAncestorsWithHandler
         (handler: AncestorIterateHandler) -> [ParentPickable]
     {
@@ -82,6 +83,7 @@ extension HierarchicalPickable where
     }
     
     /// Get hierarchical descendants with handler
+    /// The handler will be execute after every descendants has been found
     public func getHierarchicalDescendantsWithHandler
         (handler: DescendantIterateHandler) -> [Self]
     {
@@ -148,7 +150,7 @@ public class HierarchicalPickablePicker<P: HierarchicalPickable where
     /// You also can pick its descendants at the same time.
     public func pick(aPickable: Pickable,
         toLevel level: Int,
-        andItsDescendants pickDscendants: Bool)
+        andItsDescendants pickDscendants: Bool = false)
     {
         if let container = _hierarchicalPickedPickables[level] {
             _hierarchicalPickedPickables[level] = container + aPickable
@@ -169,7 +171,7 @@ public class HierarchicalPickablePicker<P: HierarchicalPickable where
     /// You also can unpick its descendants at the same time
     public func unpick(aHierarchicalPickable: Pickable,
         fromLevel level: Int,
-        andItsDescendants unpickDscendants: Bool) -> [Pickable]
+        andItsDescendants unpickDscendants: Bool = false) -> [Pickable]
     {
         var removed = [Pickable]()
         

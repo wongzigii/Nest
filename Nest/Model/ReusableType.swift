@@ -15,6 +15,6 @@ public protocol ReusableType: class {
     /// Reuse identifier
     var reuseIdentifier: String { get }
     
-    /// Call this function before dequeueing
+    /// This function will be called before dequeueing
     func prepareForReuse()
 }

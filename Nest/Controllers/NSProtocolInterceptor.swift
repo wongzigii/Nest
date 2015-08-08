@@ -12,18 +12,18 @@ import Foundation
 `NSProtocolInterceptor` is a proxy which intercepts messages to the middle man 
 which originally intended to send to the receiver.
 
-`NSProtocolInterceptor` is a class cluster which dynamically creates a class 
-which conforms to the intercepted protocols at the runtime.
+- Discussion: `NSProtocolInterceptor` is a class cluster which dynamically
+creates a class which conforms to the intercepted protocols at the runtime.
 */
 public final class NSProtocolInterceptor: NSObject {
-    /// Intercepted protocols
+    /// Returns the intercepted protocols
     public var interceptedProtocols: [Protocol] { return _interceptedProtocols }
     private var _interceptedProtocols: [Protocol] = []
     
-    /// Messages receiver
+    /// The receiver receives messages
     public weak var receiver: NSObjectProtocol?
     
-    /// Messages middle man
+    /// The middle man intercepts messages
     public weak var middleMan: NSObjectProtocol?
     
     private func doesSelectorBelongToAnyInterceptedProtocol(
@@ -71,24 +71,39 @@ public final class NSProtocolInterceptor: NSObject {
         return super.respondsToSelector(aSelector)
     }
     
-    /// Use this method to create a protocol interceptor which intercepts
-    /// a single Objecitve-C protocol
+    /**
+    Create a protocol interceptor which intercepts a single Objecitve-C 
+    protocol.
+    
+    - Parameter     protocols:  An Objective-C protocol, such as
+    UITableViewDelegate.self.
+    */
     public class func forProtocol(aProtocol: Protocol)
         -> NSProtocolInterceptor
     {
         return forProtocols([aProtocol])
     }
     
-    /// Use this method to create a protocol interceptor which intercepts
-    /// variant Objecitve-C protocols
+    /**
+    Create a protocol interceptor which intercepts a variable length sort of
+    Objecitve-C protocols.
+    
+    - Parameter     protocols:  A variable length sort of Objective-C protocol,
+    such as UITableViewDelegate.self.
+    */
     public class func forProtocols(protocols: Protocol ...)
         -> NSProtocolInterceptor
     {
         return forProtocols(protocols)
     }
     
-    /// Use this method to create a protocol interceptor which intercepts
-    /// an array of Objecitve-C protocols
+    /** 
+    Create a protocol interceptor which intercepts an array of Objecitve-C 
+    protocols.
+    
+    - Parameter     protocols:  An array of Objective-C protocols, such as
+    [UITableViewDelegate.self].
+    */
     public class func forProtocols(protocols: [Protocol])
         -> NSProtocolInterceptor
     {
@@ -96,70 +111,79 @@ public final class NSProtocolInterceptor: NSObject {
         let sortedProtocolNames = protocolNames.sort()
         let concatenatedName = "_".join(sortedProtocolNames)
         
-        let theClass = concreteInterceptorClassWithProtocols(
-            protocols,
+        let theConcreteClass = concreteClassWithProtocols(protocols,
             concatenatedName: concatenatedName,
-            slat: nil)
+            salt: nil)
         
-        let protocolInterceptor = theClass.new()
+        let protocolInterceptor = theConcreteClass.new()
         protocolInterceptor._interceptedProtocols = protocols
         
         return protocolInterceptor
     }
     
-    private class func concreteInterceptorClassWithProtocols(
-        protocols: [Protocol],
+    /**
+    Return a subclass of `NSProtocolInterceptor` which conforms to specified 
+        protocols.
+    
+    - Parameter     protocols:          An array of Objective-C protocols. The
+    subclass returned from this function will conform to these protocols.
+    
+    - Parameter     concatenatedName:   A string concatenated names of 
+    `protocols`.
+    
+    - Parameter     salt:               An UInt number appended to the class
+    name used for distinguishing the class name itself from the duplicated.
+    */
+    private class func concreteClassWithProtocols(protocols: [Protocol],
         concatenatedName: String,
-        slat: Int?)
+        salt: UInt?)
         -> NSProtocolInterceptor.Type
     {
-        let basicClassName = "_" + NSStringFromClass(self)
+        let basicClassName = "_" + NSStringFromClass(NSProtocolInterceptor.self)
             + "_" + concatenatedName
-        let className = (slat == nil ?
-            basicClassName :basicClassName + "_\(slat!)")
+        let className = (salt == nil ?
+            basicClassName :basicClassName + "_\(salt!)")
         
-        let nextSlat = slat == nil ? 0 : (slat! + 1)
+        let nextSalt = salt == nil ? 0 : (salt! + 1)
         
         if let theClass = NSClassFromString(className) {
             switch theClass {
-            case let aProtocolInterceptorType as NSProtocolInterceptor.Type:
-                let theClassConformsToAllProtocol: Bool = {
+            case let anInterceptorClass as NSProtocolInterceptor.Type:
+                if ({() -> Bool in
+                    // Check if the found class conforms to the protocols
                     for eachProtocol in protocols
-                        where !class_conformsToProtocol(
-                            aProtocolInterceptorType,
+                        where !class_conformsToProtocol(anInterceptorClass,
                             eachProtocol)
                     {
                         return false
                     }
                     return true
-                    }()
-                
-                if theClassConformsToAllProtocol {
-                    return aProtocolInterceptorType
+                }()) {
+                    return anInterceptorClass
                 } else {
-                    return concreteInterceptorClassWithProtocols(protocols,
+                    return concreteClassWithProtocols(protocols,
                         concatenatedName: concatenatedName,
-                        slat: nextSlat)
+                        salt: nextSalt)
                 }
             default:
-                return concreteInterceptorClassWithProtocols(protocols,
+                return concreteClassWithProtocols(protocols,
                     concatenatedName: concatenatedName,
-                    slat: nextSlat)
+                    salt: nextSalt)
             }
         } else {
-            let theProtocolInterceptorType = objc_allocateClassPair(
+            let subclass = objc_allocateClassPair(
                 NSProtocolInterceptor.self,
                 className,
                 0)
                 as! NSProtocolInterceptor.Type
             
             for eachProtocol in protocols {
-                class_addProtocol(theProtocolInterceptorType, eachProtocol)
+                class_addProtocol(subclass, eachProtocol)
             }
             
-            objc_registerClassPair(theProtocolInterceptorType)
+            objc_registerClassPair(subclass)
             
-            return theProtocolInterceptorType
+            return subclass
         }
     }
 }
