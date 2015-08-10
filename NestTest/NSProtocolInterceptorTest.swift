@@ -63,7 +63,7 @@ class NSProtocolInterceptorTest: XCTestCase, MessagePool {
         realDelegate = aRealDelegate
         
         let aProtocolInterceptor = NSProtocolInterceptor
-            .interceptorWithProtocol(OperatorDelegate.self)
+            .forProtocol(OperatorDelegate.self)
         aProtocolInterceptor.receiver = aRealDelegate
         aProtocolInterceptor.middleMan = self
         protocolInterceptor = aProtocolInterceptor
@@ -84,14 +84,16 @@ class NSProtocolInterceptorTest: XCTestCase, MessagePool {
     func testReceiverMessageForwarding() {
         sendMessageIfNecessary()
         
-        let hasOnlyOneReceiverToken = messagePool.filter { $0 == ReceiverToken }.count == 1
+        let hasOnlyOneReceiverToken = messagePool.filter
+            { $0 == ReceiverToken }.count == 1
         XCTAssert(hasOnlyOneReceiverToken, "Pass")
     }
 
     func testMiddleManMessageForwarding() {
         sendMessageIfNecessary()
         
-        let hasOnlyOneMiddleManToken = messagePool.filter { $0 == MiddleManToken }.count == 1
+        let hasOnlyOneMiddleManToken = messagePool.filter
+            { $0 == MiddleManToken }.count == 1
         
         XCTAssert(hasOnlyOneMiddleManToken, "Pass")
     }

@@ -9,6 +9,7 @@
 import Foundation
 import XCTest
 import Nest
+import Swift
 
 private let ReuseIdentifier1 = "ReuseIdentifier1"
 private let ReuseIdentifier2 = "ReuseIdentifier2"
@@ -112,19 +113,22 @@ class ParticularReusable: NSObject, ReusableType, StringLiteralConvertible {
     }
     
     required init(stringLiteral value: String) {
-        let splits = split(value.characters, isSeparator: {$0 == ","}).map { String($0) }
+        let splits = value.characters.split(isSeparator: {$0 == ","})
+            .map { String($0) }
         contentString = splits.first!
         reuseIdentifier = splits.last!
     }
     
     required init(extendedGraphemeClusterLiteral value: String) {
-        let splits = split(value.characters, isSeparator: {$0 == ","}).map { String($0) }
+        let splits = value.characters.split(isSeparator: {$0 == ","})
+            .map { String($0) }
         contentString = splits.first!
         reuseIdentifier = splits.last!
     }
     
     required init(unicodeScalarLiteral value: String) {
-        let splits = split(value.characters, isSeparator: {$0 == ","}).map { String($0) }
+        let splits = value.characters.split(isSeparator: {$0 == ","})
+            .map { String($0) }
         contentString = splits.first!
         reuseIdentifier = splits.last!
     }

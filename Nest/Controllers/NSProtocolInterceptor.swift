@@ -115,7 +115,8 @@ public final class NSProtocolInterceptor: NSObject {
             concatenatedName: concatenatedName,
             salt: nil)
         
-        let protocolInterceptor = theConcreteClass.new()
+        let protocolInterceptor = theConcreteClass.init()
+            as! NSProtocolInterceptor
         protocolInterceptor._interceptedProtocols = protocols
         
         return protocolInterceptor
@@ -133,23 +134,28 @@ public final class NSProtocolInterceptor: NSObject {
     
     - Parameter     salt:               An UInt number appended to the class
     name used for distinguishing the class name itself from the duplicated.
+    
+    - Discussion: The return value type of this function can only be
+    `NSObject.Type`, because if you return with `NSProtocolInterceptor.Type`, 
+    you can only init the returned class to be a `NSProtocolInterceptor` but not
+    its subclass.
     */
     private class func concreteClassWithProtocols(protocols: [Protocol],
         concatenatedName: String,
         salt: UInt?)
-        -> NSProtocolInterceptor.Type
+        -> NSObject.Type
     {
         let basicClassName = "_" + NSStringFromClass(NSProtocolInterceptor.self)
             + "_" + concatenatedName
         let className = (salt == nil ?
             basicClassName :basicClassName + "_\(salt!)")
         
-        let nextSalt = salt == nil ? 0 : (salt! + 1)
+        let nextSalt = (salt == nil ? 0 : (salt! + 1))
         
         if let theClass = NSClassFromString(className) {
             switch theClass {
             case let anInterceptorClass as NSProtocolInterceptor.Type:
-                if ({() -> Bool in
+                let isClassConformsToAllProtocols: Bool = {
                     // Check if the found class conforms to the protocols
                     for eachProtocol in protocols
                         where !class_conformsToProtocol(anInterceptorClass,
@@ -158,7 +164,9 @@ public final class NSProtocolInterceptor: NSObject {
                         return false
                     }
                     return true
-                }()) {
+                    }()
+                
+                if isClassConformsToAllProtocols {
                     return anInterceptorClass
                 } else {
                     return concreteClassWithProtocols(protocols,
@@ -175,7 +183,7 @@ public final class NSProtocolInterceptor: NSObject {
                 NSProtocolInterceptor.self,
                 className,
                 0)
-                as! NSProtocolInterceptor.Type
+                as! NSObject.Type
             
             for eachProtocol in protocols {
                 class_addProtocol(subclass, eachProtocol)
