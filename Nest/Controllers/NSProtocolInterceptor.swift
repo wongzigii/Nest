@@ -109,7 +109,7 @@ public final class NSProtocolInterceptor: NSObject {
     {
         let protocolNames = protocols.map { NSStringFromProtocol($0) as String }
         let sortedProtocolNames = protocolNames.sort()
-        let concatenatedName = "_".join(sortedProtocolNames)
+        let concatenatedName = sortedProtocolNames.joinWithSeparator(",")
         
         let theConcreteClass = concreteClassWithProtocols(protocols,
             concatenatedName: concatenatedName,

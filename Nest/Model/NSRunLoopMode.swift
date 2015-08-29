@@ -58,7 +58,7 @@ public struct NSRunLoopMode: OptionSetType {
             .componentsSeparatedByString(","))
         let union = otherElements.union(elements)
         
-        let joined = ",".join(union)
+        let joined = union.joinWithSeparator(",")
         
         return NSRunLoopMode(rawValue: joined)
     }
@@ -70,7 +70,7 @@ public struct NSRunLoopMode: OptionSetType {
             .componentsSeparatedByString(","))
         let intersected = otherElements.intersect(elements)
         
-        let joined = ",".join(intersected)
+        let joined = intersected.joinWithSeparator(",")
         
         return NSRunLoopMode(rawValue: joined)
     }
@@ -82,7 +82,7 @@ public struct NSRunLoopMode: OptionSetType {
             .componentsSeparatedByString(","))
         let exclusiveOr = otherElements.exclusiveOr(elements)
         
-        let joined = ",".join(exclusiveOr)
+        let joined = exclusiveOr.joinWithSeparator(",")
         
         return NSRunLoopMode(rawValue: joined)
     }
@@ -94,7 +94,7 @@ public struct NSRunLoopMode: OptionSetType {
             .componentsSeparatedByString(","))
         let union = memberElements.union(elements)
         
-        let joined = ",".join(union)
+        let joined = union.joinWithSeparator(",")
         
         rawValue = joined
     }
@@ -107,11 +107,11 @@ public struct NSRunLoopMode: OptionSetType {
         
         let afterRemoving = elements.subtract(memberElements)
         let removed = elements.subtract(afterRemoving)
-        let joined = ",".join(afterRemoving)
+        let joined = afterRemoving.joinWithSeparator(",")
         
         rawValue = joined
         
-        return NSRunLoopMode(rawValue: ",".join(removed))
+        return NSRunLoopMode(rawValue: removed.joinWithSeparator(","))
     }
     
     public mutating func unionInPlace(other: NSRunLoopMode) {
@@ -121,7 +121,7 @@ public struct NSRunLoopMode: OptionSetType {
             .componentsSeparatedByString(","))
         let union = otherElements.union(elements)
         
-        let joined = ",".join(union)
+        let joined = union.joinWithSeparator(",")
         
         rawValue = joined
     }
@@ -133,7 +133,7 @@ public struct NSRunLoopMode: OptionSetType {
             .componentsSeparatedByString(","))
         let intersected = otherElements.intersect(elements)
         
-        let joined = ",".join(intersected)
+        let joined = intersected.joinWithSeparator(",")
         
         rawValue = joined
     }
@@ -145,7 +145,7 @@ public struct NSRunLoopMode: OptionSetType {
             .componentsSeparatedByString(","))
         let exclusiveOr = otherElements.exclusiveOr(elements)
         
-        let joined = ",".join(exclusiveOr)
+        let joined = exclusiveOr.joinWithSeparator(",")
         
         rawValue = joined
     }
