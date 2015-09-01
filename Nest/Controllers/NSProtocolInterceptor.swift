@@ -85,7 +85,7 @@ public final class NSProtocolInterceptor: NSObject {
     }
     
     /**
-    Create a protocol interceptor which intercepts a variable length sort of
+    Create a protocol interceptor which intercepts a variable-length sort of
     Objecitve-C protocols.
     
     - Parameter     protocols:  A variable length sort of Objective-C protocol,
@@ -107,7 +107,7 @@ public final class NSProtocolInterceptor: NSObject {
     public class func forProtocols(protocols: [Protocol])
         -> NSProtocolInterceptor
     {
-        let protocolNames = protocols.map { NSStringFromProtocol($0) as String }
+        let protocolNames = protocols.map { NSStringFromProtocol($0) }
         let sortedProtocolNames = protocolNames.sort()
         let concatenatedName = sortedProtocolNames.joinWithSeparator(",")
         
@@ -129,11 +129,11 @@ public final class NSProtocolInterceptor: NSObject {
     - Parameter     protocols:          An array of Objective-C protocols. The
     subclass returned from this function will conform to these protocols.
     
-    - Parameter     concatenatedName:   A string concatenated names of 
-    `protocols`.
+    - Parameter     concatenatedName:   A string which came from concatenating
+    names of `protocols`.
     
-    - Parameter     salt:               An UInt number appended to the class
-    name used for distinguishing the class name itself from the duplicated.
+    - Parameter     salt:               A UInt number appended to the class name
+    which used for distinguishing the class name itself from the duplicated.
     
     - Discussion: The return value type of this function can only be
     `NSObject.Type`, because if you return with `NSProtocolInterceptor.Type`, 
@@ -145,12 +145,16 @@ public final class NSProtocolInterceptor: NSObject {
         salt: UInt?)
         -> NSObject.Type
     {
-        let basicClassName = "_" + NSStringFromClass(NSProtocolInterceptor.self)
-            + "_" + concatenatedName
-        let className = (salt == nil ?
-            basicClassName :basicClassName + "_\(salt!)")
+        let className: String = {
+            let basicClassName = "_" +
+                NSStringFromClass(NSProtocolInterceptor.self) +
+                "_" + concatenatedName
+            
+            if let salt = salt { return basicClassName + "_\(salt)" }
+                else { return basicClassName }
+        }()
         
-        let nextSalt = (salt == nil ? 0 : (salt! + 1))
+        let nextSalt = salt.map {$0 + 1}
         
         if let theClass = NSClassFromString(className) {
             switch theClass {
@@ -179,8 +183,7 @@ public final class NSProtocolInterceptor: NSObject {
                     salt: nextSalt)
             }
         } else {
-            let subclass = objc_allocateClassPair(
-                NSProtocolInterceptor.self,
+            let subclass = objc_allocateClassPair(NSProtocolInterceptor.self,
                 className,
                 0)
                 as! NSObject.Type
