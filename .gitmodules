@@ -1,4 +1,4 @@
 [submodule "SwiftExt"]
 	path = Frameworks/SwiftExt
-	url = https://github.com/WeZZard/Swift-Extended-Library.git
+	url = https://github.com/WeZZard/SwiftExt.git
 	branch = swift-2

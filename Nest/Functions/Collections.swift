@@ -75,40 +75,12 @@ extension RangeReplaceableCollectionType where
 }
 
 extension CollectionType where Generator.Element: NSObjectProtocol {
-    public typealias NSObjectProtocolCollectionElementComparator = (
-        Generator.Element, Generator.Element) -> Bool
-    
-    public typealias NSObjectProtocolCollectionDiffHandler = (
-        change: CollectionDiff,
-        fromIndex: Index?, fromElement: Generator.Element?,
-        toIndex: Index?, toElement: Generator.Element?, changed: Bool?) -> Void
-    
     /// Diff with an `NSObjectProtocol` collection
-    public func diffNSObjectProtocols(
-        comparedCollection: Self,
-        differences: CollectionDiff,
-        contentComparator:
-        NSObjectProtocolCollectionElementComparator = {$0.isEqual($1)},
-        withHandler diffHandler: NSObjectProtocolCollectionDiffHandler)
-    {
-        self.diff(comparedCollection,
-            differences: differences,
-            indexComparator: {$0.isEqual($1)},
-            contentComparator: contentComparator,
-            withHandler: diffHandler)
-    }
-    
-    /// Diff with an `NSObjectProtocol` collection
-    public func diffNSObjectProtocols(
-        comparedCollection: Self,
-        differences: CollectionDiff,
-        contentComparator:
-        NSObjectProtocolCollectionElementComparator = {$0.isEqual($1)})
-        -> CollectionDiffer<Self>
-    {
-        return self.diff(comparedCollection,
-            equalityComparator: {$0.isEqual($1)},
-            contentComparator: contentComparator)
+    public var diffNSObjectProtocolsAndHandle: CollectionDiffer<Self> {
+        let differ = self.diffAndHandle
+        differ.withEqualityComparator {$0.isEqual($1)}
+        differ.withContentComparator {$0.isEqual($1)}
+        return differ
     }
 }
 
