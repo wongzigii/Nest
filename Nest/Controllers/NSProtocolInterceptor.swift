@@ -13,7 +13,7 @@ import Foundation
 which originally intended to send to the receiver.
 
 - Discussion: `NSProtocolInterceptor` is a class cluster which dynamically
-creates a class which conforms to the intercepted protocols at the runtime.
+subclasses itself to conform to the intercepted protocols at the runtime.
 */
 public final class NSProtocolInterceptor: NSObject {
     /// Returns the intercepted protocols
@@ -109,10 +109,11 @@ public final class NSProtocolInterceptor: NSObject {
     {
         let protocolNames = protocols.map { NSStringFromProtocol($0) }
         let sortedProtocolNames = protocolNames.sort()
-        let concatenatedName = sortedProtocolNames.joinWithSeparator(",")
+        let concatenatedProtocolsName = sortedProtocolNames
+            .joinWithSeparator(",")
         
         let theConcreteClass = concreteClassWithProtocols(protocols,
-            concatenatedName: concatenatedName,
+            concatenatedProtocolsName: concatenatedProtocolsName,
             salt: nil)
         
         let protocolInterceptor = theConcreteClass.init()
@@ -126,14 +127,16 @@ public final class NSProtocolInterceptor: NSObject {
     Return a subclass of `NSProtocolInterceptor` which conforms to specified 
         protocols.
     
-    - Parameter     protocols:          An array of Objective-C protocols. The
-    subclass returned from this function will conform to these protocols.
+    - Parameter     protocols:                  An array of Objective-C 
+    protocols. The subclass returned from this function will conform to these 
+    protocols.
     
-    - Parameter     concatenatedName:   A string which came from concatenating
-    names of `protocols`.
+    - Parameter     concatenatedProtocolsName:  A string which came from 
+    concatenating names of `protocols`.
     
-    - Parameter     salt:               A UInt number appended to the class name
-    which used for distinguishing the class name itself from the duplicated.
+    - Parameter     salt:                       A UInt number appended to the 
+    class name which used for distinguishing the class name itself from the 
+    duplicated.
     
     - Discussion: The return value type of this function can only be
     `NSObject.Type`, because if you return with `NSProtocolInterceptor.Type`, 
@@ -141,14 +144,14 @@ public final class NSProtocolInterceptor: NSObject {
     its subclass.
     */
     private class func concreteClassWithProtocols(protocols: [Protocol],
-        concatenatedName: String,
+        concatenatedProtocolsName: String,
         salt: UInt?)
         -> NSObject.Type
     {
         let className: String = {
             let basicClassName = "_" +
                 NSStringFromClass(NSProtocolInterceptor.self) +
-                "_" + concatenatedName
+                "_" + concatenatedProtocolsName
             
             if let salt = salt { return basicClassName + "_\(salt)" }
                 else { return basicClassName }
@@ -174,12 +177,12 @@ public final class NSProtocolInterceptor: NSObject {
                     return anInterceptorClass
                 } else {
                     return concreteClassWithProtocols(protocols,
-                        concatenatedName: concatenatedName,
+                        concatenatedProtocolsName: concatenatedProtocolsName,
                         salt: nextSalt)
                 }
             default:
                 return concreteClassWithProtocols(protocols,
-                    concatenatedName: concatenatedName,
+                    concatenatedProtocolsName: concatenatedProtocolsName,
                     salt: nextSalt)
             }
         } else {

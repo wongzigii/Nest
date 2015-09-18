@@ -96,7 +96,7 @@ public class NotificationCenter {
                 continue
             }
         }
-        subscriptions.removeIndices(unnecessarySubscriptionIndices)
+        subscriptions.removeIndicesInPlace(unnecessarySubscriptionIndices)
     }
 }
 
@@ -355,8 +355,8 @@ public class NotificationQueue {
             }
         }
         
-        ASAPQueue.removeIndices(removedIndicesInASAPQueue)
-        idleQueue.removeIndices(removedIndicesInIdleQueue)
+        ASAPQueue.removeIndicesInPlace(removedIndicesInASAPQueue)
+        idleQueue.removeIndicesInPlace(removedIndicesInIdleQueue)
     }
     
     private init(_ notificationCenter: NotificationCenter) {

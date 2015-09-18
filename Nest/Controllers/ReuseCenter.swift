@@ -16,19 +16,20 @@ objects by reuse identifier which confrom to `ReusableType` protocol and call
 */
 public final class ReuseCenter<R: ReusableType> {
     public typealias Reusable = R
-    private var reusablesDict: [String: [Reusable]] = [:]
+    public typealias ReuseIdentifier = R.ReuseIdentifier
+    private var reusablesDict: [ReuseIdentifier: [Reusable]] = [:]
     
-    /// Get all reusables for specified reuse identifier. This will not get them
-    /// removed from the queue.
-    public func reusableForReuseIdentifier(reuseIdentifier: String) ->
-        [Reusable]?
+    /// Get all the reusable for specified reuse identifier. This will not get 
+    /// them removed from the queue.
+    public func reusableForReuseIdentifier(reuseIdentifier: ReuseIdentifier)
+        -> [Reusable]?
     {
         return reusablesDict[reuseIdentifier]
     }
     
     /// Dequeue a reusable object by matching the reuse identifier
     public func dequeueReusableWithReuseIdentifier(
-        reuseIdentifier: String) -> Reusable?
+        reuseIdentifier: ReuseIdentifier) -> Reusable?
     {
         if var reusables = reusablesDict[reuseIdentifier] {
             if reusables.count > 0 {
