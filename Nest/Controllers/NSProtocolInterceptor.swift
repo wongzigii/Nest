@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import SwiftExt
 
 /**
 `NSProtocolInterceptor` is a proxy which intercepts messages to the middle man 
@@ -16,18 +17,19 @@ which originally intended to send to the receiver.
 subclasses itself to conform to the intercepted protocols at the runtime.
 */
 public final class NSProtocolInterceptor: NSObject {
-    /// Returns the intercepted protocols
+    /// Returns the intercepted protocols.
     public var interceptedProtocols: [Protocol] { return _interceptedProtocols }
     private var _interceptedProtocols: [Protocol] = []
     
-    /// The receiver receives messages
+    /// The receiver receives messages.
     public weak var receiver: NSObjectProtocol?
     
-    /// The middle man intercepts messages
-    public weak var middleMan: NSObjectProtocol?
+    /// The middle man intercepts messages. The last middle man receives 
+    /// messages firstly.
+    public var middleMen: [Weak<NSObjectProtocol>] = []
     
-    private func doesSelectorBelongToAnyInterceptedProtocol(
-        aSelector: Selector) -> Bool
+    private func doesSelectorBelongToAnyInterceptedProtocol(aSelector: Selector)
+        -> Bool
     {
         for aProtocol in _interceptedProtocols
             where sel_belongsToProtocol(aSelector, aProtocol)
@@ -42,10 +44,20 @@ public final class NSProtocolInterceptor: NSObject {
     public override func forwardingTargetForSelector(aSelector: Selector)
         -> AnyObject?
     {
-        if middleMan?.respondsToSelector(aSelector) == true &&
-            doesSelectorBelongToAnyInterceptedProtocol(aSelector)
-        {
-            return middleMan
+        var emptyMiddleManWrappersIndices = [Int]()
+        
+        defer {
+            middleMen.removeIndicesInPlace(emptyMiddleManWrappersIndices)
+        }
+        
+        for (index, middleManWrapper) in middleMen.reverse().enumerate() {
+            if middleManWrapper.value?.respondsToSelector(aSelector) == true &&
+                doesSelectorBelongToAnyInterceptedProtocol(aSelector)
+            {
+                return middleManWrapper.value
+            } else if middleManWrapper.value == nil {
+                emptyMiddleManWrappersIndices.append(index)
+            }
         }
         
         if receiver?.respondsToSelector(aSelector) == true {
@@ -58,10 +70,20 @@ public final class NSProtocolInterceptor: NSObject {
     /// Returns a Boolean value that indicates whether the receiver implements 
     /// or inherits a method that can respond to a specified message.
     public override func respondsToSelector(aSelector: Selector) -> Bool {
-        if middleMan?.respondsToSelector(aSelector) == true &&
-            doesSelectorBelongToAnyInterceptedProtocol(aSelector)
-        {
-            return true
+        var emptyMiddleManWrappersIndices = [Int]()
+        
+        defer {
+            middleMen.removeIndicesInPlace(emptyMiddleManWrappersIndices)
+        }
+        
+        for (index, eachMiddleMan) in middleMen.reverse().enumerate() {
+            if eachMiddleMan.value?.respondsToSelector(aSelector) == true &&
+                doesSelectorBelongToAnyInterceptedProtocol(aSelector)
+            {
+                return true
+            } else if eachMiddleMan.value == nil {
+                emptyMiddleManWrappersIndices.append(index)
+            }
         }
         
         if receiver?.respondsToSelector(aSelector) == true {
@@ -113,8 +135,7 @@ public final class NSProtocolInterceptor: NSObject {
             .joinWithSeparator(",")
         
         let theConcreteClass = concreteClassWithProtocols(protocols,
-            concatenatedProtocolsName: concatenatedProtocolsName,
-            salt: nil)
+            concatenatedProtocolsName: concatenatedProtocolsName)
         
         let protocolInterceptor = theConcreteClass.init()
             as! NSProtocolInterceptor
@@ -145,7 +166,7 @@ public final class NSProtocolInterceptor: NSObject {
     */
     private class func concreteClassWithProtocols(protocols: [Protocol],
         concatenatedProtocolsName: String,
-        salt: UInt?)
+        salt: UInt? = nil)
         -> NSObject.Type
     {
         let className: String = {
