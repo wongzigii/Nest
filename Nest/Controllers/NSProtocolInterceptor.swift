@@ -170,9 +170,9 @@ public final class NSProtocolInterceptor: NSObject {
         -> NSObject.Type
     {
         let className: String = {
-            let basicClassName = "_" +
-                NSStringFromClass(NSProtocolInterceptor.self) +
-                "_" + concatenatedProtocolsName
+            let basicClassName = NSStringFromClass(NSProtocolInterceptor.self)
+                + "_"
+                + concatenatedProtocolsName
             
             if let salt = salt { return basicClassName + "_\(salt)" }
                 else { return basicClassName }
