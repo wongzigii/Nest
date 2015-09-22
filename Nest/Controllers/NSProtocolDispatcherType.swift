@@ -17,7 +17,7 @@ it will be finally intercepts to the `NSProtocolDispatcherType` itself. You are
 able to add dispatched protocols at the runtime.
 
 - Discussion: `NSProtocolDispatcherType` is different to 
-`NSProtocolInterceptor`, which the role of receiver of `NSProtocolInterceptor` 
+`NSProtocolInterceptor`, where the role of receiver of `NSProtocolInterceptor`
 is just itself.
 */
 public protocol NSProtocolDispatcherType: NSObjectProtocol {
