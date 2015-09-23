@@ -10,18 +10,34 @@ import SwiftExt
 import Foundation
 
 /**
-`NSProtocolDispatcherType` is a proxy which intercepts messages to the 
-last appended dispatching destination which originally intended to send to 
-itself. If all the dispatching destination are not able to respond the message,
-it will be finally intercepts to the `NSProtocolDispatcherType` itself. You are
-able to add dispatched protocols at the runtime.
+By conforming `NSProtocolDispatcherType`, an object turned to be a proxy which
+intercepts messages, which originally intended to send to the object itself, to
+the last appended dispatching destination. If all the dispatching destination
+are not able to respond the message, it will be finally intercepts to the object
+itself. You are able to add dispatched protocols at runtime.
 
-- Discussion: `NSProtocolDispatcherType` is different to 
-`NSProtocolInterceptor`, where the role of receiver of `NSProtocolInterceptor`
-is just itself.
+- Discussion: Where `NSProtocolDispatcherType` is different to
+`NSProtocolInterceptor` is: 1) The role of receiver of `NSProtocolInterceptor`
+is just itself; 2) `NSProtocolDispatcherType` is a pre-implemented protocol but
+`NSProtocolInterceptor` is a class; 3) You are able to add dispatched protocols
+to any object conforms to `NSProtocolDispatcherType` at runtime which 
+`NSProtocolInterceptor` not.
 */
 public protocol NSProtocolDispatcherType: NSObjectProtocol {
     
+}
+
+extension NSProtocolDispatcherType {
+    /// Returns dispatched protocols
+    public var dispatchedProtocols: [Protocol] {
+        return _dispatchedProtocols.allObjects as! [Protocol]
+    }
+    
+    /// Returns registered protocol dispatching destination
+    public var protocolDispatchingDestinations: [NSObjectProtocol] {
+        return _protocolDispatchingDestinations.flatMap
+            {$0.nonretainedObjectValue as? NSObjectProtocol}
+    }
 }
 
 extension NSProtocolDispatcherType {
@@ -29,10 +45,10 @@ extension NSProtocolDispatcherType {
     directed.
     
     - Descusstion: Your should call this method in your class'es
-    forwardingTargetForSelector(:Selector)'s implementation. The reason why you
-    should do in this way is: 1) Protocol extension doesn't override existed
-    implementation in any conformed type; 2) Extension shall always extend and
-    never override.
+    forwardingTargetForSelector(:Selector)'s implementation. The reasons why you
+    should do in this way are: 1) Protocol extension doesn't override existed
+    implementation in any conformed type; 2) Extension shall always extend new
+    members and never override existed members.
     */
     public func nest_forwardingTargetForSelector(aSelector: Selector)
         -> AnyObject?
@@ -68,10 +84,10 @@ extension NSProtocolDispatcherType {
     or inherits a method that can respond to a specified message.
     
     - Descusstion: Your should call this method in your class'es
-    respondsToSelector(:Selector)'s implementation. The reason why you should
+    respondsToSelector(:Selector)'s implementation. The reasons why you should
     do in this way are: 1) Protocol extension doesn't override existed
-    implementation in any conformed type; 2) Extension shall always extend and
-    never override.
+    implementation in any conformed type; 2) Extension shall always extend new
+    members and never override existed members.
     */
     public func nest_respondsToSelector(aSelector: Selector) -> Bool {
         var nilIndices = [Int]()
@@ -99,17 +115,6 @@ extension NSProtocolDispatcherType {
 }
 
 extension NSProtocolDispatcherType {
-    /// Returns dispatched protocols
-    public var dispatchedProtocols: [Protocol] {
-        return _dispatchedProtocols.allObjects as! [Protocol]
-    }
-    
-    /// Returns registered protocol dispatching destination
-    public var protocolDispatchingDestinations: [NSObjectProtocol] {
-        return _protocolDispatchingDestinations.flatMap
-            {$0.nonretainedObjectValue as? NSObjectProtocol}
-    }
-    
     /// Add a dispatched protocol
     public func addDispatchedProtocol(aProtocol: Protocol) {
         _dispatchedProtocols.addObject(aProtocol)
@@ -118,7 +123,7 @@ extension NSProtocolDispatcherType {
         }
     }
     
-    /// Add a variant sort of dispatched protocols
+    /// Add a variable length sort of dispatched protocols
     public func addDispatchedProtocols(protocols: Protocol...) {
         for eachProtocol in protocols {
             _dispatchedProtocols.addObject(eachProtocol)
@@ -143,8 +148,8 @@ extension NSProtocolDispatcherType {
     public func appendProtocolDispatchDestination(
         destination: NSObjectProtocol)
     {
-        let nonRetainedWrapper = NSValue(nonretainedObject: destination)
-        _protocolDispatchingDestinations.append(nonRetainedWrapper)
+        let nonretainedWrapper = NSValue(nonretainedObject: destination)
+        _protocolDispatchingDestinations.append(nonretainedWrapper)
     }
 }
 
@@ -177,6 +182,12 @@ extension NSProtocolDispatcherType {
         }
     }
     
+    /**
+    - Discussion: Because Associated Object is a concept in Objective-C but not
+    Swift and the `Weak` struct in SwiftExt is not convertible to AnyObject, the
+    Objective-C native type - `NSValue` is required here to store nonretained
+    objects.
+    */
     private var _protocolDispatchingDestinations: [NSValue] {
         get {
             if let destinations = objc_getAssociatedObject(self,
