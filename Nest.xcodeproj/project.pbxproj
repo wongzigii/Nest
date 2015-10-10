@@ -50,6 +50,8 @@
 		634711B21B22FC6300FA2C76 /* ObjectiveC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 634711B01B22FC6300FA2C76 /* ObjectiveC.swift */; };
 		634711B41B22FDBE00FA2C76 /* NSReuseCenterTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 634711B31B22FDBE00FA2C76 /* NSReuseCenterTest.swift */; };
 		634711B51B22FDBE00FA2C76 /* NSReuseCenterTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 634711B31B22FDBE00FA2C76 /* NSReuseCenterTest.swift */; };
+		635EC5D41BC3B45A008210B1 /* SubsequentSetupInitializers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635EC5D31BC3B45A008210B1 /* SubsequentSetupInitializers.swift */; settings = {ASSET_TAGS = (); }; };
+		635EC5D61BC3B46F008210B1 /* NSTableView+Modernize.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635EC5D51BC3B46F008210B1 /* NSTableView+Modernize.swift */; settings = {ASSET_TAGS = (); }; };
 		6388F79A1B663CB900CDD64A /* NotificationDeliveryTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6323131C1B65FE9800AEA8EF /* NotificationDeliveryTest.swift */; };
 		6388F79C1B663CD200CDD64A /* NotificationDeliveryTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6323131C1B65FE9800AEA8EF /* NotificationDeliveryTest.swift */; };
 		63A2EA3C1B69DA3900CA9F46 /* NSRunLoopMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A2EA3B1B69DA3900CA9F46 /* NSRunLoopMode.swift */; };
@@ -64,6 +66,9 @@
 		63BC11BF1BBE6E8A00B8CBCE /* NSIndexPath+PrimitiveIndexPathType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63BC11BE1BBE6E8A00B8CBCE /* NSIndexPath+PrimitiveIndexPathType.swift */; settings = {ASSET_TAGS = (); }; };
 		63BC11C01BBE6E8A00B8CBCE /* NSIndexPath+PrimitiveIndexPathType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63BC11BE1BBE6E8A00B8CBCE /* NSIndexPath+PrimitiveIndexPathType.swift */; settings = {ASSET_TAGS = (); }; };
 		63BC11C11BBE6E8A00B8CBCE /* NSIndexPath+PrimitiveIndexPathType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63BC11BE1BBE6E8A00B8CBCE /* NSIndexPath+PrimitiveIndexPathType.swift */; settings = {ASSET_TAGS = (); }; };
+		63C9C0961BC89199006A9F3F /* Associated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C9C0951BC89199006A9F3F /* Associated.swift */; settings = {ASSET_TAGS = (); }; };
+		63C9C0971BC89199006A9F3F /* Associated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C9C0951BC89199006A9F3F /* Associated.swift */; settings = {ASSET_TAGS = (); }; };
+		63C9C0981BC89199006A9F3F /* Associated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C9C0951BC89199006A9F3F /* Associated.swift */; settings = {ASSET_TAGS = (); }; };
 		63EACCF01B6A027D0086561F /* NSProtocolInterceptorTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 634711AD1B22E6FB00FA2C76 /* NSProtocolInterceptorTest.swift */; };
 		63EACCF11B6A027F0086561F /* NSProtocolInterceptorTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 634711AD1B22E6FB00FA2C76 /* NSProtocolInterceptorTest.swift */; };
 /* End PBXBuildFile section */
@@ -118,10 +123,13 @@
 		634711AD1B22E6FB00FA2C76 /* NSProtocolInterceptorTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NSProtocolInterceptorTest.swift; path = NestTest/NSProtocolInterceptorTest.swift; sourceTree = SOURCE_ROOT; };
 		634711B01B22FC6300FA2C76 /* ObjectiveC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObjectiveC.swift; sourceTree = "<group>"; };
 		634711B31B22FDBE00FA2C76 /* NSReuseCenterTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NSReuseCenterTest.swift; path = NestTest/NSReuseCenterTest.swift; sourceTree = SOURCE_ROOT; };
+		635EC5D31BC3B45A008210B1 /* SubsequentSetupInitializers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubsequentSetupInitializers.swift; sourceTree = "<group>"; };
+		635EC5D51BC3B46F008210B1 /* NSTableView+Modernize.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSTableView+Modernize.swift"; sourceTree = "<group>"; };
 		63A2EA3B1B69DA3900CA9F46 /* NSRunLoopMode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSRunLoopMode.swift; sourceTree = "<group>"; };
 		63A521491BB0E30300D7876D /* NSProtocolDispatcherType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSProtocolDispatcherType.swift; sourceTree = "<group>"; };
 		63AADF391B9E97B1007A7116 /* NSIndexPath+Comparable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSIndexPath+Comparable.swift"; sourceTree = "<group>"; };
 		63BC11BE1BBE6E8A00B8CBCE /* NSIndexPath+PrimitiveIndexPathType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSIndexPath+PrimitiveIndexPathType.swift"; sourceTree = "<group>"; };
+		63C9C0951BC89199006A9F3F /* Associated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Associated.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -260,7 +268,8 @@
 		634711691B22D92600FA2C76 /* Nest-for-OS-X */ = {
 			isa = PBXGroup;
 			children = (
-				6347116C1B22D92600FA2C76 /* Nest-for-OS-X.h */,
+				635EC5D31BC3B45A008210B1 /* SubsequentSetupInitializers.swift */,
+				635EC5D51BC3B46F008210B1 /* NSTableView+Modernize.swift */,
 				6347116A1B22D92600FA2C76 /* Supporting Files */,
 			);
 			path = "Nest-for-OS-X";
@@ -269,6 +278,7 @@
 		6347116A1B22D92600FA2C76 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				6347116C1B22D92600FA2C76 /* Nest-for-OS-X.h */,
 				6347116B1B22D92600FA2C76 /* Info.plist */,
 			);
 			name = "Supporting Files";
@@ -350,6 +360,7 @@
 			children = (
 				63A2EA3B1B69DA3900CA9F46 /* NSRunLoopMode.swift */,
 				634711A51B22E4CE00FA2C76 /* ReusableType.swift */,
+				63C9C0951BC89199006A9F3F /* Associated.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -566,6 +577,7 @@
 			files = (
 				630B4D801B48DD4B00830454 /* HierarchicalPickablePicker.swift in Sources */,
 				63BC11C11BBE6E8A00B8CBCE /* NSIndexPath+PrimitiveIndexPathType.swift in Sources */,
+				63C9C0981BC89199006A9F3F /* Associated.swift in Sources */,
 				63A5214C1BB0E30300D7876D /* NSProtocolDispatcherType.swift in Sources */,
 				630B4D7A1B48DD4B00830454 /* NSRange+NSRangeMake.swift in Sources */,
 				631AA5831B6515E70037CF4D /* Notifications.swift in Sources */,
@@ -588,6 +600,7 @@
 			files = (
 				634711971B22D9A200FA2C76 /* NSString+RangesOfString.swift in Sources */,
 				63BC11BF1BBE6E8A00B8CBCE /* NSIndexPath+PrimitiveIndexPathType.swift in Sources */,
+				63C9C0961BC89199006A9F3F /* Associated.swift in Sources */,
 				63A5214A1BB0E30300D7876D /* NSProtocolDispatcherType.swift in Sources */,
 				634711A21B22E4B700FA2C76 /* ReuseCenter.swift in Sources */,
 				631AA5811B6515E70037CF4D /* Notifications.swift in Sources */,
@@ -621,6 +634,7 @@
 				634711981B22D9A200FA2C76 /* NSString+RangesOfString.swift in Sources */,
 				63BC11C01BBE6E8A00B8CBCE /* NSIndexPath+PrimitiveIndexPathType.swift in Sources */,
 				63A5214B1BB0E30300D7876D /* NSProtocolDispatcherType.swift in Sources */,
+				635EC5D61BC3B46F008210B1 /* NSTableView+Modernize.swift in Sources */,
 				634711A31B22E4B700FA2C76 /* ReuseCenter.swift in Sources */,
 				631AA5821B6515E70037CF4D /* Notifications.swift in Sources */,
 				63204CD21B26D844003647C8 /* HierarchicalPickablePicker.swift in Sources */,
@@ -628,10 +642,12 @@
 				63AADF3B1B9E97B1007A7116 /* NSIndexPath+Comparable.swift in Sources */,
 				6347119C1B22D9A200FA2C76 /* Collections.swift in Sources */,
 				634711B21B22FC6300FA2C76 /* ObjectiveC.swift in Sources */,
+				635EC5D41BC3B45A008210B1 /* SubsequentSetupInitializers.swift in Sources */,
 				634711901B22D9A200FA2C76 /* NSDate+Comparable.swift in Sources */,
 				634711961B22D9A200FA2C76 /* NSRange+NSRangeMake.swift in Sources */,
 				634711921B22D9A200FA2C76 /* NSError+InitConveniences.swift in Sources */,
 				634711A01B22DEC700FA2C76 /* NSProtocolInterceptor.swift in Sources */,
+				63C9C0971BC89199006A9F3F /* Associated.swift in Sources */,
 				63A2EA3D1B69DA3900CA9F46 /* NSRunLoopMode.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
