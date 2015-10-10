@@ -33,12 +33,30 @@ extension NSView {
     }
 }
 
+extension NSSplitView {
+    public convenience init(frame frameRect: NSRect,
+        subsequentSetup: (theSplitView: NSSplitView) -> Void)
+    {
+        self.init(frame: frameRect)
+        subsequentSetup(theSplitView: self)
+    }
+}
+
 extension NSTableView {
     public convenience init(frame frameRect: NSRect,
         subsequentSetup: (theTableView: NSTableView) -> Void)
     {
         self.init(frame: frameRect)
         subsequentSetup(theTableView: self)
+    }
+}
+
+extension NSCollectionView {
+    public convenience init(frame frameRect: NSRect,
+        subsequentSetup: (theCollectionView: NSCollectionView) -> Void)
+    {
+        self.init(frame: frameRect)
+        subsequentSetup(theCollectionView: self)
     }
 }
 
