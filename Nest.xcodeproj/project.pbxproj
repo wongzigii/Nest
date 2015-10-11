@@ -68,6 +68,8 @@
 		63C9C0981BC89199006A9F3F /* Associated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C9C0951BC89199006A9F3F /* Associated.swift */; settings = {ASSET_TAGS = (); }; };
 		63EACCF01B6A027D0086561F /* NSProtocolInterceptorTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 634711AD1B22E6FB00FA2C76 /* NSProtocolInterceptorTest.swift */; };
 		63EACCF11B6A027F0086561F /* NSProtocolInterceptorTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 634711AD1B22E6FB00FA2C76 /* NSProtocolInterceptorTest.swift */; };
+		63EE07701BC9F9BB0090DD3C /* NSCollectionView+NSCollectionViewItemReuserType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63EE076F1BC9F9BB0090DD3C /* NSCollectionView+NSCollectionViewItemReuserType.swift */; settings = {ASSET_TAGS = (); }; };
+		63EE07741BCA09810090DD3C /* NSCollectionView+NSCollectionViewSupplementaryViewReuserType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63EE07731BCA09810090DD3C /* NSCollectionView+NSCollectionViewSupplementaryViewReuserType.swift */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -126,6 +128,8 @@
 		63A521491BB0E30300D7876D /* NSProtocolDispatcherType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSProtocolDispatcherType.swift; sourceTree = "<group>"; };
 		63AADF391B9E97B1007A7116 /* NSIndexPath+Comparable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSIndexPath+Comparable.swift"; sourceTree = "<group>"; };
 		63C9C0951BC89199006A9F3F /* Associated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Associated.swift; sourceTree = "<group>"; };
+		63EE076F1BC9F9BB0090DD3C /* NSCollectionView+NSCollectionViewItemReuserType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSCollectionView+NSCollectionViewItemReuserType.swift"; sourceTree = "<group>"; };
+		63EE07731BCA09810090DD3C /* NSCollectionView+NSCollectionViewSupplementaryViewReuserType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSCollectionView+NSCollectionViewSupplementaryViewReuserType.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -266,6 +270,8 @@
 			children = (
 				635EC5D31BC3B45A008210B1 /* SubsequentSetupInitializers.swift */,
 				635EC5D51BC3B46F008210B1 /* NSTableView+Modernize.swift */,
+				63EE076F1BC9F9BB0090DD3C /* NSCollectionView+NSCollectionViewItemReuserType.swift */,
+				63EE07731BCA09810090DD3C /* NSCollectionView+NSCollectionViewSupplementaryViewReuserType.swift */,
 				6347116A1B22D92600FA2C76 /* Supporting Files */,
 			);
 			path = "Nest-for-OS-X";
@@ -628,8 +634,10 @@
 				63A5214B1BB0E30300D7876D /* NSProtocolDispatcherType.swift in Sources */,
 				635EC5D61BC3B46F008210B1 /* NSTableView+Modernize.swift in Sources */,
 				634711A31B22E4B700FA2C76 /* ReuseCenter.swift in Sources */,
+				63EE07741BCA09810090DD3C /* NSCollectionView+NSCollectionViewSupplementaryViewReuserType.swift in Sources */,
 				631AA5821B6515E70037CF4D /* Notifications.swift in Sources */,
 				63204CD21B26D844003647C8 /* HierarchicalPickablePicker.swift in Sources */,
+				63EE07701BC9F9BB0090DD3C /* NSCollectionView+NSCollectionViewItemReuserType.swift in Sources */,
 				634711A71B22E4CE00FA2C76 /* ReusableType.swift in Sources */,
 				63AADF3B1B9E97B1007A7116 /* NSIndexPath+Comparable.swift in Sources */,
 				6347119C1B22D9A200FA2C76 /* Collections.swift in Sources */,
