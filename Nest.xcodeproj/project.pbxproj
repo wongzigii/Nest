@@ -63,6 +63,9 @@
 		63AADF3A1B9E97B1007A7116 /* NSIndexPath+Comparable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63AADF391B9E97B1007A7116 /* NSIndexPath+Comparable.swift */; settings = {ASSET_TAGS = (); }; };
 		63AADF3B1B9E97B1007A7116 /* NSIndexPath+Comparable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63AADF391B9E97B1007A7116 /* NSIndexPath+Comparable.swift */; settings = {ASSET_TAGS = (); }; };
 		63AADF3C1B9E97B1007A7116 /* NSIndexPath+Comparable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63AADF391B9E97B1007A7116 /* NSIndexPath+Comparable.swift */; settings = {ASSET_TAGS = (); }; };
+		63BC11BF1BBE6E8A00B8CBCE /* NSIndexPath+PrimitiveIndexPathType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63BC11BE1BBE6E8A00B8CBCE /* NSIndexPath+PrimitiveIndexPathType.swift */; settings = {ASSET_TAGS = (); }; };
+		63BC11C01BBE6E8A00B8CBCE /* NSIndexPath+PrimitiveIndexPathType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63BC11BE1BBE6E8A00B8CBCE /* NSIndexPath+PrimitiveIndexPathType.swift */; settings = {ASSET_TAGS = (); }; };
+		63BC11C11BBE6E8A00B8CBCE /* NSIndexPath+PrimitiveIndexPathType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63BC11BE1BBE6E8A00B8CBCE /* NSIndexPath+PrimitiveIndexPathType.swift */; settings = {ASSET_TAGS = (); }; };
 		63C9C0961BC89199006A9F3F /* Associated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C9C0951BC89199006A9F3F /* Associated.swift */; settings = {ASSET_TAGS = (); }; };
 		63C9C0971BC89199006A9F3F /* Associated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C9C0951BC89199006A9F3F /* Associated.swift */; settings = {ASSET_TAGS = (); }; };
 		63C9C0981BC89199006A9F3F /* Associated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C9C0951BC89199006A9F3F /* Associated.swift */; settings = {ASSET_TAGS = (); }; };
@@ -127,6 +130,7 @@
 		63A2EA3B1B69DA3900CA9F46 /* NSRunLoopMode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSRunLoopMode.swift; sourceTree = "<group>"; };
 		63A521491BB0E30300D7876D /* NSProtocolDispatcherType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSProtocolDispatcherType.swift; sourceTree = "<group>"; };
 		63AADF391B9E97B1007A7116 /* NSIndexPath+Comparable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSIndexPath+Comparable.swift"; sourceTree = "<group>"; };
+		63BC11BE1BBE6E8A00B8CBCE /* NSIndexPath+PrimitiveIndexPathType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSIndexPath+PrimitiveIndexPathType.swift"; sourceTree = "<group>"; };
 		63C9C0951BC89199006A9F3F /* Associated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Associated.swift; sourceTree = "<group>"; };
 		63EE076F1BC9F9BB0090DD3C /* NSCollectionView+NSCollectionViewItemReuserType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSCollectionView+NSCollectionViewItemReuserType.swift"; sourceTree = "<group>"; };
 		63EE07731BCA09810090DD3C /* NSCollectionView+NSCollectionViewSupplementaryViewReuserType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSCollectionView+NSCollectionViewSupplementaryViewReuserType.swift"; sourceTree = "<group>"; };
@@ -331,6 +335,7 @@
 				634711881B22D9A200FA2C76 /* NSRange+NSRangeMake.swift */,
 				634711891B22D9A200FA2C76 /* NSString+RangesOfString.swift */,
 				63AADF391B9E97B1007A7116 /* NSIndexPath+Comparable.swift */,
+				63BC11BE1BBE6E8A00B8CBCE /* NSIndexPath+PrimitiveIndexPathType.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -577,6 +582,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				630B4D801B48DD4B00830454 /* HierarchicalPickablePicker.swift in Sources */,
+				63BC11C11BBE6E8A00B8CBCE /* NSIndexPath+PrimitiveIndexPathType.swift in Sources */,
 				63C9C0981BC89199006A9F3F /* Associated.swift in Sources */,
 				63A5214C1BB0E30300D7876D /* NSProtocolDispatcherType.swift in Sources */,
 				630B4D7A1B48DD4B00830454 /* NSRange+NSRangeMake.swift in Sources */,
@@ -599,6 +605,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				634711971B22D9A200FA2C76 /* NSString+RangesOfString.swift in Sources */,
+				63BC11BF1BBE6E8A00B8CBCE /* NSIndexPath+PrimitiveIndexPathType.swift in Sources */,
 				63C9C0961BC89199006A9F3F /* Associated.swift in Sources */,
 				63A5214A1BB0E30300D7876D /* NSProtocolDispatcherType.swift in Sources */,
 				634711A21B22E4B700FA2C76 /* ReuseCenter.swift in Sources */,
@@ -631,6 +638,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				634711981B22D9A200FA2C76 /* NSString+RangesOfString.swift in Sources */,
+				63BC11C01BBE6E8A00B8CBCE /* NSIndexPath+PrimitiveIndexPathType.swift in Sources */,
 				63A5214B1BB0E30300D7876D /* NSProtocolDispatcherType.swift in Sources */,
 				635EC5D61BC3B46F008210B1 /* NSTableView+Modernize.swift in Sources */,
 				634711A31B22E4B700FA2C76 /* ReuseCenter.swift in Sources */,
