@@ -1,5 +1,5 @@
 //
-//  NSCollectionView+Modernize.swift
+//  NSCollectionViewItemReuserType.swift
 //  Nest
 //
 //  Created by Manfred on 10/11/15.
