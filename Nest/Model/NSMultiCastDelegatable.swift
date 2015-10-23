@@ -9,7 +9,7 @@
 import Foundation
 import SwiftExt
 
-protocol NSMultiCastDelegatable: class {
+public protocol NSMultiCastDelegatable: class {
     typealias Delegate: AnyObject
     
     var delegates: [Delegate] { get }
@@ -19,7 +19,7 @@ private var weakDelegatesKey =
 "com.WeZZard.Nest.MultiCastDelegateHosterType.weakDelegatesKey"
 
 extension NSMultiCastDelegatable {
-    var delegates: [Delegate] { return weakDelegates.flatMap {$0.value} }
+    public var delegates: [Delegate] { return weakDelegates.flatMap {$0.value} }
     
     private var weakDelegates: [Weak<Delegate>] {
         get {
@@ -35,14 +35,14 @@ extension NSMultiCastDelegatable {
         }
     }
     
-    func addDelegate(delegate: Delegate) {
+    public func addDelegate(delegate: Delegate) {
         let weakDelegate = Weak<Delegate>(delegate)
         if !weakDelegates.contains(weakDelegate) {
             weakDelegates.append(weakDelegate)
         }
     }
     
-    func removeDelegate(delegate: Delegate) {
+    public func removeDelegate(delegate: Delegate) {
         let weakDelegate = Weak<Delegate>(delegate)
         if let index = weakDelegates.indexOf(weakDelegate) {
             weakDelegates.removeAtIndex(index)
