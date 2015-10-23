@@ -8,8 +8,16 @@
 
 import UIKit
 
+public typealias HashableRawRepresentable = protocol<RawRepresentable, Hashable>
+
 public protocol UICollectionViewCellReuserType {
-    typealias CellReuseIdentifier: RawRepresentable
+    typealias CellReuseIdentifier: HashableRawRepresentable
+    
+    func reuseIdentifierForItemAtIndexPath(indexPath: NSIndexPath)
+        -> CellReuseIdentifier
+    
+    static var cellReuseIdentifierToClassMap:
+        [CellReuseIdentifier: UICollectionViewCell.Type] {get}
 }
 
 extension UICollectionViewCellReuserType
@@ -40,5 +48,17 @@ extension UICollectionViewCellReuserType
     {
         collectionView.registerClass(cellClass,
             forCellWithReuseIdentifier: identifier.rawValue)
+    }
+    
+    public func registerCellReuseInfoToCollectionView(
+        collectionView: UICollectionView)
+    {
+        for (reuseIdentifier, aClass) in
+            self.dynamicType.cellReuseIdentifierToClassMap
+        {
+            registerClass(aClass,
+                forCellReuseIdentifier: reuseIdentifier,
+                toCollectionView: collectionView)
+        }
     }
 }

@@ -28,6 +28,11 @@ public final class NSProtocolInterceptor: NSObject {
     /// messages firstly.
     public var middleMen: [Weak<NSObjectProtocol>] = []
     
+    public func containsMiddleMan(middleMan: NSObjectProtocol) -> Bool {
+        for each in middleMen where each.value === middleMan { return true }
+        return false
+    }
+    
     private func doesSelectorBelongToAnyInterceptedProtocol(aSelector: Selector)
         -> Bool
     {

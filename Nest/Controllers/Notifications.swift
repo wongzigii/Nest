@@ -372,11 +372,11 @@ public class NotificationQueue {
                     NSRunLoopMode(rawValue: rawRunloopMode as String)
                 
                 if activity.contains(.BeforeWaiting) {
-                    self.postNotificationsInQueue(&self.idleQueue,
+                    self.postNotificationsInQueue(&self.ASAPQueue,
                         mode: runLoopMode)
                 }
                 if activity.contains(.Exit) {
-                    self.postNotificationsInQueue(&self.ASAPQueue, 
+                    self.postNotificationsInQueue(&self.idleQueue,
                         mode: runLoopMode)
                 }
         }

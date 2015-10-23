@@ -65,7 +65,7 @@ class NSProtocolInterceptorTest: XCTestCase, MessagePool {
         let aProtocolInterceptor = NSProtocolInterceptor
             .forProtocol(OperatorDelegate.self)
         aProtocolInterceptor.receiver = aRealDelegate
-        aProtocolInterceptor.middleMan = self
+        aProtocolInterceptor.containsMiddleMan(self)
         protocolInterceptor = aProtocolInterceptor
         
         delegate = aProtocolInterceptor as? OperatorDelegate

@@ -8,15 +8,32 @@
 
 import UIKit
 
+public protocol UICollectionViewSupplementaryViewKindOfferType {
+    typealias SupplementaryViewKind: HashableRawRepresentable
+}
+
 public protocol UICollectionViewSupplementaryViewReuserType {
-    typealias SupplementaryViewKind: RawRepresentable
-    typealias SupplementaryViewReuseIdentifier: RawRepresentable
+    typealias SupplementaryViewKindOffer:
+    UICollectionViewSupplementaryViewKindOfferType
+    
+    typealias SupplementaryViewReuseIdentifier: HashableRawRepresentable
+    
+    func reuseIdentifierForSupplementaryViewOfKind(kind: SupplementaryViewKind,
+        atIndexPath indexPath: NSIndexPath)
+        -> SupplementaryViewReuseIdentifier
+    
+    static var supplementaryViewReuseIdentifierToClassMap :
+        [SupplementaryViewKindOffer.SupplementaryViewKind:
+        [SupplementaryViewReuseIdentifier: UICollectionReusableView.Type]] {get}
 }
 
 extension UICollectionViewSupplementaryViewReuserType
-    where SupplementaryViewKind.RawValue == String,
+    where SupplementaryViewKindOffer.SupplementaryViewKind.RawValue == String,
     SupplementaryViewReuseIdentifier.RawValue == String
 {
+    typealias SupplementaryViewKind =
+        SupplementaryViewKindOffer.SupplementaryViewKind
+    
     public func registerClass(viewClass: UICollectionReusableView.Type,
         forSupplementaryViewOfKind elementKind: SupplementaryViewKind,
         withReuseIdentifier identifier: SupplementaryViewReuseIdentifier,
@@ -48,5 +65,21 @@ extension UICollectionViewSupplementaryViewReuserType
             elementKind.rawValue,
             withReuseIdentifier: identifier.rawValue,
             forIndexPath: indexPath)
+    }
+    
+    public func registerSupplementaryViewReuseInfoToCollectionView(
+        collectionView: UICollectionView)
+    {
+        
+        for (kind, reuseIdentifierClassMap) in
+            self.dynamicType.supplementaryViewReuseIdentifierToClassMap
+        {
+            for (reuseIdentifier, aClass) in reuseIdentifierClassMap {
+                registerClass(aClass,
+                    forSupplementaryViewOfKind: kind,
+                    withReuseIdentifier: reuseIdentifier,
+                    toCollectionView: collectionView)
+            }
+        }
     }
 }

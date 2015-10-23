@@ -140,7 +140,9 @@ extension NSProtocolDispatcherType {
 extension NSProtocolDispatcherType {
     /// Add a dispatched protocol
     public func addDispatchedProtocol(aProtocol: Protocol) {
-        _dispatchedProtocols.addObject(aProtocol)
+        if !_dispatchedProtocols.containsObject(aProtocol) {
+            _dispatchedProtocols.addObject(aProtocol)
+        }
         if !class_conformsToProtocol(self.dynamicType, aProtocol) {
             class_addProtocol(self.dynamicType, aProtocol)
         }
@@ -149,7 +151,9 @@ extension NSProtocolDispatcherType {
     /// Add a variable length sort of dispatched protocols
     public func addDispatchedProtocols(protocols: Protocol...) {
         for eachProtocol in protocols {
-            _dispatchedProtocols.addObject(eachProtocol)
+            if !_dispatchedProtocols.containsObject(eachProtocol) {
+                _dispatchedProtocols.addObject(eachProtocol)
+            }
             if !class_conformsToProtocol(self.dynamicType, eachProtocol) {
                 class_addProtocol(self.dynamicType, eachProtocol)
             }
@@ -159,7 +163,9 @@ extension NSProtocolDispatcherType {
     /// Add an array of dispatched protocols
     public func addDispatchedProtocols(protocols: [Protocol]) {
         for eachProtocol in protocols {
-            _dispatchedProtocols.addObject(eachProtocol)
+            if !_dispatchedProtocols.containsObject(eachProtocol) {
+                _dispatchedProtocols.addObject(eachProtocol)
+            }
             if !class_conformsToProtocol(self.dynamicType, eachProtocol) {
                 class_addProtocol(self.dynamicType, eachProtocol)
             }
@@ -246,15 +252,15 @@ extension NSProtocolDispatcherType {
         }
     }
     
-    private var _dispatchedProtocols: NSMutableSet {
+    private var _dispatchedProtocols: NSHashTable {
         get {
             if let protocols = objc_getAssociatedObject(self,
                 &dispatchedProtocolsKey)
-                as? NSMutableSet
+                as? NSHashTable
             {
                 return protocols
             } else {
-                let initialValue = NSMutableSet()
+                let initialValue = NSHashTable()
                 objc_setAssociatedObject(self,
                     &dispatchedProtocolsKey,
                     initialValue,
