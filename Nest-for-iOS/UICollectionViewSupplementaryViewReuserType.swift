@@ -12,6 +12,70 @@ public protocol UICollectionViewSupplementaryViewKindOfferType {
     typealias SupplementaryViewKind: HashableRawRepresentable
 }
 
+extension UICollectionViewSupplementaryViewKindOfferType
+    where Self: UICollectionViewLayoutAttributesSpecific,
+    Self.SupplementaryViewKind.RawValue == String
+{
+    public func createLayoutAttributesForSupplementaryViewOfKind(
+        kind: SupplementaryViewKind,
+        withIndexPath indexPath: NSIndexPath)
+        -> LayoutAttributes
+    {
+        return LayoutAttributes(
+            forSupplementaryViewOfKind: kind.rawValue,
+            withIndexPath: indexPath)
+    }
+}
+
+extension UICollectionViewSupplementaryViewKindOfferType
+    where Self: UICollectionViewLayout,
+    Self.SupplementaryViewKind.RawValue == String
+{
+    public func layoutAttributesForSupplementaryViewOfKind(
+        elementKind: SupplementaryViewKind,
+        atIndexPath indexPath: NSIndexPath)
+        -> UICollectionViewLayoutAttributes?
+    {
+        return layoutAttributesForSupplementaryViewOfKind(elementKind.rawValue,
+            atIndexPath: indexPath)
+    }
+    
+    public func initialLayoutAttributesForAppearingSupplementaryElementOfKind(
+        elementKind: SupplementaryViewKind,
+        atIndexPath elementIndexPath: NSIndexPath)
+        -> UICollectionViewLayoutAttributes?
+    {
+        return initialLayoutAttributesForAppearingSupplementaryElementOfKind(
+            elementKind.rawValue,
+            atIndexPath: elementIndexPath)
+    }
+    
+    public func finalLayoutAttributesForDisappearingSupplementaryElementOfKind(
+        elementKind: SupplementaryViewKind,
+        atIndexPath elementIndexPath: NSIndexPath)
+        -> UICollectionViewLayoutAttributes?
+    {
+        return finalLayoutAttributesForDisappearingSupplementaryElementOfKind(
+            elementKind.rawValue,
+            atIndexPath: elementIndexPath)
+    }
+}
+
+extension UICollectionViewSupplementaryViewKindOfferType
+    where Self: UICollectionViewLayoutInvalidationContextSpecific,
+    Self.SupplementaryViewKind.RawValue == String
+{
+    @available(iOS 8.0, *)
+    public func invalidateSupplementaryElementsOfKind
+        (elementKind: SupplementaryViewKind,
+        atIndexPaths indexPaths: [NSIndexPath],
+        withContext context: InvalidationContext)
+    {
+        context.invalidateSupplementaryElementsOfKind(elementKind.rawValue,
+            atIndexPaths: indexPaths)
+    }
+}
+
 public protocol UICollectionViewSupplementaryViewReuserType {
     typealias SupplementaryViewKindOffer:
     UICollectionViewSupplementaryViewKindOfferType
@@ -83,3 +147,4 @@ extension UICollectionViewSupplementaryViewReuserType
         }
     }
 }
+
