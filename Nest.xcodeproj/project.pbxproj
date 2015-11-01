@@ -56,18 +56,10 @@
 		634711B21B22FC6300FA2C76 /* ObjectiveC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 634711B01B22FC6300FA2C76 /* ObjectiveC.swift */; };
 		634711B41B22FDBE00FA2C76 /* NSReuseCenterTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 634711B31B22FDBE00FA2C76 /* NSReuseCenterTest.swift */; };
 		634711B51B22FDBE00FA2C76 /* NSReuseCenterTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 634711B31B22FDBE00FA2C76 /* NSReuseCenterTest.swift */; };
-		635159041BE1AB17002FCDA9 /* UICollectionViewMetaLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635159031BE1AB17002FCDA9 /* UICollectionViewMetaLayout.swift */; };
-		635159061BE1ADF0002FCDA9 /* UICollectionViewLayoutAttributesCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635159051BE1ADF0002FCDA9 /* UICollectionViewLayoutAttributesCache.swift */; };
-		635159081BE1C638002FCDA9 /* UICollectionViewUpdateItem+UpdateUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635159071BE1C638002FCDA9 /* UICollectionViewUpdateItem+UpdateUtilities.swift */; };
-		635EC5D41BC3B45A008210B1 /* SubsequentSetupInitializers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635EC5D31BC3B45A008210B1 /* SubsequentSetupInitializers.swift */; };
-		635EC5D61BC3B46F008210B1 /* NSTableView+Modernize.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635EC5D51BC3B46F008210B1 /* NSTableView+Modernize.swift */; };
 		637B6C5B1BD8DD4600F2EE5A /* NSRunLoop+TaskDispatcherTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 637B6C5A1BD8DD4600F2EE5A /* NSRunLoop+TaskDispatcherTest.swift */; };
 		637B6C5C1BD8DD4600F2EE5A /* NSRunLoop+TaskDispatcherTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 637B6C5A1BD8DD4600F2EE5A /* NSRunLoop+TaskDispatcherTest.swift */; };
-		6386E65A1BD7150400774516 /* UIView+PrintViewHierarchy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6386E6591BD7150400774516 /* UIView+PrintViewHierarchy.swift */; };
-		6386E65C1BD7150E00774516 /* UIViewController+PrintViewHierarchy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6386E65B1BD7150E00774516 /* UIViewController+PrintViewHierarchy.swift */; };
 		6388F79A1B663CB900CDD64A /* NotificationDeliveryTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6323131C1B65FE9800AEA8EF /* NotificationDeliveryTest.swift */; };
 		6388F79C1B663CD200CDD64A /* NotificationDeliveryTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6323131C1B65FE9800AEA8EF /* NotificationDeliveryTest.swift */; };
-		639D3FD81BD637E4008C1246 /* UICollectionViewLayout+LayoutTransactionUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 639D3FD71BD637E4008C1246 /* UICollectionViewLayout+LayoutTransactionUtilities.swift */; };
 		63A2EA3C1B69DA3900CA9F46 /* NSRunLoopMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A2EA3B1B69DA3900CA9F46 /* NSRunLoopMode.swift */; };
 		63A2EA3D1B69DA3900CA9F46 /* NSRunLoopMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A2EA3B1B69DA3900CA9F46 /* NSRunLoopMode.swift */; };
 		63A2EA3E1B69DA3900CA9F46 /* NSRunLoopMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A2EA3B1B69DA3900CA9F46 /* NSRunLoopMode.swift */; };
@@ -85,13 +77,6 @@
 		63C9C0981BC89199006A9F3F /* NSAssociated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C9C0951BC89199006A9F3F /* NSAssociated.swift */; };
 		63EACCF01B6A027D0086561F /* NSProtocolInterceptorTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 634711AD1B22E6FB00FA2C76 /* NSProtocolInterceptorTest.swift */; };
 		63EACCF11B6A027F0086561F /* NSProtocolInterceptorTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 634711AD1B22E6FB00FA2C76 /* NSProtocolInterceptorTest.swift */; };
-		63EE07701BC9F9BB0090DD3C /* NSCollectionViewItemReuserType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63EE076F1BC9F9BB0090DD3C /* NSCollectionViewItemReuserType.swift */; };
-		63EE07741BCA09810090DD3C /* NSCollectionViewSupplementaryViewReuserType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63EE07731BCA09810090DD3C /* NSCollectionViewSupplementaryViewReuserType.swift */; };
-		63EE07761BCA0B690090DD3C /* UITableViewCellReuserType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63EE07751BCA0B690090DD3C /* UITableViewCellReuserType.swift */; };
-		63EE07781BCA0D550090DD3C /* UITableViewHeaderFooterViewReuserType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63EE07771BCA0D550090DD3C /* UITableViewHeaderFooterViewReuserType.swift */; };
-		63EE077A1BCA0E4A0090DD3C /* UICollectionViewCellReuserType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63EE07791BCA0E4A0090DD3C /* UICollectionViewCellReuserType.swift */; };
-		63EE077C1BCA10040090DD3C /* UICollectionViewSupplementaryViewReuserType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63EE077B1BCA10040090DD3C /* UICollectionViewSupplementaryViewReuserType.swift */; };
-		63EE077E1BCA10100090DD3C /* UICollectionViewDecorationViewReuserType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63EE077D1BCA10100090DD3C /* UICollectionViewDecorationViewReuserType.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -146,27 +131,12 @@
 		634711AD1B22E6FB00FA2C76 /* NSProtocolInterceptorTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NSProtocolInterceptorTest.swift; path = NestTest/NSProtocolInterceptorTest.swift; sourceTree = SOURCE_ROOT; };
 		634711B01B22FC6300FA2C76 /* ObjectiveC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObjectiveC.swift; sourceTree = "<group>"; };
 		634711B31B22FDBE00FA2C76 /* NSReuseCenterTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NSReuseCenterTest.swift; path = NestTest/NSReuseCenterTest.swift; sourceTree = SOURCE_ROOT; };
-		635159031BE1AB17002FCDA9 /* UICollectionViewMetaLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UICollectionViewMetaLayout.swift; sourceTree = "<group>"; };
-		635159051BE1ADF0002FCDA9 /* UICollectionViewLayoutAttributesCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UICollectionViewLayoutAttributesCache.swift; sourceTree = "<group>"; };
-		635159071BE1C638002FCDA9 /* UICollectionViewUpdateItem+UpdateUtilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UICollectionViewUpdateItem+UpdateUtilities.swift"; sourceTree = "<group>"; };
-		635EC5D31BC3B45A008210B1 /* SubsequentSetupInitializers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubsequentSetupInitializers.swift; sourceTree = "<group>"; };
-		635EC5D51BC3B46F008210B1 /* NSTableView+Modernize.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSTableView+Modernize.swift"; sourceTree = "<group>"; };
 		637B6C5A1BD8DD4600F2EE5A /* NSRunLoop+TaskDispatcherTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "NSRunLoop+TaskDispatcherTest.swift"; path = "NestTest/NSRunLoop+TaskDispatcherTest.swift"; sourceTree = SOURCE_ROOT; };
-		6386E6591BD7150400774516 /* UIView+PrintViewHierarchy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+PrintViewHierarchy.swift"; sourceTree = "<group>"; };
-		6386E65B1BD7150E00774516 /* UIViewController+PrintViewHierarchy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+PrintViewHierarchy.swift"; sourceTree = "<group>"; };
-		639D3FD71BD637E4008C1246 /* UICollectionViewLayout+LayoutTransactionUtilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UICollectionViewLayout+LayoutTransactionUtilities.swift"; sourceTree = "<group>"; };
 		63A2EA3B1B69DA3900CA9F46 /* NSRunLoopMode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSRunLoopMode.swift; sourceTree = "<group>"; };
 		63A521491BB0E30300D7876D /* NSProtocolDispatcherType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSProtocolDispatcherType.swift; sourceTree = "<group>"; };
 		63AADF391B9E97B1007A7116 /* NSIndexPath+Comparable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSIndexPath+Comparable.swift"; sourceTree = "<group>"; };
 		63BC11BE1BBE6E8A00B8CBCE /* NSIndexPath+PrimitiveIndexPathType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSIndexPath+PrimitiveIndexPathType.swift"; sourceTree = "<group>"; };
 		63C9C0951BC89199006A9F3F /* NSAssociated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSAssociated.swift; sourceTree = "<group>"; };
-		63EE076F1BC9F9BB0090DD3C /* NSCollectionViewItemReuserType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSCollectionViewItemReuserType.swift; sourceTree = "<group>"; };
-		63EE07731BCA09810090DD3C /* NSCollectionViewSupplementaryViewReuserType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSCollectionViewSupplementaryViewReuserType.swift; sourceTree = "<group>"; };
-		63EE07751BCA0B690090DD3C /* UITableViewCellReuserType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UITableViewCellReuserType.swift; sourceTree = "<group>"; };
-		63EE07771BCA0D550090DD3C /* UITableViewHeaderFooterViewReuserType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UITableViewHeaderFooterViewReuserType.swift; sourceTree = "<group>"; };
-		63EE07791BCA0E4A0090DD3C /* UICollectionViewCellReuserType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UICollectionViewCellReuserType.swift; sourceTree = "<group>"; };
-		63EE077B1BCA10040090DD3C /* UICollectionViewSupplementaryViewReuserType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UICollectionViewSupplementaryViewReuserType.swift; sourceTree = "<group>"; };
-		63EE077D1BCA10100090DD3C /* UICollectionViewDecorationViewReuserType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UICollectionViewDecorationViewReuserType.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -272,17 +242,6 @@
 		6347114B1B22D91B00FA2C76 /* Nest-for-iOS */ = {
 			isa = PBXGroup;
 			children = (
-				63EE07791BCA0E4A0090DD3C /* UICollectionViewCellReuserType.swift */,
-				639D3FD71BD637E4008C1246 /* UICollectionViewLayout+LayoutTransactionUtilities.swift */,
-				63EE077B1BCA10040090DD3C /* UICollectionViewSupplementaryViewReuserType.swift */,
-				63EE077D1BCA10100090DD3C /* UICollectionViewDecorationViewReuserType.swift */,
-				63EE07751BCA0B690090DD3C /* UITableViewCellReuserType.swift */,
-				63EE07771BCA0D550090DD3C /* UITableViewHeaderFooterViewReuserType.swift */,
-				6386E6591BD7150400774516 /* UIView+PrintViewHierarchy.swift */,
-				6386E65B1BD7150E00774516 /* UIViewController+PrintViewHierarchy.swift */,
-				635159031BE1AB17002FCDA9 /* UICollectionViewMetaLayout.swift */,
-				635159051BE1ADF0002FCDA9 /* UICollectionViewLayoutAttributesCache.swift */,
-				635159071BE1C638002FCDA9 /* UICollectionViewUpdateItem+UpdateUtilities.swift */,
 				6347114C1B22D91B00FA2C76 /* Supporting Files */,
 			);
 			path = "Nest-for-iOS";
@@ -316,10 +275,6 @@
 		634711691B22D92600FA2C76 /* Nest-for-OS-X */ = {
 			isa = PBXGroup;
 			children = (
-				635EC5D31BC3B45A008210B1 /* SubsequentSetupInitializers.swift */,
-				635EC5D51BC3B46F008210B1 /* NSTableView+Modernize.swift */,
-				63EE076F1BC9F9BB0090DD3C /* NSCollectionViewItemReuserType.swift */,
-				63EE07731BCA09810090DD3C /* NSCollectionViewSupplementaryViewReuserType.swift */,
 				6347116A1B22D92600FA2C76 /* Supporting Files */,
 			);
 			path = "Nest-for-OS-X";
@@ -656,31 +611,20 @@
 				634711971B22D9A200FA2C76 /* NSString+RangesOfString.swift in Sources */,
 				63BC11BF1BBE6E8A00B8CBCE /* NSIndexPath+PrimitiveIndexPathType.swift in Sources */,
 				63C9C0961BC89199006A9F3F /* NSAssociated.swift in Sources */,
-				6386E65C1BD7150E00774516 /* UIViewController+PrintViewHierarchy.swift in Sources */,
 				63A5214A1BB0E30300D7876D /* NSProtocolDispatcherType.swift in Sources */,
 				634711A21B22E4B700FA2C76 /* ReuseCenter.swift in Sources */,
-				63EE077C1BCA10040090DD3C /* UICollectionViewSupplementaryViewReuserType.swift in Sources */,
-				635159081BE1C638002FCDA9 /* UICollectionViewUpdateItem+UpdateUtilities.swift in Sources */,
 				631AA5811B6515E70037CF4D /* Notifications.swift in Sources */,
 				63204CD11B26D844003647C8 /* HierarchicalPickablePicker.swift in Sources */,
 				634711A61B22E4CE00FA2C76 /* ReusableType.swift in Sources */,
-				63EE07761BCA0B690090DD3C /* UITableViewCellReuserType.swift in Sources */,
 				63AADF3A1B9E97B1007A7116 /* NSIndexPath+Comparable.swift in Sources */,
-				639D3FD81BD637E4008C1246 /* UICollectionViewLayout+LayoutTransactionUtilities.swift in Sources */,
-				635159041BE1AB17002FCDA9 /* UICollectionViewMetaLayout.swift in Sources */,
-				63EE07781BCA0D550090DD3C /* UITableViewHeaderFooterViewReuserType.swift in Sources */,
 				6347119B1B22D9A200FA2C76 /* Collections.swift in Sources */,
 				634711B11B22FC6300FA2C76 /* ObjectiveC.swift in Sources */,
-				63EE077A1BCA0E4A0090DD3C /* UICollectionViewCellReuserType.swift in Sources */,
 				632D67081BD8863C00F191DA /* NSRunLoop+TaskDispatcher.swift in Sources */,
 				6347118F1B22D9A200FA2C76 /* NSDate+Comparable.swift in Sources */,
 				6305BA9B1BD9DF07003C51B2 /* NSMultiCastDelegatable.swift in Sources */,
 				634711951B22D9A200FA2C76 /* NSRange+NSRangeMake.swift in Sources */,
 				634711911B22D9A200FA2C76 /* NSError+InitConveniences.swift in Sources */,
 				6347119F1B22DEC700FA2C76 /* NSProtocolInterceptor.swift in Sources */,
-				6386E65A1BD7150400774516 /* UIView+PrintViewHierarchy.swift in Sources */,
-				635159061BE1ADF0002FCDA9 /* UICollectionViewLayoutAttributesCache.swift in Sources */,
-				63EE077E1BCA10100090DD3C /* UICollectionViewDecorationViewReuserType.swift in Sources */,
 				63A2EA3C1B69DA3900CA9F46 /* NSRunLoopMode.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -703,19 +647,15 @@
 				634711981B22D9A200FA2C76 /* NSString+RangesOfString.swift in Sources */,
 				63BC11C01BBE6E8A00B8CBCE /* NSIndexPath+PrimitiveIndexPathType.swift in Sources */,
 				63A5214B1BB0E30300D7876D /* NSProtocolDispatcherType.swift in Sources */,
-				635EC5D61BC3B46F008210B1 /* NSTableView+Modernize.swift in Sources */,
 				6305BA9C1BD9DF07003C51B2 /* NSMultiCastDelegatable.swift in Sources */,
 				634711A31B22E4B700FA2C76 /* ReuseCenter.swift in Sources */,
-				63EE07741BCA09810090DD3C /* NSCollectionViewSupplementaryViewReuserType.swift in Sources */,
 				631AA5821B6515E70037CF4D /* Notifications.swift in Sources */,
 				63204CD21B26D844003647C8 /* HierarchicalPickablePicker.swift in Sources */,
-				63EE07701BC9F9BB0090DD3C /* NSCollectionViewItemReuserType.swift in Sources */,
 				634711A71B22E4CE00FA2C76 /* ReusableType.swift in Sources */,
 				63AADF3B1B9E97B1007A7116 /* NSIndexPath+Comparable.swift in Sources */,
 				632D67091BD8863C00F191DA /* NSRunLoop+TaskDispatcher.swift in Sources */,
 				6347119C1B22D9A200FA2C76 /* Collections.swift in Sources */,
 				634711B21B22FC6300FA2C76 /* ObjectiveC.swift in Sources */,
-				635EC5D41BC3B45A008210B1 /* SubsequentSetupInitializers.swift in Sources */,
 				634711901B22D9A200FA2C76 /* NSDate+Comparable.swift in Sources */,
 				634711961B22D9A200FA2C76 /* NSRange+NSRangeMake.swift in Sources */,
 				634711921B22D9A200FA2C76 /* NSError+InitConveniences.swift in Sources */,
