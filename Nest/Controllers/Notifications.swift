@@ -24,6 +24,8 @@ public class NotificationCenter {
     /// - Discussion: There is only one notification center exist in your app.
     public static let shared = NotificationCenter()
     
+    private var instanceInterfaceSpinLock: OSSpinLock = 0
+    
     private init() {}
     
     private var subscriptions: [NotificationSubscriptionType] = []
@@ -37,12 +39,13 @@ public class NotificationCenter {
     
     - Parameter     queue:              Specifies posting notification queue
     */
-    public func subscriber
-        <N: NotificationType>
+    public func addSubscriber<N: NotificationType>
         (subscriber: NotificationSubscriberType,
-        subscribeNotificationOfType notificationType: N.Type,
+        notificationType: N.Type,
         onQueue queue: NotificationQueue = NotificationQueue.current)
     {
+        OSSpinLockLock(&instanceInterfaceSpinLock)
+        
         let notificationSubscription = NotificationSubscription<N>(
             notificationType: notificationType,
             subscriber: subscriber,
@@ -63,6 +66,40 @@ public class NotificationCenter {
         if !alreadySubscribed {
             subscriptions.append(notificationSubscription)
         }
+        
+        OSSpinLockUnlock(&instanceInterfaceSpinLock)
+    }
+    
+    public func removeSubscriber<N: NotificationType>
+        (subscriber: NotificationSubscriberType,
+        notificationType: N.Type)
+    {
+        OSSpinLockLock(&instanceInterfaceSpinLock)
+        var unnecessarySubscriptionIndices = [Int]()
+        for (index, eachSubscription) in subscriptions.enumerate()
+        {
+            if eachSubscription.subscriber === subscriber {
+                if eachSubscription.subscribedNotificationType(notificationType)
+                {
+                    unnecessarySubscriptionIndices.append(index)
+                }
+            }
+        }
+        subscriptions.removeIndicesInPlace(unnecessarySubscriptionIndices)
+        OSSpinLockUnlock(&instanceInterfaceSpinLock)
+    }
+    
+    public func removeSubscriber(subscriber: NotificationSubscriberType) {
+        OSSpinLockLock(&instanceInterfaceSpinLock)
+        var unnecessarySubscriptionIndices = [Int]()
+        for (index, eachSubscription) in subscriptions.enumerate()
+        {
+            if eachSubscription.subscriber === subscriber {
+                unnecessarySubscriptionIndices.append(index)
+            }
+        }
+        subscriptions.removeIndicesInPlace(unnecessarySubscriptionIndices)
+        OSSpinLockUnlock(&instanceInterfaceSpinLock)
     }
     
     /** 
@@ -78,6 +115,7 @@ public class NotificationCenter {
     public func postNotification(notification: PrimitiveNotificationType,
         onQueue queue: NotificationQueue = NotificationQueue.current)
     {
+        OSSpinLockLock(&instanceInterfaceSpinLock)
         var unnecessarySubscriptionIndices = [Int]()
         for (index, eachSubscription) in subscriptions.enumerate()
         {
@@ -97,6 +135,7 @@ public class NotificationCenter {
             }
         }
         subscriptions.removeIndicesInPlace(unnecessarySubscriptionIndices)
+        OSSpinLockUnlock(&instanceInterfaceSpinLock)
     }
 }
 
@@ -104,12 +143,12 @@ private protocol NotificationPostRequestType {
     var coalescing: NotificationQueue.Coalescing { get }
     var modes: NSRunLoopMode { get }
     
-    var poster: NotificationPosterType { get }
+    var poster: NotificationPosterType? { get }
     var primitiveNotification: PrimitiveNotificationType { get }
 }
 
 extension NotificationPostRequestType {
-    func isRequestingToPostNotification<N: NotificationType>(notification: N)
+    func isRequestedToPostNotification<N: NotificationType>(notification: N)
         -> Bool
     {
         switch self  {
@@ -151,7 +190,8 @@ private struct NotificationPostRequest<N: NotificationType>:
     let coalescing: NotificationQueue.Coalescing
     let modes: NSRunLoopMode
     
-    var poster: NotificationPosterType { return notification.notificationPoster }
+    var poster: NotificationPosterType?
+        { return notification.notificationPoster.value }
     var primitiveNotification: PrimitiveNotificationType { return notification }
     
     init(notification: Notification,
@@ -187,6 +227,9 @@ public class NotificationQueue {
     private var ASAPQueue = [NotificationPostRequestType]()
     private var idleQueue = [NotificationPostRequestType]()
     
+    private static var classInterfaceSpinLock: OSSpinLock = 0
+    private var instanceInterfaceSpinLock: OSSpinLock = 0
+    
     /// These constants specify when notifications are posted.
     public enum PostTiming: Int {
         /// The notification is posted when the run loop is idle.
@@ -211,17 +254,20 @@ public class NotificationQueue {
     
     /// Returns the default notification queue for the current thread.
     public class var current: NotificationQueue {
+        OSSpinLockLock(&classInterfaceSpinLock)
+        defer { OSSpinLockUnlock(&classInterfaceSpinLock) }
+        
         let currentThread = NSThread.currentThread()
-        let threadWrapper = Weak<NSThread>(currentThread)
+        let weakCurrentThread = Weak<NSThread>(currentThread)
         
         if let currentQueue: NotificationQueue = {
-            for (eachThreadWrapper, eachQueue) in queues {
-                if let eachThread = eachThreadWrapper.value {
+            for (weakEachThread, eachQueue) in queues {
+                if let eachThread = weakEachThread.value {
                     if eachThread === currentThread {
                         return eachQueue
                     }
                 } else {
-                    queues[eachThreadWrapper] = nil
+                    queues[weakEachThread] = nil
                 }
             }
             return nil
@@ -230,7 +276,7 @@ public class NotificationQueue {
             return currentQueue
         } else {
             let newQueue = NotificationQueue(NotificationCenter.shared)
-            queues[threadWrapper] = newQueue
+            queues[weakCurrentThread] = newQueue
             return newQueue
         }
     }
@@ -242,14 +288,14 @@ public class NotificationQueue {
         (notification: N,
         timing: PostTiming, 
         coalesce: Coalescing = [],
-        forModes modes: NSRunLoopMode = NSRunLoopMode.defaultMode)
+        forModes modes: NSRunLoopMode = .defaultMode)
     {
+        OSSpinLockLock(&instanceInterfaceSpinLock)
         switch timing {
         case .Now:
-            if !modes.intersect(NSRunLoop.currentRunLoop().currentRunLoopMode)
-                .isEmpty ||
-                modes == []
-            {
+            let currentRunLoopMode =
+            NSRunLoop.currentRunLoop().currentRunLoopMode
+            if !modes.intersect(currentRunLoopMode).isEmpty || modes == [] {
                 notificationCenter.postNotification(notification)
             }
         case .ASAP:
@@ -265,6 +311,7 @@ public class NotificationQueue {
                 modes: modes)
             idleQueue.append(postRequest)
         }
+        OSSpinLockUnlock(&instanceInterfaceSpinLock)
     }
     
     private func postNotificationsInQueue(
@@ -278,7 +325,7 @@ public class NotificationQueue {
         // Coalescing
         // Reverse the qeuue to ensure posting the newest notification
         for postRequest in queue.reverse() {
-            if postRequest.modes.contains(mode) {
+            if postRequest.modes.contains(mode) || postRequest.modes == [] {
                 let shouldIgnorePostRequest: Bool = {
                     for eachCoalesced in coalescedPostRequest
                         where eachCoalesced.shouldCoalesce(postRequest)
@@ -312,6 +359,9 @@ public class NotificationQueue {
         (notification: N,
         coalesce: Coalescing = [])
     {
+        OSSpinLockLock(&instanceInterfaceSpinLock)
+        defer { OSSpinLockUnlock(&instanceInterfaceSpinLock) }
+        
         var removedIndicesInASAPQueue = [Int]()
         var removedIndicesInIdleQueue = [Int]()
         
@@ -324,7 +374,7 @@ public class NotificationQueue {
         for (index, eachPostRequest) in ASAPQueue.enumerate() {
             if containsCoalescingOnType {
                 if eachPostRequest
-                    .isRequestingToPostNotification(notification)
+                    .isRequestedToPostNotification(notification)
                 {
                     removedIndicesInASAPQueue.append(index)
                 }
@@ -341,7 +391,7 @@ public class NotificationQueue {
         for (index, eachPostRequest) in idleQueue.enumerate() {
             if containsCoalescingOnType {
                 if eachPostRequest
-                    .isRequestingToPostNotification(notification)
+                    .isRequestedToPostNotification(notification)
                 {
                     removedIndicesInIdleQueue.append(index)
                 }
@@ -361,28 +411,34 @@ public class NotificationQueue {
     
     private init(_ notificationCenter: NotificationCenter) {
         self.notificationCenter = notificationCenter
+        let observedActivities: CFRunLoopActivity = [.AfterWaiting, .Exit]
         self.runLoopObserver = CFRunLoopObserverCreateWithHandler(
             kCFAllocatorDefault,
-            CFRunLoopActivity.AllActivities.rawValue,
+            observedActivities.rawValue,
             true,
-            0) { (observer, activity) -> Void in
-                let rawRunloopMode =
-                    CFRunLoopCopyCurrentMode(CFRunLoopGetCurrent())
-                let runLoopMode =
-                    NSRunLoopMode(rawValue: rawRunloopMode as String)
-                
-                if activity.contains(.BeforeWaiting) {
-                    self.postNotificationsInQueue(&self.ASAPQueue,
-                        mode: runLoopMode)
-                }
-                if activity.contains(.Exit) {
-                    self.postNotificationsInQueue(&self.idleQueue,
-                        mode: runLoopMode)
-                }
-        }
+            0,
+            handleRunLoopObserver)
+        
         CFRunLoopAddObserver(CFRunLoopGetCurrent(),
             runLoopObserver,
             kCFRunLoopCommonModes)
+    }
+    
+    private func handleRunLoopObserver(observer: CFRunLoopObserver!,
+        activity: CFRunLoopActivity)
+    {
+        print("\(activity.debugDescription)")
+        let rawRunloopMode =
+        CFRunLoopCopyCurrentMode(CFRunLoopGetCurrent())
+        let runLoopMode =
+        NSRunLoopMode(rawValue: rawRunloopMode as String)
+        
+        if activity.contains(.AfterWaiting) {
+            postNotificationsInQueue(&ASAPQueue, mode: runLoopMode)
+        }
+        if activity.contains(.Exit) {
+            postNotificationsInQueue(&idleQueue, mode: runLoopMode)
+        }
     }
     
     deinit {
@@ -399,6 +455,10 @@ private protocol NotificationSubscriptionType: class {
     
     func subscribedNotification
         (notification: PrimitiveNotificationType)
+        -> Bool
+    
+    func subscribedNotificationType<N: NotificationType>
+        (notificationType: N.Type)
         -> Bool
 }
 
@@ -427,6 +487,13 @@ private class NotificationSubscription<N: NotificationType>:
     {
         return notification is Notification
     }
+    
+    func subscribedNotificationType<S : NotificationType>
+        (notificationType: S.Type)
+        -> Bool
+    {
+        return Notification.self == S.self
+    }
 }
 
 private func ==<N: PrimitiveNotificationType>
@@ -434,8 +501,7 @@ private func ==<N: PrimitiveNotificationType>
     rhs: NotificationSubscription<N>)
     -> Bool
 {
-    return lhs.queue === rhs.queue &&
-        lhs.subscriber === rhs.subscriber
+    return lhs.queue === rhs.queue && lhs.subscriber === rhs.subscriber
 }
 
 //MARK: - Notification Center Manageable Type
@@ -449,19 +515,6 @@ public protocol PrimitiveNotificationType {
 extension PrimitiveNotificationType {
     /// Returns the notification name
     public var notificationName: String { return "\(self.dynamicType)" }
-    
-    private func isMatchingPosterOfNotification
-        <N: NotificationType>
-        (notification: N)
-        -> Bool
-    {
-        switch self {
-        case let aConcreteNotification as N:
-            return aConcreteNotification.notificationPoster
-                === notification.notificationPoster
-        default: return false
-        }
-    }
 }
 
 //MARK: - Notification Type
@@ -470,7 +523,7 @@ All the notification should conforms to `NotificationType`
 */
 public protocol NotificationType: PrimitiveNotificationType {
     typealias NotificationPoster: NotificationPosterType
-    var notificationPoster: NotificationPoster {get}
+    var notificationPoster: Weak<NotificationPoster> {get}
 }
 
 //MARK: - Notification Subscriber Type
@@ -478,26 +531,33 @@ public protocol NotificationType: PrimitiveNotificationType {
 All the notification subscribers should conforms to `NotificationSubscriberType`
 */
 public protocol NotificationSubscriberType: class {
-    /// Convenience to subscribe notifications of specific type on specified
-    /// type
-    func subscribeNotificationOfType
-        <N: NotificationType>
-        (notificationType: N.Type,
-        onQueue queue: NotificationQueue)
-    
     /// Handle notifications in this function
     func handleNotification(notification: PrimitiveNotificationType)
 }
 
 extension NotificationSubscriberType {
+    /// Convenience to subscribe notifications of specific type on specified
+    /// type
     public func subscribeNotificationOfType
         <N: NotificationType>
         (notificationType: N.Type,
         onQueue queue: NotificationQueue = NotificationQueue.current)
     {
-        NotificationCenter.shared.subscriber(self,
-            subscribeNotificationOfType: notificationType,
+        NotificationCenter.shared.addSubscriber(self,
+            notificationType: notificationType,
             onQueue: queue)
+    }
+    
+    public func unsubscribeNotificationOfType
+        <N: NotificationType>
+        (notificationType: N.Type)
+    {
+        NotificationCenter.shared.removeSubscriber(self,
+            notificationType: notificationType)
+    }
+    
+    public func unsubscribeNotifications() {
+        NotificationCenter.shared.removeSubscriber(self)
     }
 }
 

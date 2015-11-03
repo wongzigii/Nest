@@ -60,6 +60,7 @@
 		637B6C5C1BD8DD4600F2EE5A /* NSRunLoop+TaskDispatcherTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 637B6C5A1BD8DD4600F2EE5A /* NSRunLoop+TaskDispatcherTest.swift */; };
 		6388F79A1B663CB900CDD64A /* NotificationDeliveryTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6323131C1B65FE9800AEA8EF /* NotificationDeliveryTest.swift */; };
 		6388F79C1B663CD200CDD64A /* NotificationDeliveryTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6323131C1B65FE9800AEA8EF /* NotificationDeliveryTest.swift */; };
+		639D63F31BE85AE500B30F67 /* CFRunLoopActivity+CustomDebugStringConvertible.swift in Sources */ = {isa = PBXBuildFile; fileRef = 639D63F21BE85AE500B30F67 /* CFRunLoopActivity+CustomDebugStringConvertible.swift */; };
 		63A2EA3C1B69DA3900CA9F46 /* NSRunLoopMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A2EA3B1B69DA3900CA9F46 /* NSRunLoopMode.swift */; };
 		63A2EA3D1B69DA3900CA9F46 /* NSRunLoopMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A2EA3B1B69DA3900CA9F46 /* NSRunLoopMode.swift */; };
 		63A2EA3E1B69DA3900CA9F46 /* NSRunLoopMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A2EA3B1B69DA3900CA9F46 /* NSRunLoopMode.swift */; };
@@ -132,6 +133,9 @@
 		634711B01B22FC6300FA2C76 /* ObjectiveC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObjectiveC.swift; sourceTree = "<group>"; };
 		634711B31B22FDBE00FA2C76 /* NSReuseCenterTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NSReuseCenterTest.swift; path = NestTest/NSReuseCenterTest.swift; sourceTree = SOURCE_ROOT; };
 		637B6C5A1BD8DD4600F2EE5A /* NSRunLoop+TaskDispatcherTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "NSRunLoop+TaskDispatcherTest.swift"; path = "NestTest/NSRunLoop+TaskDispatcherTest.swift"; sourceTree = SOURCE_ROOT; };
+		639D63EE1BE8404400B30F67 /* SwiftExt.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftExt.framework; path = "../SwiftExt/build/Debug-iphoneos/SwiftExt.framework"; sourceTree = "<group>"; };
+		639D63F01BE8404E00B30F67 /* SwiftExt.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftExt.framework; path = ../SwiftExt/build/Debug/SwiftExt.framework; sourceTree = "<group>"; };
+		639D63F21BE85AE500B30F67 /* CFRunLoopActivity+CustomDebugStringConvertible.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CFRunLoopActivity+CustomDebugStringConvertible.swift"; sourceTree = "<group>"; };
 		63A2EA3B1B69DA3900CA9F46 /* NSRunLoopMode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSRunLoopMode.swift; sourceTree = "<group>"; };
 		63A521491BB0E30300D7876D /* NSProtocolDispatcherType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSProtocolDispatcherType.swift; sourceTree = "<group>"; };
 		63AADF391B9E97B1007A7116 /* NSIndexPath+Comparable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSIndexPath+Comparable.swift"; sourceTree = "<group>"; };
@@ -186,6 +190,8 @@
 		630B4D6A1B48DC6800830454 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				639D63F01BE8404E00B30F67 /* SwiftExt.framework */,
+				639D63EE1BE8404400B30F67 /* SwiftExt.framework */,
 				632313171B65D8B600AEA8EF /* SwiftExt.framework */,
 				632313151B65D8B100AEA8EF /* SwiftExt.framework */,
 				632313131B65D8A700AEA8EF /* SwiftExt.framework */,
@@ -337,6 +343,7 @@
 				63AADF391B9E97B1007A7116 /* NSIndexPath+Comparable.swift */,
 				63BC11BE1BBE6E8A00B8CBCE /* NSIndexPath+PrimitiveIndexPathType.swift */,
 				632D67071BD8863C00F191DA /* NSRunLoop+TaskDispatcher.swift */,
+				639D63F21BE85AE500B30F67 /* CFRunLoopActivity+CustomDebugStringConvertible.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -612,6 +619,7 @@
 				63BC11BF1BBE6E8A00B8CBCE /* NSIndexPath+PrimitiveIndexPathType.swift in Sources */,
 				63C9C0961BC89199006A9F3F /* NSAssociated.swift in Sources */,
 				63A5214A1BB0E30300D7876D /* NSProtocolDispatcherType.swift in Sources */,
+				639D63F31BE85AE500B30F67 /* CFRunLoopActivity+CustomDebugStringConvertible.swift in Sources */,
 				634711A21B22E4B700FA2C76 /* ReuseCenter.swift in Sources */,
 				631AA5811B6515E70037CF4D /* Notifications.swift in Sources */,
 				63204CD11B26D844003647C8 /* HierarchicalPickablePicker.swift in Sources */,

@@ -9,6 +9,13 @@
 @testable
 import Nest
 import XCTest
+import SwiftExt
+
+enum NotificationTimingToken: String {
+    case Now = "Now"
+    case ASAP = "ASAP"
+    case WhenIdle = "WhenIdle"
+}
 
 class ANotificationPoster: NotificationPosterType {
     
@@ -17,49 +24,51 @@ class ANotificationPoster: NotificationPosterType {
 struct NowNotification: NotificationType {
     typealias NotificationPoster = ANotificationPoster
     
-    let notificationPoster: NotificationPoster
+    let notificationPoster: Weak<NotificationPoster>
     
     var notifiedValue = "Now"
     
     init(poster: NotificationPoster) {
-        self.notificationPoster = poster
+        self.notificationPoster = Weak<NotificationPoster>(poster)
     }
 }
 
 struct ASAPNotification: NotificationType {
     typealias NotificationPoster = ANotificationPoster
     
-    let notificationPoster: NotificationPoster
+    let notificationPoster: Weak<NotificationPoster>
     
     var notifiedValue = "ASAP"
     
     init(poster: NotificationPoster) {
-        self.notificationPoster = poster
+        self.notificationPoster = Weak<NotificationPoster>(poster)
     }
 }
 
 struct IdleNotification: NotificationType {
     typealias NotificationPoster = ANotificationPoster
     
-    let notificationPoster: NotificationPoster
+    let notificationPoster: Weak<NotificationPoster>
     
     var notifiedValue = "Idle"
     
     init(poster: NotificationPoster) {
-        self.notificationPoster = poster
+        self.notificationPoster = Weak<NotificationPoster>(poster)
     }
 }
 
 class NotificationDeliveryTest: XCTestCase {
+    
     let aPoster = ANotificationPoster()
     
-    lazy var aNowNotification: NowNotification = {NowNotification(poster: self.aPoster)}()
-    lazy var anASAPNotification: ASAPNotification = {ASAPNotification(poster: self.aPoster)}()
-    lazy var anIdleNotification: IdleNotification = {IdleNotification(poster: self.aPoster)}()
+    lazy var aNowNotification: NowNotification
+    = {NowNotification(poster: self.aPoster)}()
+    lazy var anASAPNotification: ASAPNotification
+    = {ASAPNotification(poster: self.aPoster)}()
+    lazy var anIdleNotification: IdleNotification
+    = {IdleNotification(poster: self.aPoster)}()
     
-    var nowNotifiedValue: String?
-    var ASAPNotifiedValue: String?
-    var idleNotifiedValue: String?
+    var notificationTimingSymbol: [NotificationTimingToken] = []
     
     override func setUp() {
         super.setUp()
@@ -67,36 +76,49 @@ class NotificationDeliveryTest: XCTestCase {
         subscribeNotificationOfType(NowNotification.self)
         subscribeNotificationOfType(ASAPNotification.self)
         subscribeNotificationOfType(IdleNotification.self)
-        
-        aPoster.postNotification(aNowNotification)
-        aPoster.postNotification(anASAPNotification)
-        aPoster.postNotification(anIdleNotification)
     }
     
     override func tearDown() {
         super.tearDown()
-        
     }
     
+    var globalExpectation: XCTestExpectation?
+    
     func testNotificationDelivery() {
-        XCTAssert(nowNotifiedValue == aNowNotification.notifiedValue,
-            "Post-Now Notification has not been delivered: \(nowNotifiedValue)")
-        XCTAssert(ASAPNotifiedValue == anASAPNotification.notifiedValue,
-            "Post-ASAP Notification has not been delivered: \(ASAPNotifiedValue)")
-        XCTAssert(idleNotifiedValue == anIdleNotification.notifiedValue,
-            "Post-When-Idle notification has not been delivered: \(idleNotifiedValue)")
+        globalExpectation =
+            expectationWithDescription("testNotificationDelivery")
+        
+        NotificationQueue.current.enqueueNotification(aNowNotification,
+            timing: .Now, forModes: [])
+        NotificationQueue.current.enqueueNotification(anASAPNotification,
+            timing: .ASAP, forModes: [])
+        NotificationQueue.current.enqueueNotification(anIdleNotification,
+            timing: .WhenIdle, forModes: [])
+        
+        NSRunLoop.currentRunLoop().runUntilDate(NSDate(timeIntervalSinceNow: 5))
+        
+        waitForExpectationsWithTimeout(10) { (error) -> Void in
+            if let error = error {
+                XCTFail("Dispatch invoke timing test failed with error: \(error)")
+            }
+        }
     }
 }
 
 extension NotificationDeliveryTest: NotificationSubscriberType {
     func handleNotification(notification: PrimitiveNotificationType) {
+        print("\(notification)")
         switch notification {
-        case let aNotification as NowNotification:
-            nowNotifiedValue = aNotification.notifiedValue
-        case let aNotification as ASAPNotification:
-            ASAPNotifiedValue = aNotification.notifiedValue
-        case let aNotification as IdleNotification:
-            idleNotifiedValue = aNotification.notifiedValue
+        case is NowNotification:
+            notificationTimingSymbol.append(.Now)
+        case is ASAPNotification:
+            notificationTimingSymbol.append(.ASAP)
+        case is IdleNotification:
+            notificationTimingSymbol.append(.WhenIdle)
+            
+            if notificationTimingSymbol == [.Now, .ASAP, .WhenIdle] {
+                globalExpectation?.fulfill()
+            }
         default: break
         }
     }

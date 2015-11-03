@@ -157,9 +157,9 @@ extension NSRunLoop {
                 true, 0,
                 handleRunLoopActivityWithObserver)
             
-            CFRunLoopAddObserver(getCFRunLoop(),
-                observer,
-                kCFRunLoopCommonModes)
+            let modes = kCFRunLoopCommonModes
+            
+            CFRunLoopAddObserver(CFRunLoopGetCurrent(), observer, modes)
             
             let wrappedObserver = NSAssociated<CFRunLoopObserver>(observer)
             
