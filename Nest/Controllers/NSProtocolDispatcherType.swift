@@ -10,18 +10,20 @@ import SwiftExt
 import Foundation
 
 /**
-By conforming `NSProtocolDispatcherType`, an object turned to be a proxy which
-intercepts messages, which originally intended to send to the object itself, to
-the last appended dispatching destination. If all the dispatching destinations
-are not able to respond the message, it will be finally dispatched to the object
-itself. You are able to add dispatched protocols at runtime.
+ By conforming `NSProtocolDispatcherType`, an object turned to be a proxy which
+ intercepts messages originally intended to send to the object itself to the 
+ last appended dispatching destination. If all the dispatching destinations are
+ not able to respond the message, it will finally be dispatched to the object 
+ itself. You are able to add dispatched protocols at runtime.
 
-- Discussion: Where `NSProtocolDispatcherType` is different to
-`NSProtocolInterceptor` is: 1) The role of receiver of `NSProtocolInterceptor`
-is just itself; 2) `NSProtocolDispatcherType` is a pre-implemented protocol but
-`NSProtocolInterceptor` is a class; 3) You are able to add dispatched protocols
-to any object conforms to `NSProtocolDispatcherType` at runtime which 
-`NSProtocolInterceptor` not.
+ - Discussion: Where the `NSProtocolDispatcherType` is different from 
+ `NSProtocolInterceptor` is:
+ 1. The role of `NSProtocolInterceptor`'s receiver is just the receiver itself
+ but `NSProtocolDispatcherType` could have multiple receivers;
+ 2. `NSProtocolDispatcherType` is a pre-implemented protocol but 
+ `NSProtocolInterceptor` is a class;
+ 3. You are able to add dispatched protocols to any object conforms to 
+ `NSProtocolDispatcherType` at runtime which `NSProtocolInterceptor` not.
 */
 public protocol NSProtocolDispatcherType: NSObjectProtocol {
     

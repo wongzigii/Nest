@@ -10,7 +10,7 @@ import Foundation
 import SwiftExt
 
 /**
-`NSProtocolInterceptor` is a proxy which intercepts messages to the middle man 
+`NSProtocolInterceptor` is a proxy which intercepts messages to the middle men
 which originally intended to send to the receiver.
 
 - Discussion: `NSProtocolInterceptor` is a class cluster which dynamically
@@ -26,10 +26,26 @@ public final class NSProtocolInterceptor: NSObject {
     
     /// The middle man intercepts messages. The last middle man receives 
     /// messages firstly.
-    public var middleMen: [Weak<NSObjectProtocol>] = []
+    private var _middleMen: [Weak<NSObjectProtocol>] = []
+    public var middleMen: [NSObjectProtocol] {
+        return _middleMen.flatMap {$0.value}
+    }
+    
+    public func addMiddleMan(middleMan: NSObjectProtocol) {
+        _middleMen.append(weakify(middleMan))
+    }
+    
+    public func removeMiddleMan(middleMan: NSObjectProtocol)
+        -> NSObjectProtocol?
+    {
+        if let index = _middleMen.indexOf(weakify(middleMan)) {
+            return _middleMen.removeAtIndex(index).value
+        }
+        return nil
+    }
     
     public func containsMiddleMan(middleMan: NSObjectProtocol) -> Bool {
-        for each in middleMen where each.value === middleMan { return true }
+        for each in _middleMen where each.value === middleMan { return true }
         return false
     }
     
@@ -52,10 +68,10 @@ public final class NSProtocolInterceptor: NSObject {
         var emptyMiddleManWrappersIndices = [Int]()
         
         defer {
-            middleMen.removeIndicesInPlace(emptyMiddleManWrappersIndices)
+            _middleMen.removeIndicesInPlace(emptyMiddleManWrappersIndices)
         }
         
-        for (index, middleManWrapper) in middleMen.reverse().enumerate() {
+        for (index, middleManWrapper) in _middleMen.reverse().enumerate() {
             if middleManWrapper.value?.respondsToSelector(aSelector) == true &&
                 doesSelectorBelongToAnyInterceptedProtocol(aSelector)
             {
@@ -78,10 +94,10 @@ public final class NSProtocolInterceptor: NSObject {
         var emptyMiddleManWrappersIndices = [Int]()
         
         defer {
-            middleMen.removeIndicesInPlace(emptyMiddleManWrappersIndices)
+            _middleMen.removeIndicesInPlace(emptyMiddleManWrappersIndices)
         }
         
-        for (index, eachMiddleMan) in middleMen.reverse().enumerate() {
+        for (index, eachMiddleMan) in _middleMen.reverse().enumerate() {
             if eachMiddleMan.value?.respondsToSelector(aSelector) == true &&
                 doesSelectorBelongToAnyInterceptedProtocol(aSelector)
             {

@@ -56,6 +56,24 @@
 		634711B21B22FC6300FA2C76 /* ObjectiveC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 634711B01B22FC6300FA2C76 /* ObjectiveC.swift */; };
 		634711B41B22FDBE00FA2C76 /* NSReuseCenterTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 634711B31B22FDBE00FA2C76 /* NSReuseCenterTest.swift */; };
 		634711B51B22FDBE00FA2C76 /* NSReuseCenterTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 634711B31B22FDBE00FA2C76 /* NSReuseCenterTest.swift */; };
+		635F96811BF048EA00A57670 /* NSObject+SubsequentSetupInitializable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F96801BF048EA00A57670 /* NSObject+SubsequentSetupInitializable.swift */; };
+		635F96821BF048EA00A57670 /* NSObject+SubsequentSetupInitializable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F96801BF048EA00A57670 /* NSObject+SubsequentSetupInitializable.swift */; };
+		635F96831BF048EA00A57670 /* NSObject+SubsequentSetupInitializable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F96801BF048EA00A57670 /* NSObject+SubsequentSetupInitializable.swift */; };
+		635F96B51BF0638100A57670 /* NSCodingEncodableDecodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F96B41BF0638100A57670 /* NSCodingEncodableDecodable.swift */; };
+		635F96B61BF0638100A57670 /* NSCodingEncodableDecodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F96B41BF0638100A57670 /* NSCodingEncodableDecodable.swift */; };
+		635F96B71BF0638100A57670 /* NSCodingEncodableDecodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F96B41BF0638100A57670 /* NSCodingEncodableDecodable.swift */; };
+		635F96B91BF0727C00A57670 /* NSKeyValueAccessible.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F96B81BF0727C00A57670 /* NSKeyValueAccessible.swift */; };
+		635F96BA1BF0727C00A57670 /* NSKeyValueAccessible.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F96B81BF0727C00A57670 /* NSKeyValueAccessible.swift */; };
+		635F96BB1BF0727C00A57670 /* NSKeyValueAccessible.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F96B81BF0727C00A57670 /* NSKeyValueAccessible.swift */; };
+		635F96BD1BF0775B00A57670 /* NSCoding+NSKeyValueAccessible.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F96BC1BF0775B00A57670 /* NSCoding+NSKeyValueAccessible.swift */; };
+		635F96BE1BF0775B00A57670 /* NSCoding+NSKeyValueAccessible.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F96BC1BF0775B00A57670 /* NSCoding+NSKeyValueAccessible.swift */; };
+		635F96BF1BF0775B00A57670 /* NSCoding+NSKeyValueAccessible.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F96BC1BF0775B00A57670 /* NSCoding+NSKeyValueAccessible.swift */; };
+		635F96C31BF0832A00A57670 /* PersistenceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F96C21BF0832A00A57670 /* PersistenceController.swift */; };
+		635F96C41BF0832A00A57670 /* PersistenceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F96C21BF0832A00A57670 /* PersistenceController.swift */; };
+		635F96C51BF0832A00A57670 /* PersistenceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F96C21BF0832A00A57670 /* PersistenceController.swift */; };
+		635F96CE1BF0872500A57670 /* NSPersistentStoreType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F96CD1BF0872500A57670 /* NSPersistentStoreType.swift */; };
+		635F96CF1BF0872500A57670 /* NSPersistentStoreType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F96CD1BF0872500A57670 /* NSPersistentStoreType.swift */; };
+		635F96D01BF0872500A57670 /* NSPersistentStoreType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F96CD1BF0872500A57670 /* NSPersistentStoreType.swift */; };
 		637B6C5B1BD8DD4600F2EE5A /* NSRunLoop+TaskDispatcherTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 637B6C5A1BD8DD4600F2EE5A /* NSRunLoop+TaskDispatcherTest.swift */; };
 		637B6C5C1BD8DD4600F2EE5A /* NSRunLoop+TaskDispatcherTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 637B6C5A1BD8DD4600F2EE5A /* NSRunLoop+TaskDispatcherTest.swift */; };
 		6388F79A1B663CB900CDD64A /* NotificationDeliveryTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6323131C1B65FE9800AEA8EF /* NotificationDeliveryTest.swift */; };
@@ -132,6 +150,12 @@
 		634711AD1B22E6FB00FA2C76 /* NSProtocolInterceptorTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NSProtocolInterceptorTest.swift; path = NestTest/NSProtocolInterceptorTest.swift; sourceTree = SOURCE_ROOT; };
 		634711B01B22FC6300FA2C76 /* ObjectiveC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObjectiveC.swift; sourceTree = "<group>"; };
 		634711B31B22FDBE00FA2C76 /* NSReuseCenterTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NSReuseCenterTest.swift; path = NestTest/NSReuseCenterTest.swift; sourceTree = SOURCE_ROOT; };
+		635F96801BF048EA00A57670 /* NSObject+SubsequentSetupInitializable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSObject+SubsequentSetupInitializable.swift"; sourceTree = "<group>"; };
+		635F96B41BF0638100A57670 /* NSCodingEncodableDecodable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSCodingEncodableDecodable.swift; sourceTree = "<group>"; };
+		635F96B81BF0727C00A57670 /* NSKeyValueAccessible.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSKeyValueAccessible.swift; sourceTree = "<group>"; };
+		635F96BC1BF0775B00A57670 /* NSCoding+NSKeyValueAccessible.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSCoding+NSKeyValueAccessible.swift"; sourceTree = "<group>"; };
+		635F96C21BF0832A00A57670 /* PersistenceController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PersistenceController.swift; sourceTree = "<group>"; };
+		635F96CD1BF0872500A57670 /* NSPersistentStoreType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSPersistentStoreType.swift; sourceTree = "<group>"; };
 		637B6C5A1BD8DD4600F2EE5A /* NSRunLoop+TaskDispatcherTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "NSRunLoop+TaskDispatcherTest.swift"; path = "NestTest/NSRunLoop+TaskDispatcherTest.swift"; sourceTree = SOURCE_ROOT; };
 		639D63EE1BE8404400B30F67 /* SwiftExt.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftExt.framework; path = "../SwiftExt/build/Debug-iphoneos/SwiftExt.framework"; sourceTree = "<group>"; };
 		639D63F01BE8404E00B30F67 /* SwiftExt.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftExt.framework; path = ../SwiftExt/build/Debug/SwiftExt.framework; sourceTree = "<group>"; };
@@ -344,6 +368,11 @@
 				63BC11BE1BBE6E8A00B8CBCE /* NSIndexPath+PrimitiveIndexPathType.swift */,
 				632D67071BD8863C00F191DA /* NSRunLoop+TaskDispatcher.swift */,
 				639D63F21BE85AE500B30F67 /* CFRunLoopActivity+CustomDebugStringConvertible.swift */,
+				635F96801BF048EA00A57670 /* NSObject+SubsequentSetupInitializable.swift */,
+				635F96BC1BF0775B00A57670 /* NSCoding+NSKeyValueAccessible.swift */,
+				635F96B81BF0727C00A57670 /* NSKeyValueAccessible.swift */,
+				635F96B41BF0638100A57670 /* NSCodingEncodableDecodable.swift */,
+				635F96CD1BF0872500A57670 /* NSPersistentStoreType.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -365,6 +394,7 @@
 				634711A11B22E4B700FA2C76 /* ReuseCenter.swift */,
 				63204CD01B26D844003647C8 /* HierarchicalPickablePicker.swift */,
 				631AA5801B6515E70037CF4D /* Notifications.swift */,
+				635F96C21BF0832A00A57670 /* PersistenceController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -591,19 +621,25 @@
 			buildActionMask = 2147483647;
 			files = (
 				630B4D801B48DD4B00830454 /* HierarchicalPickablePicker.swift in Sources */,
+				635F96C51BF0832A00A57670 /* PersistenceController.swift in Sources */,
 				63BC11C11BBE6E8A00B8CBCE /* NSIndexPath+PrimitiveIndexPathType.swift in Sources */,
 				6305BA9D1BD9DF07003C51B2 /* NSMultiCastDelegatable.swift in Sources */,
 				63C9C0981BC89199006A9F3F /* NSAssociated.swift in Sources */,
 				63A5214C1BB0E30300D7876D /* NSProtocolDispatcherType.swift in Sources */,
 				630B4D7A1B48DD4B00830454 /* NSRange+NSRangeMake.swift in Sources */,
 				631AA5831B6515E70037CF4D /* Notifications.swift in Sources */,
+				635F96BB1BF0727C00A57670 /* NSKeyValueAccessible.swift in Sources */,
 				630B4D7F1B48DD4B00830454 /* ReuseCenter.swift in Sources */,
+				635F96B71BF0638100A57670 /* NSCodingEncodableDecodable.swift in Sources */,
 				630B4D7E1B48DD4B00830454 /* NSProtocolInterceptor.swift in Sources */,
 				63AADF3C1B9E97B1007A7116 /* NSIndexPath+Comparable.swift in Sources */,
 				630B4D781B48DD4B00830454 /* NSDate+Comparable.swift in Sources */,
 				630B4D791B48DD4B00830454 /* NSError+InitConveniences.swift in Sources */,
+				635F96D01BF0872500A57670 /* NSPersistentStoreType.swift in Sources */,
 				630B4D7B1B48DD4B00830454 /* NSString+RangesOfString.swift in Sources */,
+				635F96831BF048EA00A57670 /* NSObject+SubsequentSetupInitializable.swift in Sources */,
 				632D670A1BD8863C00F191DA /* NSRunLoop+TaskDispatcher.swift in Sources */,
+				635F96BF1BF0775B00A57670 /* NSCoding+NSKeyValueAccessible.swift in Sources */,
 				630B4D811B48DD4B00830454 /* ReusableType.swift in Sources */,
 				630B4D7C1B48DD4B00830454 /* Collections.swift in Sources */,
 				630B4D7D1B48DD4B00830454 /* ObjectiveC.swift in Sources */,
@@ -617,10 +653,13 @@
 			files = (
 				634711971B22D9A200FA2C76 /* NSString+RangesOfString.swift in Sources */,
 				63BC11BF1BBE6E8A00B8CBCE /* NSIndexPath+PrimitiveIndexPathType.swift in Sources */,
+				635F96CE1BF0872500A57670 /* NSPersistentStoreType.swift in Sources */,
 				63C9C0961BC89199006A9F3F /* NSAssociated.swift in Sources */,
 				63A5214A1BB0E30300D7876D /* NSProtocolDispatcherType.swift in Sources */,
+				635F96B91BF0727C00A57670 /* NSKeyValueAccessible.swift in Sources */,
 				639D63F31BE85AE500B30F67 /* CFRunLoopActivity+CustomDebugStringConvertible.swift in Sources */,
 				634711A21B22E4B700FA2C76 /* ReuseCenter.swift in Sources */,
+				635F96811BF048EA00A57670 /* NSObject+SubsequentSetupInitializable.swift in Sources */,
 				631AA5811B6515E70037CF4D /* Notifications.swift in Sources */,
 				63204CD11B26D844003647C8 /* HierarchicalPickablePicker.swift in Sources */,
 				634711A61B22E4CE00FA2C76 /* ReusableType.swift in Sources */,
@@ -628,8 +667,11 @@
 				6347119B1B22D9A200FA2C76 /* Collections.swift in Sources */,
 				634711B11B22FC6300FA2C76 /* ObjectiveC.swift in Sources */,
 				632D67081BD8863C00F191DA /* NSRunLoop+TaskDispatcher.swift in Sources */,
+				635F96C31BF0832A00A57670 /* PersistenceController.swift in Sources */,
 				6347118F1B22D9A200FA2C76 /* NSDate+Comparable.swift in Sources */,
+				635F96B51BF0638100A57670 /* NSCodingEncodableDecodable.swift in Sources */,
 				6305BA9B1BD9DF07003C51B2 /* NSMultiCastDelegatable.swift in Sources */,
+				635F96BD1BF0775B00A57670 /* NSCoding+NSKeyValueAccessible.swift in Sources */,
 				634711951B22D9A200FA2C76 /* NSRange+NSRangeMake.swift in Sources */,
 				634711911B22D9A200FA2C76 /* NSError+InitConveniences.swift in Sources */,
 				6347119F1B22DEC700FA2C76 /* NSProtocolInterceptor.swift in Sources */,
@@ -653,19 +695,25 @@
 			buildActionMask = 2147483647;
 			files = (
 				634711981B22D9A200FA2C76 /* NSString+RangesOfString.swift in Sources */,
+				635F96C41BF0832A00A57670 /* PersistenceController.swift in Sources */,
 				63BC11C01BBE6E8A00B8CBCE /* NSIndexPath+PrimitiveIndexPathType.swift in Sources */,
 				63A5214B1BB0E30300D7876D /* NSProtocolDispatcherType.swift in Sources */,
 				6305BA9C1BD9DF07003C51B2 /* NSMultiCastDelegatable.swift in Sources */,
 				634711A31B22E4B700FA2C76 /* ReuseCenter.swift in Sources */,
 				631AA5821B6515E70037CF4D /* Notifications.swift in Sources */,
 				63204CD21B26D844003647C8 /* HierarchicalPickablePicker.swift in Sources */,
+				635F96BA1BF0727C00A57670 /* NSKeyValueAccessible.swift in Sources */,
 				634711A71B22E4CE00FA2C76 /* ReusableType.swift in Sources */,
+				635F96B61BF0638100A57670 /* NSCodingEncodableDecodable.swift in Sources */,
 				63AADF3B1B9E97B1007A7116 /* NSIndexPath+Comparable.swift in Sources */,
 				632D67091BD8863C00F191DA /* NSRunLoop+TaskDispatcher.swift in Sources */,
 				6347119C1B22D9A200FA2C76 /* Collections.swift in Sources */,
 				634711B21B22FC6300FA2C76 /* ObjectiveC.swift in Sources */,
+				635F96CF1BF0872500A57670 /* NSPersistentStoreType.swift in Sources */,
 				634711901B22D9A200FA2C76 /* NSDate+Comparable.swift in Sources */,
+				635F96821BF048EA00A57670 /* NSObject+SubsequentSetupInitializable.swift in Sources */,
 				634711961B22D9A200FA2C76 /* NSRange+NSRangeMake.swift in Sources */,
+				635F96BE1BF0775B00A57670 /* NSCoding+NSKeyValueAccessible.swift in Sources */,
 				634711921B22D9A200FA2C76 /* NSError+InitConveniences.swift in Sources */,
 				634711A01B22DEC700FA2C76 /* NSProtocolInterceptor.swift in Sources */,
 				63C9C0971BC89199006A9F3F /* NSAssociated.swift in Sources */,
