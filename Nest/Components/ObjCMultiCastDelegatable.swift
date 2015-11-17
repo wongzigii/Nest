@@ -1,5 +1,5 @@
 //
-//  NSMultiCastDelegatable.swift
+//  ObjCMultiCastDelegatable.swift
 //  Nest
 //
 //  Created by Manfred on 10/23/15.
@@ -9,7 +9,7 @@
 import Foundation
 import SwiftExt
 
-public protocol NSMultiCastDelegatable: class {
+public protocol ObjCMultiCastDelegatable: class {
     typealias Delegate: AnyObject
     
     var delegates: [Delegate] { get }
@@ -18,19 +18,19 @@ public protocol NSMultiCastDelegatable: class {
 private var weakDelegatesKey =
 "com.WeZZard.Nest.MultiCastDelegateHosterType.weakDelegatesKey"
 
-extension NSMultiCastDelegatable {
+extension ObjCMultiCastDelegatable {
     public var delegates: [Delegate] { return weakDelegates.flatMap {$0.value} }
     
     private var weakDelegates: [Weak<Delegate>] {
         get {
             return (objc_getAssociatedObject(self, &weakDelegatesKey)
-                as? NSAssociated<[Weak<Delegate>]>)?.value
+                as? ObjCAssociated<[Weak<Delegate>]>)?.value
                 ?? []
         }
         set {
             objc_setAssociatedObject(self,
                 &weakDelegatesKey,
-                NSAssociated<[Weak<Delegate>]>(newValue),
+                ObjCAssociated<[Weak<Delegate>]>(newValue),
                 .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
         }
     }

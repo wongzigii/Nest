@@ -1,5 +1,5 @@
 //
-//  NSObject+SubsequentSetupInitializable.swift
+//  SubsequentSetupInitializable.swift
 //  Nest
 //
 //  Created by Manfred on 11/9/15.

@@ -10,6 +10,19 @@ import SwiftExt
 import Foundation
 
 /**
+ Conforming to `ReusableType` makes an object to be manageable by `ReuseCenter`
+ */
+public protocol ReusableType: class {
+    typealias ReuseIdentifier: Hashable
+    
+    /// Reuse identifier
+    var reuseIdentifier: ReuseIdentifier { get }
+    
+    /// This function will be called before dequeueing
+    func prepareForReuse()
+}
+
+/**
 `ReuseCenter` is designed to make reusing convenient. It can enqueue and dequeue
 objects by reuse identifier which confrom to `ReusableType` protocol and call
 `prepareForReuse()` during the dequeueing.

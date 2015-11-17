@@ -161,7 +161,7 @@ extension NSRunLoop {
             
             CFRunLoopAddObserver(CFRunLoopGetCurrent(), observer, modes)
             
-            let wrappedObserver = NSAssociated<CFRunLoopObserver>(observer)
+            let wrappedObserver = ObjCAssociated<CFRunLoopObserver>(observer)
             
             objc_setAssociatedObject(self,
                 &dispatchObserverKey,
@@ -173,7 +173,7 @@ extension NSRunLoop {
     private var dispatchObserver: CFRunLoopObserver {
         loadDispatchObserverIfNeeded()
         return (objc_getAssociatedObject(self, &dispatchObserverKey)
-            as! NSAssociated<CFRunLoopObserver>)
+            as! ObjCAssociated<CFRunLoopObserver>)
             .value
     }
     

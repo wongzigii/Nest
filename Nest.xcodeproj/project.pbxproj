@@ -7,101 +7,122 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		6305BA9B1BD9DF07003C51B2 /* NSMultiCastDelegatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6305BA9A1BD9DF07003C51B2 /* NSMultiCastDelegatable.swift */; };
-		6305BA9C1BD9DF07003C51B2 /* NSMultiCastDelegatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6305BA9A1BD9DF07003C51B2 /* NSMultiCastDelegatable.swift */; };
-		6305BA9D1BD9DF07003C51B2 /* NSMultiCastDelegatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6305BA9A1BD9DF07003C51B2 /* NSMultiCastDelegatable.swift */; };
 		630B4D531B48473600830454 /* Nest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 634711491B22D91B00FA2C76 /* Nest.framework */; };
 		630B4D541B48473C00830454 /* Nest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 634711681B22D92600FA2C76 /* Nest.framework */; };
-		630B4D731B48DD2F00830454 /* Nest-for-watchOS.h in Headers */ = {isa = PBXBuildFile; fileRef = 630B4D721B48DD2F00830454 /* Nest-for-watchOS.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		630B4D781B48DD4B00830454 /* NSDate+Comparable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 634711851B22D9A200FA2C76 /* NSDate+Comparable.swift */; };
-		630B4D791B48DD4B00830454 /* NSError+InitConveniences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 634711861B22D9A200FA2C76 /* NSError+InitConveniences.swift */; };
-		630B4D7A1B48DD4B00830454 /* NSRange+NSRangeMake.swift in Sources */ = {isa = PBXBuildFile; fileRef = 634711881B22D9A200FA2C76 /* NSRange+NSRangeMake.swift */; };
-		630B4D7B1B48DD4B00830454 /* NSString+RangesOfString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 634711891B22D9A200FA2C76 /* NSString+RangesOfString.swift */; };
-		630B4D7C1B48DD4B00830454 /* Collections.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6347118C1B22D9A200FA2C76 /* Collections.swift */; };
-		630B4D7D1B48DD4B00830454 /* ObjectiveC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 634711B01B22FC6300FA2C76 /* ObjectiveC.swift */; };
-		630B4D7E1B48DD4B00830454 /* ObjCProtocolInterceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6347119E1B22DEC700FA2C76 /* ObjCProtocolInterceptor.swift */; };
-		630B4D7F1B48DD4B00830454 /* ReuseCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 634711A11B22E4B700FA2C76 /* ReuseCenter.swift */; };
-		630B4D801B48DD4B00830454 /* HierarchicalPickablePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63204CD01B26D844003647C8 /* HierarchicalPickablePicker.swift */; };
-		630B4D811B48DD4B00830454 /* ReusableType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 634711A51B22E4CE00FA2C76 /* ReusableType.swift */; };
-		631AA5811B6515E70037CF4D /* Notifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 631AA5801B6515E70037CF4D /* Notifications.swift */; };
-		631AA5821B6515E70037CF4D /* Notifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 631AA5801B6515E70037CF4D /* Notifications.swift */; };
-		631AA5831B6515E70037CF4D /* Notifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 631AA5801B6515E70037CF4D /* Notifications.swift */; };
-		63204CD11B26D844003647C8 /* HierarchicalPickablePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63204CD01B26D844003647C8 /* HierarchicalPickablePicker.swift */; };
-		63204CD21B26D844003647C8 /* HierarchicalPickablePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63204CD01B26D844003647C8 /* HierarchicalPickablePicker.swift */; };
 		632313141B65D8A700AEA8EF /* SwiftExt.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 632313131B65D8A700AEA8EF /* SwiftExt.framework */; };
 		632313161B65D8B100AEA8EF /* SwiftExt.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 632313151B65D8B100AEA8EF /* SwiftExt.framework */; };
 		632313181B65D8B600AEA8EF /* SwiftExt.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 632313171B65D8B600AEA8EF /* SwiftExt.framework */; };
-		632D67081BD8863C00F191DA /* NSRunLoop+TaskDispatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 632D67071BD8863C00F191DA /* NSRunLoop+TaskDispatcher.swift */; };
-		632D67091BD8863C00F191DA /* NSRunLoop+TaskDispatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 632D67071BD8863C00F191DA /* NSRunLoop+TaskDispatcher.swift */; };
-		632D670A1BD8863C00F191DA /* NSRunLoop+TaskDispatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 632D67071BD8863C00F191DA /* NSRunLoop+TaskDispatcher.swift */; };
-		6347114F1B22D91B00FA2C76 /* Nest-for-iOS.h in Headers */ = {isa = PBXBuildFile; fileRef = 6347114E1B22D91B00FA2C76 /* Nest-for-iOS.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		6347116D1B22D92600FA2C76 /* Nest-for-OS-X.h in Headers */ = {isa = PBXBuildFile; fileRef = 6347116C1B22D92600FA2C76 /* Nest-for-OS-X.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		6347118F1B22D9A200FA2C76 /* NSDate+Comparable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 634711851B22D9A200FA2C76 /* NSDate+Comparable.swift */; };
-		634711901B22D9A200FA2C76 /* NSDate+Comparable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 634711851B22D9A200FA2C76 /* NSDate+Comparable.swift */; };
-		634711911B22D9A200FA2C76 /* NSError+InitConveniences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 634711861B22D9A200FA2C76 /* NSError+InitConveniences.swift */; };
-		634711921B22D9A200FA2C76 /* NSError+InitConveniences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 634711861B22D9A200FA2C76 /* NSError+InitConveniences.swift */; };
-		634711951B22D9A200FA2C76 /* NSRange+NSRangeMake.swift in Sources */ = {isa = PBXBuildFile; fileRef = 634711881B22D9A200FA2C76 /* NSRange+NSRangeMake.swift */; };
-		634711961B22D9A200FA2C76 /* NSRange+NSRangeMake.swift in Sources */ = {isa = PBXBuildFile; fileRef = 634711881B22D9A200FA2C76 /* NSRange+NSRangeMake.swift */; };
-		634711971B22D9A200FA2C76 /* NSString+RangesOfString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 634711891B22D9A200FA2C76 /* NSString+RangesOfString.swift */; };
-		634711981B22D9A200FA2C76 /* NSString+RangesOfString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 634711891B22D9A200FA2C76 /* NSString+RangesOfString.swift */; };
-		6347119B1B22D9A200FA2C76 /* Collections.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6347118C1B22D9A200FA2C76 /* Collections.swift */; };
-		6347119C1B22D9A200FA2C76 /* Collections.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6347118C1B22D9A200FA2C76 /* Collections.swift */; };
-		6347119F1B22DEC700FA2C76 /* ObjCProtocolInterceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6347119E1B22DEC700FA2C76 /* ObjCProtocolInterceptor.swift */; };
-		634711A01B22DEC700FA2C76 /* ObjCProtocolInterceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6347119E1B22DEC700FA2C76 /* ObjCProtocolInterceptor.swift */; };
-		634711A21B22E4B700FA2C76 /* ReuseCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 634711A11B22E4B700FA2C76 /* ReuseCenter.swift */; };
-		634711A31B22E4B700FA2C76 /* ReuseCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 634711A11B22E4B700FA2C76 /* ReuseCenter.swift */; };
-		634711A61B22E4CE00FA2C76 /* ReusableType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 634711A51B22E4CE00FA2C76 /* ReusableType.swift */; };
-		634711A71B22E4CE00FA2C76 /* ReusableType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 634711A51B22E4CE00FA2C76 /* ReusableType.swift */; };
-		634711B11B22FC6300FA2C76 /* ObjectiveC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 634711B01B22FC6300FA2C76 /* ObjectiveC.swift */; };
-		634711B21B22FC6300FA2C76 /* ObjectiveC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 634711B01B22FC6300FA2C76 /* ObjectiveC.swift */; };
 		634711B41B22FDBE00FA2C76 /* NSReuseCenterTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 634711B31B22FDBE00FA2C76 /* NSReuseCenterTest.swift */; };
 		634711B51B22FDBE00FA2C76 /* NSReuseCenterTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 634711B31B22FDBE00FA2C76 /* NSReuseCenterTest.swift */; };
-		635F0FB91BF98D97004982B4 /* CFRunLoopActivity+CustomDebugStringConvertible.swift in Sources */ = {isa = PBXBuildFile; fileRef = 639D63F21BE85AE500B30F67 /* CFRunLoopActivity+CustomDebugStringConvertible.swift */; };
-		635F0FBA1BF98D98004982B4 /* CFRunLoopActivity+CustomDebugStringConvertible.swift in Sources */ = {isa = PBXBuildFile; fileRef = 639D63F21BE85AE500B30F67 /* CFRunLoopActivity+CustomDebugStringConvertible.swift */; };
-		635F0FEE1BF9B6A7004982B4 /* NSRange+Equatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F0FED1BF9B6A7004982B4 /* NSRange+Equatable.swift */; };
-		635F0FEF1BF9B6A7004982B4 /* NSRange+Equatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F0FED1BF9B6A7004982B4 /* NSRange+Equatable.swift */; };
-		635F0FF01BF9B6A7004982B4 /* NSRange+Equatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F0FED1BF9B6A7004982B4 /* NSRange+Equatable.swift */; };
-		635F96811BF048EA00A57670 /* NSObject+SubsequentSetupInitializable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F96801BF048EA00A57670 /* NSObject+SubsequentSetupInitializable.swift */; };
-		635F96821BF048EA00A57670 /* NSObject+SubsequentSetupInitializable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F96801BF048EA00A57670 /* NSObject+SubsequentSetupInitializable.swift */; };
-		635F96831BF048EA00A57670 /* NSObject+SubsequentSetupInitializable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F96801BF048EA00A57670 /* NSObject+SubsequentSetupInitializable.swift */; };
-		635F96B51BF0638100A57670 /* NSCodingEncodableDecodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F96B41BF0638100A57670 /* NSCodingEncodableDecodable.swift */; };
-		635F96B61BF0638100A57670 /* NSCodingEncodableDecodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F96B41BF0638100A57670 /* NSCodingEncodableDecodable.swift */; };
-		635F96B71BF0638100A57670 /* NSCodingEncodableDecodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F96B41BF0638100A57670 /* NSCodingEncodableDecodable.swift */; };
-		635F96B91BF0727C00A57670 /* NSKeyValueAccessible.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F96B81BF0727C00A57670 /* NSKeyValueAccessible.swift */; };
-		635F96BA1BF0727C00A57670 /* NSKeyValueAccessible.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F96B81BF0727C00A57670 /* NSKeyValueAccessible.swift */; };
-		635F96BB1BF0727C00A57670 /* NSKeyValueAccessible.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F96B81BF0727C00A57670 /* NSKeyValueAccessible.swift */; };
-		635F96BD1BF0775B00A57670 /* NSCoding+NSKeyValueAccessible.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F96BC1BF0775B00A57670 /* NSCoding+NSKeyValueAccessible.swift */; };
-		635F96BE1BF0775B00A57670 /* NSCoding+NSKeyValueAccessible.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F96BC1BF0775B00A57670 /* NSCoding+NSKeyValueAccessible.swift */; };
-		635F96BF1BF0775B00A57670 /* NSCoding+NSKeyValueAccessible.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F96BC1BF0775B00A57670 /* NSCoding+NSKeyValueAccessible.swift */; };
-		635F96C31BF0832A00A57670 /* PersistenceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F96C21BF0832A00A57670 /* PersistenceController.swift */; };
-		635F96C41BF0832A00A57670 /* PersistenceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F96C21BF0832A00A57670 /* PersistenceController.swift */; };
-		635F96C51BF0832A00A57670 /* PersistenceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F96C21BF0832A00A57670 /* PersistenceController.swift */; };
-		635F96CE1BF0872500A57670 /* NSPersistentStoreType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F96CD1BF0872500A57670 /* NSPersistentStoreType.swift */; };
-		635F96CF1BF0872500A57670 /* NSPersistentStoreType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F96CD1BF0872500A57670 /* NSPersistentStoreType.swift */; };
-		635F96D01BF0872500A57670 /* NSPersistentStoreType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F96CD1BF0872500A57670 /* NSPersistentStoreType.swift */; };
+		635F10AE1BFAFABB004982B4 /* HierarchicalPickablePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F108F1BFAFABB004982B4 /* HierarchicalPickablePicker.swift */; };
+		635F10AF1BFAFABB004982B4 /* HierarchicalPickablePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F108F1BFAFABB004982B4 /* HierarchicalPickablePicker.swift */; };
+		635F10B01BFAFABB004982B4 /* HierarchicalPickablePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F108F1BFAFABB004982B4 /* HierarchicalPickablePicker.swift */; };
+		635F10B11BFAFABB004982B4 /* Notifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F10901BFAFABB004982B4 /* Notifications.swift */; };
+		635F10B21BFAFABB004982B4 /* Notifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F10901BFAFABB004982B4 /* Notifications.swift */; };
+		635F10B31BFAFABB004982B4 /* Notifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F10901BFAFABB004982B4 /* Notifications.swift */; };
+		635F10B41BFAFABB004982B4 /* NSCodingEncodableDecodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F10911BFAFABB004982B4 /* NSCodingEncodableDecodable.swift */; };
+		635F10B51BFAFABB004982B4 /* NSCodingEncodableDecodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F10911BFAFABB004982B4 /* NSCodingEncodableDecodable.swift */; };
+		635F10B61BFAFABB004982B4 /* NSCodingEncodableDecodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F10911BFAFABB004982B4 /* NSCodingEncodableDecodable.swift */; };
+		635F10B71BFAFABB004982B4 /* NSKeyValueAccessible.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F10921BFAFABB004982B4 /* NSKeyValueAccessible.swift */; };
+		635F10B81BFAFABB004982B4 /* NSKeyValueAccessible.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F10921BFAFABB004982B4 /* NSKeyValueAccessible.swift */; };
+		635F10B91BFAFABB004982B4 /* NSKeyValueAccessible.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F10921BFAFABB004982B4 /* NSKeyValueAccessible.swift */; };
+		635F10BA1BFAFABB004982B4 /* ObjCAssociated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F10931BFAFABB004982B4 /* ObjCAssociated.swift */; };
+		635F10BB1BFAFABB004982B4 /* ObjCAssociated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F10931BFAFABB004982B4 /* ObjCAssociated.swift */; };
+		635F10BC1BFAFABB004982B4 /* ObjCAssociated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F10931BFAFABB004982B4 /* ObjCAssociated.swift */; };
+		635F10BD1BFAFABB004982B4 /* ObjCMultiCastDelegatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F10941BFAFABB004982B4 /* ObjCMultiCastDelegatable.swift */; };
+		635F10BE1BFAFABB004982B4 /* ObjCMultiCastDelegatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F10941BFAFABB004982B4 /* ObjCMultiCastDelegatable.swift */; };
+		635F10BF1BFAFABB004982B4 /* ObjCMultiCastDelegatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F10941BFAFABB004982B4 /* ObjCMultiCastDelegatable.swift */; };
+		635F10C01BFAFABB004982B4 /* ObjCProtocolDispatcherType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F10951BFAFABB004982B4 /* ObjCProtocolDispatcherType.swift */; };
+		635F10C11BFAFABB004982B4 /* ObjCProtocolDispatcherType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F10951BFAFABB004982B4 /* ObjCProtocolDispatcherType.swift */; };
+		635F10C21BFAFABB004982B4 /* ObjCProtocolDispatcherType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F10951BFAFABB004982B4 /* ObjCProtocolDispatcherType.swift */; };
+		635F10C31BFAFABB004982B4 /* ObjCProtocolInterceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F10961BFAFABB004982B4 /* ObjCProtocolInterceptor.swift */; };
+		635F10C41BFAFABB004982B4 /* ObjCProtocolInterceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F10961BFAFABB004982B4 /* ObjCProtocolInterceptor.swift */; };
+		635F10C51BFAFABB004982B4 /* ObjCProtocolInterceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F10961BFAFABB004982B4 /* ObjCProtocolInterceptor.swift */; };
+		635F10C61BFAFABB004982B4 /* PersistenceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F10971BFAFABB004982B4 /* PersistenceController.swift */; };
+		635F10C71BFAFABB004982B4 /* PersistenceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F10971BFAFABB004982B4 /* PersistenceController.swift */; };
+		635F10C81BFAFABB004982B4 /* PersistenceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F10971BFAFABB004982B4 /* PersistenceController.swift */; };
+		635F10CF1BFAFABB004982B4 /* CFRunLoopActivity+CustomDebugStringConvertible.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F109B1BFAFABB004982B4 /* CFRunLoopActivity+CustomDebugStringConvertible.swift */; };
+		635F10D01BFAFABB004982B4 /* CFRunLoopActivity+CustomDebugStringConvertible.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F109B1BFAFABB004982B4 /* CFRunLoopActivity+CustomDebugStringConvertible.swift */; };
+		635F10D11BFAFABB004982B4 /* CFRunLoopActivity+CustomDebugStringConvertible.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F109B1BFAFABB004982B4 /* CFRunLoopActivity+CustomDebugStringConvertible.swift */; };
+		635F10D21BFAFABB004982B4 /* NSCoding+NSKeyValueAccessible.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F109C1BFAFABB004982B4 /* NSCoding+NSKeyValueAccessible.swift */; };
+		635F10D31BFAFABB004982B4 /* NSCoding+NSKeyValueAccessible.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F109C1BFAFABB004982B4 /* NSCoding+NSKeyValueAccessible.swift */; };
+		635F10D41BFAFABB004982B4 /* NSCoding+NSKeyValueAccessible.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F109C1BFAFABB004982B4 /* NSCoding+NSKeyValueAccessible.swift */; };
+		635F10D51BFAFABB004982B4 /* NSDate+Comparable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F109D1BFAFABB004982B4 /* NSDate+Comparable.swift */; };
+		635F10D61BFAFABB004982B4 /* NSDate+Comparable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F109D1BFAFABB004982B4 /* NSDate+Comparable.swift */; };
+		635F10D71BFAFABB004982B4 /* NSDate+Comparable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F109D1BFAFABB004982B4 /* NSDate+Comparable.swift */; };
+		635F10D81BFAFABB004982B4 /* NSError+InitConveniences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F109E1BFAFABB004982B4 /* NSError+InitConveniences.swift */; };
+		635F10D91BFAFABB004982B4 /* NSError+InitConveniences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F109E1BFAFABB004982B4 /* NSError+InitConveniences.swift */; };
+		635F10DA1BFAFABB004982B4 /* NSError+InitConveniences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F109E1BFAFABB004982B4 /* NSError+InitConveniences.swift */; };
+		635F10DB1BFAFABB004982B4 /* NSIndexPath+Comparable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F109F1BFAFABB004982B4 /* NSIndexPath+Comparable.swift */; };
+		635F10DC1BFAFABB004982B4 /* NSIndexPath+Comparable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F109F1BFAFABB004982B4 /* NSIndexPath+Comparable.swift */; };
+		635F10DD1BFAFABB004982B4 /* NSIndexPath+Comparable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F109F1BFAFABB004982B4 /* NSIndexPath+Comparable.swift */; };
+		635F10DE1BFAFABB004982B4 /* NSIndexPath+PrimitiveIndexPathType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F10A01BFAFABB004982B4 /* NSIndexPath+PrimitiveIndexPathType.swift */; };
+		635F10DF1BFAFABB004982B4 /* NSIndexPath+PrimitiveIndexPathType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F10A01BFAFABB004982B4 /* NSIndexPath+PrimitiveIndexPathType.swift */; };
+		635F10E01BFAFABB004982B4 /* NSIndexPath+PrimitiveIndexPathType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F10A01BFAFABB004982B4 /* NSIndexPath+PrimitiveIndexPathType.swift */; };
+		635F10E41BFAFABB004982B4 /* NSObjectProtocol+Collections.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F10A21BFAFABB004982B4 /* NSObjectProtocol+Collections.swift */; };
+		635F10E51BFAFABB004982B4 /* NSObjectProtocol+Collections.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F10A21BFAFABB004982B4 /* NSObjectProtocol+Collections.swift */; };
+		635F10E61BFAFABB004982B4 /* NSObjectProtocol+Collections.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F10A21BFAFABB004982B4 /* NSObjectProtocol+Collections.swift */; };
+		635F10E71BFAFABB004982B4 /* NSRange+Equatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F10A31BFAFABB004982B4 /* NSRange+Equatable.swift */; };
+		635F10E81BFAFABB004982B4 /* NSRange+Equatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F10A31BFAFABB004982B4 /* NSRange+Equatable.swift */; };
+		635F10E91BFAFABB004982B4 /* NSRange+Equatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F10A31BFAFABB004982B4 /* NSRange+Equatable.swift */; };
+		635F10EA1BFAFABB004982B4 /* NSRange+NSRangeMake.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F10A41BFAFABB004982B4 /* NSRange+NSRangeMake.swift */; };
+		635F10EB1BFAFABB004982B4 /* NSRange+NSRangeMake.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F10A41BFAFABB004982B4 /* NSRange+NSRangeMake.swift */; };
+		635F10EC1BFAFABB004982B4 /* NSRange+NSRangeMake.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F10A41BFAFABB004982B4 /* NSRange+NSRangeMake.swift */; };
+		635F10ED1BFAFABB004982B4 /* NSRunLoop+TaskDispatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F10A51BFAFABB004982B4 /* NSRunLoop+TaskDispatcher.swift */; };
+		635F10EE1BFAFABB004982B4 /* NSRunLoop+TaskDispatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F10A51BFAFABB004982B4 /* NSRunLoop+TaskDispatcher.swift */; };
+		635F10EF1BFAFABB004982B4 /* NSRunLoop+TaskDispatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F10A51BFAFABB004982B4 /* NSRunLoop+TaskDispatcher.swift */; };
+		635F10F01BFAFABB004982B4 /* NSString+RangesOfString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F10A61BFAFABB004982B4 /* NSString+RangesOfString.swift */; };
+		635F10F11BFAFABB004982B4 /* NSString+RangesOfString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F10A61BFAFABB004982B4 /* NSString+RangesOfString.swift */; };
+		635F10F21BFAFABB004982B4 /* NSString+RangesOfString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F10A61BFAFABB004982B4 /* NSString+RangesOfString.swift */; };
+		635F10F61BFAFABB004982B4 /* MainBundleID.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F10AA1BFAFABB004982B4 /* MainBundleID.swift */; };
+		635F10F71BFAFABB004982B4 /* MainBundleID.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F10AA1BFAFABB004982B4 /* MainBundleID.swift */; };
+		635F10F81BFAFABB004982B4 /* MainBundleID.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F10AA1BFAFABB004982B4 /* MainBundleID.swift */; };
+		635F10F91BFAFABB004982B4 /* NSPersistentStoreType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F10AC1BFAFABB004982B4 /* NSPersistentStoreType.swift */; };
+		635F10FA1BFAFABB004982B4 /* NSPersistentStoreType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F10AC1BFAFABB004982B4 /* NSPersistentStoreType.swift */; };
+		635F10FB1BFAFABB004982B4 /* NSPersistentStoreType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F10AC1BFAFABB004982B4 /* NSPersistentStoreType.swift */; };
+		635F10FC1BFAFABB004982B4 /* NSRunLoopMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F10AD1BFAFABB004982B4 /* NSRunLoopMode.swift */; };
+		635F10FD1BFAFABB004982B4 /* NSRunLoopMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F10AD1BFAFABB004982B4 /* NSRunLoopMode.swift */; };
+		635F10FE1BFAFABB004982B4 /* NSRunLoopMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F10AD1BFAFABB004982B4 /* NSRunLoopMode.swift */; };
+		635F11001BFAFAED004982B4 /* ReuseCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F10FF1BFAFAED004982B4 /* ReuseCenter.swift */; };
+		635F11011BFAFAED004982B4 /* ReuseCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F10FF1BFAFAED004982B4 /* ReuseCenter.swift */; };
+		635F11021BFAFAED004982B4 /* ReuseCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F10FF1BFAFAED004982B4 /* ReuseCenter.swift */; };
+		635F11041BFAFB4D004982B4 /* ObjectiveC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F11031BFAFB4D004982B4 /* ObjectiveC.swift */; };
+		635F11051BFAFB4D004982B4 /* ObjectiveC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F11031BFAFB4D004982B4 /* ObjectiveC.swift */; };
+		635F11061BFAFB4D004982B4 /* ObjectiveC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F11031BFAFB4D004982B4 /* ObjectiveC.swift */; };
+		635F11081BFAFBA5004982B4 /* SubsequentSetupInitializable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F11071BFAFBA5004982B4 /* SubsequentSetupInitializable.swift */; };
+		635F11091BFAFBA5004982B4 /* SubsequentSetupInitializable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F11071BFAFBA5004982B4 /* SubsequentSetupInitializable.swift */; };
+		635F110A1BFAFBA5004982B4 /* SubsequentSetupInitializable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F11071BFAFBA5004982B4 /* SubsequentSetupInitializable.swift */; };
+		635F11341BFAFD00004982B4 /* Nest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 635F112A1BFAFCFF004982B4 /* Nest.framework */; };
+		635F11691BFAFD83004982B4 /* HierarchicalPickablePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F108F1BFAFABB004982B4 /* HierarchicalPickablePicker.swift */; };
+		635F116A1BFAFD83004982B4 /* Notifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F10901BFAFABB004982B4 /* Notifications.swift */; };
+		635F116B1BFAFD83004982B4 /* NSCodingEncodableDecodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F10911BFAFABB004982B4 /* NSCodingEncodableDecodable.swift */; };
+		635F116C1BFAFD83004982B4 /* NSKeyValueAccessible.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F10921BFAFABB004982B4 /* NSKeyValueAccessible.swift */; };
+		635F116D1BFAFD83004982B4 /* ObjCAssociated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F10931BFAFABB004982B4 /* ObjCAssociated.swift */; };
+		635F116E1BFAFD83004982B4 /* ObjCMultiCastDelegatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F10941BFAFABB004982B4 /* ObjCMultiCastDelegatable.swift */; };
+		635F116F1BFAFD83004982B4 /* ObjCProtocolDispatcherType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F10951BFAFABB004982B4 /* ObjCProtocolDispatcherType.swift */; };
+		635F11701BFAFD83004982B4 /* ObjCProtocolInterceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F10961BFAFABB004982B4 /* ObjCProtocolInterceptor.swift */; };
+		635F11711BFAFD83004982B4 /* PersistenceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F10971BFAFABB004982B4 /* PersistenceController.swift */; };
+		635F11721BFAFD83004982B4 /* SubsequentSetupInitializable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F11071BFAFBA5004982B4 /* SubsequentSetupInitializable.swift */; };
+		635F11731BFAFD83004982B4 /* ReuseCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F10FF1BFAFAED004982B4 /* ReuseCenter.swift */; };
+		635F11741BFAFD83004982B4 /* CFRunLoopActivity+CustomDebugStringConvertible.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F109B1BFAFABB004982B4 /* CFRunLoopActivity+CustomDebugStringConvertible.swift */; };
+		635F11751BFAFD83004982B4 /* NSCoding+NSKeyValueAccessible.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F109C1BFAFABB004982B4 /* NSCoding+NSKeyValueAccessible.swift */; };
+		635F11761BFAFD83004982B4 /* NSDate+Comparable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F109D1BFAFABB004982B4 /* NSDate+Comparable.swift */; };
+		635F11771BFAFD83004982B4 /* NSError+InitConveniences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F109E1BFAFABB004982B4 /* NSError+InitConveniences.swift */; };
+		635F11781BFAFD83004982B4 /* NSIndexPath+Comparable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F109F1BFAFABB004982B4 /* NSIndexPath+Comparable.swift */; };
+		635F11791BFAFD83004982B4 /* NSIndexPath+PrimitiveIndexPathType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F10A01BFAFABB004982B4 /* NSIndexPath+PrimitiveIndexPathType.swift */; };
+		635F117A1BFAFD83004982B4 /* NSObjectProtocol+Collections.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F10A21BFAFABB004982B4 /* NSObjectProtocol+Collections.swift */; };
+		635F117B1BFAFD83004982B4 /* NSRange+Equatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F10A31BFAFABB004982B4 /* NSRange+Equatable.swift */; };
+		635F117C1BFAFD83004982B4 /* NSRange+NSRangeMake.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F10A41BFAFABB004982B4 /* NSRange+NSRangeMake.swift */; };
+		635F117D1BFAFD83004982B4 /* NSRunLoop+TaskDispatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F10A51BFAFABB004982B4 /* NSRunLoop+TaskDispatcher.swift */; };
+		635F117E1BFAFD83004982B4 /* NSString+RangesOfString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F10A61BFAFABB004982B4 /* NSString+RangesOfString.swift */; };
+		635F117F1BFAFD83004982B4 /* ObjectiveC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F11031BFAFB4D004982B4 /* ObjectiveC.swift */; };
+		635F11801BFAFD83004982B4 /* MainBundleID.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F10AA1BFAFABB004982B4 /* MainBundleID.swift */; };
+		635F11811BFAFD83004982B4 /* NSPersistentStoreType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F10AC1BFAFABB004982B4 /* NSPersistentStoreType.swift */; };
+		635F11821BFAFD83004982B4 /* NSRunLoopMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F10AD1BFAFABB004982B4 /* NSRunLoopMode.swift */; };
 		637B6C5B1BD8DD4600F2EE5A /* NSRunLoop+TaskDispatcherTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 637B6C5A1BD8DD4600F2EE5A /* NSRunLoop+TaskDispatcherTest.swift */; };
 		637B6C5C1BD8DD4600F2EE5A /* NSRunLoop+TaskDispatcherTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 637B6C5A1BD8DD4600F2EE5A /* NSRunLoop+TaskDispatcherTest.swift */; };
 		6388F79A1B663CB900CDD64A /* NotificationDeliveryTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6323131C1B65FE9800AEA8EF /* NotificationDeliveryTest.swift */; };
 		6388F79C1B663CD200CDD64A /* NotificationDeliveryTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6323131C1B65FE9800AEA8EF /* NotificationDeliveryTest.swift */; };
-		639D63F31BE85AE500B30F67 /* CFRunLoopActivity+CustomDebugStringConvertible.swift in Sources */ = {isa = PBXBuildFile; fileRef = 639D63F21BE85AE500B30F67 /* CFRunLoopActivity+CustomDebugStringConvertible.swift */; };
-		63A2EA3C1B69DA3900CA9F46 /* NSRunLoopMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A2EA3B1B69DA3900CA9F46 /* NSRunLoopMode.swift */; };
-		63A2EA3D1B69DA3900CA9F46 /* NSRunLoopMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A2EA3B1B69DA3900CA9F46 /* NSRunLoopMode.swift */; };
-		63A2EA3E1B69DA3900CA9F46 /* NSRunLoopMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A2EA3B1B69DA3900CA9F46 /* NSRunLoopMode.swift */; };
-		63A5214A1BB0E30300D7876D /* ObjCProtocolDispatcherType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A521491BB0E30300D7876D /* ObjCProtocolDispatcherType.swift */; };
-		63A5214B1BB0E30300D7876D /* ObjCProtocolDispatcherType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A521491BB0E30300D7876D /* ObjCProtocolDispatcherType.swift */; };
-		63A5214C1BB0E30300D7876D /* ObjCProtocolDispatcherType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A521491BB0E30300D7876D /* ObjCProtocolDispatcherType.swift */; };
-		63AADF3A1B9E97B1007A7116 /* NSIndexPath+Comparable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63AADF391B9E97B1007A7116 /* NSIndexPath+Comparable.swift */; };
-		63AADF3B1B9E97B1007A7116 /* NSIndexPath+Comparable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63AADF391B9E97B1007A7116 /* NSIndexPath+Comparable.swift */; };
-		63AADF3C1B9E97B1007A7116 /* NSIndexPath+Comparable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63AADF391B9E97B1007A7116 /* NSIndexPath+Comparable.swift */; };
-		63AF1D961BF87BBE00EE5CDA /* MainBundleID.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63AF1D951BF87BBE00EE5CDA /* MainBundleID.swift */; };
-		63AF1D971BF87BBE00EE5CDA /* MainBundleID.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63AF1D951BF87BBE00EE5CDA /* MainBundleID.swift */; };
-		63AF1D981BF87BBE00EE5CDA /* MainBundleID.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63AF1D951BF87BBE00EE5CDA /* MainBundleID.swift */; };
-		63BC11BF1BBE6E8A00B8CBCE /* NSIndexPath+PrimitiveIndexPathType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63BC11BE1BBE6E8A00B8CBCE /* NSIndexPath+PrimitiveIndexPathType.swift */; };
-		63BC11C01BBE6E8A00B8CBCE /* NSIndexPath+PrimitiveIndexPathType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63BC11BE1BBE6E8A00B8CBCE /* NSIndexPath+PrimitiveIndexPathType.swift */; };
-		63BC11C11BBE6E8A00B8CBCE /* NSIndexPath+PrimitiveIndexPathType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63BC11BE1BBE6E8A00B8CBCE /* NSIndexPath+PrimitiveIndexPathType.swift */; };
-		63C9C0961BC89199006A9F3F /* NSAssociated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C9C0951BC89199006A9F3F /* NSAssociated.swift */; };
-		63C9C0971BC89199006A9F3F /* NSAssociated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C9C0951BC89199006A9F3F /* NSAssociated.swift */; };
-		63C9C0981BC89199006A9F3F /* NSAssociated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C9C0951BC89199006A9F3F /* NSAssociated.swift */; };
 		63EACCF01B6A027D0086561F /* NSProtocolInterceptorTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 634711AD1B22E6FB00FA2C76 /* NSProtocolInterceptorTest.swift */; };
 		63EACCF11B6A027F0086561F /* NSProtocolInterceptorTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 634711AD1B22E6FB00FA2C76 /* NSProtocolInterceptorTest.swift */; };
 /* End PBXBuildFile section */
@@ -121,60 +142,67 @@
 			remoteGlobalIDString = 634711671B22D92600FA2C76;
 			remoteInfo = "Nest-for-OS-X";
 		};
+		635F11351BFAFD00004982B4 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 6347113E1B22D90600FA2C76 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 635F11291BFAFCFF004982B4;
+			remoteInfo = "Nest-tvOS";
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		6305BA9A1BD9DF07003C51B2 /* NSMultiCastDelegatable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSMultiCastDelegatable.swift; sourceTree = "<group>"; };
 		630B4D661B48DC5800830454 /* SwiftExt.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftExt.framework; path = "../../../Library/Developer/Xcode/DerivedData/Nest-cpwynrnxekfpgteqxqbichddezav/Build/Products/Debug/SwiftExt.framework"; sourceTree = "<group>"; };
 		630B4D701B48DD2F00830454 /* Nest.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Nest.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		630B4D721B48DD2F00830454 /* Nest-for-watchOS.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Nest-for-watchOS.h"; sourceTree = "<group>"; };
-		630B4D741B48DD2F00830454 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		630B4DC11B48FF4C00830454 /* SwiftExt.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftExt.framework; path = "../../../Library/Developer/Xcode/DerivedData/Nest-bzfrrjnuqyhzlggnfhrwoghdkynv/Build/Products/Debug/SwiftExt.framework"; sourceTree = "<group>"; };
-		631AA5801B6515E70037CF4D /* Notifications.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Notifications.swift; sourceTree = "<group>"; };
-		63204CD01B26D844003647C8 /* HierarchicalPickablePicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HierarchicalPickablePicker.swift; sourceTree = "<group>"; };
 		632313131B65D8A700AEA8EF /* SwiftExt.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftExt.framework; path = "Frameworks/SwiftExt/build/Debug-iphoneos/SwiftExt.framework"; sourceTree = "<group>"; };
 		632313151B65D8B100AEA8EF /* SwiftExt.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftExt.framework; path = Frameworks/SwiftExt/build/Debug/SwiftExt.framework; sourceTree = "<group>"; };
 		632313171B65D8B600AEA8EF /* SwiftExt.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftExt.framework; path = "Frameworks/SwiftExt/build/Debug-watchos/SwiftExt.framework"; sourceTree = "<group>"; };
 		6323131C1B65FE9800AEA8EF /* NotificationDeliveryTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NotificationDeliveryTest.swift; path = NestTest/NotificationDeliveryTest.swift; sourceTree = SOURCE_ROOT; };
-		632D67071BD8863C00F191DA /* NSRunLoop+TaskDispatcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSRunLoop+TaskDispatcher.swift"; sourceTree = "<group>"; };
 		634711491B22D91B00FA2C76 /* Nest.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Nest.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		6347114D1B22D91B00FA2C76 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		6347114E1B22D91B00FA2C76 /* Nest-for-iOS.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Nest-for-iOS.h"; sourceTree = "<group>"; };
 		634711541B22D91B00FA2C76 /* NestTest.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NestTest.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		6347115A1B22D91B00FA2C76 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		634711681B22D92600FA2C76 /* Nest.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Nest.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		6347116B1B22D92600FA2C76 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		6347116C1B22D92600FA2C76 /* Nest-for-OS-X.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Nest-for-OS-X.h"; sourceTree = "<group>"; };
 		634711721B22D92600FA2C76 /* NestTest.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NestTest.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		634711781B22D92600FA2C76 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		634711851B22D9A200FA2C76 /* NSDate+Comparable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSDate+Comparable.swift"; sourceTree = "<group>"; };
-		634711861B22D9A200FA2C76 /* NSError+InitConveniences.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSError+InitConveniences.swift"; sourceTree = "<group>"; };
-		634711881B22D9A200FA2C76 /* NSRange+NSRangeMake.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSRange+NSRangeMake.swift"; sourceTree = "<group>"; };
-		634711891B22D9A200FA2C76 /* NSString+RangesOfString.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSString+RangesOfString.swift"; sourceTree = "<group>"; };
-		6347118C1B22D9A200FA2C76 /* Collections.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Collections.swift; sourceTree = "<group>"; };
-		6347119E1B22DEC700FA2C76 /* ObjCProtocolInterceptor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObjCProtocolInterceptor.swift; sourceTree = "<group>"; };
-		634711A11B22E4B700FA2C76 /* ReuseCenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReuseCenter.swift; sourceTree = "<group>"; };
-		634711A51B22E4CE00FA2C76 /* ReusableType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReusableType.swift; sourceTree = "<group>"; };
 		634711AD1B22E6FB00FA2C76 /* NSProtocolInterceptorTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NSProtocolInterceptorTest.swift; path = NestTest/NSProtocolInterceptorTest.swift; sourceTree = SOURCE_ROOT; };
-		634711B01B22FC6300FA2C76 /* ObjectiveC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObjectiveC.swift; sourceTree = "<group>"; };
 		634711B31B22FDBE00FA2C76 /* NSReuseCenterTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NSReuseCenterTest.swift; path = NestTest/NSReuseCenterTest.swift; sourceTree = SOURCE_ROOT; };
-		635F0FED1BF9B6A7004982B4 /* NSRange+Equatable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSRange+Equatable.swift"; sourceTree = "<group>"; };
-		635F96801BF048EA00A57670 /* NSObject+SubsequentSetupInitializable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSObject+SubsequentSetupInitializable.swift"; sourceTree = "<group>"; };
-		635F96B41BF0638100A57670 /* NSCodingEncodableDecodable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSCodingEncodableDecodable.swift; sourceTree = "<group>"; };
-		635F96B81BF0727C00A57670 /* NSKeyValueAccessible.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSKeyValueAccessible.swift; sourceTree = "<group>"; };
-		635F96BC1BF0775B00A57670 /* NSCoding+NSKeyValueAccessible.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSCoding+NSKeyValueAccessible.swift"; sourceTree = "<group>"; };
-		635F96C21BF0832A00A57670 /* PersistenceController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PersistenceController.swift; sourceTree = "<group>"; };
-		635F96CD1BF0872500A57670 /* NSPersistentStoreType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSPersistentStoreType.swift; sourceTree = "<group>"; };
+		635F108F1BFAFABB004982B4 /* HierarchicalPickablePicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HierarchicalPickablePicker.swift; sourceTree = "<group>"; };
+		635F10901BFAFABB004982B4 /* Notifications.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Notifications.swift; sourceTree = "<group>"; };
+		635F10911BFAFABB004982B4 /* NSCodingEncodableDecodable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSCodingEncodableDecodable.swift; sourceTree = "<group>"; };
+		635F10921BFAFABB004982B4 /* NSKeyValueAccessible.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSKeyValueAccessible.swift; sourceTree = "<group>"; };
+		635F10931BFAFABB004982B4 /* ObjCAssociated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObjCAssociated.swift; sourceTree = "<group>"; };
+		635F10941BFAFABB004982B4 /* ObjCMultiCastDelegatable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObjCMultiCastDelegatable.swift; sourceTree = "<group>"; };
+		635F10951BFAFABB004982B4 /* ObjCProtocolDispatcherType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObjCProtocolDispatcherType.swift; sourceTree = "<group>"; };
+		635F10961BFAFABB004982B4 /* ObjCProtocolInterceptor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObjCProtocolInterceptor.swift; sourceTree = "<group>"; };
+		635F10971BFAFABB004982B4 /* PersistenceController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PersistenceController.swift; sourceTree = "<group>"; };
+		635F109B1BFAFABB004982B4 /* CFRunLoopActivity+CustomDebugStringConvertible.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CFRunLoopActivity+CustomDebugStringConvertible.swift"; sourceTree = "<group>"; };
+		635F109C1BFAFABB004982B4 /* NSCoding+NSKeyValueAccessible.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSCoding+NSKeyValueAccessible.swift"; sourceTree = "<group>"; };
+		635F109D1BFAFABB004982B4 /* NSDate+Comparable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSDate+Comparable.swift"; sourceTree = "<group>"; };
+		635F109E1BFAFABB004982B4 /* NSError+InitConveniences.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSError+InitConveniences.swift"; sourceTree = "<group>"; };
+		635F109F1BFAFABB004982B4 /* NSIndexPath+Comparable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSIndexPath+Comparable.swift"; sourceTree = "<group>"; };
+		635F10A01BFAFABB004982B4 /* NSIndexPath+PrimitiveIndexPathType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSIndexPath+PrimitiveIndexPathType.swift"; sourceTree = "<group>"; };
+		635F10A21BFAFABB004982B4 /* NSObjectProtocol+Collections.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSObjectProtocol+Collections.swift"; sourceTree = "<group>"; };
+		635F10A31BFAFABB004982B4 /* NSRange+Equatable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSRange+Equatable.swift"; sourceTree = "<group>"; };
+		635F10A41BFAFABB004982B4 /* NSRange+NSRangeMake.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSRange+NSRangeMake.swift"; sourceTree = "<group>"; };
+		635F10A51BFAFABB004982B4 /* NSRunLoop+TaskDispatcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSRunLoop+TaskDispatcher.swift"; sourceTree = "<group>"; };
+		635F10A61BFAFABB004982B4 /* NSString+RangesOfString.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSString+RangesOfString.swift"; sourceTree = "<group>"; };
+		635F10AA1BFAFABB004982B4 /* MainBundleID.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainBundleID.swift; sourceTree = "<group>"; };
+		635F10AC1BFAFABB004982B4 /* NSPersistentStoreType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSPersistentStoreType.swift; sourceTree = "<group>"; };
+		635F10AD1BFAFABB004982B4 /* NSRunLoopMode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSRunLoopMode.swift; sourceTree = "<group>"; };
+		635F10FF1BFAFAED004982B4 /* ReuseCenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReuseCenter.swift; sourceTree = "<group>"; };
+		635F11031BFAFB4D004982B4 /* ObjectiveC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObjectiveC.swift; sourceTree = "<group>"; };
+		635F11071BFAFBA5004982B4 /* SubsequentSetupInitializable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubsequentSetupInitializable.swift; sourceTree = "<group>"; };
+		635F112A1BFAFCFF004982B4 /* Nest.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Nest.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		635F11331BFAFD00004982B4 /* Nest-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Nest-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		635F11431BFAFD71004982B4 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		635F11451BFAFD71004982B4 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		635F11471BFAFD71004982B4 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		635F11491BFAFD71004982B4 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		635F114B1BFAFD71004982B4 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		635F114D1BFAFD71004982B4 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		635F11501BFAFD71004982B4 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		637B6C5A1BD8DD4600F2EE5A /* NSRunLoop+TaskDispatcherTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "NSRunLoop+TaskDispatcherTest.swift"; path = "NestTest/NSRunLoop+TaskDispatcherTest.swift"; sourceTree = SOURCE_ROOT; };
 		639D63EE1BE8404400B30F67 /* SwiftExt.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftExt.framework; path = "../SwiftExt/build/Debug-iphoneos/SwiftExt.framework"; sourceTree = "<group>"; };
 		639D63F01BE8404E00B30F67 /* SwiftExt.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftExt.framework; path = ../SwiftExt/build/Debug/SwiftExt.framework; sourceTree = "<group>"; };
-		639D63F21BE85AE500B30F67 /* CFRunLoopActivity+CustomDebugStringConvertible.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CFRunLoopActivity+CustomDebugStringConvertible.swift"; sourceTree = "<group>"; };
-		63A2EA3B1B69DA3900CA9F46 /* NSRunLoopMode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSRunLoopMode.swift; sourceTree = "<group>"; };
-		63A521491BB0E30300D7876D /* ObjCProtocolDispatcherType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObjCProtocolDispatcherType.swift; sourceTree = "<group>"; };
-		63AADF391B9E97B1007A7116 /* NSIndexPath+Comparable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSIndexPath+Comparable.swift"; sourceTree = "<group>"; };
-		63AF1D951BF87BBE00EE5CDA /* MainBundleID.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainBundleID.swift; sourceTree = "<group>"; };
-		63BC11BE1BBE6E8A00B8CBCE /* NSIndexPath+PrimitiveIndexPathType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSIndexPath+PrimitiveIndexPathType.swift"; sourceTree = "<group>"; };
-		63C9C0951BC89199006A9F3F /* NSAssociated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSAssociated.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -218,6 +246,21 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		635F11261BFAFCFF004982B4 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		635F11301BFAFD00004982B4 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				635F11341BFAFD00004982B4 /* Nest.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -235,33 +278,12 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		630B4D711B48DD2F00830454 /* Nest-for-watchOS */ = {
-			isa = PBXGroup;
-			children = (
-				630B4D721B48DD2F00830454 /* Nest-for-watchOS.h */,
-				630B4D741B48DD2F00830454 /* Info.plist */,
-			);
-			path = "Nest-for-watchOS";
-			sourceTree = "<group>";
-		};
-		630B4DA61B48DE5F00830454 /* Targets */ = {
-			isa = PBXGroup;
-			children = (
-				6347114B1B22D91B00FA2C76 /* Nest-for-iOS */,
-				634711581B22D91B00FA2C76 /* Nest-for-iOSTests */,
-				634711691B22D92600FA2C76 /* Nest-for-OS-X */,
-				634711761B22D92600FA2C76 /* Nest-for-OS-XTests */,
-				630B4D711B48DD2F00830454 /* Nest-for-watchOS */,
-			);
-			name = Targets;
-			sourceTree = "<group>";
-		};
 		6347113D1B22D90600FA2C76 = {
 			isa = PBXGroup;
 			children = (
 				634711811B22D94600FA2C76 /* Nest */,
 				634711821B22D94600FA2C76 /* NestTests */,
-				630B4DA61B48DE5F00830454 /* Targets */,
+				635F11411BFAFD71004982B4 /* PlatformDependent */,
 				6347114A1B22D91B00FA2C76 /* Products */,
 				630B4D6A1B48DC6800830454 /* Frameworks */,
 			);
@@ -275,84 +297,19 @@
 				634711681B22D92600FA2C76 /* Nest.framework */,
 				634711721B22D92600FA2C76 /* NestTest.xctest */,
 				630B4D701B48DD2F00830454 /* Nest.framework */,
+				635F112A1BFAFCFF004982B4 /* Nest.framework */,
+				635F11331BFAFD00004982B4 /* Nest-tvOSTests.xctest */,
 			);
 			name = Products;
-			sourceTree = "<group>";
-		};
-		6347114B1B22D91B00FA2C76 /* Nest-for-iOS */ = {
-			isa = PBXGroup;
-			children = (
-				6347114C1B22D91B00FA2C76 /* Supporting Files */,
-			);
-			path = "Nest-for-iOS";
-			sourceTree = "<group>";
-		};
-		6347114C1B22D91B00FA2C76 /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				6347114E1B22D91B00FA2C76 /* Nest-for-iOS.h */,
-				6347114D1B22D91B00FA2C76 /* Info.plist */,
-			);
-			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		634711581B22D91B00FA2C76 /* Nest-for-iOSTests */ = {
-			isa = PBXGroup;
-			children = (
-				634711591B22D91B00FA2C76 /* Supporting Files */,
-			);
-			path = "Nest-for-iOSTests";
-			sourceTree = "<group>";
-		};
-		634711591B22D91B00FA2C76 /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				6347115A1B22D91B00FA2C76 /* Info.plist */,
-			);
-			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		634711691B22D92600FA2C76 /* Nest-for-OS-X */ = {
-			isa = PBXGroup;
-			children = (
-				6347116A1B22D92600FA2C76 /* Supporting Files */,
-			);
-			path = "Nest-for-OS-X";
-			sourceTree = "<group>";
-		};
-		6347116A1B22D92600FA2C76 /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				6347116C1B22D92600FA2C76 /* Nest-for-OS-X.h */,
-				6347116B1B22D92600FA2C76 /* Info.plist */,
-			);
-			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		634711761B22D92600FA2C76 /* Nest-for-OS-XTests */ = {
-			isa = PBXGroup;
-			children = (
-				634711771B22D92600FA2C76 /* Supporting Files */,
-			);
-			path = "Nest-for-OS-XTests";
-			sourceTree = "<group>";
-		};
-		634711771B22D92600FA2C76 /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				634711781B22D92600FA2C76 /* Info.plist */,
-			);
-			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
 		634711811B22D94600FA2C76 /* Nest */ = {
 			isa = PBXGroup;
 			children = (
-				63AF1D941BF87BAE00EE5CDA /* Miscellaneous */,
-				634711831B22D9A200FA2C76 /* Extensions */,
-				6347118B1B22D9A200FA2C76 /* Functions */,
-				6347119D1B22DEC700FA2C76 /* Controllers */,
-				634711A41B22E4CE00FA2C76 /* Model */,
+				635F108E1BFAFABB004982B4 /* Components */,
+				635F109A1BFAFABB004982B4 /* Extensions */,
+				635F10A91BFAFABB004982B4 /* Miscellaneous */,
+				635F10AB1BFAFABB004982B4 /* Swiftifized */,
 			);
 			path = Nest;
 			sourceTree = "<group>";
@@ -368,66 +325,128 @@
 			path = NestTests;
 			sourceTree = "<group>";
 		};
-		634711831B22D9A200FA2C76 /* Extensions */ = {
+		635F108E1BFAFABB004982B4 /* Components */ = {
 			isa = PBXGroup;
 			children = (
-				634711851B22D9A200FA2C76 /* NSDate+Comparable.swift */,
-				634711861B22D9A200FA2C76 /* NSError+InitConveniences.swift */,
-				634711881B22D9A200FA2C76 /* NSRange+NSRangeMake.swift */,
-				634711891B22D9A200FA2C76 /* NSString+RangesOfString.swift */,
-				63AADF391B9E97B1007A7116 /* NSIndexPath+Comparable.swift */,
-				63BC11BE1BBE6E8A00B8CBCE /* NSIndexPath+PrimitiveIndexPathType.swift */,
-				632D67071BD8863C00F191DA /* NSRunLoop+TaskDispatcher.swift */,
-				639D63F21BE85AE500B30F67 /* CFRunLoopActivity+CustomDebugStringConvertible.swift */,
-				635F96801BF048EA00A57670 /* NSObject+SubsequentSetupInitializable.swift */,
-				635F96BC1BF0775B00A57670 /* NSCoding+NSKeyValueAccessible.swift */,
-				635F96B81BF0727C00A57670 /* NSKeyValueAccessible.swift */,
-				635F96B41BF0638100A57670 /* NSCodingEncodableDecodable.swift */,
-				635F96CD1BF0872500A57670 /* NSPersistentStoreType.swift */,
-				635F0FED1BF9B6A7004982B4 /* NSRange+Equatable.swift */,
+				635F108F1BFAFABB004982B4 /* HierarchicalPickablePicker.swift */,
+				635F10901BFAFABB004982B4 /* Notifications.swift */,
+				635F10911BFAFABB004982B4 /* NSCodingEncodableDecodable.swift */,
+				635F10921BFAFABB004982B4 /* NSKeyValueAccessible.swift */,
+				635F10931BFAFABB004982B4 /* ObjCAssociated.swift */,
+				635F10941BFAFABB004982B4 /* ObjCMultiCastDelegatable.swift */,
+				635F10951BFAFABB004982B4 /* ObjCProtocolDispatcherType.swift */,
+				635F10961BFAFABB004982B4 /* ObjCProtocolInterceptor.swift */,
+				635F10971BFAFABB004982B4 /* PersistenceController.swift */,
+				635F11071BFAFBA5004982B4 /* SubsequentSetupInitializable.swift */,
+				635F10FF1BFAFAED004982B4 /* ReuseCenter.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		635F109A1BFAFABB004982B4 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				635F109B1BFAFABB004982B4 /* CFRunLoopActivity+CustomDebugStringConvertible.swift */,
+				635F109C1BFAFABB004982B4 /* NSCoding+NSKeyValueAccessible.swift */,
+				635F109D1BFAFABB004982B4 /* NSDate+Comparable.swift */,
+				635F109E1BFAFABB004982B4 /* NSError+InitConveniences.swift */,
+				635F109F1BFAFABB004982B4 /* NSIndexPath+Comparable.swift */,
+				635F10A01BFAFABB004982B4 /* NSIndexPath+PrimitiveIndexPathType.swift */,
+				635F10A21BFAFABB004982B4 /* NSObjectProtocol+Collections.swift */,
+				635F10A31BFAFABB004982B4 /* NSRange+Equatable.swift */,
+				635F10A41BFAFABB004982B4 /* NSRange+NSRangeMake.swift */,
+				635F10A51BFAFABB004982B4 /* NSRunLoop+TaskDispatcher.swift */,
+				635F10A61BFAFABB004982B4 /* NSString+RangesOfString.swift */,
+				635F11031BFAFB4D004982B4 /* ObjectiveC.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
 		};
-		6347118B1B22D9A200FA2C76 /* Functions */ = {
+		635F10A91BFAFABB004982B4 /* Miscellaneous */ = {
 			isa = PBXGroup;
 			children = (
-				6347118C1B22D9A200FA2C76 /* Collections.swift */,
-				634711B01B22FC6300FA2C76 /* ObjectiveC.swift */,
-			);
-			path = Functions;
-			sourceTree = "<group>";
-		};
-		6347119D1B22DEC700FA2C76 /* Controllers */ = {
-			isa = PBXGroup;
-			children = (
-				63A521491BB0E30300D7876D /* ObjCProtocolDispatcherType.swift */,
-				6347119E1B22DEC700FA2C76 /* ObjCProtocolInterceptor.swift */,
-				634711A11B22E4B700FA2C76 /* ReuseCenter.swift */,
-				63204CD01B26D844003647C8 /* HierarchicalPickablePicker.swift */,
-				631AA5801B6515E70037CF4D /* Notifications.swift */,
-				635F96C21BF0832A00A57670 /* PersistenceController.swift */,
-			);
-			path = Controllers;
-			sourceTree = "<group>";
-		};
-		634711A41B22E4CE00FA2C76 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				63A2EA3B1B69DA3900CA9F46 /* NSRunLoopMode.swift */,
-				634711A51B22E4CE00FA2C76 /* ReusableType.swift */,
-				63C9C0951BC89199006A9F3F /* NSAssociated.swift */,
-				6305BA9A1BD9DF07003C51B2 /* NSMultiCastDelegatable.swift */,
-			);
-			path = Model;
-			sourceTree = "<group>";
-		};
-		63AF1D941BF87BAE00EE5CDA /* Miscellaneous */ = {
-			isa = PBXGroup;
-			children = (
-				63AF1D951BF87BBE00EE5CDA /* MainBundleID.swift */,
+				635F10AA1BFAFABB004982B4 /* MainBundleID.swift */,
 			);
 			path = Miscellaneous;
+			sourceTree = "<group>";
+		};
+		635F10AB1BFAFABB004982B4 /* Swiftifized */ = {
+			isa = PBXGroup;
+			children = (
+				635F10AC1BFAFABB004982B4 /* NSPersistentStoreType.swift */,
+				635F10AD1BFAFABB004982B4 /* NSRunLoopMode.swift */,
+			);
+			path = Swiftifized;
+			sourceTree = "<group>";
+		};
+		635F11411BFAFD71004982B4 /* PlatformDependent */ = {
+			isa = PBXGroup;
+			children = (
+				635F11421BFAFD71004982B4 /* Nest-iOS */,
+				635F11441BFAFD71004982B4 /* Nest-iOSTests */,
+				635F11461BFAFD71004982B4 /* Nest-OS-X */,
+				635F11481BFAFD71004982B4 /* Nest-OS-XTests */,
+				635F114A1BFAFD71004982B4 /* Nest-tvOS */,
+				635F114C1BFAFD71004982B4 /* Nest-tvOSTests */,
+				635F114F1BFAFD71004982B4 /* Nest-watchOS */,
+			);
+			path = PlatformDependent;
+			sourceTree = "<group>";
+		};
+		635F11421BFAFD71004982B4 /* Nest-iOS */ = {
+			isa = PBXGroup;
+			children = (
+				635F11431BFAFD71004982B4 /* Info.plist */,
+			);
+			path = "Nest-iOS";
+			sourceTree = "<group>";
+		};
+		635F11441BFAFD71004982B4 /* Nest-iOSTests */ = {
+			isa = PBXGroup;
+			children = (
+				635F11451BFAFD71004982B4 /* Info.plist */,
+			);
+			path = "Nest-iOSTests";
+			sourceTree = "<group>";
+		};
+		635F11461BFAFD71004982B4 /* Nest-OS-X */ = {
+			isa = PBXGroup;
+			children = (
+				635F11471BFAFD71004982B4 /* Info.plist */,
+			);
+			path = "Nest-OS-X";
+			sourceTree = "<group>";
+		};
+		635F11481BFAFD71004982B4 /* Nest-OS-XTests */ = {
+			isa = PBXGroup;
+			children = (
+				635F11491BFAFD71004982B4 /* Info.plist */,
+			);
+			path = "Nest-OS-XTests";
+			sourceTree = "<group>";
+		};
+		635F114A1BFAFD71004982B4 /* Nest-tvOS */ = {
+			isa = PBXGroup;
+			children = (
+				635F114B1BFAFD71004982B4 /* Info.plist */,
+			);
+			path = "Nest-tvOS";
+			sourceTree = "<group>";
+		};
+		635F114C1BFAFD71004982B4 /* Nest-tvOSTests */ = {
+			isa = PBXGroup;
+			children = (
+				635F114D1BFAFD71004982B4 /* Info.plist */,
+			);
+			path = "Nest-tvOSTests";
+			sourceTree = "<group>";
+		};
+		635F114F1BFAFD71004982B4 /* Nest-watchOS */ = {
+			isa = PBXGroup;
+			children = (
+				635F11501BFAFD71004982B4 /* Info.plist */,
+			);
+			path = "Nest-watchOS";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -437,7 +456,6 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				630B4D731B48DD2F00830454 /* Nest-for-watchOS.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -445,7 +463,6 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6347114F1B22D91B00FA2C76 /* Nest-for-iOS.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -453,16 +470,22 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6347116D1B22D92600FA2C76 /* Nest-for-OS-X.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		635F11271BFAFCFF004982B4 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		630B4D6F1B48DD2F00830454 /* Nest-for-watchOS */ = {
+		630B4D6F1B48DD2F00830454 /* Nest-watchOS */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 630B4D751B48DD2F00830454 /* Build configuration list for PBXNativeTarget "Nest-for-watchOS" */;
+			buildConfigurationList = 630B4D751B48DD2F00830454 /* Build configuration list for PBXNativeTarget "Nest-watchOS" */;
 			buildPhases = (
 				630B4D6B1B48DD2F00830454 /* Sources */,
 				630B4D6C1B48DD2F00830454 /* Frameworks */,
@@ -473,14 +496,14 @@
 			);
 			dependencies = (
 			);
-			name = "Nest-for-watchOS";
+			name = "Nest-watchOS";
 			productName = "Nest-for-watchOS";
 			productReference = 630B4D701B48DD2F00830454 /* Nest.framework */;
 			productType = "com.apple.product-type.framework";
 		};
-		634711481B22D91B00FA2C76 /* Nest-for-iOS */ = {
+		634711481B22D91B00FA2C76 /* Nest-iOS */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 6347115D1B22D91B00FA2C76 /* Build configuration list for PBXNativeTarget "Nest-for-iOS" */;
+			buildConfigurationList = 6347115D1B22D91B00FA2C76 /* Build configuration list for PBXNativeTarget "Nest-iOS" */;
 			buildPhases = (
 				634711441B22D91B00FA2C76 /* Sources */,
 				634711451B22D91B00FA2C76 /* Frameworks */,
@@ -491,14 +514,14 @@
 			);
 			dependencies = (
 			);
-			name = "Nest-for-iOS";
+			name = "Nest-iOS";
 			productName = "Nest-for-iOS";
 			productReference = 634711491B22D91B00FA2C76 /* Nest.framework */;
 			productType = "com.apple.product-type.framework";
 		};
-		634711531B22D91B00FA2C76 /* Nest-for-iOSTests */ = {
+		634711531B22D91B00FA2C76 /* Nest-iOSTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 634711601B22D91B00FA2C76 /* Build configuration list for PBXNativeTarget "Nest-for-iOSTests" */;
+			buildConfigurationList = 634711601B22D91B00FA2C76 /* Build configuration list for PBXNativeTarget "Nest-iOSTests" */;
 			buildPhases = (
 				634711501B22D91B00FA2C76 /* Sources */,
 				634711511B22D91B00FA2C76 /* Frameworks */,
@@ -509,14 +532,14 @@
 			dependencies = (
 				634711571B22D91B00FA2C76 /* PBXTargetDependency */,
 			);
-			name = "Nest-for-iOSTests";
+			name = "Nest-iOSTests";
 			productName = "Nest-for-iOSTests";
 			productReference = 634711541B22D91B00FA2C76 /* NestTest.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		634711671B22D92600FA2C76 /* Nest-for-OS-X */ = {
+		634711671B22D92600FA2C76 /* Nest-OS-X */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 6347117B1B22D92600FA2C76 /* Build configuration list for PBXNativeTarget "Nest-for-OS-X" */;
+			buildConfigurationList = 6347117B1B22D92600FA2C76 /* Build configuration list for PBXNativeTarget "Nest-OS-X" */;
 			buildPhases = (
 				634711631B22D92600FA2C76 /* Sources */,
 				634711641B22D92600FA2C76 /* Frameworks */,
@@ -527,14 +550,14 @@
 			);
 			dependencies = (
 			);
-			name = "Nest-for-OS-X";
+			name = "Nest-OS-X";
 			productName = "Nest-for-OS-X";
 			productReference = 634711681B22D92600FA2C76 /* Nest.framework */;
 			productType = "com.apple.product-type.framework";
 		};
-		634711711B22D92600FA2C76 /* Nest-for-OS-XTests */ = {
+		634711711B22D92600FA2C76 /* Nest-OS-XTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 6347117E1B22D92600FA2C76 /* Build configuration list for PBXNativeTarget "Nest-for-OS-XTests" */;
+			buildConfigurationList = 6347117E1B22D92600FA2C76 /* Build configuration list for PBXNativeTarget "Nest-OS-XTests" */;
 			buildPhases = (
 				6347116E1B22D92600FA2C76 /* Sources */,
 				6347116F1B22D92600FA2C76 /* Frameworks */,
@@ -545,9 +568,45 @@
 			dependencies = (
 				634711751B22D92600FA2C76 /* PBXTargetDependency */,
 			);
-			name = "Nest-for-OS-XTests";
+			name = "Nest-OS-XTests";
 			productName = "Nest-for-OS-XTests";
 			productReference = 634711721B22D92600FA2C76 /* NestTest.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		635F11291BFAFCFF004982B4 /* Nest-tvOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 635F113B1BFAFD00004982B4 /* Build configuration list for PBXNativeTarget "Nest-tvOS" */;
+			buildPhases = (
+				635F11251BFAFCFF004982B4 /* Sources */,
+				635F11261BFAFCFF004982B4 /* Frameworks */,
+				635F11271BFAFCFF004982B4 /* Headers */,
+				635F11281BFAFCFF004982B4 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Nest-tvOS";
+			productName = "Nest-tvOS";
+			productReference = 635F112A1BFAFCFF004982B4 /* Nest.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		635F11321BFAFD00004982B4 /* Nest-tvOSTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 635F113E1BFAFD00004982B4 /* Build configuration list for PBXNativeTarget "Nest-tvOSTests" */;
+			buildPhases = (
+				635F112F1BFAFD00004982B4 /* Sources */,
+				635F11301BFAFD00004982B4 /* Frameworks */,
+				635F11311BFAFD00004982B4 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				635F11361BFAFD00004982B4 /* PBXTargetDependency */,
+			);
+			name = "Nest-tvOSTests";
+			productName = "Nest-tvOSTests";
+			productReference = 635F11331BFAFD00004982B4 /* Nest-tvOSTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -556,7 +615,7 @@
 		6347113E1B22D90600FA2C76 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 0700;
+				LastSwiftUpdateCheck = 0710;
 				LastUpgradeCheck = 0700;
 				TargetAttributes = {
 					630B4D6F1B48DD2F00830454 = {
@@ -574,6 +633,14 @@
 					634711711B22D92600FA2C76 = {
 						CreatedOnToolsVersion = 6.3.2;
 					};
+					635F11291BFAFCFF004982B4 = {
+						CreatedOnToolsVersion = 7.1.1;
+						DevelopmentTeam = A8KGC2QQ74;
+					};
+					635F11321BFAFD00004982B4 = {
+						CreatedOnToolsVersion = 7.1.1;
+						DevelopmentTeam = A8KGC2QQ74;
+					};
 				};
 			};
 			buildConfigurationList = 634711411B22D90600FA2C76 /* Build configuration list for PBXProject "Nest" */;
@@ -588,11 +655,13 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				634711481B22D91B00FA2C76 /* Nest-for-iOS */,
-				634711531B22D91B00FA2C76 /* Nest-for-iOSTests */,
-				634711671B22D92600FA2C76 /* Nest-for-OS-X */,
-				634711711B22D92600FA2C76 /* Nest-for-OS-XTests */,
-				630B4D6F1B48DD2F00830454 /* Nest-for-watchOS */,
+				634711481B22D91B00FA2C76 /* Nest-iOS */,
+				634711531B22D91B00FA2C76 /* Nest-iOSTests */,
+				634711671B22D92600FA2C76 /* Nest-OS-X */,
+				634711711B22D92600FA2C76 /* Nest-OS-XTests */,
+				630B4D6F1B48DD2F00830454 /* Nest-watchOS */,
+				635F11291BFAFCFF004982B4 /* Nest-tvOS */,
+				635F11321BFAFD00004982B4 /* Nest-tvOSTests */,
 			);
 		};
 /* End PBXProject section */
@@ -633,6 +702,20 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		635F11281BFAFCFF004982B4 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		635F11311BFAFD00004982B4 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -640,33 +723,32 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				630B4D801B48DD4B00830454 /* HierarchicalPickablePicker.swift in Sources */,
-				635F96C51BF0832A00A57670 /* PersistenceController.swift in Sources */,
-				63BC11C11BBE6E8A00B8CBCE /* NSIndexPath+PrimitiveIndexPathType.swift in Sources */,
-				6305BA9D1BD9DF07003C51B2 /* NSMultiCastDelegatable.swift in Sources */,
-				63C9C0981BC89199006A9F3F /* NSAssociated.swift in Sources */,
-				63A5214C1BB0E30300D7876D /* ObjCProtocolDispatcherType.swift in Sources */,
-				630B4D7A1B48DD4B00830454 /* NSRange+NSRangeMake.swift in Sources */,
-				635F0FBA1BF98D98004982B4 /* CFRunLoopActivity+CustomDebugStringConvertible.swift in Sources */,
-				631AA5831B6515E70037CF4D /* Notifications.swift in Sources */,
-				635F96BB1BF0727C00A57670 /* NSKeyValueAccessible.swift in Sources */,
-				630B4D7F1B48DD4B00830454 /* ReuseCenter.swift in Sources */,
-				635F96B71BF0638100A57670 /* NSCodingEncodableDecodable.swift in Sources */,
-				630B4D7E1B48DD4B00830454 /* ObjCProtocolInterceptor.swift in Sources */,
-				63AADF3C1B9E97B1007A7116 /* NSIndexPath+Comparable.swift in Sources */,
-				63AF1D981BF87BBE00EE5CDA /* MainBundleID.swift in Sources */,
-				630B4D781B48DD4B00830454 /* NSDate+Comparable.swift in Sources */,
-				630B4D791B48DD4B00830454 /* NSError+InitConveniences.swift in Sources */,
-				635F96D01BF0872500A57670 /* NSPersistentStoreType.swift in Sources */,
-				630B4D7B1B48DD4B00830454 /* NSString+RangesOfString.swift in Sources */,
-				635F96831BF048EA00A57670 /* NSObject+SubsequentSetupInitializable.swift in Sources */,
-				632D670A1BD8863C00F191DA /* NSRunLoop+TaskDispatcher.swift in Sources */,
-				635F96BF1BF0775B00A57670 /* NSCoding+NSKeyValueAccessible.swift in Sources */,
-				630B4D811B48DD4B00830454 /* ReusableType.swift in Sources */,
-				630B4D7C1B48DD4B00830454 /* Collections.swift in Sources */,
-				630B4D7D1B48DD4B00830454 /* ObjectiveC.swift in Sources */,
-				635F0FF01BF9B6A7004982B4 /* NSRange+Equatable.swift in Sources */,
-				63A2EA3E1B69DA3900CA9F46 /* NSRunLoopMode.swift in Sources */,
+				635F10EF1BFAFABB004982B4 /* NSRunLoop+TaskDispatcher.swift in Sources */,
+				635F10FB1BFAFABB004982B4 /* NSPersistentStoreType.swift in Sources */,
+				635F10FE1BFAFABB004982B4 /* NSRunLoopMode.swift in Sources */,
+				635F10C81BFAFABB004982B4 /* PersistenceController.swift in Sources */,
+				635F10D11BFAFABB004982B4 /* CFRunLoopActivity+CustomDebugStringConvertible.swift in Sources */,
+				635F10EC1BFAFABB004982B4 /* NSRange+NSRangeMake.swift in Sources */,
+				635F11021BFAFAED004982B4 /* ReuseCenter.swift in Sources */,
+				635F10B31BFAFABB004982B4 /* Notifications.swift in Sources */,
+				635F10BF1BFAFABB004982B4 /* ObjCMultiCastDelegatable.swift in Sources */,
+				635F10F21BFAFABB004982B4 /* NSString+RangesOfString.swift in Sources */,
+				635F11061BFAFB4D004982B4 /* ObjectiveC.swift in Sources */,
+				635F10B01BFAFABB004982B4 /* HierarchicalPickablePicker.swift in Sources */,
+				635F10E91BFAFABB004982B4 /* NSRange+Equatable.swift in Sources */,
+				635F10E61BFAFABB004982B4 /* NSObjectProtocol+Collections.swift in Sources */,
+				635F10F81BFAFABB004982B4 /* MainBundleID.swift in Sources */,
+				635F10B91BFAFABB004982B4 /* NSKeyValueAccessible.swift in Sources */,
+				635F10C21BFAFABB004982B4 /* ObjCProtocolDispatcherType.swift in Sources */,
+				635F10BC1BFAFABB004982B4 /* ObjCAssociated.swift in Sources */,
+				635F110A1BFAFBA5004982B4 /* SubsequentSetupInitializable.swift in Sources */,
+				635F10D71BFAFABB004982B4 /* NSDate+Comparable.swift in Sources */,
+				635F10B61BFAFABB004982B4 /* NSCodingEncodableDecodable.swift in Sources */,
+				635F10C51BFAFABB004982B4 /* ObjCProtocolInterceptor.swift in Sources */,
+				635F10E01BFAFABB004982B4 /* NSIndexPath+PrimitiveIndexPathType.swift in Sources */,
+				635F10DA1BFAFABB004982B4 /* NSError+InitConveniences.swift in Sources */,
+				635F10DD1BFAFABB004982B4 /* NSIndexPath+Comparable.swift in Sources */,
+				635F10D41BFAFABB004982B4 /* NSCoding+NSKeyValueAccessible.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -674,33 +756,32 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				634711971B22D9A200FA2C76 /* NSString+RangesOfString.swift in Sources */,
-				63BC11BF1BBE6E8A00B8CBCE /* NSIndexPath+PrimitiveIndexPathType.swift in Sources */,
-				635F96CE1BF0872500A57670 /* NSPersistentStoreType.swift in Sources */,
-				63C9C0961BC89199006A9F3F /* NSAssociated.swift in Sources */,
-				63A5214A1BB0E30300D7876D /* ObjCProtocolDispatcherType.swift in Sources */,
-				635F96B91BF0727C00A57670 /* NSKeyValueAccessible.swift in Sources */,
-				639D63F31BE85AE500B30F67 /* CFRunLoopActivity+CustomDebugStringConvertible.swift in Sources */,
-				634711A21B22E4B700FA2C76 /* ReuseCenter.swift in Sources */,
-				635F96811BF048EA00A57670 /* NSObject+SubsequentSetupInitializable.swift in Sources */,
-				631AA5811B6515E70037CF4D /* Notifications.swift in Sources */,
-				63204CD11B26D844003647C8 /* HierarchicalPickablePicker.swift in Sources */,
-				634711A61B22E4CE00FA2C76 /* ReusableType.swift in Sources */,
-				63AADF3A1B9E97B1007A7116 /* NSIndexPath+Comparable.swift in Sources */,
-				6347119B1B22D9A200FA2C76 /* Collections.swift in Sources */,
-				634711B11B22FC6300FA2C76 /* ObjectiveC.swift in Sources */,
-				632D67081BD8863C00F191DA /* NSRunLoop+TaskDispatcher.swift in Sources */,
-				635F96C31BF0832A00A57670 /* PersistenceController.swift in Sources */,
-				6347118F1B22D9A200FA2C76 /* NSDate+Comparable.swift in Sources */,
-				635F96B51BF0638100A57670 /* NSCodingEncodableDecodable.swift in Sources */,
-				6305BA9B1BD9DF07003C51B2 /* NSMultiCastDelegatable.swift in Sources */,
-				635F96BD1BF0775B00A57670 /* NSCoding+NSKeyValueAccessible.swift in Sources */,
-				634711951B22D9A200FA2C76 /* NSRange+NSRangeMake.swift in Sources */,
-				634711911B22D9A200FA2C76 /* NSError+InitConveniences.swift in Sources */,
-				63AF1D961BF87BBE00EE5CDA /* MainBundleID.swift in Sources */,
-				6347119F1B22DEC700FA2C76 /* ObjCProtocolInterceptor.swift in Sources */,
-				635F0FEE1BF9B6A7004982B4 /* NSRange+Equatable.swift in Sources */,
-				63A2EA3C1B69DA3900CA9F46 /* NSRunLoopMode.swift in Sources */,
+				635F10ED1BFAFABB004982B4 /* NSRunLoop+TaskDispatcher.swift in Sources */,
+				635F10F91BFAFABB004982B4 /* NSPersistentStoreType.swift in Sources */,
+				635F10FC1BFAFABB004982B4 /* NSRunLoopMode.swift in Sources */,
+				635F10C61BFAFABB004982B4 /* PersistenceController.swift in Sources */,
+				635F10CF1BFAFABB004982B4 /* CFRunLoopActivity+CustomDebugStringConvertible.swift in Sources */,
+				635F10EA1BFAFABB004982B4 /* NSRange+NSRangeMake.swift in Sources */,
+				635F11001BFAFAED004982B4 /* ReuseCenter.swift in Sources */,
+				635F10B11BFAFABB004982B4 /* Notifications.swift in Sources */,
+				635F10BD1BFAFABB004982B4 /* ObjCMultiCastDelegatable.swift in Sources */,
+				635F10F01BFAFABB004982B4 /* NSString+RangesOfString.swift in Sources */,
+				635F11041BFAFB4D004982B4 /* ObjectiveC.swift in Sources */,
+				635F10AE1BFAFABB004982B4 /* HierarchicalPickablePicker.swift in Sources */,
+				635F10E71BFAFABB004982B4 /* NSRange+Equatable.swift in Sources */,
+				635F10E41BFAFABB004982B4 /* NSObjectProtocol+Collections.swift in Sources */,
+				635F10F61BFAFABB004982B4 /* MainBundleID.swift in Sources */,
+				635F10B71BFAFABB004982B4 /* NSKeyValueAccessible.swift in Sources */,
+				635F10C01BFAFABB004982B4 /* ObjCProtocolDispatcherType.swift in Sources */,
+				635F10BA1BFAFABB004982B4 /* ObjCAssociated.swift in Sources */,
+				635F11081BFAFBA5004982B4 /* SubsequentSetupInitializable.swift in Sources */,
+				635F10D51BFAFABB004982B4 /* NSDate+Comparable.swift in Sources */,
+				635F10B41BFAFABB004982B4 /* NSCodingEncodableDecodable.swift in Sources */,
+				635F10C31BFAFABB004982B4 /* ObjCProtocolInterceptor.swift in Sources */,
+				635F10DE1BFAFABB004982B4 /* NSIndexPath+PrimitiveIndexPathType.swift in Sources */,
+				635F10D81BFAFABB004982B4 /* NSError+InitConveniences.swift in Sources */,
+				635F10DB1BFAFABB004982B4 /* NSIndexPath+Comparable.swift in Sources */,
+				635F10D21BFAFABB004982B4 /* NSCoding+NSKeyValueAccessible.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -719,33 +800,32 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				634711981B22D9A200FA2C76 /* NSString+RangesOfString.swift in Sources */,
-				635F96C41BF0832A00A57670 /* PersistenceController.swift in Sources */,
-				63BC11C01BBE6E8A00B8CBCE /* NSIndexPath+PrimitiveIndexPathType.swift in Sources */,
-				63A5214B1BB0E30300D7876D /* ObjCProtocolDispatcherType.swift in Sources */,
-				6305BA9C1BD9DF07003C51B2 /* NSMultiCastDelegatable.swift in Sources */,
-				634711A31B22E4B700FA2C76 /* ReuseCenter.swift in Sources */,
-				631AA5821B6515E70037CF4D /* Notifications.swift in Sources */,
-				635F0FB91BF98D97004982B4 /* CFRunLoopActivity+CustomDebugStringConvertible.swift in Sources */,
-				63204CD21B26D844003647C8 /* HierarchicalPickablePicker.swift in Sources */,
-				635F96BA1BF0727C00A57670 /* NSKeyValueAccessible.swift in Sources */,
-				634711A71B22E4CE00FA2C76 /* ReusableType.swift in Sources */,
-				635F96B61BF0638100A57670 /* NSCodingEncodableDecodable.swift in Sources */,
-				63AADF3B1B9E97B1007A7116 /* NSIndexPath+Comparable.swift in Sources */,
-				632D67091BD8863C00F191DA /* NSRunLoop+TaskDispatcher.swift in Sources */,
-				63AF1D971BF87BBE00EE5CDA /* MainBundleID.swift in Sources */,
-				6347119C1B22D9A200FA2C76 /* Collections.swift in Sources */,
-				634711B21B22FC6300FA2C76 /* ObjectiveC.swift in Sources */,
-				635F96CF1BF0872500A57670 /* NSPersistentStoreType.swift in Sources */,
-				634711901B22D9A200FA2C76 /* NSDate+Comparable.swift in Sources */,
-				635F96821BF048EA00A57670 /* NSObject+SubsequentSetupInitializable.swift in Sources */,
-				634711961B22D9A200FA2C76 /* NSRange+NSRangeMake.swift in Sources */,
-				635F96BE1BF0775B00A57670 /* NSCoding+NSKeyValueAccessible.swift in Sources */,
-				634711921B22D9A200FA2C76 /* NSError+InitConveniences.swift in Sources */,
-				634711A01B22DEC700FA2C76 /* ObjCProtocolInterceptor.swift in Sources */,
-				63C9C0971BC89199006A9F3F /* NSAssociated.swift in Sources */,
-				635F0FEF1BF9B6A7004982B4 /* NSRange+Equatable.swift in Sources */,
-				63A2EA3D1B69DA3900CA9F46 /* NSRunLoopMode.swift in Sources */,
+				635F10EE1BFAFABB004982B4 /* NSRunLoop+TaskDispatcher.swift in Sources */,
+				635F10FA1BFAFABB004982B4 /* NSPersistentStoreType.swift in Sources */,
+				635F10FD1BFAFABB004982B4 /* NSRunLoopMode.swift in Sources */,
+				635F10C71BFAFABB004982B4 /* PersistenceController.swift in Sources */,
+				635F10D01BFAFABB004982B4 /* CFRunLoopActivity+CustomDebugStringConvertible.swift in Sources */,
+				635F10EB1BFAFABB004982B4 /* NSRange+NSRangeMake.swift in Sources */,
+				635F11011BFAFAED004982B4 /* ReuseCenter.swift in Sources */,
+				635F10B21BFAFABB004982B4 /* Notifications.swift in Sources */,
+				635F10BE1BFAFABB004982B4 /* ObjCMultiCastDelegatable.swift in Sources */,
+				635F10F11BFAFABB004982B4 /* NSString+RangesOfString.swift in Sources */,
+				635F11051BFAFB4D004982B4 /* ObjectiveC.swift in Sources */,
+				635F10AF1BFAFABB004982B4 /* HierarchicalPickablePicker.swift in Sources */,
+				635F10E81BFAFABB004982B4 /* NSRange+Equatable.swift in Sources */,
+				635F10E51BFAFABB004982B4 /* NSObjectProtocol+Collections.swift in Sources */,
+				635F10F71BFAFABB004982B4 /* MainBundleID.swift in Sources */,
+				635F10B81BFAFABB004982B4 /* NSKeyValueAccessible.swift in Sources */,
+				635F10C11BFAFABB004982B4 /* ObjCProtocolDispatcherType.swift in Sources */,
+				635F10BB1BFAFABB004982B4 /* ObjCAssociated.swift in Sources */,
+				635F11091BFAFBA5004982B4 /* SubsequentSetupInitializable.swift in Sources */,
+				635F10D61BFAFABB004982B4 /* NSDate+Comparable.swift in Sources */,
+				635F10B51BFAFABB004982B4 /* NSCodingEncodableDecodable.swift in Sources */,
+				635F10C41BFAFABB004982B4 /* ObjCProtocolInterceptor.swift in Sources */,
+				635F10DF1BFAFABB004982B4 /* NSIndexPath+PrimitiveIndexPathType.swift in Sources */,
+				635F10D91BFAFABB004982B4 /* NSError+InitConveniences.swift in Sources */,
+				635F10DC1BFAFABB004982B4 /* NSIndexPath+Comparable.swift in Sources */,
+				635F10D31BFAFABB004982B4 /* NSCoding+NSKeyValueAccessible.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -760,18 +840,63 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		635F11251BFAFCFF004982B4 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				635F11721BFAFD83004982B4 /* SubsequentSetupInitializable.swift in Sources */,
+				635F11741BFAFD83004982B4 /* CFRunLoopActivity+CustomDebugStringConvertible.swift in Sources */,
+				635F11811BFAFD83004982B4 /* NSPersistentStoreType.swift in Sources */,
+				635F11711BFAFD83004982B4 /* PersistenceController.swift in Sources */,
+				635F11731BFAFD83004982B4 /* ReuseCenter.swift in Sources */,
+				635F116A1BFAFD83004982B4 /* Notifications.swift in Sources */,
+				635F116E1BFAFD83004982B4 /* ObjCMultiCastDelegatable.swift in Sources */,
+				635F117F1BFAFD83004982B4 /* ObjectiveC.swift in Sources */,
+				635F11691BFAFD83004982B4 /* HierarchicalPickablePicker.swift in Sources */,
+				635F116C1BFAFD83004982B4 /* NSKeyValueAccessible.swift in Sources */,
+				635F116F1BFAFD83004982B4 /* ObjCProtocolDispatcherType.swift in Sources */,
+				635F116D1BFAFD83004982B4 /* ObjCAssociated.swift in Sources */,
+				635F11761BFAFD83004982B4 /* NSDate+Comparable.swift in Sources */,
+				635F117D1BFAFD83004982B4 /* NSRunLoop+TaskDispatcher.swift in Sources */,
+				635F116B1BFAFD83004982B4 /* NSCodingEncodableDecodable.swift in Sources */,
+				635F117B1BFAFD83004982B4 /* NSRange+Equatable.swift in Sources */,
+				635F11701BFAFD83004982B4 /* ObjCProtocolInterceptor.swift in Sources */,
+				635F11791BFAFD83004982B4 /* NSIndexPath+PrimitiveIndexPathType.swift in Sources */,
+				635F11801BFAFD83004982B4 /* MainBundleID.swift in Sources */,
+				635F11771BFAFD83004982B4 /* NSError+InitConveniences.swift in Sources */,
+				635F117E1BFAFD83004982B4 /* NSString+RangesOfString.swift in Sources */,
+				635F117A1BFAFD83004982B4 /* NSObjectProtocol+Collections.swift in Sources */,
+				635F117C1BFAFD83004982B4 /* NSRange+NSRangeMake.swift in Sources */,
+				635F11781BFAFD83004982B4 /* NSIndexPath+Comparable.swift in Sources */,
+				635F11751BFAFD83004982B4 /* NSCoding+NSKeyValueAccessible.swift in Sources */,
+				635F11821BFAFD83004982B4 /* NSRunLoopMode.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		635F112F1BFAFD00004982B4 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
 		634711571B22D91B00FA2C76 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 634711481B22D91B00FA2C76 /* Nest-for-iOS */;
+			target = 634711481B22D91B00FA2C76 /* Nest-iOS */;
 			targetProxy = 634711561B22D91B00FA2C76 /* PBXContainerItemProxy */;
 		};
 		634711751B22D92600FA2C76 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 634711671B22D92600FA2C76 /* Nest-for-OS-X */;
+			target = 634711671B22D92600FA2C76 /* Nest-OS-X */;
 			targetProxy = 634711741B22D92600FA2C76 /* PBXContainerItemProxy */;
+		};
+		635F11361BFAFD00004982B4 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 635F11291BFAFCFF004982B4 /* Nest-tvOS */;
+			targetProxy = 635F11351BFAFD00004982B4 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -818,7 +943,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				INFOPLIST_FILE = "Nest-for-watchOS/Info.plist";
+				INFOPLIST_FILE = "PlatformDependent/Nest-watchOS/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = YES;
@@ -872,7 +997,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				INFOPLIST_FILE = "Nest-for-watchOS/Info.plist";
+				INFOPLIST_FILE = "PlatformDependent/Nest-watchOS/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = NO;
@@ -962,7 +1087,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				INFOPLIST_FILE = "Nest-for-iOS/Info.plist";
+				INFOPLIST_FILE = "PlatformDependent/Nest-iOS/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = YES;
@@ -1016,7 +1141,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				INFOPLIST_FILE = "Nest-for-iOS/Info.plist";
+				INFOPLIST_FILE = "PlatformDependent/Nest-iOS/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = NO;
@@ -1067,7 +1192,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				INFOPLIST_FILE = "Nest-for-iOSTests/Info.plist";
+				INFOPLIST_FILE = "PlatformDependent/Nest-iOSTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -1107,7 +1232,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				INFOPLIST_FILE = "Nest-for-iOSTests/Info.plist";
+				INFOPLIST_FILE = "PlatformDependent/Nest-iOSTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.WeZZard.$(PRODUCT_NAME:rfc1034identifier)";
@@ -1163,7 +1288,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				INFOPLIST_FILE = "Nest-for-OS-X/Info.plist";
+				INFOPLIST_FILE = "PlatformDependent/Nest-OS-X/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = YES;
@@ -1218,7 +1343,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				INFOPLIST_FILE = "Nest-for-OS-X/Info.plist";
+				INFOPLIST_FILE = "PlatformDependent/Nest-OS-X/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = NO;
@@ -1267,7 +1392,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				INFOPLIST_FILE = "Nest-for-OS-XTests/Info.plist";
+				INFOPLIST_FILE = "PlatformDependent/Nest-OS-XTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -1307,7 +1432,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				INFOPLIST_FILE = "Nest-for-OS-XTests/Info.plist";
+				INFOPLIST_FILE = "PlatformDependent/Nest-OS-XTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.WeZZard.$(PRODUCT_NAME:rfc1034identifier)";
@@ -1316,10 +1441,198 @@
 			};
 			name = Release;
 		};
+		635F113C1BFAFD00004982B4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_FILE = "PlatformDependent/Nest-tvOS/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.WeZZard.Nest-tvOS";
+				PRODUCT_NAME = Nest;
+				SDKROOT = appletvos;
+				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = 3;
+				TVOS_DEPLOYMENT_TARGET = 9.0;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		635F113D1BFAFD00004982B4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_FILE = "PlatformDependent/Nest-tvOS/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.WeZZard.Nest-tvOS";
+				PRODUCT_NAME = Nest;
+				SDKROOT = appletvos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = 3;
+				TVOS_DEPLOYMENT_TARGET = 9.0;
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		635F113F1BFAFD00004982B4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_FILE = "PlatformDependent/Nest-tvOSTests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.WeZZard.Nest-tvOSTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = appletvos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TVOS_DEPLOYMENT_TARGET = 9.0;
+			};
+			name = Debug;
+		};
+		635F11401BFAFD00004982B4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_FILE = "PlatformDependent/Nest-tvOSTests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.WeZZard.Nest-tvOSTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = appletvos;
+				TVOS_DEPLOYMENT_TARGET = 9.0;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		630B4D751B48DD2F00830454 /* Build configuration list for PBXNativeTarget "Nest-for-watchOS" */ = {
+		630B4D751B48DD2F00830454 /* Build configuration list for PBXNativeTarget "Nest-watchOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				630B4D761B48DD2F00830454 /* Debug */,
@@ -1337,7 +1650,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		6347115D1B22D91B00FA2C76 /* Build configuration list for PBXNativeTarget "Nest-for-iOS" */ = {
+		6347115D1B22D91B00FA2C76 /* Build configuration list for PBXNativeTarget "Nest-iOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				6347115E1B22D91B00FA2C76 /* Debug */,
@@ -1346,7 +1659,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		634711601B22D91B00FA2C76 /* Build configuration list for PBXNativeTarget "Nest-for-iOSTests" */ = {
+		634711601B22D91B00FA2C76 /* Build configuration list for PBXNativeTarget "Nest-iOSTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				634711611B22D91B00FA2C76 /* Debug */,
@@ -1355,7 +1668,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		6347117B1B22D92600FA2C76 /* Build configuration list for PBXNativeTarget "Nest-for-OS-X" */ = {
+		6347117B1B22D92600FA2C76 /* Build configuration list for PBXNativeTarget "Nest-OS-X" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				6347117C1B22D92600FA2C76 /* Debug */,
@@ -1364,7 +1677,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		6347117E1B22D92600FA2C76 /* Build configuration list for PBXNativeTarget "Nest-for-OS-XTests" */ = {
+		6347117E1B22D92600FA2C76 /* Build configuration list for PBXNativeTarget "Nest-OS-XTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				6347117F1B22D92600FA2C76 /* Debug */,
@@ -1372,6 +1685,22 @@
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
+		};
+		635F113B1BFAFD00004982B4 /* Build configuration list for PBXNativeTarget "Nest-tvOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				635F113C1BFAFD00004982B4 /* Debug */,
+				635F113D1BFAFD00004982B4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		635F113E1BFAFD00004982B4 /* Build configuration list for PBXNativeTarget "Nest-tvOSTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				635F113F1BFAFD00004982B4 /* Debug */,
+				635F11401BFAFD00004982B4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
 		};
 /* End XCConfigurationList section */
 	};
