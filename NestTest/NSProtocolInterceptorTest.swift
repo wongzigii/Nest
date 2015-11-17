@@ -1,5 +1,5 @@
 //
-//  NSProtocolInterceptorTest.swift
+//  ObjCProtocolInterceptorTest.swift
 //  Nest
 //
 //  Created by Manfred Lau on 6/6/15.
@@ -35,12 +35,12 @@ private class RealDelegate: NSObject, OperatorDelegate {
 }
 
 //MARK: - Test Cases
-class NSProtocolInterceptorTest: XCTestCase, MessagePool {
+class ObjCProtocolInterceptorTest: XCTestCase, MessagePool {
     private var onceToken: dispatch_once_t = 0
     
     private weak var delegate: OperatorDelegate?
     private var realDelegate: RealDelegate!
-    private var protocolInterceptor: NSProtocolInterceptor!
+    private var protocolInterceptor: ObjCProtocolInterceptor!
     
     private var messagePool: [String] = []
     
@@ -62,7 +62,7 @@ class NSProtocolInterceptorTest: XCTestCase, MessagePool {
         aRealDelegate.messagePool = self
         realDelegate = aRealDelegate
         
-        let aProtocolInterceptor = NSProtocolInterceptor
+        let aProtocolInterceptor = ObjCProtocolInterceptor
             .forProtocol(OperatorDelegate.self)
         aProtocolInterceptor.receiver = aRealDelegate
         aProtocolInterceptor.containsMiddleMan(self)
@@ -78,7 +78,7 @@ class NSProtocolInterceptorTest: XCTestCase, MessagePool {
     
     func testProtocolInterceptorAssignedToDelegate() {
         NSLog("delegate: \(delegate)")
-        XCTAssert(delegate is NSProtocolInterceptor, "Pass")
+        XCTAssert(delegate is ObjCProtocolInterceptor, "Pass")
     }
     
     func testReceiverMessageForwarding() {
@@ -100,7 +100,7 @@ class NSProtocolInterceptorTest: XCTestCase, MessagePool {
 }
 
 //MARK: - OperatorDelegate
-extension NSProtocolInterceptorTest: OperatorDelegate {
+extension ObjCProtocolInterceptorTest: OperatorDelegate {
     @objc func operatorDidSendMessageToMiddleMan() {
         pushMessage(MiddleManToken)
     }

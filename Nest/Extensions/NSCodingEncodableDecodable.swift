@@ -345,6 +345,7 @@ extension Set: NSCodingEncodable, NSCodingDecodable {
 }
 
 // Specialization for CoreMedia types
+#if !os(watchOS)
 import AVFoundation
 
 extension CMTime: NSCodingEncodable, NSCodingDecodable {
@@ -385,5 +386,5 @@ extension CMTimeMapping: NSCodingEncodable, NSCodingDecodable {
         return decoder.decodeCMTimeMappingForKey(key)
     }
 }
-
+#endif
 

@@ -1,5 +1,5 @@
 //
-//  NSProtocolDispatcherType.swift
+//  ObjCProtocolDispatcherType.swift
 //  Nest
 //
 //  Created by Manfred on 9/22/15.
@@ -10,26 +10,26 @@ import SwiftExt
 import Foundation
 
 /**
- By conforming `NSProtocolDispatcherType`, an object turned to be a proxy which
- intercepts messages originally intended to send to the object itself to the 
- last appended dispatching destination. If all the dispatching destinations are
- not able to respond the message, it will finally be dispatched to the object 
- itself. You are able to add dispatched protocols at runtime.
+ By conforming `ObjCProtocolDispatcherType`, an object turned to be a proxy 
+ which intercepts messages originally intended to send to the object itself to 
+ the last appended dispatching destination. If all the dispatching destinations 
+ are not able to respond the message, it will finally be dispatched to the 
+ object itself. You are able to add dispatched protocols at runtime.
 
- - Discussion: Where the `NSProtocolDispatcherType` is different from 
- `NSProtocolInterceptor` is:
- 1. The role of `NSProtocolInterceptor`'s receiver is just the receiver itself
- but `NSProtocolDispatcherType` could have multiple receivers;
- 2. `NSProtocolDispatcherType` is a pre-implemented protocol but 
- `NSProtocolInterceptor` is a class;
+ - Discussion: Where the `ObjCProtocolDispatcherType` is different from 
+ `ObjCProtocolInterceptor` is:
+ 1. The role of `ObjCProtocolInterceptor`'s receiver is just the receiver itself
+ but `ObjCProtocolDispatcherType` could have multiple receivers;
+ 2. `ObjCProtocolDispatcherType` is a pre-implemented protocol but 
+ `ObjCProtocolInterceptor` is a class;
  3. You are able to add dispatched protocols to any object conforms to 
- `NSProtocolDispatcherType` at runtime which `NSProtocolInterceptor` not.
+ `ObjCProtocolDispatcherType` at runtime which `ObjCProtocolInterceptor` not.
 */
-public protocol NSProtocolDispatcherType: NSObjectProtocol {
+public protocol ObjCProtocolDispatcherType: NSObjectProtocol {
     
 }
 
-extension NSProtocolDispatcherType {
+extension ObjCProtocolDispatcherType {
     /// Returns dispatched protocols
     public var dispatchedProtocols: [Protocol] {
         return _dispatchedProtocols.allObjects as! [Protocol]
@@ -42,7 +42,7 @@ extension NSProtocolDispatcherType {
     }
 }
 
-extension NSProtocolDispatcherType {
+extension ObjCProtocolDispatcherType {
     /** Returns the object to which unrecognized messages should first be
     directed.
     
@@ -139,7 +139,7 @@ extension NSProtocolDispatcherType {
     }
 }
 
-extension NSProtocolDispatcherType {
+extension ObjCProtocolDispatcherType {
     /// Add a dispatched protocol
     public func addDispatchedProtocol(aProtocol: Protocol) {
         if !_dispatchedProtocols.containsObject(aProtocol) {
@@ -189,7 +189,7 @@ private var _dispatchDestinationsKey = "_dispatchDestinations"
 private var dispatchTableKey = "messageDispatchTable"
 private var needsInvalidateDispatchTableKey = "needsInvalidateDispatchTable"
 
-extension NSProtocolDispatcherType {
+extension ObjCProtocolDispatcherType {
     private var needsInvalidateDispatchTable: Bool {
         get {
             if let value = objc_getAssociatedObject(self,

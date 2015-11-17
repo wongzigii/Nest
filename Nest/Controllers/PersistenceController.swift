@@ -26,44 +26,19 @@ public class PersistenceController {
     private var pendingSavingCompletions: [(Bool) -> Void] = []
     public private(set) var saving: Bool = false
     
-    private var stateAccessLock: OSSpinLock = 0
-    private var __state: State = .NotPrepared
-    private var _state: State {
-        get {
-            OSSpinLockLock(&stateAccessLock)
-            defer { OSSpinLockUnlock(&stateAccessLock) }
-            return __state
-        }
-        set {
-            OSSpinLockLock(&stateAccessLock)
-            defer { OSSpinLockUnlock(&stateAccessLock) }
-            __state = newValue
-        }
-    }
-    
-    // Never blocks main thread
-    private var stateShadow: State
-    public var state: State {
-        return OSSpinLockTry(&stateAccessLock) ? {
-            stateShadow = _state
-            return stateShadow }()
-            : stateShadow
-    }
-    
-    public var stateAndWait: State { return _state }
+    private var state: State = .NotPrepared
     
     private var preparationQueue: dispatch_queue_t =
     dispatch_queue_create(
         "com.WeZZard.Nest.PersistenceController.PreparationQueue",
         DISPATCH_QUEUE_SERIAL)
     
-    private init(storeURL: NSURL,
+    public init(storeURL: NSURL,
         type: NSPersistentStoreType,
         modelName: String,
-        modelExtension: String = "mmod")
+        modelExtension: String = "momd")
     {
-        __state = .Preparing
-        stateShadow = .Preparing
+        state = .Preparing
         
         fetchingContext = NSManagedObjectContext(
             concurrencyType: .MainQueueConcurrencyType)
@@ -71,18 +46,20 @@ public class PersistenceController {
         savingContext = NSManagedObjectContext(
             concurrencyType: .PrivateQueueConcurrencyType)
         
+        fetchingContext.parentContext = savingContext
+        
         dispatch_async(preparationQueue) { () -> Void in
             guard let modelURL = NSBundle.mainBundle()
                 .URLForResource(modelName, withExtension:modelExtension) else
             {
-                self._state = .Failed
+                self.state = .Failed
                 fatalError("Error loading model from bundle")
             }
             
             guard let managedObjectModel
                 = NSManagedObjectModel(contentsOfURL: modelURL) else
             {
-                self._state = .Failed
+                self.state = .Failed
                 fatalError("Error initializing model from: \(modelURL)")
             }
             
@@ -90,28 +67,36 @@ public class PersistenceController {
                 managedObjectModel: managedObjectModel)
             
             do {
+                guard let containingDir = storeURL
+                    .URLByDeletingLastPathComponent else
+                {
+                    fatalError("Cannot get containing directory")
+                }
+                
+                try NSFileManager.defaultManager()
+                    .createDirectoryAtURL(containingDir,
+                        withIntermediateDirectories: true,
+                        attributes: nil)
+                
                 try persistenStoreCoordinator
                     .addPersistentStoreWithType(type.primitiveValue,
                         configuration: nil,
                         URL: storeURL,
                         options: nil)
             } catch {
-                self._state = .Failed
+                self.state = .Failed
                 fatalError("Error migrating store: \(error)")
             }
             
-            dispatch_async(dispatch_get_main_queue(), {
-                NSNotificationCenter.defaultCenter().addObserver(self,
-                    selector: "handleManagedObjectContextDidSaveNotification:",
-                    name: NSManagedObjectContextDidSaveNotification,
-                    object: self.savingContext)
-                
-                self.savingContext.persistentStoreCoordinator
-                    = persistenStoreCoordinator
-                self.fetchingContext.parentContext
-                    = self.savingContext
-                self._state = .Ready
-            })
+            NSNotificationCenter.defaultCenter().addObserver(self,
+                selector: "handleManagedObjectContextDidSaveNotification:",
+                name: NSManagedObjectContextDidSaveNotification,
+                object: self.savingContext)
+            
+            self.savingContext.persistentStoreCoordinator
+                = persistenStoreCoordinator
+            
+            self.state = .Ready
         }
     }
     
@@ -153,7 +138,6 @@ public class PersistenceController {
         (context: NSManagedObjectContext) -> Void
     
     public func perform(transaction: DatabaseTransaction) {
-        let state = self._state
         switch state {
         case .Ready:
             let context = fetchingContext
@@ -174,12 +158,10 @@ public class PersistenceController {
     }
     
     public func performAndWait(transaction: DatabaseTransaction) {
-        let state = self._state
         switch state {
         case .Ready:
             let context = fetchingContext
-            fetchingContext.performBlockAndWait({
-                () -> Void in
+            fetchingContext.performBlockAndWait({ () -> Void in
                 transaction(context: context)
             })
         case .NotPrepared:

@@ -1,5 +1,5 @@
 //
-//  NSProtocolInterpreter.swift
+//  ObjCProtocolInterceptor.swift
 //  Nest
 //
 //  Created by Manfred Lau on 11/28/14.
@@ -10,13 +10,13 @@ import Foundation
 import SwiftExt
 
 /**
-`NSProtocolInterceptor` is a proxy which intercepts messages to the middle men
+`ObjCProtocolInterceptor` is a proxy which intercepts messages to the middle men
 which originally intended to send to the receiver.
 
-- Discussion: `NSProtocolInterceptor` is a class cluster which dynamically
+- Discussion: `ObjCProtocolInterceptor` is a class cluster which dynamically
 subclasses itself to conform to the intercepted protocols at the runtime.
 */
-public final class NSProtocolInterceptor: NSObject {
+public final class ObjCProtocolInterceptor: NSObject {
     /// Returns the intercepted protocols.
     public var interceptedProtocols: [Protocol] { return _interceptedProtocols }
     private var _interceptedProtocols: [Protocol] = []
@@ -122,7 +122,7 @@ public final class NSProtocolInterceptor: NSObject {
     UITableViewDelegate.self.
     */
     public class func forProtocol(aProtocol: Protocol)
-        -> NSProtocolInterceptor
+        -> ObjCProtocolInterceptor
     {
         return forProtocols([aProtocol])
     }
@@ -135,7 +135,7 @@ public final class NSProtocolInterceptor: NSObject {
     such as UITableViewDelegate.self.
     */
     public class func forProtocols(protocols: Protocol ...)
-        -> NSProtocolInterceptor
+        -> ObjCProtocolInterceptor
     {
         return forProtocols(protocols)
     }
@@ -148,7 +148,7 @@ public final class NSProtocolInterceptor: NSObject {
     [UITableViewDelegate.self].
     */
     public class func forProtocols(protocols: [Protocol])
-        -> NSProtocolInterceptor
+        -> ObjCProtocolInterceptor
     {
         let protocolNames = protocols.map { NSStringFromProtocol($0) }
         let sortedProtocolNames = protocolNames.sort()
@@ -159,14 +159,14 @@ public final class NSProtocolInterceptor: NSObject {
             concatenatedProtocolsName: concatenatedProtocolsName)
         
         let protocolInterceptor = theConcreteClass.init()
-            as! NSProtocolInterceptor
+            as! ObjCProtocolInterceptor
         protocolInterceptor._interceptedProtocols = protocols
         
         return protocolInterceptor
     }
     
     /**
-    Return a subclass of `NSProtocolInterceptor` which conforms to specified 
+    Return a subclass of `ObjCProtocolInterceptor` which conforms to specified 
         protocols.
     
     - Parameter     protocols:                  An array of Objective-C 
@@ -181,8 +181,8 @@ public final class NSProtocolInterceptor: NSObject {
     duplicated.
     
     - Discussion: The return value type of this function can only be
-    `NSObject.Type`, because if you return with `NSProtocolInterceptor.Type`, 
-    you can only init the returned class to be a `NSProtocolInterceptor` but not
+    `NSObject.Type`, because if you return with `ObjCProtocolInterceptor.Type`, 
+    you can only init the returned class to be a `ObjCProtocolInterceptor` but not
     its subclass.
     */
     private class func concreteClassWithProtocols(protocols: [Protocol],
@@ -191,7 +191,7 @@ public final class NSProtocolInterceptor: NSObject {
         -> NSObject.Type
     {
         let className: String = {
-            let basicClassName = NSStringFromClass(NSProtocolInterceptor.self)
+            let basicClassName = NSStringFromClass(ObjCProtocolInterceptor.self)
                 + "_"
                 + concatenatedProtocolsName
             
@@ -203,7 +203,7 @@ public final class NSProtocolInterceptor: NSObject {
         
         if let theClass = NSClassFromString(className) {
             switch theClass {
-            case let anInterceptorClass as NSProtocolInterceptor.Type:
+            case let anInterceptorClass as ObjCProtocolInterceptor.Type:
                 let isClassConformsToAllProtocols: Bool = {
                     // Check if the found class conforms to the protocols
                     for eachProtocol in protocols
@@ -228,7 +228,7 @@ public final class NSProtocolInterceptor: NSObject {
                     salt: nextSalt)
             }
         } else {
-            let subclass = objc_allocateClassPair(NSProtocolInterceptor.self,
+            let subclass = objc_allocateClassPair(ObjCProtocolInterceptor.self,
                 className,
                 0)
                 as! NSObject.Type
