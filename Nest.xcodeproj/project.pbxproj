@@ -9,6 +9,14 @@
 /* Begin PBXBuildFile section */
 		630B4D531B48473600830454 /* Nest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 634711491B22D91B00FA2C76 /* Nest.framework */; };
 		630B4D541B48473C00830454 /* Nest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 634711681B22D92600FA2C76 /* Nest.framework */; };
+		6315C9BE1BFC8C1C003A5840 /* ObjCSelfAwareSwizzleInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = 6315C9BC1BFC8C1C003A5840 /* ObjCSelfAwareSwizzleInfo.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6315C9BF1BFC8C1C003A5840 /* ObjCSelfAwareSwizzleInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = 6315C9BC1BFC8C1C003A5840 /* ObjCSelfAwareSwizzleInfo.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6315C9C01BFC8C1C003A5840 /* ObjCSelfAwareSwizzleInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = 6315C9BC1BFC8C1C003A5840 /* ObjCSelfAwareSwizzleInfo.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6315C9C11BFC8C1C003A5840 /* ObjCSelfAwareSwizzleInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = 6315C9BC1BFC8C1C003A5840 /* ObjCSelfAwareSwizzleInfo.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6315C9C21BFC8C1C003A5840 /* ObjCSelfAwareSwizzleInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 6315C9BD1BFC8C1C003A5840 /* ObjCSelfAwareSwizzleInfo.m */; };
+		6315C9C31BFC8C1C003A5840 /* ObjCSelfAwareSwizzleInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 6315C9BD1BFC8C1C003A5840 /* ObjCSelfAwareSwizzleInfo.m */; };
+		6315C9C41BFC8C1C003A5840 /* ObjCSelfAwareSwizzleInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 6315C9BD1BFC8C1C003A5840 /* ObjCSelfAwareSwizzleInfo.m */; };
+		6315C9C51BFC8C1C003A5840 /* ObjCSelfAwareSwizzleInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 6315C9BD1BFC8C1C003A5840 /* ObjCSelfAwareSwizzleInfo.m */; };
 		632313141B65D8A700AEA8EF /* SwiftExt.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 632313131B65D8A700AEA8EF /* SwiftExt.framework */; };
 		632313161B65D8B100AEA8EF /* SwiftExt.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 632313151B65D8B100AEA8EF /* SwiftExt.framework */; };
 		632313181B65D8B600AEA8EF /* SwiftExt.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 632313171B65D8B600AEA8EF /* SwiftExt.framework */; };
@@ -156,6 +164,8 @@
 		630B4D661B48DC5800830454 /* SwiftExt.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftExt.framework; path = "../../../Library/Developer/Xcode/DerivedData/Nest-cpwynrnxekfpgteqxqbichddezav/Build/Products/Debug/SwiftExt.framework"; sourceTree = "<group>"; };
 		630B4D701B48DD2F00830454 /* Nest.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Nest.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		630B4DC11B48FF4C00830454 /* SwiftExt.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftExt.framework; path = "../../../Library/Developer/Xcode/DerivedData/Nest-bzfrrjnuqyhzlggnfhrwoghdkynv/Build/Products/Debug/SwiftExt.framework"; sourceTree = "<group>"; };
+		6315C9BC1BFC8C1C003A5840 /* ObjCSelfAwareSwizzleInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ObjCSelfAwareSwizzleInfo.h; sourceTree = "<group>"; };
+		6315C9BD1BFC8C1C003A5840 /* ObjCSelfAwareSwizzleInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ObjCSelfAwareSwizzleInfo.m; sourceTree = "<group>"; };
 		632313131B65D8A700AEA8EF /* SwiftExt.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftExt.framework; path = "Frameworks/SwiftExt/build/Debug-iphoneos/SwiftExt.framework"; sourceTree = "<group>"; };
 		632313151B65D8B100AEA8EF /* SwiftExt.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftExt.framework; path = Frameworks/SwiftExt/build/Debug/SwiftExt.framework; sourceTree = "<group>"; };
 		632313171B65D8B600AEA8EF /* SwiftExt.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftExt.framework; path = "Frameworks/SwiftExt/build/Debug-watchos/SwiftExt.framework"; sourceTree = "<group>"; };
@@ -205,6 +215,7 @@
 		637B6C5A1BD8DD4600F2EE5A /* NSRunLoop+TaskDispatcherTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "NSRunLoop+TaskDispatcherTest.swift"; path = "NestTest/NSRunLoop+TaskDispatcherTest.swift"; sourceTree = SOURCE_ROOT; };
 		639D63EE1BE8404400B30F67 /* SwiftExt.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftExt.framework; path = "../SwiftExt/build/Debug-iphoneos/SwiftExt.framework"; sourceTree = "<group>"; };
 		639D63F01BE8404E00B30F67 /* SwiftExt.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftExt.framework; path = ../SwiftExt/build/Debug/SwiftExt.framework; sourceTree = "<group>"; };
+		63F7BA9C1BFC407800565B0A /* Nest-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Nest-Bridging-Header.h"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -282,11 +293,27 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		6315C9C61BFCE257003A5840 /* FrameworkDependent */ = {
+			isa = PBXGroup;
+			children = (
+				6315C9C71BFCE257003A5840 /* UIKit */,
+			);
+			path = FrameworkDependent;
+			sourceTree = "<group>";
+		};
+		6315C9C71BFCE257003A5840 /* UIKit */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = UIKit;
+			sourceTree = "<group>";
+		};
 		6347113D1B22D90600FA2C76 = {
 			isa = PBXGroup;
 			children = (
 				634711811B22D94600FA2C76 /* Nest */,
 				634711821B22D94600FA2C76 /* NestTests */,
+				6315C9C61BFCE257003A5840 /* FrameworkDependent */,
 				635F11411BFAFD71004982B4 /* PlatformDependent */,
 				6347114A1B22D91B00FA2C76 /* Products */,
 				630B4D6A1B48DC6800830454 /* Frameworks */,
@@ -340,6 +367,8 @@
 				635F10941BFAFABB004982B4 /* ObjCMultiCastDelegatable.swift */,
 				635F10951BFAFABB004982B4 /* ObjCProtocolDispatcherType.swift */,
 				635F10961BFAFABB004982B4 /* ObjCProtocolInterceptor.swift */,
+				6315C9BC1BFC8C1C003A5840 /* ObjCSelfAwareSwizzleInfo.h */,
+				6315C9BD1BFC8C1C003A5840 /* ObjCSelfAwareSwizzleInfo.m */,
 				635F10971BFAFABB004982B4 /* PersistenceController.swift */,
 				635F11071BFAFBA5004982B4 /* SubsequentSetupInitializable.swift */,
 				635F10FF1BFAFAED004982B4 /* ReuseCenter.swift */,
@@ -370,6 +399,7 @@
 			isa = PBXGroup;
 			children = (
 				635F10AA1BFAFABB004982B4 /* MainBundleID.swift */,
+				63F7BA9C1BFC407800565B0A /* Nest-Bridging-Header.h */,
 			);
 			path = Miscellaneous;
 			sourceTree = "<group>";
@@ -460,6 +490,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6315C9C01BFC8C1C003A5840 /* ObjCSelfAwareSwizzleInfo.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -467,6 +498,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6315C9BE1BFC8C1C003A5840 /* ObjCSelfAwareSwizzleInfo.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -474,6 +506,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6315C9BF1BFC8C1C003A5840 /* ObjCSelfAwareSwizzleInfo.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -481,6 +514,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6315C9C11BFC8C1C003A5840 /* ObjCSelfAwareSwizzleInfo.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -746,6 +780,7 @@
 				635F10C21BFAFABB004982B4 /* ObjCProtocolDispatcherType.swift in Sources */,
 				635F10BC1BFAFABB004982B4 /* ObjCAssociated.swift in Sources */,
 				635F110A1BFAFBA5004982B4 /* SubsequentSetupInitializable.swift in Sources */,
+				6315C9C41BFC8C1C003A5840 /* ObjCSelfAwareSwizzleInfo.m in Sources */,
 				635F10D71BFAFABB004982B4 /* NSDate+Comparable.swift in Sources */,
 				635F10B61BFAFABB004982B4 /* NSCodingEncodableDecodable.swift in Sources */,
 				635F10C51BFAFABB004982B4 /* ObjCProtocolInterceptor.swift in Sources */,
@@ -779,6 +814,7 @@
 				635F10C01BFAFABB004982B4 /* ObjCProtocolDispatcherType.swift in Sources */,
 				635F10BA1BFAFABB004982B4 /* ObjCAssociated.swift in Sources */,
 				635F11081BFAFBA5004982B4 /* SubsequentSetupInitializable.swift in Sources */,
+				6315C9C21BFC8C1C003A5840 /* ObjCSelfAwareSwizzleInfo.m in Sources */,
 				635F10D51BFAFABB004982B4 /* NSDate+Comparable.swift in Sources */,
 				635F10B41BFAFABB004982B4 /* NSCodingEncodableDecodable.swift in Sources */,
 				635F10C31BFAFABB004982B4 /* ObjCProtocolInterceptor.swift in Sources */,
@@ -823,6 +859,7 @@
 				635F10C11BFAFABB004982B4 /* ObjCProtocolDispatcherType.swift in Sources */,
 				635F10BB1BFAFABB004982B4 /* ObjCAssociated.swift in Sources */,
 				635F11091BFAFBA5004982B4 /* SubsequentSetupInitializable.swift in Sources */,
+				6315C9C31BFC8C1C003A5840 /* ObjCSelfAwareSwizzleInfo.m in Sources */,
 				635F10D61BFAFABB004982B4 /* NSDate+Comparable.swift in Sources */,
 				635F10B51BFAFABB004982B4 /* NSCodingEncodableDecodable.swift in Sources */,
 				635F10C41BFAFABB004982B4 /* ObjCProtocolInterceptor.swift in Sources */,
@@ -867,6 +904,7 @@
 				635F11701BFAFD83004982B4 /* ObjCProtocolInterceptor.swift in Sources */,
 				635F11791BFAFD83004982B4 /* NSIndexPath+PrimitiveIndexPathType.swift in Sources */,
 				635F11801BFAFD83004982B4 /* MainBundleID.swift in Sources */,
+				6315C9C51BFC8C1C003A5840 /* ObjCSelfAwareSwizzleInfo.m in Sources */,
 				635F11771BFAFD83004982B4 /* NSError+InitConveniences.swift in Sources */,
 				635F117E1BFAFD83004982B4 /* NSString+RangesOfString.swift in Sources */,
 				635F117A1BFAFD83004982B4 /* NSObjectProtocol+Collections.swift in Sources */,
@@ -947,14 +985,17 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = "$(CONFIGURATION_BUILD_DIR)/**";
 				INFOPLIST_FILE = "PlatformDependent/Nest-watchOS/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.WeZZard.Nest-for-watchOS";
 				PRODUCT_NAME = Nest;
+				PUBLIC_HEADERS_FOLDER_PATH = Nest;
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "Nest/Miscellaneous/Nest-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TARGETED_DEVICE_FAMILY = 4;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -1001,14 +1042,17 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = "$(CONFIGURATION_BUILD_DIR)/**";
 				INFOPLIST_FILE = "PlatformDependent/Nest-watchOS/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.WeZZard.Nest-for-watchOS";
 				PRODUCT_NAME = Nest;
+				PUBLIC_HEADERS_FOLDER_PATH = Nest;
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "Nest/Miscellaneous/Nest-Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = 4;
 				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -1051,6 +1095,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				APPLICATION_EXTENSION_API_ONLY = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -1091,6 +1136,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = "$(CONFIGURATION_BUILD_DIR)/**";
 				INFOPLIST_FILE = "PlatformDependent/Nest-iOS/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -1098,8 +1144,10 @@
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.WeZZard.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = Nest;
+				PUBLIC_HEADERS_FOLDER_PATH = Nest;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "Nest/Miscellaneous/Nest-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
@@ -1111,6 +1159,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				APPLICATION_EXTENSION_API_ONLY = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -1145,14 +1194,17 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = "$(CONFIGURATION_BUILD_DIR)/**";
 				INFOPLIST_FILE = "PlatformDependent/Nest-iOS/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.WeZZard.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = Nest;
+				PUBLIC_HEADERS_FOLDER_PATH = Nest;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "Nest/Miscellaneous/Nest-Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -1292,6 +1344,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = "$(CONFIGURATION_BUILD_DIR)/**";
 				INFOPLIST_FILE = "PlatformDependent/Nest-OS-X/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
@@ -1299,8 +1352,10 @@
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.WeZZard.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = Nest;
+				PUBLIC_HEADERS_FOLDER_PATH = Nest;
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "Nest/Miscellaneous/Nest-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
@@ -1347,14 +1402,17 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = "$(CONFIGURATION_BUILD_DIR)/**";
 				INFOPLIST_FILE = "PlatformDependent/Nest-OS-X/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.WeZZard.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = Nest;
+				PUBLIC_HEADERS_FOLDER_PATH = Nest;
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "Nest/Miscellaneous/Nest-Bridging-Header.h";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
@@ -1488,14 +1546,17 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = "$(CONFIGURATION_BUILD_DIR)/**";
 				INFOPLIST_FILE = "PlatformDependent/Nest-tvOS/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.WeZZard.Nest-tvOS";
 				PRODUCT_NAME = Nest;
+				PUBLIC_HEADERS_FOLDER_PATH = Nest;
 				SDKROOT = appletvos;
 				SKIP_INSTALL = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "Nest/Miscellaneous/Nest-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TARGETED_DEVICE_FAMILY = 3;
 				TVOS_DEPLOYMENT_TARGET = 9.0;
@@ -1541,14 +1602,17 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = "$(CONFIGURATION_BUILD_DIR)/**";
 				INFOPLIST_FILE = "PlatformDependent/Nest-tvOS/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.WeZZard.Nest-tvOS";
 				PRODUCT_NAME = Nest;
+				PUBLIC_HEADERS_FOLDER_PATH = Nest;
 				SDKROOT = appletvos;
 				SKIP_INSTALL = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "Nest/Miscellaneous/Nest-Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = 3;
 				TVOS_DEPLOYMENT_TARGET = 9.0;
 				VALIDATE_PRODUCT = YES;
@@ -1705,6 +1769,7 @@
 				635F113D1BFAFD00004982B4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		635F113E1BFAFD00004982B4 /* Build configuration list for PBXNativeTarget "Nest-tvOSTests" */ = {
 			isa = XCConfigurationList;
@@ -1713,6 +1778,7 @@
 				635F11401BFAFD00004982B4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

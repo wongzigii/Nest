@@ -19,12 +19,14 @@ private var taskQueueKey =
 private var taskAmendQueueKey =
 "com.WeZZard.Nest.NSRunLoop.TaskDispatcher.TaskAmendQueue"
 
-private typealias DeallocFunctionPointer =
+private typealias ObjCRawNSRunLoopSel =
     @convention(c) (Unmanaged<NSRunLoop>, Selector) -> Void
 
-private var original_dealloc_imp: IMP?
+private var original_dealloc_imp: ObjCRawNSRunLoopSel = { _ in
+    fatalError("Cannot find original implementation")
+}
 
-private let swizzled_dealloc_imp: DeallocFunctionPointer = {
+private let swizzled_dealloc_imp: ObjCRawNSRunLoopSel = {
     (aSelf: Unmanaged<NSRunLoop>,
     aSelector: Selector)
     -> Void in
@@ -36,13 +38,9 @@ private let swizzled_dealloc_imp: DeallocFunctionPointer = {
         CFRunLoopObserverInvalidate(observer)
     }
     
-    if let original_dealloc_imp = original_dealloc_imp {
-        let originalDealloc = unsafeBitCast(original_dealloc_imp,
-            DeallocFunctionPointer.self)
-        originalDealloc(aSelf, aSelector)
-    } else {
-        fatalError("The original implementation of dealloc for NSRunLoop cannot be found!")
-    }
+    let originalDealloc = unsafeBitCast(original_dealloc_imp,
+        ObjCRawNSRunLoopSel.self)
+    originalDealloc(aSelf, aSelector)
 }
 
 public enum NSRunLoopTaskInvokeTiming: Int {
@@ -52,6 +50,7 @@ public enum NSRunLoopTaskInvokeTiming: Int {
 }
 
 extension NSRunLoop {
+    @objc public var selfAwareSwizzleEnabled: Bool { return true }
     
     public func perform(closure: ()->Void) -> Task {
         objc_sync_enter(self)
@@ -62,26 +61,17 @@ extension NSRunLoop {
         return task
     }
     
-    public override class func initialize() {
-        super.initialize()
-        
-        struct Static {
-            static var token: dispatch_once_t = 0
-        }
-        // make sure this isn't a subclass
-        if self !== NSRunLoop.self {
-            return
-        }
-        
-        dispatch_once(&Static.token) {
-            let selectorDealloc: Selector = "dealloc"
-            original_dealloc_imp =
-                class_getMethodImplementation(self, selectorDealloc)
-            
-            let swizzled_dealloc = unsafeBitCast(swizzled_dealloc_imp, IMP.self)
-            
-            class_replaceMethod(self, selectorDealloc, swizzled_dealloc, "@:")
-        }
+    @objc private class func _nest_selfAwareSwizzle_dealloc()
+        -> ObjCSelfAwareSwizzleInfo
+    {
+        NSLog(__FUNCTION__)
+        return ObjCSelfAwareSwizzleInfo(targetClass: NSRunLoop.self,
+            selector: Selector("dealloc"),
+            implementationExchange: { (original) -> IMP in
+                original_dealloc_imp = unsafeBitCast(original,
+                    ObjCRawNSRunLoopSel.self)
+                return unsafeBitCast(swizzled_dealloc_imp, IMP.self)
+        })
     }
     
     public final class Task {
