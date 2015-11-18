@@ -213,8 +213,6 @@ void swizzleWithInfo(ObjCSelfAwareSwizzleInfo * info) {
                                    (__bridge const void *)(selectorName));
     
     if (!flag) {
-        NSLog(@"%@ - %@", NSStringFromClass(targetClass), NSStringFromSelector(targetSelector));
-        
         IMP impOriginal =
         class_getMethodImplementation(targetClass, targetSelector);
         

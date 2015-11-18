@@ -64,7 +64,6 @@ extension NSRunLoop {
     @objc private class func _nest_selfAwareSwizzle_dealloc()
         -> ObjCSelfAwareSwizzleInfo
     {
-        NSLog(__FUNCTION__)
         return ObjCSelfAwareSwizzleInfo(targetClass: NSRunLoop.self,
             selector: Selector("dealloc"),
             implementationExchange: { (original) -> IMP in
