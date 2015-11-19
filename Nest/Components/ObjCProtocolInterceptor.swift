@@ -115,11 +115,11 @@ public final class ObjCProtocolInterceptor: NSObject {
     }
     
     /**
-    Create a protocol interceptor which intercepts a single Objecitve-C 
-    protocol.
-    
-    - Parameter     protocols:  An Objective-C protocol, such as
-    UITableViewDelegate.self.
+     Create a protocol interceptor which intercepts a single Objecitve-C
+     protocol.
+     
+     - Parameter     protocols:  An Objective-C protocol, such as
+     UITableViewDelegate.self.
     */
     public class func forProtocol(aProtocol: Protocol)
         -> ObjCProtocolInterceptor
@@ -128,11 +128,11 @@ public final class ObjCProtocolInterceptor: NSObject {
     }
     
     /**
-    Create a protocol interceptor which intercepts a variable-length sort of
-    Objecitve-C protocols.
-    
-    - Parameter     protocols:  A variable length sort of Objective-C protocol,
-    such as UITableViewDelegate.self.
+     Create a protocol interceptor which intercepts a variable-length sort of
+     Objecitve-C protocols.
+     
+     - Parameter     protocols:  A variable length sort of Objective-C protocol,
+     such as UITableViewDelegate.self.
     */
     public class func forProtocols(protocols: Protocol ...)
         -> ObjCProtocolInterceptor
@@ -140,12 +140,12 @@ public final class ObjCProtocolInterceptor: NSObject {
         return forProtocols(protocols)
     }
     
-    /** 
-    Create a protocol interceptor which intercepts an array of Objecitve-C 
-    protocols.
-    
-    - Parameter     protocols:  An array of Objective-C protocols, such as
-    [UITableViewDelegate.self].
+    /**
+     Create a protocol interceptor which intercepts an array of Objecitve-C
+     protocols.
+     
+     - Parameter     protocols:  An array of Objective-C protocols, such as
+     [UITableViewDelegate.self].
     */
     public class func forProtocols(protocols: [Protocol])
         -> ObjCProtocolInterceptor
@@ -167,23 +167,23 @@ public final class ObjCProtocolInterceptor: NSObject {
     
     /**
     Return a subclass of `ObjCProtocolInterceptor` which conforms to specified 
-        protocols.
-    
-    - Parameter     protocols:                  An array of Objective-C 
-    protocols. The subclass returned from this function will conform to these 
-    protocols.
-    
-    - Parameter     concatenatedProtocolsName:  A string which came from 
-    concatenating names of `protocols`.
-    
-    - Parameter     salt:                       A UInt number appended to the 
-    class name which used for distinguishing the class name itself from the 
-    duplicated.
-    
-    - Discussion: The return value type of this function can only be
-    `NSObject.Type`, because if you return with `ObjCProtocolInterceptor.Type`, 
-    you can only init the returned class to be a `ObjCProtocolInterceptor` but not
-    its subclass.
+     protocols.
+     
+     - Parameter     protocols:                 An array of Objective-C 
+     protocols. The subclass returned from this function will conform to these
+     protocols.
+     
+     - Parameter     concatenatedProtocolsName: A string which came from
+     concatenating names of `protocols`.
+     
+     - Parameter     salt:                      A UInt number appended to the
+     class name which used for distinguishing the class name itself from the
+     duplicated.
+     
+     - Discussion: The return value type of this function can only be
+     `NSObject.Type`, because if you return with `ObjCProtocolInterceptor.Type`,
+     you can only init the returned class to be a `ObjCProtocolInterceptor` but
+     not its subclass.
     */
     private class func concreteClassWithProtocols(protocols: [Protocol],
         concatenatedProtocolsName: String,

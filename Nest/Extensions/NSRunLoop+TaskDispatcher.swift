@@ -61,7 +61,7 @@ extension NSRunLoop {
         return task
     }
     
-    @objc private class func _nest_selfAwareSwizzle_dealloc()
+    @objc private class func _ObjCSelfAwareSwizzle_dealloc()
         -> ObjCSelfAwareSwizzleInfo
     {
         return ObjCSelfAwareSwizzleInfo(targetClass: NSRunLoop.self,
