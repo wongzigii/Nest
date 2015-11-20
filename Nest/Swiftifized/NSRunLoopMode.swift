@@ -10,7 +10,7 @@ import SwiftExt
 import Foundation
 
 /**
-`NSRunLoopMode` is a convenience of modes of `NSRunLoop`
+`NSRunLoopMode` is a convenience for modes of `NSRunLoop`
 */
 public struct NSRunLoopMode: OptionSetType {
     public typealias Element = NSRunLoopMode

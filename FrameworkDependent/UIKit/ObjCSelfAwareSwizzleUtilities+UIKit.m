@@ -1,5 +1,5 @@
 //
-//  SelfAwareSwizzleUtilities+UIKit.m
+//  ObjCSelfAwareSwizzleUtilities+UIKit.m
 //  Nest
 //
 //  Created by Manfred on 11/19/15.
@@ -8,8 +8,8 @@
 
 @import ObjectiveC;
 
-#import "SelfAwareSwizzleUtilities.h"
-#import "SelfAwareSwizzleUtilities+UIKit.h"
+#import "ObjCSelfAwareSwizzleUtilities.h"
+#import "ObjCSelfAwareSwizzleUtilities+UIKit.h"
 
 BOOL OCSASSwizzledProcessDidFinishLaunching(
     id<UIApplicationDelegate> self,

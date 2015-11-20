@@ -1,5 +1,5 @@
 //
-//  SelfAwareSwizzleUtilities.m
+//  ObjCSelfAwareSwizzleUtilities.m
 //  Nest
 //
 //  Created by Manfred on 11/19/15.
@@ -11,16 +11,16 @@
 #import <Nest/ObjCSelfAwareSwizzleInfo.h>
 
 #if TARGET_OS_IOS
-#import "SelfAwareSwizzleUtilities+UIKit.h"
+#import "ObjCSelfAwareSwizzleUtilities+UIKit.h"
 #elif TARGET_OS_TV
-#import "SelfAwareSwizzleUtilities+UIKit.h"
+#import "ObjCSelfAwareSwizzleUtilities+UIKit.h"
 #elif TARGET_OS_WATCH
-#import "SelfAwareSwizzleUtilities+WatchKit.h"
+#import "ObjCSelfAwareSwizzleUtilities+WatchKit.h"
 #elif TARGET_OS_MAC
-#import "SelfAwareSwizzleUtilities+AppKit.h"
+#import "ObjCSelfAwareSwizzleUtilities+AppKit.h"
 #endif
 
-#import "SelfAwareSwizzleUtilities.h"
+#import "ObjCSelfAwareSwizzleUtilities.h"
 
 static const char * kOCSASSelfAwareSwizzleSelectorPrefix =
 "_ObjCSelfAwareSwizzle_";

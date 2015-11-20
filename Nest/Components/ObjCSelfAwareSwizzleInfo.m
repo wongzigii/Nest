@@ -11,7 +11,7 @@
 
 #import "ObjCSelfAwareSwizzleInfo.h"
 
-#import "SelfAwareSwizzleUtilities.h"
+#import "ObjCSelfAwareSwizzleUtilities.h"
 
 #pragma mark - ObjCSelfAwareSwizzleInfo
 @implementation ObjCSelfAwareSwizzleInfo

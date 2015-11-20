@@ -1,5 +1,5 @@
 //
-//  SelfAwareSwizzleUtilities+WatchKit.m
+//  ObjCSelfAwareSwizzleUtilities+AppKit.m
 //  Nest
 //
 //  Created by Manfred on 11/19/15.
@@ -8,23 +8,23 @@
 
 @import ObjectiveC;
 
-#import "SelfAwareSwizzleUtilities.h"
+#import "ObjCSelfAwareSwizzleUtilities.h"
+#import "ObjCSelfAwareSwizzleUtilities+AppKit.h"
 
-#include "SelfAwareSwizzleUtilities+WatchKit.h"
-
-void OCSASSwizzledProcessDidFinishLaunching(
-    id<WKExtensionDelegate> self,
-    SEL _cmd)
+void OCSASProcessDidFinishLaunching(
+    id<NSApplicationDelegate> self,
+    SEL _cmd,
+    NSApplication * application)
 {
     OCSASPerformSelfAwareSwizzleOnLoadedClasses();
     
     Class class = [self class];
     
-    ObjCRawIdSel * original_imp = (ObjCRawIdSel *)
+    ObjCRawIdSelNSApplication * original_imp = (ObjCRawIdSelNSApplication *)
     OCSASOriginalProcessDidFinishLaunchingImplementationForClass(class);
     
     if (original_imp != NULL) {
-        original_imp(self, _cmd);
+        original_imp(self, _cmd, application);
     } else {
         [NSException raise:NSInternalInconsistencyException
                     format:@"Cannot find original implementation for %@ on %@",
@@ -34,8 +34,9 @@ void OCSASSwizzledProcessDidFinishLaunching(
 }
 
 void OCSASInjectedProcessDidFinishLaunching(
-    id<WKExtensionDelegate> self,
-    SEL _cmd)
+    id<NSApplicationDelegate> self,
+    SEL _cmd,
+    NSApplication * application)
 {
     OCSASPerformSelfAwareSwizzleOnLoadedClasses();
 }

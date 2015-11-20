@@ -1,5 +1,5 @@
 //
-//  NSCodingEncodableDecodable.swift
+//  ObjCEncodableDecodable.swift
 //  Nest
 //
 //  Created by Manfred on 11/9/15.
@@ -8,60 +8,16 @@
 
 import Foundation
 
-public protocol NSCodingEncodable {
+public protocol ObjCEncodable {
     func encodeTo(encoder: NSCoder, forKey key: String)
 }
 
-public enum NSCodingDecodingError<T>: ErrorType {
-    // Only occurrs when decoding objects and Swift strings
-    case TypeCastingFailed(key: String, type: T.Type)
-    case ValueOfTypeForKeyDoesNotExist(key: String, type: T.Type)
-}
-
-public protocol NSCodingDecodable {
+public protocol ObjCDecodable {
     static func decodeFrom(decoder: NSCoder, forKey key: String) -> Self?
 }
 
-// Specialization for NSObject with NSCoding conformed to
-extension NSCoding where Self: NSObject {
-    public func encodeTo(encoder: NSCoder, forKey key: String) {
-        encoder.encodeObject(self, forKey: key)
-    }
-    
-    public static func decodeFrom(decoder: NSCoder, forKey key: String)
-        -> Self?
-    {
-        guard decoder.containsValueForKey(key) else { return nil }
-        
-        guard let object = decoder.decodeObjectOfClass(self, forKey: key) else {
-            // We don't need to check decoder's requiresSecureCoding property
-            // because system throws exception on behalf of ourselves when
-            // requiresSecureCoding responds to true but NSSecureCoding was not
-            // implemented.
-            // Once the program went to here, that meant it can only be a type
-            // casting failure where decoder's requiresSecureCoding responded to
-            // false.
-            return nil
-        }
-        
-        return object
-    }
-}
-
-extension NSObject: NSCodingEncodable, NSCodingDecodable {
-    public func encodeTo(encoder: NSCoder, forKey key: String) {
-        fatalError("You should not use this abstract class directly")
-    }
-    
-    public static func decodeFrom(decoder: NSCoder, forKey key: String)
-        -> Self?
-    {
-        fatalError("You should not use this abstract class directly")
-    }
-}
-
 // Specialization for integer types
-extension Int: NSCodingEncodable, NSCodingDecodable {
+extension Int: ObjCEncodable, ObjCDecodable {
     public func encodeTo(encoder: NSCoder, forKey key: String) {
         encoder.encodeInteger(self, forKey: key)
     }
@@ -76,7 +32,7 @@ extension Int: NSCodingEncodable, NSCodingDecodable {
     }
 }
 
-extension Int8: NSCodingEncodable, NSCodingDecodable {
+extension Int8: ObjCEncodable, ObjCDecodable {
     public func encodeTo(encoder: NSCoder, forKey key: String) {
         encoder.encodeInt32(Int32(self), forKey: key)
     }
@@ -91,7 +47,7 @@ extension Int8: NSCodingEncodable, NSCodingDecodable {
     }
 }
 
-extension Int16: NSCodingEncodable, NSCodingDecodable {
+extension Int16: ObjCEncodable, ObjCDecodable {
     public func encodeTo(encoder: NSCoder, forKey key: String) {
         encoder.encodeInt32(Int32(self), forKey: key)
     }
@@ -106,7 +62,7 @@ extension Int16: NSCodingEncodable, NSCodingDecodable {
     }
 }
 
-extension Int32: NSCodingEncodable, NSCodingDecodable {
+extension Int32: ObjCEncodable, ObjCDecodable {
     public func encodeTo(encoder: NSCoder, forKey key: String) {
         encoder.encodeInt32(self, forKey: key)
     }
@@ -121,7 +77,7 @@ extension Int32: NSCodingEncodable, NSCodingDecodable {
     }
 }
 
-extension Int64: NSCodingEncodable, NSCodingDecodable {
+extension Int64: ObjCEncodable, ObjCDecodable {
     public func encodeTo(encoder: NSCoder, forKey key: String) {
         encoder.encodeInt64(self, forKey: key)
     }
@@ -137,7 +93,7 @@ extension Int64: NSCodingEncodable, NSCodingDecodable {
 }
 
 // Specialization for unsigned integer types
-extension UInt: NSCodingEncodable, NSCodingDecodable {
+extension UInt: ObjCEncodable, ObjCDecodable {
     public func encodeTo(encoder: NSCoder, forKey key: String) {
         encoder.encodeInteger(Int(self), forKey: key)
     }
@@ -152,7 +108,7 @@ extension UInt: NSCodingEncodable, NSCodingDecodable {
     }
 }
 
-extension UInt8: NSCodingEncodable, NSCodingDecodable {
+extension UInt8: ObjCEncodable, ObjCDecodable {
     public func encodeTo(encoder: NSCoder, forKey key: String) {
         encoder.encodeInt32(Int32(self), forKey: key)
     }
@@ -167,7 +123,7 @@ extension UInt8: NSCodingEncodable, NSCodingDecodable {
     }
 }
 
-extension UInt16: NSCodingEncodable, NSCodingDecodable {
+extension UInt16: ObjCEncodable, ObjCDecodable {
     public func encodeTo(encoder: NSCoder, forKey key: String) {
         encoder.encodeInt32(Int32(self), forKey: key)
     }
@@ -182,7 +138,7 @@ extension UInt16: NSCodingEncodable, NSCodingDecodable {
     }
 }
 
-extension UInt32: NSCodingEncodable, NSCodingDecodable {
+extension UInt32: ObjCEncodable, ObjCDecodable {
     public func encodeTo(encoder: NSCoder, forKey key: String) {
         encoder.encodeInt32(Int32(self), forKey: key)
     }
@@ -197,7 +153,7 @@ extension UInt32: NSCodingEncodable, NSCodingDecodable {
     }
 }
 
-extension UInt64: NSCodingEncodable, NSCodingDecodable {
+extension UInt64: ObjCEncodable, ObjCDecodable {
     public func encodeTo(encoder: NSCoder, forKey key: String) {
         encoder.encodeInt64(Int64(self), forKey: key)
     }
@@ -213,7 +169,7 @@ extension UInt64: NSCodingEncodable, NSCodingDecodable {
 }
 
 // Specialization for float point types
-extension Float: NSCodingEncodable, NSCodingDecodable {
+extension Float: ObjCEncodable, ObjCDecodable {
     public func encodeTo(encoder: NSCoder, forKey key: String) {
         encoder.encodeFloat(self, forKey: key)
     }
@@ -228,7 +184,7 @@ extension Float: NSCodingEncodable, NSCodingDecodable {
     }
 }
 
-extension Double: NSCodingEncodable, NSCodingDecodable {
+extension Double: ObjCEncodable, ObjCDecodable {
     public func encodeTo(encoder: NSCoder, forKey key: String) {
         encoder.encodeDouble(self, forKey: key)
     }
@@ -243,7 +199,7 @@ extension Double: NSCodingEncodable, NSCodingDecodable {
     }
 }
 
-extension String: NSCodingEncodable, NSCodingDecodable {
+extension String: ObjCEncodable, ObjCDecodable {
     public func encodeTo(encoder: NSCoder, forKey key: String) {
         encoder.encodeObject(self, forKey: key)
     }
@@ -261,7 +217,7 @@ extension String: NSCodingEncodable, NSCodingDecodable {
 }
 
 // Specialization for collection types
-extension Array: NSCodingEncodable, NSCodingDecodable {
+extension Array: ObjCEncodable, ObjCDecodable {
     public func encodeTo(encoder: NSCoder, forKey key: String) {
         let validElememts = NSMutableArray()
         for each in self {
@@ -289,7 +245,7 @@ extension Array: NSCodingEncodable, NSCodingDecodable {
     }
 }
 
-extension Dictionary: NSCodingEncodable, NSCodingDecodable {
+extension Dictionary: ObjCEncodable, ObjCDecodable {
     public func encodeTo(encoder: NSCoder, forKey key: String) {
         let validElememts = NSMutableDictionary()
         for (key, value) in self {
@@ -318,7 +274,7 @@ extension Dictionary: NSCodingEncodable, NSCodingDecodable {
     }
 }
 
-extension Set: NSCodingEncodable, NSCodingDecodable {
+extension Set: ObjCEncodable, ObjCDecodable {
     public func encodeTo(encoder: NSCoder, forKey key: String) {
         let validElememts = NSMutableSet()
         for each in self {
@@ -346,45 +302,45 @@ extension Set: NSCodingEncodable, NSCodingDecodable {
 
 // Specialization for CoreMedia types
 #if !os(watchOS)
-import AVFoundation
-
-extension CMTime: NSCodingEncodable, NSCodingDecodable {
-    public func encodeTo(encoder: NSCoder, forKey key: String) {
-        encoder.encodeCMTime(self, forKey: key)
+    import AVFoundation
+    
+    extension CMTime: ObjCEncodable, ObjCDecodable {
+        public func encodeTo(encoder: NSCoder, forKey key: String) {
+            encoder.encodeCMTime(self, forKey: key)
+        }
+        
+        public static func decodeFrom(decoder: NSCoder, forKey key: String)
+            -> CMTime?
+        {
+            guard decoder.containsValueForKey(key) else { return nil }
+            return decoder.decodeCMTimeForKey(key)
+        }
     }
     
-    public static func decodeFrom(decoder: NSCoder, forKey key: String)
-        -> CMTime?
-    {
-        guard decoder.containsValueForKey(key) else { return nil }
-        return decoder.decodeCMTimeForKey(key)
-    }
-}
-
-extension CMTimeRange: NSCodingEncodable, NSCodingDecodable {
-    public func encodeTo(encoder: NSCoder, forKey key: String) {
-        encoder.encodeCMTimeRange(self, forKey: key)
-    }
-    
-    public static func decodeFrom(decoder: NSCoder, forKey key: String)
-        -> CMTimeRange?
-    {
-        guard decoder.containsValueForKey(key) else { return nil }
-        return decoder.decodeCMTimeRangeForKey(key)
-    }
-}
-
-extension CMTimeMapping: NSCodingEncodable, NSCodingDecodable {
-    public func encodeTo(encoder: NSCoder, forKey key: String) {
-        encoder.encodeCMTimeMapping(self, forKey: key)
+    extension CMTimeRange: ObjCEncodable, ObjCDecodable {
+        public func encodeTo(encoder: NSCoder, forKey key: String) {
+            encoder.encodeCMTimeRange(self, forKey: key)
+        }
+        
+        public static func decodeFrom(decoder: NSCoder, forKey key: String)
+            -> CMTimeRange?
+        {
+            guard decoder.containsValueForKey(key) else { return nil }
+            return decoder.decodeCMTimeRangeForKey(key)
+        }
     }
     
-    public static func decodeFrom(decoder: NSCoder, forKey key: String)
-        -> CMTimeMapping?
-    {
-        guard decoder.containsValueForKey(key) else { return nil }
-        return decoder.decodeCMTimeMappingForKey(key)
+    extension CMTimeMapping: ObjCEncodable, ObjCDecodable {
+        public func encodeTo(encoder: NSCoder, forKey key: String) {
+            encoder.encodeCMTimeMapping(self, forKey: key)
+        }
+        
+        public static func decodeFrom(decoder: NSCoder, forKey key: String)
+            -> CMTimeMapping?
+        {
+            guard decoder.containsValueForKey(key) else { return nil }
+            return decoder.decodeCMTimeMappingForKey(key)
+        }
     }
-}
 #endif
 

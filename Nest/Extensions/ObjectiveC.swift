@@ -29,34 +29,3 @@ public func sel_belongsToProtocol(aSelector: Selector,
     }
     return false
 }
-
-/**
-Swizzle `aClass`'s `selector` with specified `implementation` and add the 
-`selectorPrefix` to the swizzling selector.
-*/
-public func class_swizzleClass(aClass: AnyClass,
-    _ selector: Selector,
-    _ implementation: IMP,
-    _ selectorPrefix: String)
-{
-    let selectorString = selector.description
-    let swizzlingSelector = Selector(selectorPrefix + selectorString)
-    let swizzledMethod = class_getInstanceMethod(aClass, selector)
-    
-    let swizzledMethodTypeEncoding =
-        method_getTypeEncoding(swizzledMethod)
-    
-    let isMethodAddedSuccessful = class_addMethod(aClass,
-        swizzlingSelector,
-        implementation,
-        swizzledMethodTypeEncoding)
-    
-    if isMethodAddedSuccessful {
-        let swizzlingMethod = class_getInstanceMethod(aClass,
-            swizzlingSelector)
-        
-        method_exchangeImplementations(swizzledMethod, swizzlingMethod)
-    } else {
-        NSLog("WARNING: Swizzle \(swizzlingSelector) on \(aClass) with prefix \(selectorPrefix) failed. Method already exists.")
-    }
-}
