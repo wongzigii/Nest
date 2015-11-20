@@ -42,6 +42,9 @@
 		632313181B65D8B600AEA8EF /* SwiftExt.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 632313171B65D8B600AEA8EF /* SwiftExt.framework */; };
 		634711B41B22FDBE00FA2C76 /* NSReuseCenterTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 634711B31B22FDBE00FA2C76 /* NSReuseCenterTest.swift */; };
 		634711B51B22FDBE00FA2C76 /* NSReuseCenterTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 634711B31B22FDBE00FA2C76 /* NSReuseCenterTest.swift */; };
+		635AE0801BFF10D300FB612A /* ObjectiveCTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635AE07F1BFF10D300FB612A /* ObjectiveCTest.swift */; };
+		635AE0811BFF10D300FB612A /* ObjectiveCTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635AE07F1BFF10D300FB612A /* ObjectiveCTest.swift */; };
+		635AE0821BFF10D300FB612A /* ObjectiveCTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635AE07F1BFF10D300FB612A /* ObjectiveCTest.swift */; };
 		635F10AE1BFAFABB004982B4 /* HierarchicalPickablePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F108F1BFAFABB004982B4 /* HierarchicalPickablePicker.swift */; };
 		635F10AF1BFAFABB004982B4 /* HierarchicalPickablePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F108F1BFAFABB004982B4 /* HierarchicalPickablePicker.swift */; };
 		635F10B01BFAFABB004982B4 /* HierarchicalPickablePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F108F1BFAFABB004982B4 /* HierarchicalPickablePicker.swift */; };
@@ -201,6 +204,7 @@
 		634711721B22D92600FA2C76 /* NestTest.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NestTest.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		634711AD1B22E6FB00FA2C76 /* NSProtocolInterceptorTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NSProtocolInterceptorTest.swift; path = NestTest/NSProtocolInterceptorTest.swift; sourceTree = SOURCE_ROOT; };
 		634711B31B22FDBE00FA2C76 /* NSReuseCenterTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NSReuseCenterTest.swift; path = NestTest/NSReuseCenterTest.swift; sourceTree = SOURCE_ROOT; };
+		635AE07F1BFF10D300FB612A /* ObjectiveCTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ObjectiveCTest.swift; path = NestTest/ObjectiveCTest.swift; sourceTree = SOURCE_ROOT; };
 		635F108F1BFAFABB004982B4 /* HierarchicalPickablePicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HierarchicalPickablePicker.swift; sourceTree = "<group>"; };
 		635F10901BFAFABB004982B4 /* Notifications.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Notifications.swift; sourceTree = "<group>"; };
 		635F10911BFAFABB004982B4 /* ObjCCodingEncodableDecodable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObjCCodingEncodableDecodable.swift; sourceTree = "<group>"; };
@@ -394,6 +398,7 @@
 		634711821B22D94600FA2C76 /* NestTests */ = {
 			isa = PBXGroup;
 			children = (
+				635AE07F1BFF10D300FB612A /* ObjectiveCTest.swift */,
 				634711AD1B22E6FB00FA2C76 /* NSProtocolInterceptorTest.swift */,
 				634711B31B22FDBE00FA2C76 /* NSReuseCenterTest.swift */,
 				6323131C1B65FE9800AEA8EF /* NotificationDeliveryTest.swift */,
@@ -890,6 +895,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6388F79A1B663CB900CDD64A /* NotificationDeliveryTest.swift in Sources */,
+				635AE0801BFF10D300FB612A /* ObjectiveCTest.swift in Sources */,
 				634711B41B22FDBE00FA2C76 /* NSReuseCenterTest.swift in Sources */,
 				637B6C5B1BD8DD4600F2EE5A /* NSRunLoop+TaskDispatcherTest.swift in Sources */,
 				63EACCF01B6A027D0086561F /* NSProtocolInterceptorTest.swift in Sources */,
@@ -937,6 +943,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6388F79C1B663CD200CDD64A /* NotificationDeliveryTest.swift in Sources */,
+				635AE0811BFF10D300FB612A /* ObjectiveCTest.swift in Sources */,
 				634711B51B22FDBE00FA2C76 /* NSReuseCenterTest.swift in Sources */,
 				637B6C5C1BD8DD4600F2EE5A /* NSRunLoop+TaskDispatcherTest.swift in Sources */,
 				63EACCF11B6A027F0086561F /* NSProtocolInterceptorTest.swift in Sources */,
@@ -983,6 +990,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				635AE0821BFF10D300FB612A /* ObjectiveCTest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

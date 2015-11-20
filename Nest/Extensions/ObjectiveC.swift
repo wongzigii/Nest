@@ -21,11 +21,23 @@ public func sel_belongsToProtocol(aSelector: Selector,
         let methodDescription = protocol_getMethodDescription(aProtocol,
             aSelector, isRequired, isInstance)
         
-        if (!methodDescription.name.description.isEmpty ||
-            methodDescription.types.memory != 0)
-        {
+        if !objc_method_description_isEmpty(methodDescription) {
             return true
         }
     }
     return false
 }
+
+public func objc_method_description_isEmpty(
+    var methodDescription: objc_method_description)
+    -> Bool
+{
+    let ptr = withUnsafePointer(&methodDescription) { UnsafePointer<Int8>($0) }
+    for offset in 0..<sizeof(objc_method_description) {
+        if ptr[offset] != 0 {
+            return false
+        }
+    }
+    return true
+}
+

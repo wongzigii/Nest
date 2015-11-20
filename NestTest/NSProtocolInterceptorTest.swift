@@ -72,13 +72,12 @@ class ObjCProtocolInterceptorTest: XCTestCase, MessagePool {
     }
     
     override func tearDown() {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
         super.tearDown()
     }
     
-    func testProtocolInterceptorAssignedToDelegate() {
+    func testProtocolInterceptorAssignment() {
         NSLog("delegate: \(delegate)")
-        XCTAssert(delegate is ObjCProtocolInterceptor, "Pass")
+        XCTAssert(delegate is ObjCProtocolInterceptor, "Protocol interceptor assignment not pass")
     }
     
     func testReceiverMessageForwarding() {
@@ -86,16 +85,16 @@ class ObjCProtocolInterceptorTest: XCTestCase, MessagePool {
         
         let hasOnlyOneReceiverToken = messagePool.filter
             { $0 == ReceiverToken }.count == 1
-        XCTAssert(hasOnlyOneReceiverToken, "Pass")
+        XCTAssert(hasOnlyOneReceiverToken, "Receiver message forwarding not pass")
     }
 
-    func testMiddleManMessageForwarding() {
+    func testMiddleMenMessageForwarding() {
         sendMessageIfNecessary()
         
-        let hasOnlyOneMiddleManToken = messagePool.filter
+        let hasOnlyOneMiddleMenToken = messagePool.filter
             { $0 == MiddleManToken }.count == 1
         
-        XCTAssert(hasOnlyOneMiddleManToken, "Pass")
+        XCTAssert(hasOnlyOneMiddleMenToken, "Middle men forwarding not pass")
     }
 }
 
