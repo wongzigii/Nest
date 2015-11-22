@@ -19,30 +19,6 @@ private var taskQueueKey =
 private var taskAmendQueueKey =
 "com.WeZZard.Nest.NSRunLoop.TaskDispatcher.TaskAmendQueue"
 
-private typealias ObjCRawNSRunLoopSel =
-    @convention(c) (Unmanaged<NSRunLoop>, Selector) -> Void
-
-private var original_dealloc_imp: ObjCRawNSRunLoopSel = { _ in
-    fatalError("Cannot find original implementation")
-}
-
-private let swizzled_dealloc_imp: ObjCRawNSRunLoopSel = {
-    (aSelf: Unmanaged<NSRunLoop>,
-    aSelector: Selector)
-    -> Void in
-    
-    let unretainedSelf = aSelf.takeUnretainedValue()
-    
-    if unretainedSelf.isDispatchObserverLoaded {
-        let observer = unretainedSelf.dispatchObserver
-        CFRunLoopObserverInvalidate(observer)
-    }
-    
-    let originalDealloc = unsafeBitCast(original_dealloc_imp,
-        ObjCRawNSRunLoopSel.self)
-    originalDealloc(aSelf, aSelector)
-}
-
 public enum NSRunLoopTaskInvokeTiming: Int {
     case NextLoopBegan
     case CurrentLoopEnded
@@ -50,8 +26,6 @@ public enum NSRunLoopTaskInvokeTiming: Int {
 }
 
 extension NSRunLoop {
-    @objc public var selfAwareSwizzleEnabled: Bool { return true }
-    
     public func perform(closure: ()->Void) -> Task {
         objc_sync_enter(self)
         loadDispatchObserverIfNeeded()
@@ -62,15 +36,31 @@ extension NSRunLoop {
     }
     
     @objc private class func _ObjCSelfAwareSwizzle_dealloc()
-        -> ObjCSelfAwareSwizzleInfo
+        -> ObjCSelfAwareSwizzleContext
     {
-        return ObjCSelfAwareSwizzleInfo(targetClass: NSRunLoop.self,
-            selector: Selector("dealloc"),
-            implementationExchange: { (original) -> IMP in
-                original_dealloc_imp = unsafeBitCast(original,
-                    ObjCRawNSRunLoopSel.self)
-                return unsafeBitCast(swizzled_dealloc_imp, IMP.self)
-        })
+        class SwizzleRecipe {
+            typealias FunctionPointer =
+                @convention(c) (Unmanaged<NSRunLoop>, Selector) -> Void
+            static var original: FunctionPointer!
+            static let swizzled: FunctionPointer =  {
+                (aSelf, aSelector) -> Void in
+                
+                let unretainedSelf = aSelf.takeUnretainedValue()
+                
+                if unretainedSelf.isDispatchObserverLoaded {
+                    let observer = unretainedSelf.dispatchObserver
+                    CFRunLoopObserverInvalidate(observer)
+                }
+                
+                SwizzleRecipe.original(aSelf, aSelector)
+            }
+        }
+        
+        return withObjCSelfAwareSwizzleContext(
+            forInstanceMethodSelector: "dealloc",
+            onClass: self,
+            original: &SwizzleRecipe.original,
+            swizzled: SwizzleRecipe.swizzled)
     }
     
     public final class Task {

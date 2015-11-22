@@ -1,5 +1,5 @@
 //
-//  ObjCSelfAwareSwizzleUtilities+UIKit.h
+//  ObjCSelfAwareSwizzle+UIKit.h
 //  Nest
 //
 //  Created by Manfred on 11/19/15.
@@ -14,14 +14,14 @@ typedef BOOL ObjCRawIdSelUIApplicationNSDictionary_BOOL(
     UIApplication *,
     NSDictionary *);
 
-#define OCSASProcessDelegate UIApplicationDelegate
+#define OCSASAppDelegate UIApplicationDelegate
 
-#define OCSASProcessDidFinishLaunching application:didFinishLaunchingWithOptions:
+#define OCSASAppDidFinishLaunching application:didFinishLaunchingWithOptions:
 
-#define OCSASProcessDidFinishLaunchingEncode "@:@@"
-
-FOUNDATION_EXPORT ObjCRawIdSelUIApplicationNSDictionary_BOOL
-    OCSASSwizzledProcessDidFinishLaunching;
+#define OCSASAppDidFinishLaunchingEncode "@:@@"
 
 FOUNDATION_EXPORT ObjCRawIdSelUIApplicationNSDictionary_BOOL
-    OCSASInjectedProcessDidFinishLaunching;
+    OCSASSwizzledAppDidFinishLaunching;
+
+FOUNDATION_EXPORT ObjCRawIdSelUIApplicationNSDictionary_BOOL
+    OCSASInjectedAppDidFinishLaunching;

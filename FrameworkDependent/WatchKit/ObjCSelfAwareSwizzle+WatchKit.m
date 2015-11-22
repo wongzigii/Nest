@@ -1,5 +1,5 @@
 //
-//  ObjCSelfAwareSwizzleUtilities+WatchKit.m
+//  ObjCSelfAwareSwizzle+WatchKit.m
 //  Nest
 //
 //  Created by Manfred on 11/19/15.
@@ -8,10 +8,10 @@
 
 @import ObjectiveC;
 
-#import "ObjCSelfAwareSwizzleUtilities.h"
-#import "ObjCSelfAwareSwizzleUtilities+WatchKit.h"
+#import "ObjCSelfAwareSwizzle.h"
+#import "ObjCSelfAwareSwizzle+WatchKit.h"
 
-void OCSASSwizzledProcessDidFinishLaunching(
+void OCSASSwizzledAppDidFinishLaunching(
     id<WKExtensionDelegate> self,
     SEL _cmd)
 {
@@ -20,7 +20,7 @@ void OCSASSwizzledProcessDidFinishLaunching(
     Class class = [self class];
     
     ObjCRawIdSel * original_imp = (ObjCRawIdSel *)
-    OCSASOriginalProcessDidFinishLaunchingImplementationForClass(class);
+    OCSASOriginalAppDidFinishLaunchingImplementationForClass(class);
     
     if (original_imp != NULL) {
         original_imp(self, _cmd);
@@ -32,7 +32,7 @@ void OCSASSwizzledProcessDidFinishLaunching(
     }
 }
 
-void OCSASInjectedProcessDidFinishLaunching(
+void OCSASInjectedAppDidFinishLaunching(
     id<WKExtensionDelegate> self,
     SEL _cmd)
 {

@@ -1,5 +1,5 @@
 //
-//  ObjCSelfAwareSwizzleUtilities+AppKit.m
+//  ObjCSelfAwareSwizzle+AppKit.m
 //  Nest
 //
 //  Created by Manfred on 11/19/15.
@@ -8,10 +8,10 @@
 
 @import ObjectiveC;
 
-#import "ObjCSelfAwareSwizzleUtilities.h"
-#import "ObjCSelfAwareSwizzleUtilities+AppKit.h"
+#import "ObjCSelfAwareSwizzle.h"
+#import "ObjCSelfAwareSwizzle+AppKit.h"
 
-void OCSASProcessDidFinishLaunching(
+void OCSASAppDidFinishLaunching(
     id<NSApplicationDelegate> self,
     SEL _cmd,
     NSApplication * application)
@@ -21,7 +21,7 @@ void OCSASProcessDidFinishLaunching(
     Class class = [self class];
     
     ObjCRawIdSelNSApplication * original_imp = (ObjCRawIdSelNSApplication *)
-    OCSASOriginalProcessDidFinishLaunchingImplementationForClass(class);
+    OCSASOriginalAppDidFinishLaunchingImplementationForClass(class);
     
     if (original_imp != NULL) {
         original_imp(self, _cmd, application);
@@ -33,7 +33,7 @@ void OCSASProcessDidFinishLaunching(
     }
 }
 
-void OCSASInjectedProcessDidFinishLaunching(
+void OCSASInjectedAppDidFinishLaunching(
     id<NSApplicationDelegate> self,
     SEL _cmd,
     NSApplication * application)
