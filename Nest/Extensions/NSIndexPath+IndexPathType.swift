@@ -1,5 +1,5 @@
 //
-//  NSIndexPath+PrimitiveIndexPathType.swift
+//  NSIndexPath+IndexPathType.swift
 //  Nest
 //
 //  Created by Manfred on 10/2/15.
@@ -9,7 +9,7 @@
 import SwiftExt
 import Foundation
 
-extension NSIndexPath: PrimitiveIndexPathType {
+extension NSIndexPath: IndexPathType {
     public var indices: [Int] {
         var indices = [Int]()
         for position in 0..<length {
@@ -44,12 +44,10 @@ extension NSIndexPath: PrimitiveIndexPathType {
         return self.dynamicType.init(indexes: indices, length: indices.count)
     }
     
-    public class func withPrimitiveIndexPath<I: PrimitiveIndexPathType>(
-        primitiveIndexPath: I)
+    public static func withIndexPath<I : IndexPathType>(indexPath: I)
         -> Self
     {
-        return self.init(
-            indexes: primitiveIndexPath.indices.map { Index($0.toIntMax()) },
-            length: primitiveIndexPath.indices.count)
+        return self.init(indexes: indexPath.indices.map { Index($0.toIntMax())},
+            length: indexPath.indices.count)
     }
 }
