@@ -8,18 +8,18 @@
 
 @import AppKit;
 
-typedef void ObjCRawIdSelNSApplication(id<NSApplicationDelegate>,
+typedef void ObjCRawIdSelNSNotification(id<NSApplicationDelegate>,
     SEL,
-    NSApplication *);
+    NSNotification *);
 
 #define OCSASAppDelegate NSApplicationDelegate
 
-#define OCSASAppDidFinishLaunching applicationDidFinishLaunching:
+#define OCSASSelfAwareSwizzlePerformingSelector applicationWillFinishLaunching:
 
-#define OCSASAppDidFinishLaunchingEncode "@:@"
+#define OCSASSelfAwareSwizzlePerformingSelectorEncode "@:@"
 
-FOUNDATION_EXPORT ObjCRawIdSelNSApplication
-OCSASSwizzledAppDidFinishLaunching;
+FOUNDATION_EXPORT ObjCRawIdSelNSNotification
+OCSASSwizzledSelfAwareSwizzlePerformer;
 
-FOUNDATION_EXPORT ObjCRawIdSelNSApplication
-OCSASInjectedAppDidFinishLaunching;
+FOUNDATION_EXPORT ObjCRawIdSelNSNotification
+OCSASInjectedSelfAwareSwizzlePerformer;

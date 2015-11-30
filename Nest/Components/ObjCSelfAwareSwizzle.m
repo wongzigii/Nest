@@ -10,9 +10,7 @@
 
 #import <Nest/Nest-Swift.h>
 
-#if TARGET_OS_IOS
-#import "ObjCSelfAwareSwizzle+UIKit.h"
-#elif TARGET_OS_TV
+#if TARGET_OS_IOS || TARGET_OS_TV
 #import "ObjCSelfAwareSwizzle+UIKit.h"
 #elif TARGET_OS_WATCH
 #import "ObjCSelfAwareSwizzle+WatchKit.h"
@@ -51,7 +49,7 @@ static void OCSASPerformSelfAwareSwizzleWithContext(
 static NSString * OCSASSelfAwareSwizzleContextDescription(
     ObjCSelfAwareSwizzleContext * context);
 
-static CFMutableDictionaryRef OCSASOriginalAppDidFinishLaunchingImpMap = NULL;
+static CFMutableDictionaryRef OCSASOriginalSelfAwareSwizzlePerformerMap = NULL;
 
 static CFMutableDictionaryRef OCSASSwizzledRecords = NULL;
 
@@ -61,6 +59,8 @@ static CFMutableDictionaryRef OCSASSwizzledRecords = NULL;
 
 @implementation NSObject(SelfAwareSwizzle)
 + (void)load {
+    NSLog(@"Main bundle: %@", [NSBundle mainBundle].description);
+    NSLog(@"Main bundle principal class: %@", NSStringFromClass([NSBundle mainBundle].principalClass));
     OCSASSwizzleAllPossibleAppDelegates();
 }
 @end
@@ -70,14 +70,14 @@ void OCSASSwizzleAllPossibleAppDelegates() {
     dispatch_once(&onceToken, ^{
         // Inject implementation in to all classes conforms to process delegate
         
-        OCSASOriginalAppDidFinishLaunchingImpMap =
+        OCSASOriginalSelfAwareSwizzlePerformerMap =
         CFDictionaryCreateMutable(kCFAllocatorDefault, 0, NULL, NULL);
         
-        Protocol * processDelegate =
+        Protocol * appDelegateProtocol =
         @protocol(OCSASAppDelegate);
         
-        SEL processDidFinishLaunching =
-        @selector(OCSASAppDidFinishLaunching);
+        SEL selfAwareSwizzlePerformingSelector =
+        @selector(OCSASSelfAwareSwizzlePerformingSelector);
         
         unsigned int classCount = 0;
         
@@ -86,35 +86,35 @@ void OCSASSwizzleAllPossibleAppDelegates() {
         for (unsigned int index = 0; index < classCount; index ++) {
             Class aClass = classes[index];
             
-            if (class_conformsToProtocol(aClass, processDelegate)) {
+            if (class_conformsToProtocol(aClass, appDelegateProtocol)) {
                 
                 if (class_respondsToSelector(aClass,
-                        processDidFinishLaunching))
+                        selfAwareSwizzlePerformingSelector))
                 {
                     // Swizzle
                     
                     // Keep original
                     IMP original_imp =
                     class_getMethodImplementation(aClass,
-                        processDidFinishLaunching);
+                        selfAwareSwizzlePerformingSelector);
                     
                     CFDictionarySetValue(
-                        OCSASOriginalAppDidFinishLaunchingImpMap,
+                        OCSASOriginalSelfAwareSwizzlePerformerMap,
                         (__bridge const void *)(aClass),
                         original_imp);
                     
                     // Set new
                     class_replaceMethod(aClass,
-                        processDidFinishLaunching,
-                        (IMP)&OCSASSwizzledAppDidFinishLaunching,
-                        OCSASAppDidFinishLaunchingEncode);
+                        selfAwareSwizzlePerformingSelector,
+                        (IMP)&OCSASSwizzledSelfAwareSwizzlePerformer,
+                        OCSASSelfAwareSwizzlePerformingSelectorEncode);
                     
                 } else {
                     // Inject
                     class_addMethod(aClass,
-                        processDidFinishLaunching,
-                        (IMP)&OCSASInjectedAppDidFinishLaunching,
-                        OCSASAppDidFinishLaunchingEncode);
+                        selfAwareSwizzlePerformingSelector,
+                        (IMP)&OCSASInjectedSelfAwareSwizzlePerformer,
+                        OCSASSelfAwareSwizzlePerformingSelectorEncode);
                     
                 }
                 
@@ -126,9 +126,9 @@ void OCSASSwizzleAllPossibleAppDelegates() {
     });
 }
 
-IMP OCSASOriginalAppDidFinishLaunchingImplementationForClass(Class aClass) {
+IMP OCSASOriginalSelfAwareSwizzlePerformerForClass(Class aClass) {
     return (IMP) CFDictionaryGetValue(
-        OCSASOriginalAppDidFinishLaunchingImpMap,
+        OCSASOriginalSelfAwareSwizzlePerformerMap,
         (__bridge const void *)(aClass));
 }
 
@@ -189,12 +189,15 @@ void OCSASScanAndActivateSelfAwareSwizzleSelectorsOnClass(Class aClass) {
                 & OCSASSelfAwareSwizzleSelectorMatchResultMatched)
         {
             OCSASActivateSelfSwizzleSelector(aClass, method, selector);
-        } else if (selectorMatchResult
+        }
+#if DEBUG
+        else if (selectorMatchResult
                     & OCSASSelfAwareSwizzleSelectorMatchResultMatchedIgnoreCase)
         {
-            NSLog(@"Found a pseudo Self-Aware Swizzle Selector, you might ignored some cases when spelling it: %@",
+            NSLog(@"Found a pseudo Self-Aware Swizzle Selector, you might ignored some cases when spelt it: %@",
                   NSStringFromSelector(selector));
         }
+#endif
     }
     
     free(methods);
@@ -227,16 +230,13 @@ OCSASSelfAwareSwizzleSelectorMatchResult
     return OCSASSelfAwareSwizzleSelectorMatchResultUnmatched;
 }
 
-// NEEDS Swiftify!
 void OCSASActivateSelfSwizzleSelector(Class aClass, Method method, SEL selector)
 {
-    // Get self-aware swizzle info
-    IMP imp_selfSwizzleInfoGetter = method_getImplementation(method);
+    // Get self-aware swizzle context
+    OCSASSelfAwareSwizzleContextGetterRef selfAwareSwizzleContextGetter =
+    (OCSASSelfAwareSwizzleContextGetterRef)method_getImplementation(method);
     
-    OCSASSelfAwareSwizzleContextGetterRef selfSwizzleInfoGetter =
-    (OCSASSelfAwareSwizzleContextGetterRef) imp_selfSwizzleInfoGetter;
-    
-    id object = (* selfSwizzleInfoGetter)(aClass, selector);
+    id object = (* selfAwareSwizzleContextGetter)(aClass, selector);
     
     if (object == nil) {
 #if DEBUG
@@ -248,36 +248,36 @@ void OCSASActivateSelfSwizzleSelector(Class aClass, Method method, SEL selector)
     }
     
     if ([object isKindOfClass:[ObjCSelfAwareSwizzleContext class]]) {
-        ObjCSelfAwareSwizzleContext * swizzleInfo =
+        ObjCSelfAwareSwizzleContext * swizzleContext =
         (ObjCSelfAwareSwizzleContext *)object;
         
 #if DEBUG
-        SEL targetSelector = swizzleInfo.targetSelector;
+        SEL targetSelector = swizzleContext.targetSelector;
         if (!OCSASDoesClassHostSelfAwareSelectorOnClass(aClass,
-                swizzleInfo.targetClass))
+                swizzleContext.targetClass))
         {
             NSLog(@"Class to be swizzled %@ is not the Self-Aware Swizzle selector's host class %@.",
                   NSStringFromClass(aClass),
-                  NSStringFromClass(swizzleInfo.targetClass));
+                  NSStringFromClass(swizzleContext.targetClass));
         }
         if (targetSelector == NSSelectorFromString(@"dealloc")) {
-            NSLog(@"Swizzling against -dealloc is discouraged!");
+            NSLog(@"Swizzling againsts -dealloc is discouraged!");
         }
         if (targetSelector == NSSelectorFromString(@"retain")) {
-            NSLog(@"Swizzling against -reatain is discouraged!");
+            NSLog(@"Swizzling againsts -reatain is discouraged!");
         }
         if (targetSelector == NSSelectorFromString(@"release")) {
-            NSLog(@"Swizzling against -release is discouraged!");
+            NSLog(@"Swizzling againsts -release is discouraged!");
         }
         if (targetSelector == NSSelectorFromString(@"retainCount")) {
-            NSLog(@"Swizzling against -retainCount is discouraged!");
+            NSLog(@"Swizzling againsts -retainCount is discouraged!");
         }
 #endif
-        OCSASPerformSelfAwareSwizzleWithContext(swizzleInfo);
+        OCSASPerformSelfAwareSwizzleWithContext(swizzleContext);
     }
 #if DEBUG
     else {
-        NSLog(@"Expected Self-Aware Swizzle selector: %@ on %@ doesn't return with value of type of %@ but %@.",
+        NSLog(@"Unexpected Self-Aware Swizzle selector: %@ on %@ doesn't return with a value of type of %@ but %@.",
               NSStringFromSelector(selector),
               NSStringFromClass(aClass),
               NSStringFromClass([ObjCSelfAwareSwizzleContext class]),
@@ -395,7 +395,7 @@ void OCSASPerformSelfAwareSwizzleWithContext(
     }
 #if DEBUG
     else {
-        NSLog(@"Swizzling FAILED: Duplicate swizzling:%@",
+        NSLog(@"Swizzling FAILED: Duplicate swizzling: %@",
               OCSASSelfAwareSwizzleContextDescription(context));
     }
 #endif

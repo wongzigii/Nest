@@ -80,9 +80,9 @@
 		635F10DB1BFAFABB004982B4 /* NSIndexPath+Comparable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F109F1BFAFABB004982B4 /* NSIndexPath+Comparable.swift */; };
 		635F10DC1BFAFABB004982B4 /* NSIndexPath+Comparable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F109F1BFAFABB004982B4 /* NSIndexPath+Comparable.swift */; };
 		635F10DD1BFAFABB004982B4 /* NSIndexPath+Comparable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F109F1BFAFABB004982B4 /* NSIndexPath+Comparable.swift */; };
-		635F10DE1BFAFABB004982B4 /* NSIndexPath+PrimitiveIndexPathType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F10A01BFAFABB004982B4 /* NSIndexPath+PrimitiveIndexPathType.swift */; };
-		635F10DF1BFAFABB004982B4 /* NSIndexPath+PrimitiveIndexPathType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F10A01BFAFABB004982B4 /* NSIndexPath+PrimitiveIndexPathType.swift */; };
-		635F10E01BFAFABB004982B4 /* NSIndexPath+PrimitiveIndexPathType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F10A01BFAFABB004982B4 /* NSIndexPath+PrimitiveIndexPathType.swift */; };
+		635F10DE1BFAFABB004982B4 /* NSIndexPath+IndexPathType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F10A01BFAFABB004982B4 /* NSIndexPath+IndexPathType.swift */; };
+		635F10DF1BFAFABB004982B4 /* NSIndexPath+IndexPathType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F10A01BFAFABB004982B4 /* NSIndexPath+IndexPathType.swift */; };
+		635F10E01BFAFABB004982B4 /* NSIndexPath+IndexPathType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F10A01BFAFABB004982B4 /* NSIndexPath+IndexPathType.swift */; };
 		635F10E41BFAFABB004982B4 /* NSObjectProtocol+Collections.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F10A21BFAFABB004982B4 /* NSObjectProtocol+Collections.swift */; };
 		635F10E51BFAFABB004982B4 /* NSObjectProtocol+Collections.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F10A21BFAFABB004982B4 /* NSObjectProtocol+Collections.swift */; };
 		635F10E61BFAFABB004982B4 /* NSObjectProtocol+Collections.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F10A21BFAFABB004982B4 /* NSObjectProtocol+Collections.swift */; };
@@ -132,7 +132,7 @@
 		635F11761BFAFD83004982B4 /* NSDate+Comparable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F109D1BFAFABB004982B4 /* NSDate+Comparable.swift */; };
 		635F11771BFAFD83004982B4 /* NSError+InitConveniences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F109E1BFAFABB004982B4 /* NSError+InitConveniences.swift */; };
 		635F11781BFAFD83004982B4 /* NSIndexPath+Comparable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F109F1BFAFABB004982B4 /* NSIndexPath+Comparable.swift */; };
-		635F11791BFAFD83004982B4 /* NSIndexPath+PrimitiveIndexPathType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F10A01BFAFABB004982B4 /* NSIndexPath+PrimitiveIndexPathType.swift */; };
+		635F11791BFAFD83004982B4 /* NSIndexPath+IndexPathType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F10A01BFAFABB004982B4 /* NSIndexPath+IndexPathType.swift */; };
 		635F117A1BFAFD83004982B4 /* NSObjectProtocol+Collections.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F10A21BFAFABB004982B4 /* NSObjectProtocol+Collections.swift */; };
 		635F117B1BFAFD83004982B4 /* NSRange+Equatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F10A31BFAFABB004982B4 /* NSRange+Equatable.swift */; };
 		635F117C1BFAFD83004982B4 /* NSRange+NSRangeMake.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F10A41BFAFABB004982B4 /* NSRange+NSRangeMake.swift */; };
@@ -213,7 +213,7 @@
 		635F109D1BFAFABB004982B4 /* NSDate+Comparable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSDate+Comparable.swift"; sourceTree = "<group>"; };
 		635F109E1BFAFABB004982B4 /* NSError+InitConveniences.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSError+InitConveniences.swift"; sourceTree = "<group>"; };
 		635F109F1BFAFABB004982B4 /* NSIndexPath+Comparable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSIndexPath+Comparable.swift"; sourceTree = "<group>"; };
-		635F10A01BFAFABB004982B4 /* NSIndexPath+PrimitiveIndexPathType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSIndexPath+PrimitiveIndexPathType.swift"; sourceTree = "<group>"; };
+		635F10A01BFAFABB004982B4 /* NSIndexPath+IndexPathType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSIndexPath+IndexPathType.swift"; sourceTree = "<group>"; };
 		635F10A21BFAFABB004982B4 /* NSObjectProtocol+Collections.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSObjectProtocol+Collections.swift"; sourceTree = "<group>"; };
 		635F10A31BFAFABB004982B4 /* NSRange+Equatable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSRange+Equatable.swift"; sourceTree = "<group>"; };
 		635F10A41BFAFABB004982B4 /* NSRange+NSRangeMake.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSRange+NSRangeMake.swift"; sourceTree = "<group>"; };
@@ -429,7 +429,7 @@
 				635F109D1BFAFABB004982B4 /* NSDate+Comparable.swift */,
 				635F109E1BFAFABB004982B4 /* NSError+InitConveniences.swift */,
 				635F109F1BFAFABB004982B4 /* NSIndexPath+Comparable.swift */,
-				635F10A01BFAFABB004982B4 /* NSIndexPath+PrimitiveIndexPathType.swift */,
+				635F10A01BFAFABB004982B4 /* NSIndexPath+IndexPathType.swift */,
 				635F10A21BFAFABB004982B4 /* NSObjectProtocol+Collections.swift */,
 				635F10A31BFAFABB004982B4 /* NSRange+Equatable.swift */,
 				635F10A41BFAFABB004982B4 /* NSRange+NSRangeMake.swift */,
@@ -835,7 +835,7 @@
 				635F10D71BFAFABB004982B4 /* NSDate+Comparable.swift in Sources */,
 				635F10B61BFAFABB004982B4 /* ObjCCodingEncodableDecodable.swift in Sources */,
 				635F10C51BFAFABB004982B4 /* ObjCProtocolInterceptor.swift in Sources */,
-				635F10E01BFAFABB004982B4 /* NSIndexPath+PrimitiveIndexPathType.swift in Sources */,
+				635F10E01BFAFABB004982B4 /* NSIndexPath+IndexPathType.swift in Sources */,
 				6315CC5C1BFE550E003A5840 /* NSCoding+ObjCKeyValueAccessible.swift in Sources */,
 				635F10DA1BFAFABB004982B4 /* NSError+InitConveniences.swift in Sources */,
 				635F10DD1BFAFABB004982B4 /* NSIndexPath+Comparable.swift in Sources */,
@@ -871,7 +871,7 @@
 				635F10D51BFAFABB004982B4 /* NSDate+Comparable.swift in Sources */,
 				635F10B41BFAFABB004982B4 /* ObjCCodingEncodableDecodable.swift in Sources */,
 				635F10C31BFAFABB004982B4 /* ObjCProtocolInterceptor.swift in Sources */,
-				635F10DE1BFAFABB004982B4 /* NSIndexPath+PrimitiveIndexPathType.swift in Sources */,
+				635F10DE1BFAFABB004982B4 /* NSIndexPath+IndexPathType.swift in Sources */,
 				6315CC5A1BFE550E003A5840 /* NSCoding+ObjCKeyValueAccessible.swift in Sources */,
 				635F10D81BFAFABB004982B4 /* NSError+InitConveniences.swift in Sources */,
 				635F10DB1BFAFABB004982B4 /* NSIndexPath+Comparable.swift in Sources */,
@@ -919,7 +919,7 @@
 				635F10D61BFAFABB004982B4 /* NSDate+Comparable.swift in Sources */,
 				635F10B51BFAFABB004982B4 /* ObjCCodingEncodableDecodable.swift in Sources */,
 				635F10C41BFAFABB004982B4 /* ObjCProtocolInterceptor.swift in Sources */,
-				635F10DF1BFAFABB004982B4 /* NSIndexPath+PrimitiveIndexPathType.swift in Sources */,
+				635F10DF1BFAFABB004982B4 /* NSIndexPath+IndexPathType.swift in Sources */,
 				6315CC5B1BFE550E003A5840 /* NSCoding+ObjCKeyValueAccessible.swift in Sources */,
 				635F10D91BFAFABB004982B4 /* NSError+InitConveniences.swift in Sources */,
 				635F10DC1BFAFABB004982B4 /* NSIndexPath+Comparable.swift in Sources */,
@@ -962,7 +962,7 @@
 				635F117B1BFAFD83004982B4 /* NSRange+Equatable.swift in Sources */,
 				635F11701BFAFD83004982B4 /* ObjCProtocolInterceptor.swift in Sources */,
 				6315CB4F1BFD8746003A5840 /* ObjCSelfAwareSwizzle.m in Sources */,
-				635F11791BFAFD83004982B4 /* NSIndexPath+PrimitiveIndexPathType.swift in Sources */,
+				635F11791BFAFD83004982B4 /* NSIndexPath+IndexPathType.swift in Sources */,
 				635F11801BFAFD83004982B4 /* Variables.swift in Sources */,
 				635F11771BFAFD83004982B4 /* NSError+InitConveniences.swift in Sources */,
 				635F117E1BFAFD83004982B4 /* NSString+RangesOfString.swift in Sources */,

@@ -16,12 +16,13 @@ typedef BOOL ObjCRawIdSelUIApplicationNSDictionary_BOOL(
 
 #define OCSASAppDelegate UIApplicationDelegate
 
-#define OCSASAppDidFinishLaunching application:didFinishLaunchingWithOptions:
+#define OCSASSelfAwareSwizzlePerformingSelector \
+application:willFinishLaunchingWithOptions:
 
-#define OCSASAppDidFinishLaunchingEncode "@:@@"
-
-FOUNDATION_EXPORT ObjCRawIdSelUIApplicationNSDictionary_BOOL
-    OCSASSwizzledAppDidFinishLaunching;
+#define OCSASSelfAwareSwizzlePerformingSelectorEncode "@:@@"
 
 FOUNDATION_EXPORT ObjCRawIdSelUIApplicationNSDictionary_BOOL
-    OCSASInjectedAppDidFinishLaunching;
+    OCSASSwizzledSelfAwareSwizzlePerformer;
+
+FOUNDATION_EXPORT ObjCRawIdSelUIApplicationNSDictionary_BOOL
+    OCSASInjectedSelfAwareSwizzlePerformer;

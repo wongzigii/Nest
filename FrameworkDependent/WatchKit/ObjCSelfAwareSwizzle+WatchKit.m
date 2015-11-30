@@ -11,7 +11,7 @@
 #import "ObjCSelfAwareSwizzle.h"
 #import "ObjCSelfAwareSwizzle+WatchKit.h"
 
-void OCSASSwizzledAppDidFinishLaunching(
+void OCSASSwizzledSelfAwareSwizzlePerformer(
     id<WKExtensionDelegate> self,
     SEL _cmd)
 {
@@ -20,7 +20,7 @@ void OCSASSwizzledAppDidFinishLaunching(
     Class class = [self class];
     
     ObjCRawIdSel * original_imp = (ObjCRawIdSel *)
-    OCSASOriginalAppDidFinishLaunchingImplementationForClass(class);
+    OCSASOriginalSelfAwareSwizzlePerformerForClass(class);
     
     if (original_imp != NULL) {
         original_imp(self, _cmd);
@@ -32,7 +32,7 @@ void OCSASSwizzledAppDidFinishLaunching(
     }
 }
 
-void OCSASInjectedAppDidFinishLaunching(
+void OCSASInjectedSelfAwareSwizzlePerformer(
     id<WKExtensionDelegate> self,
     SEL _cmd)
 {

@@ -78,8 +78,8 @@ extension CollectionType where Generator.Element: NSObjectProtocol {
     /// Diff with an `NSObjectProtocol` collection
     public var diffNSObjectProtocolsAndHandle: CollectionDiffer<Self> {
         let differ = self.diffAndHandle
-        differ.withEqualityComparator {$0.isEqual($1)}
-        differ.withContentComparator {$0.isEqual($1)}
+        differ.withEqualityComparator {$0.element.isEqual($1.element)}
+        differ.withContentComparator {$0.element.isEqual($1.element)}
         return differ
     }
 }

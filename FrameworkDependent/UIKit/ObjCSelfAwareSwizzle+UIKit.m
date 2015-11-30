@@ -11,7 +11,7 @@
 #import "ObjCSelfAwareSwizzle.h"
 #import "ObjCSelfAwareSwizzle+UIKit.h"
 
-BOOL OCSASSwizzledAppDidFinishLaunching(
+BOOL OCSASSwizzledSelfAwareSwizzlePerformer(
     id<UIApplicationDelegate> self,
     SEL _cmd,
     UIApplication * application,
@@ -23,7 +23,7 @@ BOOL OCSASSwizzledAppDidFinishLaunching(
     
     ObjCRawIdSelUIApplicationNSDictionary_BOOL * original_imp =
         (ObjCRawIdSelUIApplicationNSDictionary_BOOL *)
-        OCSASOriginalAppDidFinishLaunchingImplementationForClass(class);
+        OCSASOriginalSelfAwareSwizzlePerformerForClass(class);
     
     if (original_imp != NULL) {
         return original_imp(self, _cmd, application, options);
@@ -36,7 +36,7 @@ BOOL OCSASSwizzledAppDidFinishLaunching(
     }
 }
 
-BOOL OCSASInjectedAppDidFinishLaunching(
+BOOL OCSASInjectedSelfAwareSwizzlePerformer(
     id<UIApplicationDelegate> self,
     SEL _cmd,
     UIApplication * application,
@@ -46,4 +46,3 @@ BOOL OCSASInjectedAppDidFinishLaunching(
     
     return YES;
 }
-

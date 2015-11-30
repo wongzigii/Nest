@@ -12,12 +12,10 @@ typedef void ObjCRawIdSel(id<WKExtensionDelegate>, SEL);
 
 #define OCSASAppDelegate WKExtensionDelegate
 
-#define OCSASAppDidFinishLaunching applicationDidFinishLaunching
+#define OCSASSelfAwareSwizzlePerformingSelector applicationDidFinishLaunching
 
-#define OCSASAppDidFinishLaunchingEncode "@:"
+#define OCSASSelfAwareSwizzlePerformingSelectorEncode "@:"
 
-FOUNDATION_EXPORT ObjCRawIdSel
-OCSASSwizzledAppDidFinishLaunching;
+FOUNDATION_EXPORT ObjCRawIdSel OCSASSwizzledSelfAwareSwizzlePerformer;
 
-FOUNDATION_EXPORT ObjCRawIdSel
-OCSASInjectedAppDidFinishLaunching;
+FOUNDATION_EXPORT ObjCRawIdSel OCSASInjectedSelfAwareSwizzlePerformer;
