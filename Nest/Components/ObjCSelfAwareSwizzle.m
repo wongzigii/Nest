@@ -59,8 +59,6 @@ static CFMutableDictionaryRef OCSASSwizzledRecords = NULL;
 
 @implementation NSObject(SelfAwareSwizzle)
 + (void)load {
-    NSLog(@"Main bundle: %@", [NSBundle mainBundle].description);
-    NSLog(@"Main bundle principal class: %@", NSStringFromClass([NSBundle mainBundle].principalClass));
     OCSASSwizzleAllPossibleAppDelegates();
 }
 @end
