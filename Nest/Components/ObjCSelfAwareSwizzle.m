@@ -26,8 +26,7 @@ typedef NS_OPTIONS(NSUInteger, OCSASSelfAwareSwizzleSelectorMatchResult) {
     OCSASSelfAwareSwizzleSelectorMatchResultMatchedIgnoreCase   = 1 << 1,
 };
 
-typedef ObjCSelfAwareSwizzleContext * OCSASSelfAwareSwizzleContextGetter(
-    id, SEL);
+typedef id OCSASSelfAwareSwizzleContextGetter(id, SEL);
 
 typedef OCSASSelfAwareSwizzleContextGetter *
 OCSASSelfAwareSwizzleContextGetterRef;
@@ -45,7 +44,7 @@ static void OCSASActivateSelfSwizzleSelector(Class, Method, SEL);
 static BOOL OCSASDoesClassHostSelfAwareSelectorOnClass(Class hostClass,
     Class targetClass);
 static void OCSASPerformSelfAwareSwizzleWithContext(
-    ObjCSelfAwareSwizzleContext *);
+    ObjCSelfAwareSwizzleContext *, Class);
 static NSString * OCSASSelfAwareSwizzleContextDescription(
     ObjCSelfAwareSwizzleContext * context);
 
@@ -234,9 +233,9 @@ void OCSASActivateSelfSwizzleSelector(Class aClass, Method method, SEL selector)
     OCSASSelfAwareSwizzleContextGetterRef selfAwareSwizzleContextGetter =
     (OCSASSelfAwareSwizzleContextGetterRef)method_getImplementation(method);
     
-    id object = (* selfAwareSwizzleContextGetter)(aClass, selector);
+    id potentialContext = (* selfAwareSwizzleContextGetter)(aClass, selector);
     
-    if (object == nil) {
+    if (potentialContext == nil) {
 #if DEBUG
         NSLog(@"Expected Self-Aware Swizzle selector: %@ on %@ returns nil.",
               NSStringFromSelector(selector),
@@ -245,33 +244,33 @@ void OCSASActivateSelfSwizzleSelector(Class aClass, Method method, SEL selector)
         return;
     }
     
-    if ([object isKindOfClass:[ObjCSelfAwareSwizzleContext class]]) {
+    if ([potentialContext isKindOfClass:[ObjCSelfAwareSwizzleContext class]]) {
         ObjCSelfAwareSwizzleContext * swizzleContext =
-        (ObjCSelfAwareSwizzleContext *)object;
+        (ObjCSelfAwareSwizzleContext *)potentialContext;
+        OCSASPerformSelfAwareSwizzleWithContext(swizzleContext, aClass);
+    } else if ([potentialContext isKindOfClass:[NSArray class]]) {
+        NSArray * potentialContexts = (NSArray *)potentialContext;
         
+        [potentialContexts enumerateObjectsUsingBlock:
+         ^(id eachPotentialContext, NSUInteger idx, BOOL * stop) {
+             if ([eachPotentialContext
+                  isKindOfClass:[ObjCSelfAwareSwizzleContext class]])
+             {
+                 ObjCSelfAwareSwizzleContext * swizzleContext =
+                 (ObjCSelfAwareSwizzleContext *)eachPotentialContext;
+                 OCSASPerformSelfAwareSwizzleWithContext(swizzleContext,
+                     aClass);
+             }
 #if DEBUG
-        SEL targetSelector = swizzleContext.targetSelector;
-        if (!OCSASDoesClassHostSelfAwareSelectorOnClass(aClass,
-                swizzleContext.targetClass))
-        {
-            NSLog(@"Class to be swizzled %@ is not the Self-Aware Swizzle selector's host class %@.",
-                  NSStringFromClass(aClass),
-                  NSStringFromClass(swizzleContext.targetClass));
-        }
-        if (targetSelector == NSSelectorFromString(@"dealloc")) {
-            NSLog(@"Swizzling againsts -dealloc is discouraged!");
-        }
-        if (targetSelector == NSSelectorFromString(@"retain")) {
-            NSLog(@"Swizzling againsts -reatain is discouraged!");
-        }
-        if (targetSelector == NSSelectorFromString(@"release")) {
-            NSLog(@"Swizzling againsts -release is discouraged!");
-        }
-        if (targetSelector == NSSelectorFromString(@"retainCount")) {
-            NSLog(@"Swizzling againsts -retainCount is discouraged!");
-        }
+             else {
+                 NSLog(@"Unexpected Self-Aware Swizzle selector: %@ on %@ doesn't return with a value of type of %@ but %@.",
+                       NSStringFromSelector(selector),
+                       NSStringFromClass(aClass),
+                       NSStringFromClass([ObjCSelfAwareSwizzleContext class]),
+                       NSStringFromClass([potentialContext class]));
+             }
 #endif
-        OCSASPerformSelfAwareSwizzleWithContext(swizzleContext);
+         }];
     }
 #if DEBUG
     else {
@@ -279,7 +278,7 @@ void OCSASActivateSelfSwizzleSelector(Class aClass, Method method, SEL selector)
               NSStringFromSelector(selector),
               NSStringFromClass(aClass),
               NSStringFromClass([ObjCSelfAwareSwizzleContext class]),
-              NSStringFromClass([object class]));
+              NSStringFromClass([potentialContext class]));
     }
 #endif
 }
@@ -301,11 +300,31 @@ BOOL OCSASDoesClassHostSelfAwareSelectorOnClass(Class hostClass,
 }
 
 void OCSASPerformSelfAwareSwizzleWithContext(
-    ObjCSelfAwareSwizzleContext * context)
+    ObjCSelfAwareSwizzleContext * context, Class aClass)
 {
     Class targetClass = context.targetClass;
     
     SEL targetSelector = context.targetSelector;
+    
+#if DEBUG
+    if (!OCSASDoesClassHostSelfAwareSelectorOnClass(aClass, targetClass)) {
+        NSLog(@"Class to be swizzled %@ is not the Self-Aware Swizzle selector's host class %@.",
+              NSStringFromClass(aClass),
+              NSStringFromClass(targetClass));
+    }
+    if (targetSelector == NSSelectorFromString(@"dealloc")) {
+        NSLog(@"Swizzling againsts -dealloc is discouraged!");
+    }
+    if (targetSelector == NSSelectorFromString(@"retain")) {
+        NSLog(@"Swizzling againsts -reatain is discouraged!");
+    }
+    if (targetSelector == NSSelectorFromString(@"release")) {
+        NSLog(@"Swizzling againsts -release is discouraged!");
+    }
+    if (targetSelector == NSSelectorFromString(@"retainCount")) {
+        NSLog(@"Swizzling againsts -retainCount is discouraged!");
+    }
+#endif
     
     CFMutableDictionaryRef swizzledRecordsForClass = (CFMutableDictionaryRef)
         CFDictionaryGetValue(OCSASSwizzledRecords,
