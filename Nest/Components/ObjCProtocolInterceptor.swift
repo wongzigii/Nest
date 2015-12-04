@@ -10,8 +10,8 @@ import Foundation
 import SwiftExt
 
 /**
-`ObjCProtocolInterceptor` is a proxy which intercepts messages to the middle men
-which originally intended to send to the receiver.
+`ObjCProtocolInterceptor` is a proxy which intercepts messages to the middle man
+which originally intended to be sent to the receiver.
 
 - Discussion: `ObjCProtocolInterceptor` is a class cluster which dynamically
 subclasses itself to conform to the intercepted protocols at the runtime.
@@ -24,8 +24,8 @@ public final class ObjCProtocolInterceptor: NSObject {
     /// The receiver receives messages.
     public weak var receiver: NSObjectProtocol?
     
-    /// The middle man intercepts messages. The last middle man receives 
-    /// messages firstly.
+    /// The middle men intercepts messages. The last middle appended man 
+    /// receives messages firstly.
     private var _middleMen: [Weak<NSObjectProtocol>] = []
     public var middleMen: [NSObjectProtocol] {
         return _middleMen.flatMap {$0.value}
@@ -121,10 +121,10 @@ public final class ObjCProtocolInterceptor: NSObject {
      - Parameter     protocols:  An Objective-C protocol, such as
      UITableViewDelegate.self.
     */
-    public class func forProtocol(aProtocol: Protocol)
+    public class func againstProtocol(aProtocol: Protocol)
         -> ObjCProtocolInterceptor
     {
-        return forProtocols([aProtocol])
+        return againstProtocols([aProtocol])
     }
     
     /**
@@ -134,10 +134,10 @@ public final class ObjCProtocolInterceptor: NSObject {
      - Parameter     protocols:  A variable length sort of Objective-C protocol,
      such as UITableViewDelegate.self.
     */
-    public class func forProtocols(protocols: Protocol ...)
+    public class func againstProtocols(protocols: Protocol ...)
         -> ObjCProtocolInterceptor
     {
-        return forProtocols(protocols)
+        return againstProtocols(protocols)
     }
     
     /**
@@ -147,7 +147,7 @@ public final class ObjCProtocolInterceptor: NSObject {
      - Parameter     protocols:  An array of Objective-C protocols, such as
      [UITableViewDelegate.self].
     */
-    public class func forProtocols(protocols: [Protocol])
+    public class func againstProtocols(protocols: [Protocol])
         -> ObjCProtocolInterceptor
     {
         let protocolNames = protocols.map { NSStringFromProtocol($0) }
