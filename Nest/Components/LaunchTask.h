@@ -11,7 +11,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-/// Task selector, task owner, task context
+/// Task selector, task owner, task arguments, task context
 typedef void LTLaunchTaskSelectorHandler(SEL,
     id,
     Method,
