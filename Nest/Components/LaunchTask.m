@@ -35,7 +35,7 @@ BOOL LTLaunchTaskInfoEqualToInfo(LTLaunchTaskInfo *, LTLaunchTaskInfo *);
 
 static LTLaunchTaskSelectorHandler LTLaunchTaskSelectorHandlerDefault;
 
-static CFMutableArrayRef        kLTRegisteredLaunchTaskInfos = NULL;
+static CFMutableArrayRef        kLTRegisteredLaunchTaskInfo = NULL;
 static CFMutableDictionaryRef   kLTLaunchTasksPerformerReplacingMap = NULL;
 
 static LTLaunchTaskInfo         kLTLaunchTaskInfoDefault = {
@@ -74,16 +74,16 @@ LTLaunchTaskInfo LTLaunchTaskInfoMake(const char * selectorPrefix,
 }
 
 BOOL LTRegisterLaunchTaskInfo(LTLaunchTaskInfo info) {
-    if (kLTRegisteredLaunchTaskInfos == NULL) {
-        kLTRegisteredLaunchTaskInfos = CFArrayCreateMutable(kCFAllocatorDefault,
+    if (kLTRegisteredLaunchTaskInfo == NULL) {
+        kLTRegisteredLaunchTaskInfo = CFArrayCreateMutable(kCFAllocatorDefault,
             0, nil);
     }
     
-    CFIndex registeredInfoCount = CFArrayGetCount(kLTRegisteredLaunchTaskInfos);
+    CFIndex registeredInfoCount = CFArrayGetCount(kLTRegisteredLaunchTaskInfo);
     
     for (CFIndex index = 0; index < registeredInfoCount; index ++) {
         LTLaunchTaskInfo * registeredInfo = (LTLaunchTaskInfo *)
-            CFArrayGetValueAtIndex(kLTRegisteredLaunchTaskInfos, index);
+            CFArrayGetValueAtIndex(kLTRegisteredLaunchTaskInfo, index);
         
         if (LTLaunchTaskInfoEqualToInfo(registeredInfo, &info)) {
             return NO;
@@ -94,7 +94,7 @@ BOOL LTRegisterLaunchTaskInfo(LTLaunchTaskInfo info) {
     
     memcpy(infoRef, &info, sizeof(LTLaunchTaskInfo));
     
-    CFArrayAppendValue(kLTRegisteredLaunchTaskInfos, infoRef);
+    CFArrayAppendValue(kLTRegisteredLaunchTaskInfo, infoRef);
     
     return YES;
 }
@@ -116,42 +116,42 @@ void LTPerformLaunchTasksOnLoadedClasses(id firstArg, ...) {
 #if DEBUG
         NSTimeInterval start = [NSDate date].timeIntervalSinceReferenceDate;
 #endif
-        
-        CFIndex registeredInfoCount =
-        CFArrayGetCount(kLTRegisteredLaunchTaskInfos);
-        
         // Swizzle loaded bundles
         unsigned int classCount = 0;
         
-        Class * classList = objc_copyClassList(&classCount);
-        
-        for (unsigned int index = 0; index < classCount; index ++) {
-            Class class = classList[index];
-            
-            for (CFIndex index = 0; index < registeredInfoCount; index ++) {
-                LTLaunchTaskInfo * info = (LTLaunchTaskInfo *)
-                CFArrayGetValueAtIndex(kLTRegisteredLaunchTaskInfos, index);
-                
-                LTScanAndActivateLaunchTaskSelectorsOnClass(class, info, args);
-            }
-        }
-        
-        free(classList);
-        
-        if (kLTRegisteredLaunchTaskInfos != NULL) {
+        if (kLTRegisteredLaunchTaskInfo != NULL) {
             CFIndex registeredInfoCount =
-            CFArrayGetCount(kLTRegisteredLaunchTaskInfos);
+            CFArrayGetCount(kLTRegisteredLaunchTaskInfo);
+            
+            
+            Class * classList = objc_copyClassList(&classCount);
+            
+            for (unsigned int index = 0; index < classCount; index ++) {
+                Class class = classList[index];
+                
+                for (CFIndex index = 0; index < registeredInfoCount; index ++) {
+                    LTLaunchTaskInfo * info = (LTLaunchTaskInfo *)
+                    CFArrayGetValueAtIndex(kLTRegisteredLaunchTaskInfo, index);
+                    
+                    LTScanAndActivateLaunchTaskSelectorsOnClass(class,
+                        info,
+                        args);
+                }
+            }
+            
+            free(classList);
+            
             
             for (CFIndex index = 0; index < registeredInfoCount; index ++) {
                 LTLaunchTaskInfo * registeredInfo = (LTLaunchTaskInfo *)
-                CFArrayGetValueAtIndex(kLTRegisteredLaunchTaskInfos, index);
+                CFArrayGetValueAtIndex(kLTRegisteredLaunchTaskInfo, index);
                 
                 if (registeredInfo->contextCleanupHandler != NULL) {
                     void * context = registeredInfo->context;
                     NSCAssert(context != NULL,
-                        @"Context shall not be NULL here");
+                              @"Context shall not be NULL here");
                     LTLaunchTaskContextCleanupHandlerRef cleanupHandler =
-                        registeredInfo->contextCleanupHandler;
+                    registeredInfo->contextCleanupHandler;
                     
                     (*cleanupHandler)(context);
                 }
@@ -159,7 +159,7 @@ void LTPerformLaunchTasksOnLoadedClasses(id firstArg, ...) {
                 free(registeredInfo);
             }
             
-            CFRelease(kLTRegisteredLaunchTaskInfos);
+            CFRelease(kLTRegisteredLaunchTaskInfo);
         }
         
 #if DEBUG
