@@ -356,7 +356,6 @@ IMP LTLaunchTaskPerformerReplacedImpForClass(Class aClass) {
 
 @implementation NSObject(LaunchTask)
 + (void)load {
-    NSLog(@"NSObject(LaunchTask) was loaded");
     LTSwizzleAllPossibleAppDelegates();
     LTRegisterLaunchTaskInfo(kLTLaunchTaskInfoDefault);
 }
