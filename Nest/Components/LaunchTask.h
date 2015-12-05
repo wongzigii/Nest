@@ -33,6 +33,7 @@ typedef struct LTLaunchTaskInfo {
     LTLaunchTaskSelectorHandlerRef selectorHandler;
     void * context;
     LTLaunchTaskContextCleanupHandlerRef contextCleanupHandler;
+    int priority; // 0 by default
 } LTLaunchTaskInfo;
 
 FOUNDATION_EXPORT LTLaunchTaskInfo LTLaunchTaskInfoMake(

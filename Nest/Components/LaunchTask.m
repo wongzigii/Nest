@@ -33,12 +33,12 @@ void LTScanAndActivateLaunchTaskSelectorsOnClass(Class,
 // All the compare operation shall be gauranteed in a same thread.
 BOOL LTLaunchTaskInfoEqualToInfo(LTLaunchTaskInfo *, LTLaunchTaskInfo *);
 
-static LTLaunchTaskSelectorHandler LTLaunchTaskSelectorHandlerDefault;
+static LTLaunchTaskSelectorHandler  LTLaunchTaskSelectorHandlerDefault;
 
-static CFMutableArrayRef        kLTRegisteredLaunchTaskInfo = NULL;
-static CFMutableDictionaryRef   kLTLaunchTasksPerformerReplacingMap = NULL;
+static CFMutableArrayRef            kLTRegisteredLaunchTaskInfo = NULL;
+static CFMutableDictionaryRef       kLTLaunchTasksPerformerReplacingMap = NULL;
 
-static LTLaunchTaskInfo         kLTLaunchTaskInfoDefault = {
+static LTLaunchTaskInfo             kLTLaunchTaskInfoDefault = {
     "_LaunchTask_",
     12,
     &LTLaunchTaskSelectorHandlerDefault
@@ -58,7 +58,8 @@ LTLaunchTaskInfo LTLaunchTaskInfoMake(const char * selectorPrefix,
         prefixLength,
         launchTaskSelectorHandler,
         context, 
-        contextCleanupHandler
+        contextCleanupHandler,
+        0
     };
     
     int offset = 0;
@@ -99,6 +100,22 @@ BOOL LTRegisterLaunchTaskInfo(LTLaunchTaskInfo info) {
     return YES;
 }
 
+CFComparisonResult LTLaunchTaskInfoComparator( const void *val1,
+    const void *val2,
+    void *context )
+{
+    LTLaunchTaskInfo * info1 = (LTLaunchTaskInfo *) val1;
+    LTLaunchTaskInfo * info2 = (LTLaunchTaskInfo *) val2;
+    
+    if (info1 -> priority > info2 -> priority) {
+        return kCFCompareGreaterThan;
+    } else if (info1 -> priority < info2 -> priority) {
+        return kCFCompareLessThan;
+    } else {
+        return kCFCompareEqualTo;
+    }
+}
+
 #pragma mark - Launch Task Process
 void LTPerformLaunchTasksOnLoadedClasses(id firstArg, ...) {
     NSMutableArray * args = [[NSMutableArray alloc] init];
@@ -123,24 +140,35 @@ void LTPerformLaunchTasksOnLoadedClasses(id firstArg, ...) {
             CFIndex registeredInfoCount =
             CFArrayGetCount(kLTRegisteredLaunchTaskInfo);
             
+            CFRange registeredInfoRange = CFRangeMake(0, registeredInfoCount);
+            
+            CFArraySortValues(kLTRegisteredLaunchTaskInfo,
+                registeredInfoRange,
+                &LTLaunchTaskInfoComparator, NULL);
             
             Class * classList = objc_copyClassList(&classCount);
             
-            for (unsigned int index = 0; index < classCount; index ++) {
-                Class class = classList[index];
-                
-                for (CFIndex index = 0; index < registeredInfoCount; index ++) {
+            for (CFIndex infoIndex = 0;
+                 infoIndex < registeredInfoCount;
+                 infoIndex ++)
+            {
+                for (unsigned int classIndex = 0;
+                     classIndex < classCount;
+                     classIndex ++)
+                {
+                    Class class = classList[classIndex];
                     LTLaunchTaskInfo * info = (LTLaunchTaskInfo *)
-                    CFArrayGetValueAtIndex(kLTRegisteredLaunchTaskInfo, index);
+                    CFArrayGetValueAtIndex(kLTRegisteredLaunchTaskInfo,
+                        infoIndex);
                     
                     LTScanAndActivateLaunchTaskSelectorsOnClass(class,
                         info,
                         args);
                 }
+                
             }
             
             free(classList);
-            
             
             for (CFIndex index = 0; index < registeredInfoCount; index ++) {
                 LTLaunchTaskInfo * registeredInfo = (LTLaunchTaskInfo *)
