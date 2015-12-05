@@ -10,15 +10,19 @@
 
 #import <Nest/Nest-Swift.h>
 
-#if TARGET_OS_IOS || TARGET_OS_TV
-#import "ObjCSelfAwareSwizzle+UIKit.h"
-#elif TARGET_OS_WATCH
-#import "ObjCSelfAwareSwizzle+WatchKit.h"
-#elif TARGET_OS_MAC
-#import "ObjCSelfAwareSwizzle+AppKit.h"
-#endif
+#import "LaunchTask.h"
 
 #import "ObjCSelfAwareSwizzle.h"
+
+#pragma mark - Types
+typedef struct OCSASSelfAwareSwizzleTaskContext {
+    CFMutableDictionaryRef swizzledRecords;
+} OCSASSelfAwareSwizzleTaskContext;
+
+typedef id OCSASSelfAwareSwizzleContextGetter(id, SEL);
+
+typedef OCSASSelfAwareSwizzleContextGetter *
+OCSASSelfAwareSwizzleContextGetterRef;
 
 typedef NS_OPTIONS(NSUInteger, OCSASSelfAwareSwizzleSelectorMatchResult) {
     OCSASSelfAwareSwizzleSelectorMatchResultUnmatched           = 0,
@@ -26,220 +30,56 @@ typedef NS_OPTIONS(NSUInteger, OCSASSelfAwareSwizzleSelectorMatchResult) {
     OCSASSelfAwareSwizzleSelectorMatchResultMatchedIgnoreCase   = 1 << 1,
 };
 
-typedef id OCSASSelfAwareSwizzleContextGetter(id, SEL);
+#pragma mark - Functions Prototypes
+static LTLaunchTaskContextCleanupHandler
+    OCSASSelfAwareSwizzleTaskContextCleanupHandelr;
 
-typedef OCSASSelfAwareSwizzleContextGetter *
-OCSASSelfAwareSwizzleContextGetterRef;
+static LTLaunchTaskSelectorHandler
+    OCSASSelfAwareSwizzleTaskSelectorHandelr;
 
-static const char * kOCSASSelfAwareSwizzleSelectorPrefix =
-"_ObjCSelfAwareSwizzle_";
-
-#define OCSASSelfAwareSwizzleSelectorPrefixLength 22
-
-static void OCSASSwizzleAllPossibleAppDelegates();
-static void OCSASScanAndActivateSelfAwareSwizzleSelectorsOnClass(Class);
-static OCSASSelfAwareSwizzleSelectorMatchResult
-    OCSASMatchSelfAwareSwizzleSelector(SEL);
-static void OCSASActivateSelfSwizzleSelector(Class, Method, SEL);
-static BOOL OCSASDoesClassHostSelfAwareSelectorOnClass(Class hostClass,
-    Class targetClass);
 static void OCSASPerformSelfAwareSwizzleWithContext(
-    ObjCSelfAwareSwizzleContext *, Class);
+    ObjCSelfAwareSwizzleContext *,
+    Class,
+    OCSASSelfAwareSwizzleTaskContext *);
+
+static BOOL OCSASDoesClassHostSelfAwareSelectorOnClass(Class, Class);
+
 static NSString * OCSASSelfAwareSwizzleContextDescription(
-    ObjCSelfAwareSwizzleContext * context);
+    ObjCSelfAwareSwizzleContext *);
 
-static CFMutableDictionaryRef OCSASOriginalSelfAwareSwizzlePerformerMap = NULL;
-
-static CFMutableDictionaryRef OCSASSwizzledRecords = NULL;
-
-#pragma mark - Self-Aware Swizzle Preprocess
-@interface NSObject(SelfAwareSwizzle)
-@end
-
-@implementation NSObject(SelfAwareSwizzle)
-+ (void)load {
-    OCSASSwizzleAllPossibleAppDelegates();
-}
-@end
-
-void OCSASSwizzleAllPossibleAppDelegates() {
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        // Inject implementation in to all classes conforms to process delegate
-        
-        OCSASOriginalSelfAwareSwizzlePerformerMap =
-        CFDictionaryCreateMutable(kCFAllocatorDefault, 0, NULL, NULL);
-        
-        Protocol * appDelegateProtocol =
-        @protocol(OCSASAppDelegate);
-        
-        SEL selfAwareSwizzlePerformingSelector =
-        @selector(OCSASSelfAwareSwizzlePerformingSelector);
-        
-        unsigned int classCount = 0;
-        
-        Class * classes = objc_copyClassList(&classCount);
-        
-        for (unsigned int index = 0; index < classCount; index ++) {
-            Class aClass = classes[index];
-            
-            if (class_conformsToProtocol(aClass, appDelegateProtocol)) {
-                
-                if (class_respondsToSelector(aClass,
-                        selfAwareSwizzlePerformingSelector))
-                {
-                    // Swizzle
-                    
-                    // Keep original
-                    IMP original_imp =
-                    class_getMethodImplementation(aClass,
-                        selfAwareSwizzlePerformingSelector);
-                    
-                    CFDictionarySetValue(
-                        OCSASOriginalSelfAwareSwizzlePerformerMap,
-                        (__bridge const void *)(aClass),
-                        original_imp);
-                    
-                    // Set new
-                    class_replaceMethod(aClass,
-                        selfAwareSwizzlePerformingSelector,
-                        (IMP)&OCSASSwizzledSelfAwareSwizzlePerformer,
-                        OCSASSelfAwareSwizzlePerformingSelectorEncode);
-                    
-                } else {
-                    // Inject
-                    class_addMethod(aClass,
-                        selfAwareSwizzlePerformingSelector,
-                        (IMP)&OCSASInjectedSelfAwareSwizzlePerformer,
-                        OCSASSelfAwareSwizzlePerformingSelectorEncode);
-                    
-                }
-                
-            }
-        }
-        
-        free(classes);
-        
-    });
-}
-
-IMP OCSASOriginalSelfAwareSwizzlePerformerForClass(Class aClass) {
-    return (IMP) CFDictionaryGetValue(
-        OCSASOriginalSelfAwareSwizzlePerformerMap,
-        (__bridge const void *)(aClass));
-}
-
-#pragma mark - Self-Aware Swizzle Process
-void OCSASPerformSelfAwareSwizzleOnLoadedClasses() {
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        
-#if DEBUG
-        NSTimeInterval start = [NSDate date].timeIntervalSinceReferenceDate;
-#endif
-        
-        OCSASSwizzledRecords = CFDictionaryCreateMutable(kCFAllocatorDefault,
-            0,
-            NULL,
-            &kCFTypeDictionaryValueCallBacks);
-        
-        // Swizzle loaded bundles
-        unsigned int classCount = 0;
-        
-        Class * classes = objc_copyClassList(&classCount);
-        
-        for (unsigned int index = 0; index < classCount; index ++) {
-            Class aClass = classes[index];
-            OCSASScanAndActivateSelfAwareSwizzleSelectorsOnClass(aClass);
-        }
-        
-        free(classes);
-        
-        CFRelease(OCSASSwizzledRecords);
-        
-#if DEBUG
-        NSTimeInterval end = [NSDate date].timeIntervalSinceReferenceDate;
-        NSLog(@"%f seconds took to complete self-aware swizzle. %u classes were scanned.",
-              (end - start), classCount);
-#endif
-    });
-}
-
-void OCSASScanAndActivateSelfAwareSwizzleSelectorsOnClass(Class aClass) {
-    char const * className = class_getName(aClass);
-    Class metaClass = objc_getMetaClass(className);
+#pragma mark - Functions Implementations
+void OCSASSelfAwareSwizzleTaskContextCleanupHandelr(void * taskContext) {
+    OCSASSelfAwareSwizzleTaskContext * selfAwareSwizzleTaskContext =
+        (OCSASSelfAwareSwizzleTaskContext *)taskContext;
     
-    unsigned int methodCount = 0;
-    
-    Method * methods = class_copyMethodList(metaClass, &methodCount);
-    
-    // Scane class methods to check self swizzle selectors
-    for (unsigned int index = 0; index < methodCount; index ++) {
-        Method method = methods[index];
-        
-        SEL selector = method_getName(method);
-        
-        OCSASSelfAwareSwizzleSelectorMatchResult selectorMatchResult =
-            OCSASMatchSelfAwareSwizzleSelector(selector);
-        
-        if (selectorMatchResult
-                & OCSASSelfAwareSwizzleSelectorMatchResultMatched)
-        {
-            OCSASActivateSelfSwizzleSelector(aClass, method, selector);
-        }
-#if DEBUG
-        else if (selectorMatchResult
-                    & OCSASSelfAwareSwizzleSelectorMatchResultMatchedIgnoreCase)
-        {
-            NSLog(@"Found a pseudo Self-Aware Swizzle Selector, you might ignored some cases when spelt it: %@",
-                  NSStringFromSelector(selector));
-        }
-#endif
+    if (selfAwareSwizzleTaskContext -> swizzledRecords) {
+        CFRelease(selfAwareSwizzleTaskContext -> swizzledRecords);
     }
     
-    free(methods);
+    free(selfAwareSwizzleTaskContext);
 }
 
-OCSASSelfAwareSwizzleSelectorMatchResult
-    OCSASMatchSelfAwareSwizzleSelector(SEL selector)
+void OCSASSelfAwareSwizzleTaskSelectorHandelr(SEL taskSelector,
+    id taskOwner,
+    Method taskMethod,
+    NSArray * taskArgs,
+    void * taskContext)
 {
-    const char * selectorName = sel_getName(selector);
+    OCSASSelfAwareSwizzleTaskContext * selfAwareSwizzleTaskContext =
+    (OCSASSelfAwareSwizzleTaskContext *)taskContext;
     
-    if (strlen(selectorName) > OCSASSelfAwareSwizzleSelectorPrefixLength) {
-        if (strncmp(kOCSASSelfAwareSwizzleSelectorPrefix,
-                selectorName,
-                OCSASSelfAwareSwizzleSelectorPrefixLength) == 0)
-        {
-            return OCSASSelfAwareSwizzleSelectorMatchResultMatched;
-        }
-#if DEBUG
-        else if (strncasecmp(kOCSASSelfAwareSwizzleSelectorPrefix,
-                        selectorName,
-                        OCSASSelfAwareSwizzleSelectorPrefixLength)  == 0)
-        {
-            return OCSASSelfAwareSwizzleSelectorMatchResultUnmatched
-                | OCSASSelfAwareSwizzleSelectorMatchResultMatchedIgnoreCase;
-        } else {
-            return OCSASSelfAwareSwizzleSelectorMatchResultUnmatched;
-        }
-#endif
-    }
-    return OCSASSelfAwareSwizzleSelectorMatchResultUnmatched;
-}
-
-void OCSASActivateSelfSwizzleSelector(Class aClass, Method method, SEL selector)
-{
     // Get self-aware swizzle context
     OCSASSelfAwareSwizzleContextGetterRef selfAwareSwizzleContextGetter =
-    (OCSASSelfAwareSwizzleContextGetterRef)method_getImplementation(method);
+    (OCSASSelfAwareSwizzleContextGetterRef)method_getImplementation(taskMethod);
     
-    id potentialContext = (* selfAwareSwizzleContextGetter)(aClass, selector);
+    id potentialContext = (* selfAwareSwizzleContextGetter)(taskOwner,
+        taskSelector);
     
     if (potentialContext == nil) {
 #if DEBUG
         NSLog(@"Expected Self-Aware Swizzle selector: %@ on %@ returns nil.",
-              NSStringFromSelector(selector),
-              NSStringFromClass(aClass));
+              NSStringFromSelector(taskSelector),
+              NSStringFromClass(taskOwner));
 #endif
         return;
     }
@@ -247,7 +87,9 @@ void OCSASActivateSelfSwizzleSelector(Class aClass, Method method, SEL selector)
     if ([potentialContext isKindOfClass:[ObjCSelfAwareSwizzleContext class]]) {
         ObjCSelfAwareSwizzleContext * swizzleContext =
         (ObjCSelfAwareSwizzleContext *)potentialContext;
-        OCSASPerformSelfAwareSwizzleWithContext(swizzleContext, aClass);
+        OCSASPerformSelfAwareSwizzleWithContext(swizzleContext,
+            taskOwner,
+            selfAwareSwizzleTaskContext);
     } else if ([potentialContext isKindOfClass:[NSArray class]]) {
         NSArray * potentialContexts = (NSArray *)potentialContext;
         
@@ -259,13 +101,14 @@ void OCSASActivateSelfSwizzleSelector(Class aClass, Method method, SEL selector)
                  ObjCSelfAwareSwizzleContext * swizzleContext =
                  (ObjCSelfAwareSwizzleContext *)eachPotentialContext;
                  OCSASPerformSelfAwareSwizzleWithContext(swizzleContext,
-                     aClass);
+                    taskOwner,
+                    selfAwareSwizzleTaskContext);
              }
 #if DEBUG
              else {
                  NSLog(@"Unexpected Self-Aware Swizzle selector: %@ on %@ doesn't return with a value of type of %@ but %@.",
-                       NSStringFromSelector(selector),
-                       NSStringFromClass(aClass),
+                       NSStringFromSelector(taskSelector),
+                       NSStringFromClass(taskOwner),
                        NSStringFromClass([ObjCSelfAwareSwizzleContext class]),
                        NSStringFromClass([potentialContext class]));
              }
@@ -275,8 +118,8 @@ void OCSASActivateSelfSwizzleSelector(Class aClass, Method method, SEL selector)
 #if DEBUG
     else {
         NSLog(@"Unexpected Self-Aware Swizzle selector: %@ on %@ doesn't return with a value of type of %@ but %@.",
-              NSStringFromSelector(selector),
-              NSStringFromClass(aClass),
+              NSStringFromSelector(taskSelector),
+              NSStringFromClass(taskOwner),
               NSStringFromClass([ObjCSelfAwareSwizzleContext class]),
               NSStringFromClass([potentialContext class]));
     }
@@ -300,7 +143,9 @@ BOOL OCSASDoesClassHostSelfAwareSelectorOnClass(Class hostClass,
 }
 
 void OCSASPerformSelfAwareSwizzleWithContext(
-    ObjCSelfAwareSwizzleContext * context, Class aClass)
+    ObjCSelfAwareSwizzleContext * context,
+    Class aClass,
+    OCSASSelfAwareSwizzleTaskContext * taskContext)
 {
     Class targetClass = context.targetClass;
     
@@ -327,8 +172,8 @@ void OCSASPerformSelfAwareSwizzleWithContext(
 #endif
     
     CFMutableDictionaryRef swizzledRecordsForClass = (CFMutableDictionaryRef)
-        CFDictionaryGetValue(OCSASSwizzledRecords,
-            (__bridge const void *)(targetClass));
+    CFDictionaryGetValue(taskContext -> swizzledRecords,
+        (__bridge const void *)(targetClass));
     
     if (swizzledRecordsForClass == NULL) {
         swizzledRecordsForClass = CFDictionaryCreateMutable(kCFAllocatorDefault,
@@ -336,7 +181,7 @@ void OCSASPerformSelfAwareSwizzleWithContext(
             NULL,
             &kCFTypeDictionaryValueCallBacks);
         
-        CFDictionarySetValue(OCSASSwizzledRecords,
+        CFDictionarySetValue(taskContext -> swizzledRecords,
             (__bridge const void *)(targetClass),
             swizzledRecordsForClass);
         
@@ -433,4 +278,35 @@ NSString * OCSASSelfAwareSwizzleContextDescription(
                 NSStringFromSelector(context.targetSelector)];
     }
 }
+
+#pragma mark - Register Self-Aware Swizzle as A Launch Task
+@interface NSObject(SelfAwareSwizzle)
+@end
+
+@implementation NSObject(SelfAwareSwizzle)
++ (void)load {
+    NSLog(@"NSObject(SelfAwareSwizzle) was loaded");
+    // Create a clean task cotnext
+    OCSASSelfAwareSwizzleTaskContext * taskContextRef =
+    malloc(sizeof(OCSASSelfAwareSwizzleTaskContext));
+    memset(taskContextRef, 0, sizeof(OCSASSelfAwareSwizzleTaskContext));
+    
+    // Initialize task context
+    taskContextRef -> swizzledRecords = CFDictionaryCreateMutable(
+        kCFAllocatorDefault,
+        0,
+        NULL,
+        &kCFTypeDictionaryValueCallBacks);
+    
+    // Create task info
+    LTLaunchTaskInfo ObjCSelfAwareSwizzleLaunchTaskInfo =
+    LTLaunchTaskInfoMake("_ObjCSelfAwareSwizzle_",
+                         &OCSASSelfAwareSwizzleTaskSelectorHandelr,
+                         taskContextRef,
+                         &OCSASSelfAwareSwizzleTaskContextCleanupHandelr);
+    
+    // Register task info
+    LTRegisterLaunchTaskInfo(ObjCSelfAwareSwizzleLaunchTaskInfo);
+}
+@end
 

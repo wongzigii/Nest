@@ -17,14 +17,6 @@
 		630D51FE1C0D7003007E2D5C /* NSManagedObject+ObjCKeyValueAccessible.swift in Sources */ = {isa = PBXBuildFile; fileRef = 630D51FC1C0D7003007E2D5C /* NSManagedObject+ObjCKeyValueAccessible.swift */; };
 		630D51FF1C0D7003007E2D5C /* NSManagedObject+ObjCKeyValueAccessible.swift in Sources */ = {isa = PBXBuildFile; fileRef = 630D51FC1C0D7003007E2D5C /* NSManagedObject+ObjCKeyValueAccessible.swift */; };
 		630D52001C0D7003007E2D5C /* NSManagedObject+ObjCKeyValueAccessible.swift in Sources */ = {isa = PBXBuildFile; fileRef = 630D51FC1C0D7003007E2D5C /* NSManagedObject+ObjCKeyValueAccessible.swift */; };
-		6315CB3C1BFD7C4B003A5840 /* ObjCSelfAwareSwizzle+UIKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 6315CB3A1BFD7C4B003A5840 /* ObjCSelfAwareSwizzle+UIKit.m */; };
-		6315CB3D1BFD7C4B003A5840 /* ObjCSelfAwareSwizzle+UIKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 6315CB3A1BFD7C4B003A5840 /* ObjCSelfAwareSwizzle+UIKit.m */; };
-		6315CB3E1BFD7C4B003A5840 /* ObjCSelfAwareSwizzle+UIKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 6315CB3B1BFD7C4B003A5840 /* ObjCSelfAwareSwizzle+UIKit.h */; };
-		6315CB3F1BFD7C4B003A5840 /* ObjCSelfAwareSwizzle+UIKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 6315CB3B1BFD7C4B003A5840 /* ObjCSelfAwareSwizzle+UIKit.h */; };
-		6315CB421BFD7D32003A5840 /* ObjCSelfAwareSwizzle+AppKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 6315CB401BFD7D32003A5840 /* ObjCSelfAwareSwizzle+AppKit.m */; };
-		6315CB441BFD7D32003A5840 /* ObjCSelfAwareSwizzle+AppKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 6315CB411BFD7D32003A5840 /* ObjCSelfAwareSwizzle+AppKit.h */; };
-		6315CB481BFD7D4A003A5840 /* ObjCSelfAwareSwizzle+WatchKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 6315CB461BFD7D4A003A5840 /* ObjCSelfAwareSwizzle+WatchKit.m */; };
-		6315CB491BFD7D4A003A5840 /* ObjCSelfAwareSwizzle+WatchKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 6315CB471BFD7D4A003A5840 /* ObjCSelfAwareSwizzle+WatchKit.h */; };
 		6315CB4C1BFD8746003A5840 /* ObjCSelfAwareSwizzle.m in Sources */ = {isa = PBXBuildFile; fileRef = 6315CB4A1BFD8745003A5840 /* ObjCSelfAwareSwizzle.m */; };
 		6315CB4D1BFD8746003A5840 /* ObjCSelfAwareSwizzle.m in Sources */ = {isa = PBXBuildFile; fileRef = 6315CB4A1BFD8745003A5840 /* ObjCSelfAwareSwizzle.m */; };
 		6315CB4E1BFD8746003A5840 /* ObjCSelfAwareSwizzle.m in Sources */ = {isa = PBXBuildFile; fileRef = 6315CB4A1BFD8745003A5840 /* ObjCSelfAwareSwizzle.m */; };
@@ -205,12 +197,6 @@
 		630B4D701B48DD2F00830454 /* Nest.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Nest.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		630B4DC11B48FF4C00830454 /* SwiftExt.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftExt.framework; path = "../../../Library/Developer/Xcode/DerivedData/Nest-bzfrrjnuqyhzlggnfhrwoghdkynv/Build/Products/Debug/SwiftExt.framework"; sourceTree = "<group>"; };
 		630D51FC1C0D7003007E2D5C /* NSManagedObject+ObjCKeyValueAccessible.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSManagedObject+ObjCKeyValueAccessible.swift"; sourceTree = "<group>"; };
-		6315CB3A1BFD7C4B003A5840 /* ObjCSelfAwareSwizzle+UIKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ObjCSelfAwareSwizzle+UIKit.m"; sourceTree = "<group>"; };
-		6315CB3B1BFD7C4B003A5840 /* ObjCSelfAwareSwizzle+UIKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ObjCSelfAwareSwizzle+UIKit.h"; sourceTree = "<group>"; };
-		6315CB401BFD7D32003A5840 /* ObjCSelfAwareSwizzle+AppKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ObjCSelfAwareSwizzle+AppKit.m"; sourceTree = "<group>"; };
-		6315CB411BFD7D32003A5840 /* ObjCSelfAwareSwizzle+AppKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ObjCSelfAwareSwizzle+AppKit.h"; sourceTree = "<group>"; };
-		6315CB461BFD7D4A003A5840 /* ObjCSelfAwareSwizzle+WatchKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ObjCSelfAwareSwizzle+WatchKit.m"; sourceTree = "<group>"; };
-		6315CB471BFD7D4A003A5840 /* ObjCSelfAwareSwizzle+WatchKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ObjCSelfAwareSwizzle+WatchKit.h"; sourceTree = "<group>"; };
 		6315CB4A1BFD8745003A5840 /* ObjCSelfAwareSwizzle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ObjCSelfAwareSwizzle.m; sourceTree = "<group>"; };
 		6315CB4B1BFD8746003A5840 /* ObjCSelfAwareSwizzle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ObjCSelfAwareSwizzle.h; sourceTree = "<group>"; };
 		6315CC591BFE550E003A5840 /* NSCoding+ObjCKeyValueAccessible.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSCoding+ObjCKeyValueAccessible.swift"; sourceTree = "<group>"; };
@@ -362,8 +348,6 @@
 		6315C9C71BFCE257003A5840 /* UIKit */ = {
 			isa = PBXGroup;
 			children = (
-				6315CB3B1BFD7C4B003A5840 /* ObjCSelfAwareSwizzle+UIKit.h */,
-				6315CB3A1BFD7C4B003A5840 /* ObjCSelfAwareSwizzle+UIKit.m */,
 				63F0B52C1C11D8D500710C41 /* LaunchTask+UIKit.h */,
 				63F0B52D1C11D8D500710C41 /* LaunchTask+UIKit.m */,
 			);
@@ -373,8 +357,6 @@
 		6315CB381BFD7C22003A5840 /* AppKit */ = {
 			isa = PBXGroup;
 			children = (
-				6315CB411BFD7D32003A5840 /* ObjCSelfAwareSwizzle+AppKit.h */,
-				6315CB401BFD7D32003A5840 /* ObjCSelfAwareSwizzle+AppKit.m */,
 				63F0B5321C11D8E200710C41 /* LaunchTask+AppKit.h */,
 				63F0B5331C11D8E200710C41 /* LaunchTask+AppKit.m */,
 			);
@@ -384,8 +366,6 @@
 		6315CB391BFD7C22003A5840 /* WatchKit */ = {
 			isa = PBXGroup;
 			children = (
-				6315CB471BFD7D4A003A5840 /* ObjCSelfAwareSwizzle+WatchKit.h */,
-				6315CB461BFD7D4A003A5840 /* ObjCSelfAwareSwizzle+WatchKit.m */,
 				63F0B5361C11D8F000710C41 /* LaunchTask+WatchKit.h */,
 				63F0B5371C11D8F000710C41 /* LaunchTask+WatchKit.m */,
 			);
@@ -581,7 +561,6 @@
 			files = (
 				63F0B5261C11D6DC00710C41 /* LaunchTask.h in Headers */,
 				6315CB521BFD8746003A5840 /* ObjCSelfAwareSwizzle.h in Headers */,
-				6315CB491BFD7D4A003A5840 /* ObjCSelfAwareSwizzle+WatchKit.h in Headers */,
 				63ED3B2D1C12056E008B8A5C /* LaunchTaskInternal.h in Headers */,
 				63F0B5381C11D8F000710C41 /* LaunchTask+WatchKit.h in Headers */,
 			);
@@ -593,7 +572,6 @@
 			files = (
 				63F0B5241C11D6DC00710C41 /* LaunchTask.h in Headers */,
 				6315CB501BFD8746003A5840 /* ObjCSelfAwareSwizzle.h in Headers */,
-				6315CB3E1BFD7C4B003A5840 /* ObjCSelfAwareSwizzle+UIKit.h in Headers */,
 				63ED3B2B1C12056E008B8A5C /* LaunchTaskInternal.h in Headers */,
 				63F0B52E1C11D8D500710C41 /* LaunchTask+UIKit.h in Headers */,
 			);
@@ -605,7 +583,6 @@
 			files = (
 				63F0B5251C11D6DC00710C41 /* LaunchTask.h in Headers */,
 				6315CB511BFD8746003A5840 /* ObjCSelfAwareSwizzle.h in Headers */,
-				6315CB441BFD7D32003A5840 /* ObjCSelfAwareSwizzle+AppKit.h in Headers */,
 				63ED3B2C1C12056E008B8A5C /* LaunchTaskInternal.h in Headers */,
 				63F0B5341C11D8E200710C41 /* LaunchTask+AppKit.h in Headers */,
 			);
@@ -617,7 +594,6 @@
 			files = (
 				63F0B5271C11D6DC00710C41 /* LaunchTask.h in Headers */,
 				6315CB531BFD8746003A5840 /* ObjCSelfAwareSwizzle.h in Headers */,
-				6315CB3F1BFD7C4B003A5840 /* ObjCSelfAwareSwizzle+UIKit.h in Headers */,
 				63ED3B2E1C12056E008B8A5C /* LaunchTaskInternal.h in Headers */,
 				63F0B52F1C11D8D500710C41 /* LaunchTask+UIKit.h in Headers */,
 			);
@@ -877,7 +853,6 @@
 				63050CA81C018C9300EDFEAD /* ObjCSelfAwareSwizzle.swift in Sources */,
 				635F10B31BFAFABB004982B4 /* Notifications.swift in Sources */,
 				635F10BF1BFAFABB004982B4 /* ObjCMultiCastDelegatable.swift in Sources */,
-				6315CB481BFD7D4A003A5840 /* ObjCSelfAwareSwizzle+WatchKit.m in Sources */,
 				63F0B5391C11D8F000710C41 /* LaunchTask+WatchKit.m in Sources */,
 				635F10F21BFAFABB004982B4 /* NSString+RangesOfString.swift in Sources */,
 				635F11061BFAFB4D004982B4 /* ObjectiveC.swift in Sources */,
@@ -923,7 +898,6 @@
 				635F10E41BFAFABB004982B4 /* NSObjectProtocol+Collections.swift in Sources */,
 				63F0B5301C11D8D500710C41 /* LaunchTask+UIKit.m in Sources */,
 				635F10F61BFAFABB004982B4 /* Variables.swift in Sources */,
-				6315CB3C1BFD7C4B003A5840 /* ObjCSelfAwareSwizzle+UIKit.m in Sources */,
 				635F10B71BFAFABB004982B4 /* ObjCKeyValueAccessible.swift in Sources */,
 				635F10C01BFAFABB004982B4 /* ObjCProtocolDispatcherType.swift in Sources */,
 				630D51FD1C0D7003007E2D5C /* NSManagedObject+ObjCKeyValueAccessible.swift in Sources */,
@@ -967,7 +941,6 @@
 				63050CA71C018C9300EDFEAD /* ObjCSelfAwareSwizzle.swift in Sources */,
 				635F10B21BFAFABB004982B4 /* Notifications.swift in Sources */,
 				635F10BE1BFAFABB004982B4 /* ObjCMultiCastDelegatable.swift in Sources */,
-				6315CB421BFD7D32003A5840 /* ObjCSelfAwareSwizzle+AppKit.m in Sources */,
 				635F10F11BFAFABB004982B4 /* NSString+RangesOfString.swift in Sources */,
 				635F11051BFAFB4D004982B4 /* ObjectiveC.swift in Sources */,
 				635F10AF1BFAFABB004982B4 /* HierarchicalPickablePicker.swift in Sources */,
@@ -1025,7 +998,6 @@
 				635F117D1BFAFD83004982B4 /* NSRunLoop+TaskDispatcher.swift in Sources */,
 				63F0B5311C11D8D500710C41 /* LaunchTask+UIKit.m in Sources */,
 				635F116B1BFAFD83004982B4 /* ObjCCodingEncodableDecodable.swift in Sources */,
-				6315CB3D1BFD7C4B003A5840 /* ObjCSelfAwareSwizzle+UIKit.m in Sources */,
 				635F117B1BFAFD83004982B4 /* NSRange+Equatable.swift in Sources */,
 				635F11701BFAFD83004982B4 /* ObjCProtocolInterceptor.swift in Sources */,
 				630D52001C0D7003007E2D5C /* NSManagedObject+ObjCKeyValueAccessible.swift in Sources */,

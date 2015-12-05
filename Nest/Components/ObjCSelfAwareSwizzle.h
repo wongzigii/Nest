@@ -7,6 +7,3 @@
 //
 
 @import Foundation;
-
-FOUNDATION_EXPORT void  OCSASPerformSelfAwareSwizzleOnLoadedClasses();
-FOUNDATION_EXPORT IMP   OCSASOriginalSelfAwareSwizzlePerformerForClass(Class);
