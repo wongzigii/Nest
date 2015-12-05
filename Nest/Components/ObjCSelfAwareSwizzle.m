@@ -12,8 +12,6 @@
 
 #import "LaunchTask.h"
 
-#import "ObjCSelfAwareSwizzle.h"
-
 #pragma mark - Types
 typedef struct OCSASSelfAwareSwizzleTaskContext {
     CFMutableDictionaryRef swizzledRecords;
@@ -285,7 +283,6 @@ NSString * OCSASSelfAwareSwizzleContextDescription(
 
 @implementation NSObject(SelfAwareSwizzle)
 + (void)load {
-    NSLog(@"NSObject(SelfAwareSwizzle) was loaded");
     // Create a clean task cotnext
     OCSASSelfAwareSwizzleTaskContext * taskContextRef =
     malloc(sizeof(OCSASSelfAwareSwizzleTaskContext));
@@ -304,6 +301,8 @@ NSString * OCSASSelfAwareSwizzleContextDescription(
                          &OCSASSelfAwareSwizzleTaskSelectorHandelr,
                          taskContextRef,
                          &OCSASSelfAwareSwizzleTaskContextCleanupHandelr);
+    
+    ObjCSelfAwareSwizzleLaunchTaskInfo.priority = -100;
     
     // Register task info
     LTRegisterLaunchTaskInfo(ObjCSelfAwareSwizzleLaunchTaskInfo);

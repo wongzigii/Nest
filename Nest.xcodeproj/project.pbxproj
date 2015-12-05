@@ -21,10 +21,6 @@
 		6315CB4D1BFD8746003A5840 /* ObjCSelfAwareSwizzle.m in Sources */ = {isa = PBXBuildFile; fileRef = 6315CB4A1BFD8745003A5840 /* ObjCSelfAwareSwizzle.m */; };
 		6315CB4E1BFD8746003A5840 /* ObjCSelfAwareSwizzle.m in Sources */ = {isa = PBXBuildFile; fileRef = 6315CB4A1BFD8745003A5840 /* ObjCSelfAwareSwizzle.m */; };
 		6315CB4F1BFD8746003A5840 /* ObjCSelfAwareSwizzle.m in Sources */ = {isa = PBXBuildFile; fileRef = 6315CB4A1BFD8745003A5840 /* ObjCSelfAwareSwizzle.m */; };
-		6315CB501BFD8746003A5840 /* ObjCSelfAwareSwizzle.h in Headers */ = {isa = PBXBuildFile; fileRef = 6315CB4B1BFD8746003A5840 /* ObjCSelfAwareSwizzle.h */; };
-		6315CB511BFD8746003A5840 /* ObjCSelfAwareSwizzle.h in Headers */ = {isa = PBXBuildFile; fileRef = 6315CB4B1BFD8746003A5840 /* ObjCSelfAwareSwizzle.h */; };
-		6315CB521BFD8746003A5840 /* ObjCSelfAwareSwizzle.h in Headers */ = {isa = PBXBuildFile; fileRef = 6315CB4B1BFD8746003A5840 /* ObjCSelfAwareSwizzle.h */; };
-		6315CB531BFD8746003A5840 /* ObjCSelfAwareSwizzle.h in Headers */ = {isa = PBXBuildFile; fileRef = 6315CB4B1BFD8746003A5840 /* ObjCSelfAwareSwizzle.h */; };
 		6315CC5A1BFE550E003A5840 /* NSCoding+ObjCKeyValueAccessible.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6315CC591BFE550E003A5840 /* NSCoding+ObjCKeyValueAccessible.swift */; };
 		6315CC5B1BFE550E003A5840 /* NSCoding+ObjCKeyValueAccessible.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6315CC591BFE550E003A5840 /* NSCoding+ObjCKeyValueAccessible.swift */; };
 		6315CC5C1BFE550E003A5840 /* NSCoding+ObjCKeyValueAccessible.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6315CC591BFE550E003A5840 /* NSCoding+ObjCKeyValueAccessible.swift */; };
@@ -198,7 +194,6 @@
 		630B4DC11B48FF4C00830454 /* SwiftExt.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftExt.framework; path = "../../../Library/Developer/Xcode/DerivedData/Nest-bzfrrjnuqyhzlggnfhrwoghdkynv/Build/Products/Debug/SwiftExt.framework"; sourceTree = "<group>"; };
 		630D51FC1C0D7003007E2D5C /* NSManagedObject+ObjCKeyValueAccessible.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSManagedObject+ObjCKeyValueAccessible.swift"; sourceTree = "<group>"; };
 		6315CB4A1BFD8745003A5840 /* ObjCSelfAwareSwizzle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ObjCSelfAwareSwizzle.m; sourceTree = "<group>"; };
-		6315CB4B1BFD8746003A5840 /* ObjCSelfAwareSwizzle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ObjCSelfAwareSwizzle.h; sourceTree = "<group>"; };
 		6315CC591BFE550E003A5840 /* NSCoding+ObjCKeyValueAccessible.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSCoding+ObjCKeyValueAccessible.swift"; sourceTree = "<group>"; };
 		632313131B65D8A700AEA8EF /* SwiftExt.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftExt.framework; path = "Frameworks/SwiftExt/build/Debug-iphoneos/SwiftExt.framework"; sourceTree = "<group>"; };
 		632313151B65D8B100AEA8EF /* SwiftExt.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftExt.framework; path = Frameworks/SwiftExt/build/Debug/SwiftExt.framework; sourceTree = "<group>"; };
@@ -433,7 +428,6 @@
 				635F10951BFAFABB004982B4 /* ObjCProtocolDispatcherType.swift */,
 				635F10961BFAFABB004982B4 /* ObjCProtocolInterceptor.swift */,
 				63050CA51C018C9300EDFEAD /* ObjCSelfAwareSwizzle.swift */,
-				6315CB4B1BFD8746003A5840 /* ObjCSelfAwareSwizzle.h */,
 				6315CB4A1BFD8745003A5840 /* ObjCSelfAwareSwizzle.m */,
 				63F0B5221C11D6DB00710C41 /* LaunchTask.h */,
 				63F0B5231C11D6DB00710C41 /* LaunchTask.m */,
@@ -560,7 +554,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				63F0B5261C11D6DC00710C41 /* LaunchTask.h in Headers */,
-				6315CB521BFD8746003A5840 /* ObjCSelfAwareSwizzle.h in Headers */,
 				63ED3B2D1C12056E008B8A5C /* LaunchTaskInternal.h in Headers */,
 				63F0B5381C11D8F000710C41 /* LaunchTask+WatchKit.h in Headers */,
 			);
@@ -571,7 +564,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				63F0B5241C11D6DC00710C41 /* LaunchTask.h in Headers */,
-				6315CB501BFD8746003A5840 /* ObjCSelfAwareSwizzle.h in Headers */,
 				63ED3B2B1C12056E008B8A5C /* LaunchTaskInternal.h in Headers */,
 				63F0B52E1C11D8D500710C41 /* LaunchTask+UIKit.h in Headers */,
 			);
@@ -582,7 +574,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				63F0B5251C11D6DC00710C41 /* LaunchTask.h in Headers */,
-				6315CB511BFD8746003A5840 /* ObjCSelfAwareSwizzle.h in Headers */,
 				63ED3B2C1C12056E008B8A5C /* LaunchTaskInternal.h in Headers */,
 				63F0B5341C11D8E200710C41 /* LaunchTask+AppKit.h in Headers */,
 			);
@@ -593,7 +584,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				63F0B5271C11D6DC00710C41 /* LaunchTask.h in Headers */,
-				6315CB531BFD8746003A5840 /* ObjCSelfAwareSwizzle.h in Headers */,
 				63ED3B2E1C12056E008B8A5C /* LaunchTaskInternal.h in Headers */,
 				63F0B52F1C11D8D500710C41 /* LaunchTask+UIKit.h in Headers */,
 			);
