@@ -12,7 +12,11 @@
 NS_ASSUME_NONNULL_BEGIN
 
 /// Task selector, task owner, task context
-typedef void LTLaunchTaskSelectorHandler(SEL,id, Method, NSArray *, void *);
+typedef void LTLaunchTaskSelectorHandler(SEL,
+    id,
+    Method,
+    NSArray *,
+    void * _Nullable);
 
 typedef LTLaunchTaskSelectorHandler * LTLaunchTaskSelectorHandlerRef;
 
@@ -31,13 +35,11 @@ typedef struct LTLaunchTaskInfo {
     LTLaunchTaskContextCleanupHandlerRef contextCleanupHandler;
 } LTLaunchTaskInfo;
 
-typedef LTLaunchTaskInfo * LTLaunchTaskInfoRef;
-
 FOUNDATION_EXPORT LTLaunchTaskInfo LTLaunchTaskInfoMake(
-    const char *                            selectorPrefix,
-    LTLaunchTaskSelectorHandlerRef          selectorHandler,
-    void *                                  context,
-    LTLaunchTaskContextCleanupHandlerRef    contextCleanupHandler);
+    const char *                                    selectorPrefix,
+    LTLaunchTaskSelectorHandlerRef                  selectorHandler,
+    void *  _Nullable                               context,
+    LTLaunchTaskContextCleanupHandlerRef _Nullable  contextCleanupHandler);
 
 FOUNDATION_EXPORT BOOL LTRegisterLaunchTaskInfo(LTLaunchTaskInfo);
 
