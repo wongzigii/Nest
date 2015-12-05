@@ -38,14 +38,7 @@ static LTLaunchTaskSelectorHandler  LTLaunchTaskSelectorHandlerDefault;
 static CFMutableArrayRef            kLTRegisteredLaunchTaskInfo = NULL;
 static CFMutableDictionaryRef       kLTLaunchTasksPerformerReplacingMap = NULL;
 
-static LTLaunchTaskInfo             kLTLaunchTaskInfoDefault = {
-    "_LaunchTask_",
-    12,
-    &LTLaunchTaskSelectorHandlerDefault
-};
-
 #pragma mark - Extern Variables
-
 LTLaunchTaskInfo LTLaunchTaskInfoMake(const char * selectorPrefix,
     LTLaunchTaskSelectorHandlerRef launchTaskSelectorHandler,
     void * context,
@@ -312,7 +305,7 @@ BOOL LTLaunchTaskInfoEqualToInfo(LTLaunchTaskInfo * info1,
     && info1 -> contextCleanupHandler   == info2 -> contextCleanupHandler;
 }
 
-#pragma mark - Internal
+#pragma mark - Launch Task Preprocess
 void LTSwizzleAllPossibleAppDelegates() {
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
@@ -378,13 +371,21 @@ IMP LTLaunchTaskPerformerReplacedImpForClass(Class aClass) {
         (__bridge const void *)(aClass));
 }
 
-#pragma mark - Launch Task Preprocess
 @interface NSObject(LaunchTask)
 @end
 
 @implementation NSObject(LaunchTask)
 + (void)load {
     LTSwizzleAllPossibleAppDelegates();
-    LTRegisterLaunchTaskInfo(kLTLaunchTaskInfoDefault);
+    
+    // Create task info
+    LTLaunchTaskInfo defaultLaunchTaskInfo =
+    LTLaunchTaskInfoMake("_LaunchTask_",
+                         &LTLaunchTaskSelectorHandlerDefault,
+                         NULL,
+                         NULL);
+    
+    // Register task info
+    LTRegisterLaunchTaskInfo(defaultLaunchTaskInfo);
 }
 @end
