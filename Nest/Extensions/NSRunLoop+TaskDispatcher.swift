@@ -19,12 +19,6 @@ private var taskQueueKey =
 private var taskAmendQueueKey =
 "com.WeZZard.Nest.NSRunLoop.TaskDispatcher.TaskAmendQueue"
 
-public enum NSRunLoopTaskInvokeTiming: Int {
-    case NextLoopBegan
-    case CurrentLoopEnded
-    case Idle
-}
-
 extension NSRunLoop {
     public func perform(closure: ()->Void) -> Task {
         objc_sync_enter(self)
@@ -64,11 +58,18 @@ extension NSRunLoop {
     }
     
     public final class Task {
+        public enum InvokeTiming: Int {
+            case NextLoopBegan
+            case CurrentLoopEnded
+            case Idle
+        }
+    
+        
         private let weakRunLoop: Weak<NSRunLoop>
         
-        private var _invokeTiming: NSRunLoopTaskInvokeTiming
-        private var invokeTiming: NSRunLoopTaskInvokeTiming {
-            var theInvokeTiming: NSRunLoopTaskInvokeTiming = .NextLoopBegan
+        private var _invokeTiming: InvokeTiming
+        private var invokeTiming: InvokeTiming {
+            var theInvokeTiming: InvokeTiming = .NextLoopBegan
             guard let amendQueue = weakRunLoop.value?.taskAmendQueue else {
                 fatalError("Accessing a dealloced run loop")
             }
@@ -108,7 +109,7 @@ extension NSRunLoop {
             return self
         }
         
-        public func when(invokeTiming: NSRunLoopTaskInvokeTiming) -> Task {
+        public func when(invokeTiming: InvokeTiming) -> Task {
             if let amendQueue = weakRunLoop.value?.taskAmendQueue {
                 dispatch_async(amendQueue) { [weak self] () -> Void in
                     self?._invokeTiming = invokeTiming
@@ -124,7 +125,7 @@ extension NSRunLoop {
     
     private func loadDispatchObserverIfNeeded() {
         if !isDispatchObserverLoaded {
-            let invokeTimings: [NSRunLoopTaskInvokeTiming] =
+            let invokeTimings: [Task.InvokeTiming] =
             [.CurrentLoopEnded, .NextLoopBegan, .Idle]
             
             let activities =
@@ -234,7 +235,7 @@ extension NSRunLoop {
 }
 
 extension CFRunLoopActivity {
-    private init(_ invokeTiming: NSRunLoopTaskInvokeTiming) {
+    private init(_ invokeTiming: NSRunLoop.Task.InvokeTiming) {
         switch invokeTiming {
         case .NextLoopBegan:        self = .AfterWaiting
         case .CurrentLoopEnded:     self = .BeforeWaiting
