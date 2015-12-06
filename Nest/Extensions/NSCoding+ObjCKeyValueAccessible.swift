@@ -11,7 +11,20 @@ import Foundation
 extension NSCoding where Self: ObjCKeyValueAccessible,
     Self.Key.RawValue == String
 {
-    public func encodeValue<T: ObjCEncodable>(value: T,
+    public func couldDecodeForKeys(keys: [Key], from decoder: NSCoder) -> Bool {
+        for eachKey in keys
+            where !decoder.containsValueForKey(eachKey.rawValue)
+        {
+            return false
+        }
+        return true
+    }
+    
+    public func couldDecodeForKey(key: Key, from decoder: NSCoder) -> Bool {
+        return decoder.containsValueForKey(key.rawValue)
+    }
+    
+    public func encode<T: ObjCEncodable>(value: T,
         forKey key: Key,
         to encoder: NSCoder)
     {
@@ -19,7 +32,7 @@ extension NSCoding where Self: ObjCKeyValueAccessible,
         value.encodeTo(encoder, forKey: rawKey)
     }
     
-    public static func decodeValueForKey<T: ObjCDecodable>(key: Key,
+    public static func decodeForKey<T: ObjCDecodable>(key: Key,
         from decoder: NSCoder)
         -> T?
     {
@@ -27,7 +40,7 @@ extension NSCoding where Self: ObjCKeyValueAccessible,
         return T.decodeFrom(decoder, forKey: rawKey)
     }
     
-    public func decodeValueForKey<T: ObjCDecodable>(key: Key,
+    public func decodeForKey<T: ObjCDecodable>(key: Key,
         from decoder: NSCoder)
         -> T?
     {
@@ -35,7 +48,7 @@ extension NSCoding where Self: ObjCKeyValueAccessible,
         return T.decodeFrom(decoder, forKey: rawKey)
     }
     
-    public func encodeValue<T: NSCoding where T: NSObject>(value: T,
+    public func encode<T: NSCoding where T: NSObject>(value: T,
         forKey key: Key,
         to encoder: NSCoder)
     {
@@ -43,8 +56,7 @@ extension NSCoding where Self: ObjCKeyValueAccessible,
         encoder.encodeObject(self, forKey: rawKey)
     }
     
-    public static func decodeValueForKey<T: NSCoding where T: NSObject>(
-        key: Key,
+    public func decodeForKey<T: NSCoding where T: NSObject>(key: Key,
         from decoder: NSCoder)
         -> T?
     {
@@ -65,12 +77,5 @@ extension NSCoding where Self: ObjCKeyValueAccessible,
         }
         
         return object
-    }
-    
-    public func decodeValueForKey<T: NSCoding where T: NSObject>(key: Key,
-        from decoder: NSCoder)
-        -> T?
-    {
-        return self.dynamicType.decodeValueForKey(key, from: decoder)
     }
 }

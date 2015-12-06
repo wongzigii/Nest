@@ -8,18 +8,6 @@
 
 import Foundation
 
-public protocol ObjCKeyValueAccessibleKeyType:
-    RawRepresentable,
-    StringLiteralConvertible,
-    Hashable
-{
-    typealias ExtendedGraphemeClusterLiteralType = String
-    typealias UnicodeScalarLiteralType = String
-    typealias StringLiteralType = String
-    typealias RawValue = String
-    init(rawValue: Self.RawValue)
-}
-
 public protocol ObjCKeyValueAccessible {
     typealias Key: ObjCKeyValueAccessibleKeyType
 }
@@ -38,28 +26,15 @@ extension ObjCKeyValueAccessible where Self: NSObject,
             for each in keys { results[each] = self[each] }
             return results
         }
-        set { for (key, value) in newValue { self[key] = value } }
-    }
-}
-
-extension ObjCKeyValueAccessibleKeyType where RawValue == String,
-    ExtendedGraphemeClusterLiteralType == String,
-    UnicodeScalarLiteralType == String,
-    StringLiteralType == String
-{
-    public init(extendedGraphemeClusterLiteral
-        value: Self.ExtendedGraphemeClusterLiteralType)
-    {
-        self.init(rawValue: value)
+        mutating set { for (key, value) in newValue { self[key] = value } }
     }
     
-    public init(unicodeScalarLiteral value: Self.UnicodeScalarLiteralType) {
-        self.init(rawValue: value)
+    public subscript (keys: [Key]) -> [Key: AnyObject] {
+        get {
+            var results = [Key: AnyObject]()
+            for each in keys { results[each] = self[each] }
+            return results
+        }
+        mutating set { for (key, value) in newValue { self[key] = value } }
     }
-    
-    public init(stringLiteral value: Self.StringLiteralType) {
-        self.init(rawValue: value)
-    }
-    
-    public var hashValue: Int { return rawValue.hashValue }
 }

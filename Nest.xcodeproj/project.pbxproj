@@ -28,6 +28,10 @@
 		632313141B65D8A700AEA8EF /* SwiftExt.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 632313131B65D8A700AEA8EF /* SwiftExt.framework */; };
 		632313161B65D8B100AEA8EF /* SwiftExt.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 632313151B65D8B100AEA8EF /* SwiftExt.framework */; };
 		632313181B65D8B600AEA8EF /* SwiftExt.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 632313171B65D8B600AEA8EF /* SwiftExt.framework */; };
+		633ECD971C142EDA0082D870 /* ObjCKeyValueAccessibleKeyType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 633ECD961C142EDA0082D870 /* ObjCKeyValueAccessibleKeyType.swift */; };
+		633ECD981C142EDA0082D870 /* ObjCKeyValueAccessibleKeyType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 633ECD961C142EDA0082D870 /* ObjCKeyValueAccessibleKeyType.swift */; };
+		633ECD991C142EDA0082D870 /* ObjCKeyValueAccessibleKeyType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 633ECD961C142EDA0082D870 /* ObjCKeyValueAccessibleKeyType.swift */; };
+		633ECD9A1C142EDA0082D870 /* ObjCKeyValueAccessibleKeyType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 633ECD961C142EDA0082D870 /* ObjCKeyValueAccessibleKeyType.swift */; };
 		634711B41B22FDBE00FA2C76 /* NSReuseCenterTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 634711B31B22FDBE00FA2C76 /* NSReuseCenterTest.swift */; };
 		634711B51B22FDBE00FA2C76 /* NSReuseCenterTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 634711B31B22FDBE00FA2C76 /* NSReuseCenterTest.swift */; };
 		635AE0801BFF10D300FB612A /* ObjectiveCTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635AE07F1BFF10D300FB612A /* ObjectiveCTest.swift */; };
@@ -199,6 +203,7 @@
 		632313151B65D8B100AEA8EF /* SwiftExt.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftExt.framework; path = Frameworks/SwiftExt/build/Debug/SwiftExt.framework; sourceTree = "<group>"; };
 		632313171B65D8B600AEA8EF /* SwiftExt.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftExt.framework; path = "Frameworks/SwiftExt/build/Debug-watchos/SwiftExt.framework"; sourceTree = "<group>"; };
 		6323131C1B65FE9800AEA8EF /* NotificationDeliveryTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NotificationDeliveryTest.swift; path = NestTest/NotificationDeliveryTest.swift; sourceTree = SOURCE_ROOT; };
+		633ECD961C142EDA0082D870 /* ObjCKeyValueAccessibleKeyType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObjCKeyValueAccessibleKeyType.swift; sourceTree = "<group>"; };
 		634711491B22D91B00FA2C76 /* Nest.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Nest.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		634711541B22D91B00FA2C76 /* NestTest.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NestTest.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		634711681B22D92600FA2C76 /* Nest.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Nest.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -423,6 +428,7 @@
 				635F10901BFAFABB004982B4 /* Notifications.swift */,
 				635F10911BFAFABB004982B4 /* ObjCCodingEncodableDecodable.swift */,
 				635F10921BFAFABB004982B4 /* ObjCKeyValueAccessible.swift */,
+				633ECD961C142EDA0082D870 /* ObjCKeyValueAccessibleKeyType.swift */,
 				635F10931BFAFABB004982B4 /* ObjCAssociated.swift */,
 				635F10941BFAFABB004982B4 /* ObjCMultiCastDelegatable.swift */,
 				635F10951BFAFABB004982B4 /* ObjCProtocolDispatcherType.swift */,
@@ -851,6 +857,7 @@
 				635F10E61BFAFABB004982B4 /* NSObjectProtocol+Collections.swift in Sources */,
 				635F10F81BFAFABB004982B4 /* Variables.swift in Sources */,
 				635F10B91BFAFABB004982B4 /* ObjCKeyValueAccessible.swift in Sources */,
+				633ECD991C142EDA0082D870 /* ObjCKeyValueAccessibleKeyType.swift in Sources */,
 				635F10C21BFAFABB004982B4 /* ObjCProtocolDispatcherType.swift in Sources */,
 				630D51FF1C0D7003007E2D5C /* NSManagedObject+ObjCKeyValueAccessible.swift in Sources */,
 				6315CB4E1BFD8746003A5840 /* ObjCSelfAwareSwizzle.m in Sources */,
@@ -889,6 +896,7 @@
 				63F0B5301C11D8D500710C41 /* LaunchTask+UIKit.m in Sources */,
 				635F10F61BFAFABB004982B4 /* Variables.swift in Sources */,
 				635F10B71BFAFABB004982B4 /* ObjCKeyValueAccessible.swift in Sources */,
+				633ECD971C142EDA0082D870 /* ObjCKeyValueAccessibleKeyType.swift in Sources */,
 				635F10C01BFAFABB004982B4 /* ObjCProtocolDispatcherType.swift in Sources */,
 				630D51FD1C0D7003007E2D5C /* NSManagedObject+ObjCKeyValueAccessible.swift in Sources */,
 				6315CB4C1BFD8746003A5840 /* ObjCSelfAwareSwizzle.m in Sources */,
@@ -939,6 +947,7 @@
 				635F10F71BFAFABB004982B4 /* Variables.swift in Sources */,
 				635F10B81BFAFABB004982B4 /* ObjCKeyValueAccessible.swift in Sources */,
 				635F10C11BFAFABB004982B4 /* ObjCProtocolDispatcherType.swift in Sources */,
+				633ECD981C142EDA0082D870 /* ObjCKeyValueAccessibleKeyType.swift in Sources */,
 				63F0B5351C11D8E200710C41 /* LaunchTask+AppKit.m in Sources */,
 				630D51FE1C0D7003007E2D5C /* NSManagedObject+ObjCKeyValueAccessible.swift in Sources */,
 				6315CB4D1BFD8746003A5840 /* ObjCSelfAwareSwizzle.m in Sources */,
@@ -989,6 +998,7 @@
 				63F0B5311C11D8D500710C41 /* LaunchTask+UIKit.m in Sources */,
 				635F116B1BFAFD83004982B4 /* ObjCCodingEncodableDecodable.swift in Sources */,
 				635F117B1BFAFD83004982B4 /* NSRange+Equatable.swift in Sources */,
+				633ECD9A1C142EDA0082D870 /* ObjCKeyValueAccessibleKeyType.swift in Sources */,
 				635F11701BFAFD83004982B4 /* ObjCProtocolInterceptor.swift in Sources */,
 				630D52001C0D7003007E2D5C /* NSManagedObject+ObjCKeyValueAccessible.swift in Sources */,
 				6315CB4F1BFD8746003A5840 /* ObjCSelfAwareSwizzle.m in Sources */,
