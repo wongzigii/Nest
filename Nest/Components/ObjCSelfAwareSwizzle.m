@@ -152,8 +152,8 @@ void OCSASPerformSelfAwareSwizzleWithContext(
 #if DEBUG
     if (!OCSASDoesClassHostSelfAwareSelectorOnClass(aClass, targetClass)) {
         NSLog(@"Class to be swizzled %@ is not the Self-Aware Swizzle selector's host class %@.",
-              NSStringFromClass(aClass),
-              NSStringFromClass(targetClass));
+              NSStringFromClass(targetClass),
+              NSStringFromClass(aClass));
     }
     if (targetSelector == NSSelectorFromString(@"dealloc")) {
         NSLog(@"Swizzling againsts -dealloc is discouraged!");

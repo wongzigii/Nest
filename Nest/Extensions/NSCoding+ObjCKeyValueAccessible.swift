@@ -9,62 +9,114 @@
 import Foundation
 
 extension NSCoding where Self: ObjCKeyValueAccessible,
+    Self.Key.RawValue == String,
+    Self: NSObject
+{
+    public func areValuesNilForKeys(keys: Key...) -> Bool {
+        for eachKey in keys where self[eachKey] == nil {
+            return true
+        }
+        return false
+    }
+    
+    public func isValueNilForKey(key: Key) -> Bool {
+        return self[key] == nil
+    }
+}
+
+extension NSCoding where Self: ObjCKeyValueAccessible,
     Self.Key.RawValue == String
 {
-    public func couldDecodeForKeys(keys: [Key], from decoder: NSCoder) -> Bool {
-        for eachKey in keys
-            where !decoder.containsValueForKey(eachKey.rawValue)
-        {
-            return false
+    public func encode<T: ObjCPrimitiveCodingType>(
+        value: T?,
+        forKey key: Key,
+        to encoder: NSCoder)
+    {
+        value?.encodeTo(encoder, forKey: key.rawValue)
+    }
+    
+    public func encode<T: ObjCPrimitiveCodingType
+        where T: _ObjectiveCBridgeable>(
+        value: T?,
+        forKey key: Key,
+        to encoder: NSCoder)
+    {
+        value?.encodeTo(encoder, forKey: key.rawValue)
+    }
+    
+    public func encode<T: _ObjectiveCBridgeable>(
+        value: T?,
+        forKey key: Key,
+        to encoder: NSCoder)
+    {
+        encoder.encodeObject(value?._bridgeToObjectiveC(), forKey: key.rawValue)
+    }
+    
+    public func encode<T: NSObject>(
+        value: T?,
+        forKey key: Key,
+        to encoder: NSCoder)
+    {
+        encoder.encodeObject(value, forKey: key.rawValue)
+    }
+    
+    public func decodeForKey<T: ObjCPrimitiveCodingType>(
+        key: Key,
+        from decoder: NSCoder)
+        -> T?
+    {
+        return T.decodeFrom(decoder, forKey: key.rawValue)
+    }
+    
+    public func decodeForKey<T: ObjCPrimitiveCodingType
+        where T: _ObjectiveCBridgeable>(
+        key: Key,
+        from decoder: NSCoder)
+        -> T?
+    {
+        return T.decodeFrom(decoder, forKey: key.rawValue)
+    }
+    
+    public func decodeForKey<T: _ObjectiveCBridgeable>(
+        key: Key,
+        from decoder: NSCoder)
+        -> T?
+    {
+        guard decoder.containsValueForKey(key.rawValue) else { return nil }
+        
+        guard let object = decoder.decodeObjectForKey(key.rawValue)
+            else { return nil }
+        
+        var value: T?
+        
+        T._forceBridgeFromObjectiveC(
+            object as! T._ObjectiveCType,
+            result: &value)
+        
+        return value
+    }
+    
+    public func decodeForKey<T: NSObject>(key: Key, from decoder: NSCoder)
+        -> T?
+    {
+        guard decoder.containsValueForKey(key.rawValue) else { return nil }
+        
+        guard let object = decoder.decodeObjectForKey(key.rawValue) else {
+            return nil
         }
-        return true
+        
+        return object as? T
     }
     
-    public func couldDecodeForKey(key: Key, from decoder: NSCoder) -> Bool {
-        return decoder.containsValueForKey(key.rawValue)
-    }
-    
-    public func encode<T: ObjCEncodable>(value: T,
-        forKey key: Key,
-        to encoder: NSCoder)
-    {
-        let rawKey = key.rawValue
-        value.encodeTo(encoder, forKey: rawKey)
-    }
-    
-    public static func decodeForKey<T: ObjCDecodable>(key: Key,
+    public func decodeForKey<T: NSObject where T: NSCoding>(
+        key: Key,
         from decoder: NSCoder)
         -> T?
     {
-        let rawKey = key.rawValue
-        return T.decodeFrom(decoder, forKey: rawKey)
-    }
-    
-    public func decodeForKey<T: ObjCDecodable>(key: Key,
-        from decoder: NSCoder)
-        -> T?
-    {
-        let rawKey = key.rawValue
-        return T.decodeFrom(decoder, forKey: rawKey)
-    }
-    
-    public func encode<T: NSCoding where T: NSObject>(value: T,
-        forKey key: Key,
-        to encoder: NSCoder)
-    {
-        let rawKey = key.rawValue
-        encoder.encodeObject(self, forKey: rawKey)
-    }
-    
-    public func decodeForKey<T: NSCoding where T: NSObject>(key: Key,
-        from decoder: NSCoder)
-        -> T?
-    {
-        let rawKey = key.rawValue
-        guard decoder.containsValueForKey(rawKey) else { return nil }
+        guard decoder.containsValueForKey(key.rawValue) else { return nil }
         
         guard let object = decoder.decodeObjectOfClass(T.self,
-            forKey: rawKey) else
+            forKey: key.rawValue) else
         {
             // We don't need to check decoder's requiresSecureCoding property
             // because system throws exception on behalf of ourselves when

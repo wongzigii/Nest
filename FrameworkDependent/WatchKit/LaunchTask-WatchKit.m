@@ -1,23 +1,16 @@
 //
-//  LaunchTask+AppKit.m
+//  LaunchTask+WatchKit.m
 //  Nest
 //
 //  Created by Manfred on 12/4/15.
 //
 //
 
-#import "LaunchTask+AppKit.h"
+#import "LaunchTask-WatchKit.h"
 #import "LaunchTaskInternal.h"
 
-static LTLaunchTaskSelectorHandler LTWillLaunchTaskSelectorHandler;
-
-static LTLaunchTaskSelectorHandler LTDidLaunchTaskSelectorHandler;
-
-void LTSwizzledLaunchTasksPerformer(id<NSApplicationDelegate> self,
-    SEL _cmd,
-    NSNotification * notification)
-{
-    LTPerformLaunchTasksOnLoadedClasses(notification, nil);
+void LTSwizzledLaunchTasksPerformer(id<WKExtensionDelegate> self, SEL _cmd) {
+    LTPerformLaunchTasksOnLoadedClasses(nil);
     
     Class class = [self class];
     
@@ -25,7 +18,7 @@ void LTSwizzledLaunchTasksPerformer(id<NSApplicationDelegate> self,
     LTLaunchTaskPerformerReplacedImpForClass(class);
     
     if (original_imp != NULL) {
-        original_imp(self, _cmd, notification);
+        original_imp(self, _cmd);
     } else {
         [NSException raise:NSInternalInconsistencyException
                     format:@"Cannot find original implementation for %@ on %@",
@@ -34,11 +27,8 @@ void LTSwizzledLaunchTasksPerformer(id<NSApplicationDelegate> self,
     }
 }
 
-void LTInjectedLaunchTasksPerformer(id<NSApplicationDelegate> self,
-    SEL _cmd,
-    NSNotification * notification)
-{
-    LTPerformLaunchTasksOnLoadedClasses(notification, nil);
+void LTInjectedLaunchTasksPerformer(id<WKExtensionDelegate> self, SEL _cmd) {
+    LTPerformLaunchTasksOnLoadedClasses(nil);
 }
 
 void LTLaunchTaskSelectorHandlerDefault(SEL taskSelector,

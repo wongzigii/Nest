@@ -6,12 +6,13 @@
 //
 //
 
-@testable
-import Nest
 import XCTest
+import Nest
+
+private typealias TimingSymbols = NSRunLoopTaskInvokeTiming
 
 class NSRunLoop_TaskDispatcherTest: XCTestCase {
-    var timingSymbols: [NSRunLoopTaskInvokeTiming] = []
+    private var timingSymbols: [TimingSymbols] = []
     
     /// Malfunctioned
     func testDispatchInvokeTiming() {
@@ -46,14 +47,14 @@ class NSRunLoop_TaskDispatcherTest: XCTestCase {
         
         NSRunLoop.currentRunLoop().runUntilDate(NSDate(timeIntervalSinceNow: 1))
         
-        waitForExpectationsWithTimeout(10) { (error) -> Void in
+        waitForExpectationsWithTimeout(3) { (error) -> Void in
             if let error = error {
                 XCTFail("Dispatch invoke timing test failed with error: \(error)")
             }
         }
     }
     
-    func doNothing() {
+    private func doNothing() {
         print("Fuck")
     }
 }

@@ -6,7 +6,7 @@
 //
 //
 
-#import "LaunchTask+UIKit.h"
+#import "LaunchTask-UIKit.h"
 #import "LaunchTaskInternal.h"
 
 BOOL LTSwizzledLaunchTasksPerformer(id<UIApplicationDelegate> self,
