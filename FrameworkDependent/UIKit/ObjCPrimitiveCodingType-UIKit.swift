@@ -18,16 +18,13 @@ extension CGFloat: ObjCPrimitiveCodingType {
     }
     
     public static func decodeFrom(decoder: NSCoder, forKey key: String)
-        -> CGFloat?
+        -> CGFloat
     {
-        if decoder.containsValueForKey(key) {
-            #if arch(x86_64) || arch(arm64)
-                return CGFloat(decoder.decodeDoubleForKey(key))
-            #else
-                return CGFloat(decoder.decodeFloatForKey(key))
-            #endif
-        }
-        return nil
+        #if arch(x86_64) || arch(arm64)
+            return CGFloat(decoder.decodeDoubleForKey(key))
+        #else
+            return CGFloat(decoder.decodeFloatForKey(key))
+        #endif
     }
 }
 
@@ -37,12 +34,9 @@ extension CGPoint: ObjCPrimitiveCodingType {
     }
     
     public static func decodeFrom(decoder: NSCoder, forKey key: String)
-        -> CGPoint?
+        -> CGPoint
     {
-        if decoder.containsValueForKey(key) {
-            return decoder.decodeCGPointForKey(key)
-        }
-        return nil
+        return decoder.decodeCGPointForKey(key)
     }
 }
 
@@ -52,12 +46,9 @@ extension CGSize: ObjCPrimitiveCodingType {
     }
     
     public static func decodeFrom(decoder: NSCoder, forKey key: String)
-        -> CGSize?
+        -> CGSize
     {
-        if decoder.containsValueForKey(key) {
-            return decoder.decodeCGSizeForKey(key)
-        }
-        return nil
+        return decoder.decodeCGSizeForKey(key)
     }
 }
 
@@ -67,12 +58,9 @@ extension CGRect: ObjCPrimitiveCodingType {
     }
     
     public static func decodeFrom(decoder: NSCoder, forKey key: String)
-        -> CGRect?
+        -> CGRect
     {
-        if decoder.containsValueForKey(key) {
-            return decoder.decodeCGRectForKey(key)
-        }
-        return nil
+        return decoder.decodeCGRectForKey(key)
     }
 }
 
@@ -82,12 +70,9 @@ extension CGAffineTransform: ObjCPrimitiveCodingType {
     }
     
     public static func decodeFrom(decoder: NSCoder, forKey key: String)
-        -> CGAffineTransform?
+        -> CGAffineTransform
     {
-        if decoder.containsValueForKey(key) {
-            return decoder.decodeCGAffineTransformForKey(key)
-        }
-        return nil
+        return decoder.decodeCGAffineTransformForKey(key)
     }
 }
 
@@ -97,12 +82,9 @@ extension UIEdgeInsets: ObjCPrimitiveCodingType {
     }
     
     public static func decodeFrom(decoder: NSCoder, forKey key: String)
-        -> UIEdgeInsets?
+        -> UIEdgeInsets
     {
-        if decoder.containsValueForKey(key) {
-            return decoder.decodeUIEdgeInsetsForKey(key)
-        }
-        return nil
+        return decoder.decodeUIEdgeInsetsForKey(key)
     }
 }
 
@@ -112,11 +94,8 @@ extension UIOffset: ObjCPrimitiveCodingType {
     }
     
     public static func decodeFrom(decoder: NSCoder, forKey key: String)
-        -> UIOffset?
+        -> UIOffset
     {
-        if decoder.containsValueForKey(key) {
-            return decoder.decodeUIOffsetForKey(key)
-        }
-        return nil
+        return decoder.decodeUIOffsetForKey(key)
     }
 }

@@ -10,7 +10,7 @@ import Foundation
 
 public protocol ObjCPrimitiveCodingType {
     func encodeTo(encoder: NSCoder, forKey key: String)
-    static func decodeFrom(decoder: NSCoder, forKey key: String) -> Self?
+    static func decodeFrom(decoder: NSCoder, forKey key: String) -> Self
 }
 
 // Specialization for signed integer types
@@ -20,12 +20,9 @@ extension Int: ObjCPrimitiveCodingType {
     }
     
     public static func decodeFrom(decoder: NSCoder, forKey key: String)
-        -> Int?
+        -> Int
     {
-        if decoder.containsValueForKey(key) {
-            return decoder.decodeIntegerForKey(key)
-        }
-        return nil
+        return decoder.decodeIntegerForKey(key)
     }
 }
 
@@ -35,12 +32,9 @@ extension Int8: ObjCPrimitiveCodingType {
     }
     
     public static func decodeFrom(decoder: NSCoder, forKey key: String)
-        -> Int8?
+        -> Int8
     {
-        if decoder.containsValueForKey(key) {
-            return Int8(decoder.decodeInt32ForKey(key))
-        }
-        return nil
+        return Int8(decoder.decodeInt32ForKey(key))
     }
 }
 
@@ -50,12 +44,9 @@ extension Int16: ObjCPrimitiveCodingType {
     }
     
     public static func decodeFrom(decoder: NSCoder, forKey key: String)
-        -> Int16?
+        -> Int16
     {
-        if decoder.containsValueForKey(key) {
-            return Int16(decoder.decodeInt32ForKey(key))
-        }
-        return nil
+        return Int16(decoder.decodeInt32ForKey(key))
     }
 }
 
@@ -65,12 +56,9 @@ extension Int32: ObjCPrimitiveCodingType {
     }
     
     public static func decodeFrom(decoder: NSCoder, forKey key: String)
-        -> Int32?
+        -> Int32
     {
-        if decoder.containsValueForKey(key) {
-            return decoder.decodeInt32ForKey(key)
-        }
-        return nil
+        return decoder.decodeInt32ForKey(key)
     }
 }
 
@@ -80,12 +68,9 @@ extension Int64: ObjCPrimitiveCodingType {
     }
     
     public static func decodeFrom(decoder: NSCoder, forKey key: String)
-        -> Int64?
+        -> Int64
     {
-        if decoder.containsValueForKey(key) {
-            return decoder.decodeInt64ForKey(key)
-        }
-        return nil
+        return decoder.decodeInt64ForKey(key)
     }
 }
 
@@ -96,12 +81,9 @@ extension UInt: ObjCPrimitiveCodingType {
     }
     
     public static func decodeFrom(decoder: NSCoder, forKey key: String)
-        -> UInt?
+        -> UInt
     {
-        if decoder.containsValueForKey(key) {
-            return UInt(decoder.decodeIntegerForKey(key))
-        }
-        return nil
+        return UInt(decoder.decodeIntegerForKey(key))
     }
 }
 
@@ -111,12 +93,9 @@ extension UInt8: ObjCPrimitiveCodingType {
     }
     
     public static func decodeFrom(decoder: NSCoder, forKey key: String)
-        -> UInt8?
+        -> UInt8
     {
-        if decoder.containsValueForKey(key) {
-            return UInt8(decoder.decodeInt32ForKey(key))
-        }
-        return nil
+        return UInt8(decoder.decodeInt32ForKey(key))
     }
 }
 
@@ -126,12 +105,9 @@ extension UInt16: ObjCPrimitiveCodingType {
     }
     
     public static func decodeFrom(decoder: NSCoder, forKey key: String)
-        -> UInt16?
+        -> UInt16
     {
-        if decoder.containsValueForKey(key) {
-            return UInt16(decoder.decodeInt32ForKey(key))
-        }
-        return nil
+        return UInt16(decoder.decodeInt32ForKey(key))
     }
 }
 
@@ -141,12 +117,9 @@ extension UInt32: ObjCPrimitiveCodingType {
     }
     
     public static func decodeFrom(decoder: NSCoder, forKey key: String)
-        -> UInt32?
+        -> UInt32
     {
-        if decoder.containsValueForKey(key) {
-            return UInt32(decoder.decodeInt32ForKey(key))
-        }
-        return nil
+        return UInt32(decoder.decodeInt32ForKey(key))
     }
 }
 
@@ -156,12 +129,9 @@ extension UInt64: ObjCPrimitiveCodingType {
     }
     
     public static func decodeFrom(decoder: NSCoder, forKey key: String)
-        -> UInt64?
+        -> UInt64
     {
-        if decoder.containsValueForKey(key) {
-            return UInt64(decoder.decodeInt64ForKey(key))
-        }
-        return nil
+        return UInt64(decoder.decodeInt64ForKey(key))
     }
 }
 
@@ -172,12 +142,9 @@ extension Float: ObjCPrimitiveCodingType {
     }
     
     public static func decodeFrom(decoder: NSCoder, forKey key: String)
-        -> Float?
+        -> Float
     {
-        if decoder.containsValueForKey(key) {
-            return decoder.decodeFloatForKey(key)
-        }
-        return nil
+        return decoder.decodeFloatForKey(key)
     }
 }
 
@@ -187,12 +154,9 @@ extension Double: ObjCPrimitiveCodingType {
     }
     
     public static func decodeFrom(decoder: NSCoder, forKey key: String)
-        -> Double?
+        -> Double
     {
-        if decoder.containsValueForKey(key) {
-            return decoder.decodeDoubleForKey(key)
-        }
-        return nil
+        return decoder.decodeDoubleForKey(key)
     }
 }
 

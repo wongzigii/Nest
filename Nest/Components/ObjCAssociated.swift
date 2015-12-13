@@ -10,7 +10,7 @@ import Foundation
 
 public final class ObjCAssociated<T>: NSObject, NSCopying {
     public typealias Type = T
-    public let value: Type
+    public var value: Type
     
     public init(_ value: Type) { self.value = value }
     
@@ -23,4 +23,8 @@ extension ObjCAssociated where T: NSCopying {
     public func copyWithZone(zone: NSZone) -> AnyObject {
         return self.dynamicType.init(value.copyWithZone(zone) as! Type)
     }
+}
+
+public func associated<T>(value: T) -> ObjCAssociated<T> {
+    return ObjCAssociated<T>(value)
 }

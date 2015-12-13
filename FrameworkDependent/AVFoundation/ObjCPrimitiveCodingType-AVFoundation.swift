@@ -16,9 +16,8 @@ extension CMTime: ObjCPrimitiveCodingType {
     }
     
     public static func decodeFrom(decoder: NSCoder, forKey key: String)
-        -> CMTime?
+        -> CMTime
     {
-        guard decoder.containsValueForKey(key) else { return nil }
         return decoder.decodeCMTimeForKey(key)
     }
 }
@@ -29,9 +28,8 @@ extension CMTimeRange: ObjCPrimitiveCodingType {
     }
     
     public static func decodeFrom(decoder: NSCoder, forKey key: String)
-        -> CMTimeRange?
+        -> CMTimeRange
     {
-        guard decoder.containsValueForKey(key) else { return nil }
         return decoder.decodeCMTimeRangeForKey(key)
     }
 }
@@ -42,9 +40,8 @@ extension CMTimeMapping: ObjCPrimitiveCodingType {
     }
     
     public static func decodeFrom(decoder: NSCoder, forKey key: String)
-        -> CMTimeMapping?
+        -> CMTimeMapping
     {
-        guard decoder.containsValueForKey(key) else { return nil }
         return decoder.decodeCMTimeMappingForKey(key)
     }
 }
