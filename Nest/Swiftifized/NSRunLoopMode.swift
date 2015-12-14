@@ -18,10 +18,11 @@ public struct NSRunLoopMode: OptionSetType {
     public var rawValue: String = ""
     public init(rawValue: String) { self.rawValue = rawValue }
     
-    public static let defaultMode = NSRunLoopMode(rawValue: "kCFRunLoopDefaultMode")
-    public static let commonModes = NSRunLoopMode(rawValue: "kCFRunLoopCommonModes")
+    public static let defaultMode =
+    NSRunLoopMode(rawValue: "kCFRunLoopDefaultMode")
     
-    public init() {}
+    public static let commonModes =
+    NSRunLoopMode(rawValue: "kCFRunLoopCommonModes")
     
     var rawValues: [RawValue] {
         let elements = (self.rawValue.componentsSeparatedByString(","))
@@ -30,124 +31,6 @@ public struct NSRunLoopMode: OptionSetType {
             rawValues.append(each)
         }
         return rawValues
-    }
-    
-    public func contains(member: Element) -> Bool {
-        let otherElements   = (member.rawValue
-            .componentsSeparatedByString(","))
-        let elements        = (self.rawValue
-            .componentsSeparatedByString(","))
-        
-        var excluded = [String]()
-        
-        for eachInOtherElements in otherElements {
-            for eachInElement in elements {
-                if eachInOtherElements != eachInElement {
-                    excluded.append(eachInOtherElements)
-                }
-            }
-        }
-        
-        return excluded.isEmpty
-    }
-    
-    public func union(other: NSRunLoopMode) -> NSRunLoopMode {
-        let otherElements   = Set<String>(other.rawValue
-            .componentsSeparatedByString(","))
-        let elements        = Set<String>(self.rawValue
-            .componentsSeparatedByString(","))
-        let union = otherElements.union(elements)
-        
-        let joined = union.joinWithSeparator(",")
-        
-        return NSRunLoopMode(rawValue: joined)
-    }
-    
-    public func intersect(other: NSRunLoopMode) -> NSRunLoopMode {
-        let otherElements   = Set<String>(other.rawValue
-            .componentsSeparatedByString(","))
-        let elements        = Set<String>(self.rawValue
-            .componentsSeparatedByString(","))
-        let intersected = otherElements.intersect(elements)
-        
-        let joined = intersected.joinWithSeparator(",")
-        
-        return NSRunLoopMode(rawValue: joined)
-    }
-    
-    public func exclusiveOr(other: NSRunLoopMode) -> NSRunLoopMode {
-        let otherElements   = Set<String>(other.rawValue
-            .componentsSeparatedByString(","))
-        let elements        = Set<String>(self.rawValue
-            .componentsSeparatedByString(","))
-        let exclusiveOr = otherElements.exclusiveOr(elements)
-        
-        let joined = exclusiveOr.joinWithSeparator(",")
-        
-        return NSRunLoopMode(rawValue: joined)
-    }
-    
-    public mutating func insert(member: Element) {
-        let memberElements  = Set<String>(member.rawValue
-            .componentsSeparatedByString(","))
-        let elements        = Set<String>(self.rawValue
-            .componentsSeparatedByString(","))
-        let union = memberElements.union(elements)
-        
-        let joined = union.joinWithSeparator(",")
-        
-        rawValue = joined
-    }
-    
-    public mutating func remove(member: Element) -> Element? {
-        let elements        = Set<String>(self.rawValue
-            .componentsSeparatedByString(","))
-        let memberElements  = Set<String>(member.rawValue
-            .componentsSeparatedByString(","))
-        
-        let afterRemoving = elements.subtract(memberElements)
-        let removed = elements.subtract(afterRemoving)
-        let joined = afterRemoving.joinWithSeparator(",")
-        
-        rawValue = joined
-        
-        return NSRunLoopMode(rawValue: removed.joinWithSeparator(","))
-    }
-    
-    public mutating func unionInPlace(other: NSRunLoopMode) {
-        let otherElements   = Set<String>(other.rawValue
-            .componentsSeparatedByString(","))
-        let elements        = Set<String>(self.rawValue
-            .componentsSeparatedByString(","))
-        let union = otherElements.union(elements)
-        
-        let joined = union.joinWithSeparator(",")
-        
-        rawValue = joined
-    }
-    
-    public mutating func intersectInPlace(other: NSRunLoopMode) {
-        let otherElements   = Set<String>(other.rawValue
-            .componentsSeparatedByString(","))
-        let elements        = Set<String>(self.rawValue
-            .componentsSeparatedByString(","))
-        let intersected = otherElements.intersect(elements)
-        
-        let joined = intersected.joinWithSeparator(",")
-        
-        rawValue = joined
-    }
-    
-    public mutating func exclusiveOrInPlace(other: NSRunLoopMode) {
-        let otherElements   = Set<String>(other.rawValue
-            .componentsSeparatedByString(","))
-        let elements        = Set<String>(self.rawValue
-            .componentsSeparatedByString(","))
-        let exclusiveOr = otherElements.exclusiveOr(elements)
-        
-        let joined = exclusiveOr.joinWithSeparator(",")
-        
-        rawValue = joined
     }
 }
 

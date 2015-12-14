@@ -7,7 +7,7 @@
 //
 
 public protocol ObjCKeyValueAccessibleKeyType:
-    RawRepresentable,
+    OptionSetType,
     StringLiteralConvertible,
     Hashable
 {
@@ -15,6 +15,7 @@ public protocol ObjCKeyValueAccessibleKeyType:
     typealias UnicodeScalarLiteralType = String
     typealias StringLiteralType = String
     typealias RawValue = String
+    typealias Element = Self
     init(rawValue: Self.RawValue)
 }
 
