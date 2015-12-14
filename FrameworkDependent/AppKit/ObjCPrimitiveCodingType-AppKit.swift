@@ -18,16 +18,13 @@ extension CGFloat: ObjCPrimitiveCodingType {
     }
     
     public static func decodeFrom(decoder: NSCoder, forKey key: String)
-        -> CGFloat?
+        -> CGFloat
     {
-        if decoder.containsValueForKey(key) {
-            #if arch(x86_64) || arch(arm64)
-                return CGFloat(decoder.decodeDoubleForKey(key))
-            #else
-                return CGFloat(decoder.decodeFloatForKey(key))
-            #endif
-        }
-        return nil
+        #if arch(x86_64) || arch(arm64)
+            return CGFloat(decoder.decodeDoubleForKey(key))
+        #else
+            return CGFloat(decoder.decodeFloatForKey(key))
+        #endif
     }
 }
 
@@ -37,12 +34,9 @@ extension CGPoint: ObjCPrimitiveCodingType {
     }
     
     public static func decodeFrom(decoder: NSCoder, forKey key: String)
-        -> CGPoint?
+        -> CGPoint
     {
-        if decoder.containsValueForKey(key) {
-            return decoder.decodePointForKey(key)
-        }
-        return nil
+        return decoder.decodePointForKey(key)
     }
 }
 
@@ -52,12 +46,9 @@ extension CGSize: ObjCPrimitiveCodingType {
     }
     
     public static func decodeFrom(decoder: NSCoder, forKey key: String)
-        -> CGSize?
+        -> CGSize
     {
-        if decoder.containsValueForKey(key) {
-            return decoder.decodeSizeForKey(key)
-        }
-        return nil
+        return decoder.decodeSizeForKey(key)
     }
 }
 
@@ -67,11 +58,8 @@ extension CGRect: ObjCPrimitiveCodingType {
     }
     
     public static func decodeFrom(decoder: NSCoder, forKey key: String)
-        -> CGRect?
+        -> CGRect
     {
-        if decoder.containsValueForKey(key) {
-            return decoder.decodeRectForKey(key)
-        }
-        return nil
+        return decoder.decodeRectForKey(key)
     }
 }
