@@ -39,8 +39,9 @@ extension NSString {
                 let nextSearchStartLocation = (aRange.location +
                     aRange.length)
                 
-                workingRange = NSRangeMake(nextSearchStartLocation,
-                    workingRange.length - nextSearchStartLocation)
+                workingRange = NSRange(
+                    location: nextSearchStartLocation,
+                    length: workingRange.length - nextSearchStartLocation)
             } else {
                 // no more substring to find
                 break;
