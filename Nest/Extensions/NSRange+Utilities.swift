@@ -26,7 +26,7 @@ extension NSRange {
 
 extension NSRange {
     public func contains(otherRange: NSRange) -> Bool {
-        return otherRange.location <= location && otherRange.length <= length
+        return (otherRange.location >= location && otherRange.max <= max)
     }
     
     public func intersects(otherRange: NSRange) -> Bool {
