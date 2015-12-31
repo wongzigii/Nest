@@ -89,7 +89,8 @@ extension NSCoding where Self: ObjCKeyValueAccessible,
     
     //MARK: - NSCoding Conformed Objective-C Bridgable Pure Swift Objects
     public func encode<T: AnyObject
-        where T: _ObjectiveCBridgeable, T: NSCoding>
+        where T: _ObjectiveCBridgeable,
+        T._ObjectiveCType: NSCoding>
         (value: T?,
         to encoder: NSCoder,
         forKey key: Key)
@@ -98,7 +99,8 @@ extension NSCoding where Self: ObjCKeyValueAccessible,
     }
     
     public func decode<T: AnyObject
-        where T: _ObjectiveCBridgeable, T: NSCoding>
+        where T: _ObjectiveCBridgeable,
+        T._ObjectiveCType: NSCoding>
         (decoder: NSCoder,
         forKey key: Key)
         throws

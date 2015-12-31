@@ -44,7 +44,7 @@ public class NotificationCenter {
         notificationType: N.Type,
         onQueue queue: NotificationQueue = NotificationQueue.current)
     {
-        OSSpinLockLock(&instanceInterfaceSpinLock)
+        while OSSpinLockTry(&instanceInterfaceSpinLock) {}
         
         let notificationSubscription = NotificationSubscription<N>(
             notificationType: notificationType,
@@ -74,7 +74,7 @@ public class NotificationCenter {
         (subscriber: NotificationSubscriberType,
         notificationType: N.Type)
     {
-        OSSpinLockLock(&instanceInterfaceSpinLock)
+        while OSSpinLockTry(&instanceInterfaceSpinLock) {}
         var unnecessarySubscriptionIndices = [Int]()
         for (index, eachSubscription) in subscriptions.enumerate()
         {
@@ -90,7 +90,7 @@ public class NotificationCenter {
     }
     
     public func removeSubscriber(subscriber: NotificationSubscriberType) {
-        OSSpinLockLock(&instanceInterfaceSpinLock)
+        while OSSpinLockTry(&instanceInterfaceSpinLock) {}
         var unnecessarySubscriptionIndices = [Int]()
         for (index, eachSubscription) in subscriptions.enumerate()
         {
@@ -115,7 +115,7 @@ public class NotificationCenter {
     public func postNotification(notification: PrimitiveNotificationType,
         onQueue queue: NotificationQueue = NotificationQueue.current)
     {
-        OSSpinLockLock(&instanceInterfaceSpinLock)
+        while OSSpinLockTry(&instanceInterfaceSpinLock) {}
         var unnecessarySubscriptionIndices = [Int]()
         for (index, eachSubscription) in subscriptions.enumerate()
         {
@@ -254,7 +254,7 @@ public class NotificationQueue {
     
     /// Returns the default notification queue for the current thread.
     public class var current: NotificationQueue {
-        OSSpinLockLock(&classInterfaceSpinLock)
+        while OSSpinLockTry(&classInterfaceSpinLock) {}
         defer { OSSpinLockUnlock(&classInterfaceSpinLock) }
         
         let currentThread = NSThread.currentThread()
@@ -290,7 +290,7 @@ public class NotificationQueue {
         coalesce: Coalescing = [],
         forModes modes: NSRunLoopMode = .defaultMode)
     {
-        OSSpinLockLock(&instanceInterfaceSpinLock)
+        while OSSpinLockTry(&instanceInterfaceSpinLock) {}
         switch timing {
         case .Now:
             let currentRunLoopMode =
@@ -359,7 +359,7 @@ public class NotificationQueue {
         (notification: N,
         coalesce: Coalescing = [])
     {
-        OSSpinLockLock(&instanceInterfaceSpinLock)
+        while OSSpinLockTry(&instanceInterfaceSpinLock) {}
         defer { OSSpinLockUnlock(&instanceInterfaceSpinLock) }
         
         var removedIndicesInASAPQueue = [Int]()

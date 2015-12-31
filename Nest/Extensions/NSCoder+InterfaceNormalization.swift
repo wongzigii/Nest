@@ -140,7 +140,8 @@ extension NSCoder {
     
     //MARK: - NSCoding Conformed Objective-C Bridgable Pure Swift Objects
     public func encode<T: AnyObject
-        where T: _ObjectiveCBridgeable, T: NSCoding>
+        where T: _ObjectiveCBridgeable,
+        T._ObjectiveCType: NSCoding>
         (value: T?,
         forKey key: String)
     {
@@ -148,7 +149,8 @@ extension NSCoder {
     }
     
     public func decodeForKey<T: AnyObject
-        where T: _ObjectiveCBridgeable, T: NSCoding>
+        where T: _ObjectiveCBridgeable,
+        T._ObjectiveCType: NSCoding>
         (key: String)
         throws
         -> T!

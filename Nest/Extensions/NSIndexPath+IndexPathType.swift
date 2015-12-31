@@ -10,6 +10,8 @@ import SwiftExt
 import Foundation
 
 extension NSIndexPath: IndexPathType {
+    public typealias Index = Int
+    
     public var indices: [Int] {
         var indices = [Int]()
         for position in 0..<length {
@@ -17,8 +19,6 @@ extension NSIndexPath: IndexPathType {
         }
         return indices
     }
-    
-    public typealias Index = Int
     
     public func predecessor() -> Self {
         guard let lastIndex = self.indices.last else {
@@ -42,12 +42,5 @@ extension NSIndexPath: IndexPathType {
         indices += lastIndex.successor()
         
         return self.dynamicType.init(indexes: indices, length: indices.count)
-    }
-    
-    public static func withIndexPath<I : IndexPathType>(indexPath: I)
-        -> Self
-    {
-        return self.init(indexes: indexPath.indices.map { Index($0.toIntMax())},
-            length: indexPath.indices.count)
     }
 }

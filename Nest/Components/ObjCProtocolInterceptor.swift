@@ -22,29 +22,27 @@ public final class ObjCProtocolInterceptor: NSObject {
     private var _interceptedProtocols: [Protocol] = []
     
     /// The receiver receives messages.
-    public weak var receiver: NSObjectProtocol?
+    public weak var receiver: NSObject?
     
     /// The middle men intercepts messages. The last middle appended man 
     /// receives messages firstly.
-    private var _middleMen: [Weak<NSObjectProtocol>] = []
-    public var middleMen: [NSObjectProtocol] {
+    private var _middleMen: [Weak<NSObject>] = []
+    public var middleMen: [NSObject] {
         return _middleMen.flatMap {$0.value}
     }
     
-    public func addMiddleMan(middleMan: NSObjectProtocol) {
+    public func addMiddleMan(middleMan: NSObject) {
         _middleMen.append(weakify(middleMan))
     }
     
-    public func removeMiddleMan(middleMan: NSObjectProtocol)
-        -> NSObjectProtocol?
-    {
+    public func removeMiddleMan(middleMan: NSObject) -> NSObject? {
         if let index = _middleMen.indexOf(weakify(middleMan)) {
             return _middleMen.removeAtIndex(index).value
         }
         return nil
     }
     
-    public func containsMiddleMan(middleMan: NSObjectProtocol) -> Bool {
+    public func containsMiddleMan(middleMan: NSObject) -> Bool {
         for each in _middleMen where each.value === middleMan { return true }
         return false
     }

@@ -137,9 +137,6 @@
 		635F10FC1BFAFABB004982B4 /* NSRunLoopMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F10AD1BFAFABB004982B4 /* NSRunLoopMode.swift */; };
 		635F10FD1BFAFABB004982B4 /* NSRunLoopMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F10AD1BFAFABB004982B4 /* NSRunLoopMode.swift */; };
 		635F10FE1BFAFABB004982B4 /* NSRunLoopMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F10AD1BFAFABB004982B4 /* NSRunLoopMode.swift */; };
-		635F11001BFAFAED004982B4 /* ReuseCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F10FF1BFAFAED004982B4 /* ReuseCenter.swift */; };
-		635F11011BFAFAED004982B4 /* ReuseCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F10FF1BFAFAED004982B4 /* ReuseCenter.swift */; };
-		635F11021BFAFAED004982B4 /* ReuseCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F10FF1BFAFAED004982B4 /* ReuseCenter.swift */; };
 		635F11041BFAFB4D004982B4 /* ObjectiveC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F11031BFAFB4D004982B4 /* ObjectiveC.swift */; };
 		635F11051BFAFB4D004982B4 /* ObjectiveC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F11031BFAFB4D004982B4 /* ObjectiveC.swift */; };
 		635F11061BFAFB4D004982B4 /* ObjectiveC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F11031BFAFB4D004982B4 /* ObjectiveC.swift */; };
@@ -156,7 +153,6 @@
 		635F11701BFAFD83004982B4 /* ObjCProtocolInterceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F10961BFAFABB004982B4 /* ObjCProtocolInterceptor.swift */; };
 		635F11711BFAFD83004982B4 /* PersistenceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F10971BFAFABB004982B4 /* PersistenceController.swift */; };
 		635F11721BFAFD83004982B4 /* SubsequentSetupInitializable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F11071BFAFBA5004982B4 /* SubsequentSetupInitializable.swift */; };
-		635F11731BFAFD83004982B4 /* ReuseCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F10FF1BFAFAED004982B4 /* ReuseCenter.swift */; };
 		635F11741BFAFD83004982B4 /* CFRunLoopActivity+CustomDebugStringConvertible.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F109B1BFAFABB004982B4 /* CFRunLoopActivity+CustomDebugStringConvertible.swift */; };
 		635F11761BFAFD83004982B4 /* NSDate+Comparable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F109D1BFAFABB004982B4 /* NSDate+Comparable.swift */; };
 		635F11771BFAFD83004982B4 /* NSError+InitConveniences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F109E1BFAFABB004982B4 /* NSError+InitConveniences.swift */; };
@@ -170,6 +166,14 @@
 		635F11811BFAFD83004982B4 /* NSPersistentStoreType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F10AC1BFAFABB004982B4 /* NSPersistentStoreType.swift */; };
 		635F11821BFAFD83004982B4 /* NSRunLoopMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F10AD1BFAFABB004982B4 /* NSRunLoopMode.swift */; };
 		635F12DA1BFB229E004982B4 /* SwiftExt.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 635F12D91BFB229E004982B4 /* SwiftExt.framework */; };
+		63C1D9FB1C3164E700D0F548 /* ObjCSelectorInterceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C1D9FA1C3164E700D0F548 /* ObjCSelectorInterceptor.swift */; };
+		63C1D9FC1C3164E700D0F548 /* ObjCSelectorInterceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C1D9FA1C3164E700D0F548 /* ObjCSelectorInterceptor.swift */; };
+		63C1D9FD1C3164E700D0F548 /* ObjCSelectorInterceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C1D9FA1C3164E700D0F548 /* ObjCSelectorInterceptor.swift */; };
+		63C1D9FE1C3164E700D0F548 /* ObjCSelectorInterceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C1D9FA1C3164E700D0F548 /* ObjCSelectorInterceptor.swift */; };
+		63C3C8861C2AB52200A864E4 /* IndexPath+_ObjectiveCBridgeable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C3C8851C2AB52200A864E4 /* IndexPath+_ObjectiveCBridgeable.swift */; };
+		63C3C8871C2AB52200A864E4 /* IndexPath+_ObjectiveCBridgeable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C3C8851C2AB52200A864E4 /* IndexPath+_ObjectiveCBridgeable.swift */; };
+		63C3C8881C2AB52200A864E4 /* IndexPath+_ObjectiveCBridgeable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C3C8851C2AB52200A864E4 /* IndexPath+_ObjectiveCBridgeable.swift */; };
+		63C3C8891C2AB52200A864E4 /* IndexPath+_ObjectiveCBridgeable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C3C8851C2AB52200A864E4 /* IndexPath+_ObjectiveCBridgeable.swift */; };
 		63ED3B2B1C12056E008B8A5C /* LaunchTaskInternal.h in Headers */ = {isa = PBXBuildFile; fileRef = 63ED3B291C12056E008B8A5C /* LaunchTaskInternal.h */; };
 		63ED3B2C1C12056E008B8A5C /* LaunchTaskInternal.h in Headers */ = {isa = PBXBuildFile; fileRef = 63ED3B291C12056E008B8A5C /* LaunchTaskInternal.h */; };
 		63ED3B2D1C12056E008B8A5C /* LaunchTaskInternal.h in Headers */ = {isa = PBXBuildFile; fileRef = 63ED3B291C12056E008B8A5C /* LaunchTaskInternal.h */; };
@@ -267,7 +271,6 @@
 		635F10AA1BFAFABB004982B4 /* Variables.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Variables.swift; sourceTree = "<group>"; };
 		635F10AC1BFAFABB004982B4 /* NSPersistentStoreType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSPersistentStoreType.swift; sourceTree = "<group>"; };
 		635F10AD1BFAFABB004982B4 /* NSRunLoopMode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSRunLoopMode.swift; sourceTree = "<group>"; };
-		635F10FF1BFAFAED004982B4 /* ReuseCenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReuseCenter.swift; sourceTree = "<group>"; };
 		635F11031BFAFB4D004982B4 /* ObjectiveC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObjectiveC.swift; sourceTree = "<group>"; };
 		635F11071BFAFBA5004982B4 /* SubsequentSetupInitializable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubsequentSetupInitializable.swift; sourceTree = "<group>"; };
 		635F112A1BFAFCFF004982B4 /* Nest.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Nest.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -282,6 +285,8 @@
 		635F12D91BFB229E004982B4 /* SwiftExt.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftExt.framework; path = "Frameworks/SwiftExt/build/Debug-appletvos/SwiftExt.framework"; sourceTree = "<group>"; };
 		639D63EE1BE8404400B30F67 /* SwiftExt.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftExt.framework; path = "../SwiftExt/build/Debug-iphoneos/SwiftExt.framework"; sourceTree = "<group>"; };
 		639D63F01BE8404E00B30F67 /* SwiftExt.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftExt.framework; path = ../SwiftExt/build/Debug/SwiftExt.framework; sourceTree = "<group>"; };
+		63C1D9FA1C3164E700D0F548 /* ObjCSelectorInterceptor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObjCSelectorInterceptor.swift; sourceTree = "<group>"; };
+		63C3C8851C2AB52200A864E4 /* IndexPath+_ObjectiveCBridgeable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "IndexPath+_ObjectiveCBridgeable.swift"; sourceTree = "<group>"; };
 		63ED3B291C12056E008B8A5C /* LaunchTaskInternal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LaunchTaskInternal.h; sourceTree = "<group>"; };
 		63F0B5221C11D6DB00710C41 /* LaunchTask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LaunchTask.h; sourceTree = "<group>"; };
 		63F0B5231C11D6DB00710C41 /* LaunchTask.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LaunchTask.m; sourceTree = "<group>"; };
@@ -481,13 +486,13 @@
 				635F10941BFAFABB004982B4 /* ObjCMultiCastDelegatable.swift */,
 				635F10951BFAFABB004982B4 /* ObjCProtocolDispatcherType.swift */,
 				635F10961BFAFABB004982B4 /* ObjCProtocolInterceptor.swift */,
+				63C1D9FA1C3164E700D0F548 /* ObjCSelectorInterceptor.swift */,
 				63050CA51C018C9300EDFEAD /* ObjCSelfAwareSwizzle.swift */,
 				6315CB4A1BFD8745003A5840 /* ObjCSelfAwareSwizzle.m */,
 				63F0B5221C11D6DB00710C41 /* LaunchTask.h */,
 				63F0B5231C11D6DB00710C41 /* LaunchTask.m */,
 				63ED3B291C12056E008B8A5C /* LaunchTaskInternal.h */,
 				635F10971BFAFABB004982B4 /* PersistenceController.swift */,
-				635F10FF1BFAFAED004982B4 /* ReuseCenter.swift */,
 				635F11071BFAFBA5004982B4 /* SubsequentSetupInitializable.swift */,
 			);
 			path = Components;
@@ -501,6 +506,7 @@
 				635F109E1BFAFABB004982B4 /* NSError+InitConveniences.swift */,
 				635F109F1BFAFABB004982B4 /* NSIndexPath+Comparable.swift */,
 				635F10A01BFAFABB004982B4 /* NSIndexPath+IndexPathType.swift */,
+				63C3C8851C2AB52200A864E4 /* IndexPath+_ObjectiveCBridgeable.swift */,
 				635F10A21BFAFABB004982B4 /* NSObjectProtocol+Collections.swift */,
 				635C250C1C2015CB00B0263F /* NSRange+Utilities.swift */,
 				635F10A51BFAFABB004982B4 /* NSRunLoop+TaskDispatcher.swift */,
@@ -891,16 +897,17 @@
 				635F10EF1BFAFABB004982B4 /* NSRunLoop+TaskDispatcher.swift in Sources */,
 				633ECE481C14A12F0082D870 /* ObjCTypeEncoding.swift in Sources */,
 				63F0B52A1C11D6DC00710C41 /* LaunchTask.m in Sources */,
+				63C3C8881C2AB52200A864E4 /* IndexPath+_ObjectiveCBridgeable.swift in Sources */,
 				635F10FB1BFAFABB004982B4 /* NSPersistentStoreType.swift in Sources */,
 				635F10FE1BFAFABB004982B4 /* NSRunLoopMode.swift in Sources */,
 				635F10C81BFAFABB004982B4 /* PersistenceController.swift in Sources */,
 				635F10D11BFAFABB004982B4 /* CFRunLoopActivity+CustomDebugStringConvertible.swift in Sources */,
-				635F11021BFAFAED004982B4 /* ReuseCenter.swift in Sources */,
 				63050CA81C018C9300EDFEAD /* ObjCSelfAwareSwizzle.swift in Sources */,
 				633ECE431C14A0690082D870 /* NSCoding+ObjCKeyValueAccessible.swift in Sources */,
 				633ECE3F1C149F3D0082D870 /* ObjCPrimitiveCodingType.swift in Sources */,
 				635F10B31BFAFABB004982B4 /* Notifications.swift in Sources */,
 				635F10BF1BFAFABB004982B4 /* ObjCMultiCastDelegatable.swift in Sources */,
+				63C1D9FD1C3164E700D0F548 /* ObjCSelectorInterceptor.swift in Sources */,
 				63F0B5391C11D8F000710C41 /* LaunchTask-WatchKit.m in Sources */,
 				635F10F21BFAFABB004982B4 /* NSString+RangesOfString.swift in Sources */,
 				635F11061BFAFB4D004982B4 /* ObjectiveC.swift in Sources */,
@@ -937,7 +944,6 @@
 				635F10FC1BFAFABB004982B4 /* NSRunLoopMode.swift in Sources */,
 				635F10C61BFAFABB004982B4 /* PersistenceController.swift in Sources */,
 				635F10CF1BFAFABB004982B4 /* CFRunLoopActivity+CustomDebugStringConvertible.swift in Sources */,
-				635F11001BFAFAED004982B4 /* ReuseCenter.swift in Sources */,
 				633ECEDA1C158EF90082D870 /* ObjCPrimitiveCodingType-UIKit.swift in Sources */,
 				63050CA61C018C9300EDFEAD /* ObjCSelfAwareSwizzle.swift in Sources */,
 				633ECE411C14A0680082D870 /* NSCoding+ObjCKeyValueAccessible.swift in Sources */,
@@ -948,10 +954,12 @@
 				635F11041BFAFB4D004982B4 /* ObjectiveC.swift in Sources */,
 				635F10AE1BFAFABB004982B4 /* HierarchicalPickablePicker.swift in Sources */,
 				635F10E41BFAFABB004982B4 /* NSObjectProtocol+Collections.swift in Sources */,
+				63C3C8861C2AB52200A864E4 /* IndexPath+_ObjectiveCBridgeable.swift in Sources */,
 				63F0B5301C11D8D500710C41 /* LaunchTask-UIKit.m in Sources */,
 				635F10F61BFAFABB004982B4 /* Variables.swift in Sources */,
 				635F10B71BFAFABB004982B4 /* ObjCKeyValueAccessible.swift in Sources */,
 				633ECD971C142EDA0082D870 /* ObjCKeyValueAccessibleKeyType.swift in Sources */,
+				63C1D9FB1C3164E700D0F548 /* ObjCSelectorInterceptor.swift in Sources */,
 				635F10C01BFAFABB004982B4 /* ObjCProtocolDispatcherType.swift in Sources */,
 				633ECED51C158A390082D870 /* _ObjectiveCBridgeable+FoundationAddition.swift in Sources */,
 				633ECEBF1C1547900082D870 /* NSCoder+InterfaceNormalization.swift in Sources */,
@@ -994,7 +1002,6 @@
 				635F10FD1BFAFABB004982B4 /* NSRunLoopMode.swift in Sources */,
 				635F10C71BFAFABB004982B4 /* PersistenceController.swift in Sources */,
 				635F10D01BFAFABB004982B4 /* CFRunLoopActivity+CustomDebugStringConvertible.swift in Sources */,
-				635F11011BFAFAED004982B4 /* ReuseCenter.swift in Sources */,
 				63050CA71C018C9300EDFEAD /* ObjCSelfAwareSwizzle.swift in Sources */,
 				633ECE421C14A0690082D870 /* NSCoding+ObjCKeyValueAccessible.swift in Sources */,
 				633ECE3E1C149F3C0082D870 /* ObjCPrimitiveCodingType.swift in Sources */,
@@ -1005,10 +1012,12 @@
 				635F10AF1BFAFABB004982B4 /* HierarchicalPickablePicker.swift in Sources */,
 				635F10E51BFAFABB004982B4 /* NSObjectProtocol+Collections.swift in Sources */,
 				633ECEDE1C158F470082D870 /* ObjCPrimitiveCodingType-AppKit.swift in Sources */,
+				63C3C8871C2AB52200A864E4 /* IndexPath+_ObjectiveCBridgeable.swift in Sources */,
 				635F10F71BFAFABB004982B4 /* Variables.swift in Sources */,
 				635F10B81BFAFABB004982B4 /* ObjCKeyValueAccessible.swift in Sources */,
 				635F10C11BFAFABB004982B4 /* ObjCProtocolDispatcherType.swift in Sources */,
 				633ECD981C142EDA0082D870 /* ObjCKeyValueAccessibleKeyType.swift in Sources */,
+				63C1D9FC1C3164E700D0F548 /* ObjCSelectorInterceptor.swift in Sources */,
 				63F0B5351C11D8E200710C41 /* LaunchTask-AppKit.m in Sources */,
 				633ECED61C158A390082D870 /* _ObjectiveCBridgeable+FoundationAddition.swift in Sources */,
 				633ECEC01C1547900082D870 /* NSCoder+InterfaceNormalization.swift in Sources */,
@@ -1050,7 +1059,6 @@
 				635F11741BFAFD83004982B4 /* CFRunLoopActivity+CustomDebugStringConvertible.swift in Sources */,
 				635F11811BFAFD83004982B4 /* NSPersistentStoreType.swift in Sources */,
 				635F11711BFAFD83004982B4 /* PersistenceController.swift in Sources */,
-				635F11731BFAFD83004982B4 /* ReuseCenter.swift in Sources */,
 				635F116A1BFAFD83004982B4 /* Notifications.swift in Sources */,
 				635F116E1BFAFD83004982B4 /* ObjCMultiCastDelegatable.swift in Sources */,
 				633ECEDC1C158EF90082D870 /* ObjCPrimitiveCodingType-UIKit.swift in Sources */,
@@ -1062,10 +1070,12 @@
 				635F116C1BFAFD83004982B4 /* ObjCKeyValueAccessible.swift in Sources */,
 				635F116F1BFAFD83004982B4 /* ObjCProtocolDispatcherType.swift in Sources */,
 				635F116D1BFAFD83004982B4 /* ObjCAssociated.swift in Sources */,
+				63C3C8891C2AB52200A864E4 /* IndexPath+_ObjectiveCBridgeable.swift in Sources */,
 				635F11761BFAFD83004982B4 /* NSDate+Comparable.swift in Sources */,
 				635F117D1BFAFD83004982B4 /* NSRunLoop+TaskDispatcher.swift in Sources */,
 				63F0B5311C11D8D500710C41 /* LaunchTask-UIKit.m in Sources */,
 				633ECD9A1C142EDA0082D870 /* ObjCKeyValueAccessibleKeyType.swift in Sources */,
+				63C1D9FE1C3164E700D0F548 /* ObjCSelectorInterceptor.swift in Sources */,
 				635F11701BFAFD83004982B4 /* ObjCProtocolInterceptor.swift in Sources */,
 				630D52001C0D7003007E2D5C /* NSManagedObject+ObjCKeyValueAccessible.swift in Sources */,
 				633ECED81C158A390082D870 /* _ObjectiveCBridgeable+FoundationAddition.swift in Sources */,
