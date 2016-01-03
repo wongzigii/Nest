@@ -222,7 +222,7 @@ void LTScanAndActivateLaunchTaskSelectorsOnClass(Class aClass,
         else if (selectorMatchResult
                  & LTLaunchTaskSelectorMatchResultMatchedIgnoreCase)
         {
-            NSLog(@"Found a pseudo launch task Selector, you might ignored some cases when spelt it: %@",
+            NSLog(@"Found a pseudo launch task Selector, you might ignored some cases when spelling it: %@",
                   NSStringFromSelector(selector));
         }
 #endif
@@ -257,6 +257,8 @@ LTLaunchTaskSelectorMatchResult LTMatchLaunchTaskSelector(SEL selector,
     } else {
         return LTLaunchTaskSelectorMatchResultUnmatched;
     }
+#else
+    return LTLaunchTaskSelectorMatchResultUnmatched;
 #endif
 }
 
