@@ -9,7 +9,7 @@
 import SwiftExt
 import Foundation
 
-extension NSIndexPath: IndexPathType {
+extension NSIndexPath: HirarchicalIndexType {
     public typealias Index = Int
     
     public var indices: [Int] {
@@ -22,7 +22,7 @@ extension NSIndexPath: IndexPathType {
     
     public func predecessor() -> Self {
         guard let lastIndex = self.indices.last else {
-            fatalError("No index")
+            return self
         }
         
         var indices = self.indices
@@ -34,7 +34,7 @@ extension NSIndexPath: IndexPathType {
     
     public func successor() -> Self {
         guard let lastIndex = self.indices.last else {
-            fatalError("No index")
+            return self
         }
         
         var indices = self.indices
@@ -42,5 +42,12 @@ extension NSIndexPath: IndexPathType {
         indices += lastIndex.successor()
         
         return self.dynamicType.init(indexes: indices, length: indices.count)
+    }
+    
+    public func umbrellas(indexPath: NSIndexPath) -> Bool {
+        if length < indexPath.length {
+            return indices[0] == indexPath.indices[0]
+        }
+        return false
     }
 }
