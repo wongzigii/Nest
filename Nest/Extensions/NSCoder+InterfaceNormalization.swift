@@ -306,63 +306,51 @@ extension NSCoder {
 extension NSCoder {
     public func decodeForKey<T: ObjCPrimitiveCodingType>
         (key: String,
-        @noescape fallBack: (error: NSCoderDecodingError) throws -> T)
-        rethrows
+        @autoclosure fallBack: () -> T)
         -> T
     {
         do {
             return try decodeOrThrowForKey(key)
-        } catch let codeError as NSCoderDecodingError {
-            return try fallBack(error: codeError)
-        } catch let error {
-            fatalError("Unexpected Error: \(error)")
+        } catch _ {
+            return fallBack()
         }
     }
     
     public func decodeForKey<T: ObjCPrimitiveCodingType
         where T: _ObjectiveCBridgeable>
         (key: String,
-        @noescape fallBack: (error: NSCoderDecodingError) throws -> T)
-        rethrows
+        @autoclosure fallBack: () -> T)
         -> T
     {
         do {
             return try decodeOrThrowForKey(key)
-        } catch let codeError as NSCoderDecodingError {
-            return try fallBack(error: codeError)
-        } catch let error {
-            fatalError("Unexpected Error: \(error)")
+        } catch _ {
+            return fallBack()
         }
     }
     
     public func decodeForKey<T: RawRepresentable
         where T.RawValue: ObjCPrimitiveCodingType>
         (key: String,
-        @noescape fallBack: (error: NSCoderDecodingError) throws -> T)
-        rethrows
+        @autoclosure fallBack: () -> T)
         -> T
     {
         do {
             return try decodeOrThrowForKey(key)
-        } catch let codeError as NSCoderDecodingError {
-            return try fallBack(error: codeError)
-        } catch let error {
-            fatalError("Unexpected Error: \(error)")
+        } catch _ {
+            return fallBack()
         }
     }
     
     public func decodeForKey<T: _ObjectiveCBridgeable>
         (key: String,
-        @noescape fallBack: (error: NSCoderDecodingError) throws -> T)
-        rethrows
+        @autoclosure fallBack: () -> T)
         -> T
     {
         do {
             return try decodeOrThrowForKey(key)
-        } catch let codeError as NSCoderDecodingError {
-            return try fallBack(error: codeError)
-        } catch let error {
-            fatalError("Unexpected Error: \(error)")
+        } catch _ {
+            return fallBack()
         }
     }
     
@@ -370,46 +358,37 @@ extension NSCoder {
         where T: _ObjectiveCBridgeable,
         T._ObjectiveCType: NSCoding>
         (key: String,
-        @noescape fallBack: (error: NSCoderDecodingError) throws -> T)
-        rethrows
+        @autoclosure fallBack: () -> T)
         -> T
     {
         do {
             return try decodeOrThrowForKey(key)
-        } catch let codeError as NSCoderDecodingError {
-            return try fallBack(error: codeError)
-        } catch let error {
-            fatalError("Unexpected Error: \(error)")
+        } catch _ {
+            return fallBack()
         }
     }
     
     public func decodeForKey<T: AnyObject>
         (key: String,
-        @noescape fallBack: (error: NSCoderDecodingError) throws -> T)
-        rethrows
+        @autoclosure fallBack: () -> T)
         -> T
     {
         do {
             return try decodeOrThrowForKey(key)
-        } catch let codeError as NSCoderDecodingError {
-            return try fallBack(error: codeError)
-        } catch let error {
-            fatalError("Unexpected Error: \(error)")
+        } catch _ {
+            return fallBack()
         }
     }
     
     public func decodeForKey<T: NSObject where T: NSCoding>
         (key: String,
-        @noescape fallBack: (error: NSCoderDecodingError) throws -> T)
-        rethrows
+        @autoclosure fallBack: () -> T)
         -> T
     {
         do {
             return try decodeOrThrowForKey(key)
-        } catch let codeError as NSCoderDecodingError {
-            return try fallBack(error: codeError)
-        } catch let error {
-            fatalError("Unexpected Error: \(error)")
+        } catch _ {
+            return fallBack()
         }
     }
 }

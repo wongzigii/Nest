@@ -231,16 +231,13 @@ extension NSCoding where
     public func decode<T: ObjCPrimitiveCodingType>
         (decoder: NSCoder,
         forKey key: Key,
-        @noescape fallBack: (error: NSCoderDecodingError) throws -> T)
-        rethrows
+        @autoclosure fallBack: () -> T)
         -> T
     {
         do {
             return try decoder.decodeOrThrowForKey(key.rawValue)
-        } catch let codeError as NSCoderDecodingError {
-            return try fallBack(error: codeError)
-        } catch let error {
-            fatalError("Unexpected Error: \(error)")
+        } catch _ {
+            return fallBack()
         }
     }
     
@@ -248,16 +245,13 @@ extension NSCoding where
         where T: _ObjectiveCBridgeable>
         (decoder: NSCoder,
         forKey key: Key,
-        @noescape fallBack: (error: NSCoderDecodingError) throws -> T)
-        rethrows
+        @autoclosure fallBack: () -> T)
         -> T
     {
         do {
             return try decoder.decodeOrThrowForKey(key.rawValue)
-        } catch let codeError as NSCoderDecodingError {
-            return try fallBack(error: codeError)
-        } catch let error {
-            fatalError("Unexpected Error: \(error)")
+        } catch _ {
+            return fallBack()
         }
     }
     
@@ -265,32 +259,26 @@ extension NSCoding where
         where T.RawValue: ObjCPrimitiveCodingType>
         (decoder: NSCoder,
         forKey key: Key,
-        @noescape fallBack: (error: NSCoderDecodingError) throws -> T)
-        rethrows
+        @autoclosure fallBack: () -> T)
         -> T
     {
         do {
             return try decoder.decodeOrThrowForKey(key.rawValue)
-        } catch let codeError as NSCoderDecodingError {
-            return try fallBack(error: codeError)
-        } catch let error {
-            fatalError("Unexpected Error: \(error)")
+        } catch _ {
+            return fallBack()
         }
     }
     
     public func decode<T: _ObjectiveCBridgeable>
         (decoder: NSCoder,
         forKey key: Key,
-        @noescape fallBack: (error: NSCoderDecodingError) throws -> T)
-        rethrows
+        @autoclosure fallBack: () -> T)
         -> T
     {
         do {
             return try decoder.decodeOrThrowForKey(key.rawValue)
-        } catch let codeError as NSCoderDecodingError {
-            return try fallBack(error: codeError)
-        } catch let error {
-            fatalError("Unexpected Error: \(error)")
+        } catch _ {
+            return fallBack()
         }
     }
     
@@ -299,48 +287,39 @@ extension NSCoding where
         T._ObjectiveCType: NSCoding>
         (decoder: NSCoder,
         forKey key: Key,
-        @noescape fallBack: (error: NSCoderDecodingError) throws -> T)
-        rethrows
+        @autoclosure fallBack: () -> T)
         -> T
     {
         do {
             return try decoder.decodeOrThrowForKey(key.rawValue)
-        } catch let codeError as NSCoderDecodingError {
-            return try fallBack(error: codeError)
-        } catch let error {
-            fatalError("Unexpected Error: \(error)")
+        } catch _ {
+            return fallBack()
         }
     }
     
     public func decode<T: AnyObject>
         (decoder: NSCoder,
         forKey key: Key,
-        @noescape fallBack: (error: NSCoderDecodingError) throws -> T)
-        rethrows
+        @autoclosure fallBack: () -> T)
         -> T
     {
         do {
             return try decoder.decodeOrThrowForKey(key.rawValue)
-        } catch let codeError as NSCoderDecodingError {
-            return try fallBack(error: codeError)
-        } catch let error {
-            fatalError("Unexpected Error: \(error)")
+        } catch _ {
+            return fallBack()
         }
     }
     
     public func decode<T: NSObject where T: NSCoding>
         (decoder: NSCoder,
         forKey key: Key,
-        @noescape fallBack: (error: NSCoderDecodingError) throws -> T)
-        rethrows
+        @autoclosure fallBack: () -> T)
         -> T
     {
         do {
             return try decoder.decodeOrThrowForKey(key.rawValue)
-        } catch let codeError as NSCoderDecodingError {
-            return try fallBack(error: codeError)
-        } catch let error {
-            fatalError("Unexpected Error: \(error)")
+        } catch _ {
+            return fallBack()
         }
     }
 }
