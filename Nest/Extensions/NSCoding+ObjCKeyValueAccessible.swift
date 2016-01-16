@@ -97,7 +97,7 @@ extension NSCoding where
         throws
         -> T!
     {
-        return try decoder.decodeForKeyOrThrow(key.rawValue)
+        return try decoder.decodeOrThrowForKey(key.rawValue)
     }
     
     public func decodeOrThrow<
@@ -108,7 +108,7 @@ extension NSCoding where
         throws
         -> T!
     {
-        return try decoder.decodeForKeyOrThrow(key.rawValue)
+        return try decoder.decodeOrThrowForKey(key.rawValue)
     }
     
     public func decodeOrThrow<T: RawRepresentable
@@ -118,7 +118,7 @@ extension NSCoding where
         throws
         -> T!
     {
-        return try decoder.decodeForKeyOrThrow(key.rawValue)
+        return try decoder.decodeOrThrowForKey(key.rawValue)
     }
     
     public func decodeOrThrow<T: _ObjectiveCBridgeable>(
@@ -127,7 +127,7 @@ extension NSCoding where
         throws
         -> T!
     {
-        return try decoder.decodeForKeyOrThrow(key.rawValue)
+        return try decoder.decodeOrThrowForKey(key.rawValue)
     }
     
     public func decodeOrThrow<
@@ -139,14 +139,14 @@ extension NSCoding where
         throws
         -> T!
     {
-        return try decoder.decodeForKeyOrThrow(key.rawValue)
+        return try decoder.decodeOrThrowForKey(key.rawValue)
     }
     
     public func decodeOrThrow<T: AnyObject>(decoder: NSCoder, forKey key: Key)
         throws
         -> T!
     {
-        return try decoder.decodeForKeyOrThrow(key.rawValue)
+        return try decoder.decodeOrThrowForKey(key.rawValue)
     }
     
     public func decodeOrThrow<T: NSObject where T: NSCoding>(
@@ -155,7 +155,7 @@ extension NSCoding where
         throws
         -> T!
     {
-        return try decoder.decodeForKeyOrThrow(key.rawValue)
+        return try decoder.decodeOrThrowForKey(key.rawValue)
     }
 }
 
@@ -236,7 +236,7 @@ extension NSCoding where
         -> T
     {
         do {
-            return try decoder.decodeForKeyOrThrow(key.rawValue)
+            return try decoder.decodeOrThrowForKey(key.rawValue)
         } catch let codeError as NSCoderDecodingError {
             return try fallBack(error: codeError)
         } catch let error {
@@ -253,7 +253,7 @@ extension NSCoding where
         -> T
     {
         do {
-            return try decoder.decodeForKeyOrThrow(key.rawValue)
+            return try decoder.decodeOrThrowForKey(key.rawValue)
         } catch let codeError as NSCoderDecodingError {
             return try fallBack(error: codeError)
         } catch let error {
@@ -270,7 +270,7 @@ extension NSCoding where
         -> T
     {
         do {
-            return try decoder.decodeForKeyOrThrow(key.rawValue)
+            return try decoder.decodeOrThrowForKey(key.rawValue)
         } catch let codeError as NSCoderDecodingError {
             return try fallBack(error: codeError)
         } catch let error {
@@ -286,7 +286,7 @@ extension NSCoding where
         -> T
     {
         do {
-            return try decoder.decodeForKeyOrThrow(key.rawValue)
+            return try decoder.decodeOrThrowForKey(key.rawValue)
         } catch let codeError as NSCoderDecodingError {
             return try fallBack(error: codeError)
         } catch let error {
@@ -304,7 +304,7 @@ extension NSCoding where
         -> T
     {
         do {
-            return try decoder.decodeForKeyOrThrow(key.rawValue)
+            return try decoder.decodeOrThrowForKey(key.rawValue)
         } catch let codeError as NSCoderDecodingError {
             return try fallBack(error: codeError)
         } catch let error {
@@ -320,7 +320,7 @@ extension NSCoding where
         -> T
     {
         do {
-            return try decoder.decodeForKeyOrThrow(key.rawValue)
+            return try decoder.decodeOrThrowForKey(key.rawValue)
         } catch let codeError as NSCoderDecodingError {
             return try fallBack(error: codeError)
         } catch let error {
@@ -336,7 +336,7 @@ extension NSCoding where
         -> T
     {
         do {
-            return try decoder.decodeForKeyOrThrow(key.rawValue)
+            return try decoder.decodeOrThrowForKey(key.rawValue)
         } catch let codeError as NSCoderDecodingError {
             return try fallBack(error: codeError)
         } catch let error {
