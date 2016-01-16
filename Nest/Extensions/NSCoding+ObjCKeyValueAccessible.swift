@@ -22,7 +22,8 @@ extension NSCoding where Self: ObjCKeyValueAccessible,
     }
     
     //MARK: Overload for ObjCPrimitiveCodingType and _ObjectiveCBridgeable
-    public func encode<T: ObjCPrimitiveCodingType
+    public func encode<
+        T: ObjCPrimitiveCodingType
         where T: _ObjectiveCBridgeable>(
         value: T?,
         to encoder: NSCoder,
@@ -32,7 +33,8 @@ extension NSCoding where Self: ObjCKeyValueAccessible,
     }
     
     //MARK: - RawRepresentable with Objective-C Primitive Coding Raw Type
-    public func encode<T: RawRepresentable
+    public func encode<
+        T: RawRepresentable
         where T.RawValue: ObjCPrimitiveCodingType>(
         value: T?,
         to encoder: NSCoder,
@@ -51,7 +53,8 @@ extension NSCoding where Self: ObjCKeyValueAccessible,
     }
     
     //MARK: - NSCoding Conformed Objective-C Bridgable Pure Swift Objects
-    public func encode<T: AnyObject
+    public func encode<
+        T: AnyObject
         where T: _ObjectiveCBridgeable,
         T._ObjectiveCType: NSCoding>
         (value: T?,
@@ -111,7 +114,8 @@ extension NSCoding where
         return try decoder.decodeOrThrowForKey(key.rawValue)
     }
     
-    public func decodeOrThrow<T: RawRepresentable
+    public func decodeOrThrow<
+        T: RawRepresentable
         where T.RawValue: ObjCPrimitiveCodingType>
         (decoder: NSCoder,
         forKey key: Key)
@@ -172,7 +176,8 @@ extension NSCoding where
         return decoder.decodeForKey(key.rawValue)
     }
     
-    public func decode<T: ObjCPrimitiveCodingType
+    public func decode<
+        T: ObjCPrimitiveCodingType
         where T: _ObjectiveCBridgeable>(
         decoder: NSCoder,
         forKey key: Key)
@@ -181,7 +186,8 @@ extension NSCoding where
         return decoder.decodeForKey(key.rawValue)
     }
     
-    public func decode<T: RawRepresentable
+    public func decode<
+        T: RawRepresentable
         where T.RawValue: ObjCPrimitiveCodingType>
         (decoder: NSCoder,
         forKey key: Key)
@@ -198,7 +204,8 @@ extension NSCoding where
         return decoder.decodeForKey(key.rawValue)
     }
     
-    public func decode<T: AnyObject
+    public func decode<
+        T: AnyObject
         where T: _ObjectiveCBridgeable,
         T._ObjectiveCType: NSCoding>
         (decoder: NSCoder,
@@ -241,7 +248,8 @@ extension NSCoding where
         }
     }
     
-    public func decode<T: ObjCPrimitiveCodingType
+    public func decode<
+        T: ObjCPrimitiveCodingType
         where T: _ObjectiveCBridgeable>
         (decoder: NSCoder,
         forKey key: Key,
@@ -255,7 +263,8 @@ extension NSCoding where
         }
     }
     
-    public func decode<T: RawRepresentable
+    public func decode<
+        T: RawRepresentable
         where T.RawValue: ObjCPrimitiveCodingType>
         (decoder: NSCoder,
         forKey key: Key,
@@ -272,17 +281,18 @@ extension NSCoding where
     public func decode<T: _ObjectiveCBridgeable>
         (decoder: NSCoder,
         forKey key: Key,
-        @autoclosure fallBack: () -> T)
+        @autoclosure fallback: () -> T)
         -> T
     {
         do {
             return try decoder.decodeOrThrowForKey(key.rawValue)
         } catch _ {
-            return fallBack()
+            return fallback()
         }
     }
     
-    public func decode<T: AnyObject
+    public func decode<
+        T: AnyObject
         where T: _ObjectiveCBridgeable,
         T._ObjectiveCType: NSCoding>
         (decoder: NSCoder,
