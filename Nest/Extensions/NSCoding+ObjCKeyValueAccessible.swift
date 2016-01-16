@@ -231,13 +231,13 @@ extension NSCoding where
     public func decode<T: ObjCPrimitiveCodingType>
         (decoder: NSCoder,
         forKey key: Key,
-        @autoclosure fallBack: () -> T)
+        @autoclosure fallback: () -> T)
         -> T
     {
         do {
             return try decoder.decodeOrThrowForKey(key.rawValue)
         } catch _ {
-            return fallBack()
+            return fallback()
         }
     }
     
@@ -245,13 +245,13 @@ extension NSCoding where
         where T: _ObjectiveCBridgeable>
         (decoder: NSCoder,
         forKey key: Key,
-        @autoclosure fallBack: () -> T)
+        @autoclosure fallback: () -> T)
         -> T
     {
         do {
             return try decoder.decodeOrThrowForKey(key.rawValue)
         } catch _ {
-            return fallBack()
+            return fallback()
         }
     }
     
@@ -259,13 +259,13 @@ extension NSCoding where
         where T.RawValue: ObjCPrimitiveCodingType>
         (decoder: NSCoder,
         forKey key: Key,
-        @autoclosure fallBack: () -> T)
+        @autoclosure fallback: () -> T)
         -> T
     {
         do {
             return try decoder.decodeOrThrowForKey(key.rawValue)
         } catch _ {
-            return fallBack()
+            return fallback()
         }
     }
     
@@ -287,39 +287,39 @@ extension NSCoding where
         T._ObjectiveCType: NSCoding>
         (decoder: NSCoder,
         forKey key: Key,
-        @autoclosure fallBack: () -> T)
+        @autoclosure fallback: () -> T)
         -> T
     {
         do {
             return try decoder.decodeOrThrowForKey(key.rawValue)
         } catch _ {
-            return fallBack()
+            return fallback()
         }
     }
     
     public func decode<T: AnyObject>
         (decoder: NSCoder,
         forKey key: Key,
-        @autoclosure fallBack: () -> T)
+        @autoclosure fallback: () -> T)
         -> T
     {
         do {
             return try decoder.decodeOrThrowForKey(key.rawValue)
         } catch _ {
-            return fallBack()
+            return fallback()
         }
     }
     
     public func decode<T: NSObject where T: NSCoding>
         (decoder: NSCoder,
         forKey key: Key,
-        @autoclosure fallBack: () -> T)
+        @autoclosure fallback: () -> T)
         -> T
     {
         do {
             return try decoder.decodeOrThrowForKey(key.rawValue)
         } catch _ {
-            return fallBack()
+            return fallback()
         }
     }
 }

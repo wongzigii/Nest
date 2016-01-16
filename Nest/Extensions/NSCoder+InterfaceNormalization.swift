@@ -306,51 +306,51 @@ extension NSCoder {
 extension NSCoder {
     public func decodeForKey<T: ObjCPrimitiveCodingType>
         (key: String,
-        @autoclosure fallBack: () -> T)
+        @autoclosure fallback: () -> T)
         -> T
     {
         do {
             return try decodeOrThrowForKey(key)
         } catch _ {
-            return fallBack()
+            return fallback()
         }
     }
     
     public func decodeForKey<T: ObjCPrimitiveCodingType
         where T: _ObjectiveCBridgeable>
         (key: String,
-        @autoclosure fallBack: () -> T)
+        @autoclosure fallback: () -> T)
         -> T
     {
         do {
             return try decodeOrThrowForKey(key)
         } catch _ {
-            return fallBack()
+            return fallback()
         }
     }
     
     public func decodeForKey<T: RawRepresentable
         where T.RawValue: ObjCPrimitiveCodingType>
         (key: String,
-        @autoclosure fallBack: () -> T)
+        @autoclosure fallback: () -> T)
         -> T
     {
         do {
             return try decodeOrThrowForKey(key)
         } catch _ {
-            return fallBack()
+            return fallback()
         }
     }
     
     public func decodeForKey<T: _ObjectiveCBridgeable>
         (key: String,
-        @autoclosure fallBack: () -> T)
+        @autoclosure fallback: () -> T)
         -> T
     {
         do {
             return try decodeOrThrowForKey(key)
         } catch _ {
-            return fallBack()
+            return fallback()
         }
     }
     
@@ -358,37 +358,37 @@ extension NSCoder {
         where T: _ObjectiveCBridgeable,
         T._ObjectiveCType: NSCoding>
         (key: String,
-        @autoclosure fallBack: () -> T)
+        @autoclosure fallback: () -> T)
         -> T
     {
         do {
             return try decodeOrThrowForKey(key)
         } catch _ {
-            return fallBack()
+            return fallback()
         }
     }
     
     public func decodeForKey<T: AnyObject>
         (key: String,
-        @autoclosure fallBack: () -> T)
+        @autoclosure fallback: () -> T)
         -> T
     {
         do {
             return try decodeOrThrowForKey(key)
         } catch _ {
-            return fallBack()
+            return fallback()
         }
     }
     
     public func decodeForKey<T: NSObject where T: NSCoding>
         (key: String,
-        @autoclosure fallBack: () -> T)
+        @autoclosure fallback: () -> T)
         -> T
     {
         do {
             return try decodeOrThrowForKey(key)
         } catch _ {
-            return fallBack()
+            return fallback()
         }
     }
 }
