@@ -57,30 +57,36 @@ private class CustomView: View, ObjCKeyValueAccessible {
     
     private required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        outletEntity = decodeForKey(.outletEntity, from: aDecoder)
-        outletCollectionEntity = decodeForKey(
-            .outletCollectionEntity,
-            from: aDecoder)
-        scalarEntity = decodeForKey(.scalarEntity, from: aDecoder)
-        scalarGroupEntity = decodeForKey(.scalarGroupEntity, from: aDecoder)
-        implicitlyNSCodingConformedObject = decodeForKey(
-            .implicitlyNSCodingConformedObject,
-            from: aDecoder)
+        do {
+            outletEntity = try decodeOrThrow(aDecoder, forKey: .outletEntity)
+            outletCollectionEntity = try decodeOrThrow(
+                aDecoder,
+                forKey: .outletCollectionEntity)
+            scalarEntity = try decodeOrThrow(aDecoder, forKey: .scalarEntity)
+            scalarGroupEntity = try decodeOrThrow(
+                aDecoder,
+                forKey: .scalarGroupEntity)
+            implicitlyNSCodingConformedObject = try decodeOrThrow(
+                aDecoder,
+                forKey: .implicitlyNSCodingConformedObject)
+        } catch _ {
+            return nil
+        }
     }
     
     private override func encodeWithCoder(aCoder: NSCoder) {
         super.encodeWithCoder(aCoder)
-        encode(outletEntity, forKey: .outletEntity, to: aCoder)
+        encode(outletEntity, to: aCoder, forKey: .outletEntity)
         encode(
             outletCollectionEntity,
-            forKey: .outletCollectionEntity,
-            to: aCoder)
-        encode(scalarEntity, forKey: .scalarEntity, to: aCoder)
-        encode(scalarGroupEntity, forKey: .scalarGroupEntity, to: aCoder)
+            to: aCoder,
+            forKey: .outletCollectionEntity)
+        encode(scalarEntity, to: aCoder, forKey: .scalarEntity)
+        encode(scalarGroupEntity, to: aCoder, forKey: .scalarGroupEntity)
         encode(
             implicitlyNSCodingConformedObject,
-            forKey: .implicitlyNSCodingConformedObject,
-            to: aCoder)
+            to: aCoder,
+            forKey: .implicitlyNSCodingConformedObject)
     }
 }
 

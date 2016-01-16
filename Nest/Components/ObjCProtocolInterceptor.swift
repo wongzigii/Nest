@@ -9,13 +9,12 @@
 import Foundation
 import SwiftExt
 
-/**
-`ObjCProtocolInterceptor` is a proxy which intercepts messages to the middle man
-which originally intended to be sent to the receiver.
-
-- Discussion: `ObjCProtocolInterceptor` is a class cluster which dynamically
-subclasses itself to conform to the intercepted protocols at the runtime.
-*/
+/** `ObjCProtocolInterceptor` is a proxy which intercepts messages to the middle
+ man which originally intended to be sent to the receiver.
+ 
+ - Discussion: `ObjCProtocolInterceptor` is a class cluster which dynamically
+ subclasses itself to conform to the intercepted protocols at the runtime.
+ */
 public final class ObjCProtocolInterceptor: NSObject {
     /// Returns the intercepted protocols.
     public var interceptedProtocols: [Protocol] { return _interceptedProtocols }
@@ -113,7 +112,7 @@ public final class ObjCProtocolInterceptor: NSObject {
     }
     
     /**
-     Create a protocol interceptor which intercepts a single Objecitve-C
+     Creates a protocol interceptor which intercepts a single Objecitve-C
      protocol.
      
      - Parameter     protocols:  An Objective-C protocol, such as
@@ -126,7 +125,7 @@ public final class ObjCProtocolInterceptor: NSObject {
     }
     
     /**
-     Create a protocol interceptor which intercepts a variable-length sort of
+     Creates a protocol interceptor which intercepts a variable-length sort of
      Objecitve-C protocols.
      
      - Parameter     protocols:  A variable length sort of Objective-C protocol,
@@ -139,7 +138,7 @@ public final class ObjCProtocolInterceptor: NSObject {
     }
     
     /**
-     Create a protocol interceptor which intercepts an array of Objecitve-C
+     Creates a protocol interceptor which intercepts an array of Objecitve-C
      protocols.
      
      - Parameter     protocols:  An array of Objective-C protocols, such as
@@ -164,7 +163,7 @@ public final class ObjCProtocolInterceptor: NSObject {
     }
     
     /**
-    Return a subclass of `ObjCProtocolInterceptor` which conforms to specified 
+    Returns a subclass of `ObjCProtocolInterceptor` which conforms to specified
      protocols.
      
      - Parameter     protocols:                 An array of Objective-C 

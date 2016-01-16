@@ -8,7 +8,7 @@
 
 import Foundation
 
-public enum NSCoderDecodeError: ErrorType {
+public enum NSCoderDecodingError: ErrorType {
     case NoValueForKey(key: String)
     
     case InvalidRawValue(key: String, rawValue: Any, type: Any.Type)
@@ -30,6 +30,7 @@ public enum NSCoderDecodeError: ErrorType {
     }
 }
 
+//MARK: Encoding
 extension NSCoder {
     //MARK: - Objective-C Primitive Coding Types
     public func encode<T: ObjCPrimitiveCodingType>(
@@ -37,17 +38,6 @@ extension NSCoder {
         forKey key: String)
     {
         value?.encodeTo(self, forKey: key)
-    }
-    
-    public func decodeForKey<T: ObjCPrimitiveCodingType>(key: String)
-        throws
-        -> T!
-    {
-        guard containsValueForKey(key) else {
-            throw NSCoderDecodeError.NoValueForKey(key: key)
-        }
-        
-        return T.decodeFrom(self, forKey: key)
     }
     
     //MARK: Overload for ObjCPrimitiveCodingType and _ObjectiveCBridgeable
@@ -59,19 +49,6 @@ extension NSCoder {
         value?.encodeTo(self, forKey: key)
     }
     
-    public func decodeForKey<T: ObjCPrimitiveCodingType
-        where T: _ObjectiveCBridgeable>(
-        key: String)
-        throws
-        -> T!
-    {
-        guard containsValueForKey(key) else {
-            throw NSCoderDecodeError.NoValueForKey(key: key)
-        }
-        
-        return T.decodeFrom(self, forKey: key)
-    }
-    
     //MARK: - RawRepresentable with Objective-C Primitive Coding Raw Type
     public func encode<T: RawRepresentable
         where T.RawValue: ObjCPrimitiveCodingType>
@@ -81,61 +58,12 @@ extension NSCoder {
         value?.rawValue.encodeTo(self, forKey: key)
     }
     
-    public func decodeForKey<T: RawRepresentable
-        where T.RawValue: ObjCPrimitiveCodingType>
-        (key: String)
-        throws
-        -> T!
-    {
-        guard containsValueForKey(key) else {
-            throw NSCoderDecodeError.NoValueForKey(key: key)
-        }
-        
-        let rawValue = T.RawValue.decodeFrom(self, forKey: key)
-        guard let value = T(rawValue: rawValue) else {
-            throw NSCoderDecodeError.InvalidRawValue(
-                key: key,
-                rawValue: rawValue,
-                type: T.self)
-        }
-        
-        return value
-    }
-    
     //MARK: - Objective-C Bridgeable Swift Value Types
     public func encode<T: _ObjectiveCBridgeable>(
         value: T?,
         forKey key: String)
     {
         encodeObject(value?._bridgeToObjectiveC(), forKey: key)
-    }
-    
-    public func decodeForKey<T: _ObjectiveCBridgeable>(key: String)
-        throws
-        -> T!
-    {
-        guard containsValueForKey(key) else {
-            throw NSCoderDecodeError.NoValueForKey(key: key)
-        }
-        
-        guard let object = decodeObjectForKey(key) else {
-            throw NSCoderDecodeError.InternalInconsistency(key: key)
-        }
-        
-        var value: T?
-        
-        T._forceBridgeFromObjectiveC(
-            object as! T._ObjectiveCType,
-            result: &value)
-        
-        guard let concreteValue = value  else {
-            throw NSCoderDecodeError.BridgingFailed(
-                key: key,
-                value: object,
-                type: T.self)
-        }
-        
-        return concreteValue
     }
     
     //MARK: - NSCoding Conformed Objective-C Bridgable Pure Swift Objects
@@ -148,19 +76,84 @@ extension NSCoder {
         encodeObject(value?._bridgeToObjectiveC(), forKey: key)
     }
     
-    public func decodeForKey<T: AnyObject
-        where T: _ObjectiveCBridgeable,
-        T._ObjectiveCType: NSCoding>
+    //MARK: - NSObject and Its Descendants
+    public func encode<T: NSObject>(value: T?, forKey key: String) {
+        encodeObject(value, forKey: key)
+    }
+}
+
+//MARK: Throwing Decoding
+/** Throwing Decoding Accessors Design Notes:
+
+- Because of a compiler bug existed from Swift 1.1 to Swift 2.1, Swift object is
+not able to deinit partial initialized object, and you must declare all
+encoddeable properties in a class to be type of ImplicitUnwrappedOptional<T>.
+
+- Because Swift doesn't support coupling initialization(such as class A has a 
+property of instance of class B and class B has a property of instance of class
+A), you must set the property at least after the first phase of initialization.
+That mean the property must to be defined as ImplicitUnwrappedOptional value.
+
+- To make the accessors to be compatible with both implicit unwrapped optional 
+values and non-null values, the return value is wrapped with an 
+`ImplicitUnwrappedOptional` container.
+*/
+extension NSCoder {
+    public func decodeOrThrowForKey<T: ObjCPrimitiveCodingType>(key: String)
+        throws
+        -> T!
+    {
+        guard containsValueForKey(key) else {
+            throw NSCoderDecodingError.NoValueForKey(key: key)
+        }
+        
+        return T.decodeFrom(self, forKey: key)
+    }
+    
+    public func decodeOrThrowForKey<T: ObjCPrimitiveCodingType
+        where T: _ObjectiveCBridgeable>(
+        key: String)
+        throws
+        -> T!
+    {
+        guard containsValueForKey(key) else {
+            throw NSCoderDecodingError.NoValueForKey(key: key)
+        }
+        
+        return T.decodeFrom(self, forKey: key)
+    }
+    
+    public func decodeOrThrowForKey<T: RawRepresentable
+        where T.RawValue: ObjCPrimitiveCodingType>
         (key: String)
         throws
         -> T!
     {
         guard containsValueForKey(key) else {
-            throw NSCoderDecodeError.NoValueForKey(key: key)
+            throw NSCoderDecodingError.NoValueForKey(key: key)
+        }
+        
+        let rawValue = T.RawValue.decodeFrom(self, forKey: key)
+        guard let value = T(rawValue: rawValue) else {
+            throw NSCoderDecodingError.InvalidRawValue(
+                key: key,
+                rawValue: rawValue,
+                type: T.self)
+        }
+        
+        return value
+    }
+    
+    public func decodeOrThrowForKey<T: _ObjectiveCBridgeable>(key: String)
+        throws
+        -> T!
+    {
+        guard containsValueForKey(key) else {
+            throw NSCoderDecodingError.NoValueForKey(key: key)
         }
         
         guard let object = decodeObjectForKey(key) else {
-            throw NSCoderDecodeError.InternalInconsistency(key: key)
+            throw NSCoderDecodingError.InternalInconsistency(key: key)
         }
         
         var value: T?
@@ -170,7 +163,7 @@ extension NSCoder {
             result: &value)
         
         guard let concreteValue = value  else {
-            throw NSCoderDecodeError.BridgingFailed(
+            throw NSCoderDecodingError.BridgingFailed(
                 key: key,
                 value: object,
                 type: T.self)
@@ -179,22 +172,48 @@ extension NSCoder {
         return concreteValue
     }
     
-    //MARK: - NSObject and Its Descendants
-    public func encode<T: NSObject>(value: T?, forKey key: String) {
-        encodeObject(value, forKey: key)
-    }
-    
-    public func decodeForKey<T: AnyObject>(key: String) throws -> T! {
+    public func decodeOrThrowForKey<T: AnyObject
+        where T: _ObjectiveCBridgeable,
+        T._ObjectiveCType: NSCoding>
+        (key: String)
+        throws
+        -> T!
+    {
         guard containsValueForKey(key) else {
-            throw NSCoderDecodeError.NoValueForKey(key: key)
+            throw NSCoderDecodingError.NoValueForKey(key: key)
         }
         
         guard let object = decodeObjectForKey(key) else {
-            throw NSCoderDecodeError.InternalInconsistency(key: key)
+            throw NSCoderDecodingError.InternalInconsistency(key: key)
+        }
+        
+        var value: T?
+        
+        T._forceBridgeFromObjectiveC(
+            object as! T._ObjectiveCType,
+            result: &value)
+        
+        guard let concreteValue = value  else {
+            throw NSCoderDecodingError.BridgingFailed(
+                key: key,
+                value: object,
+                type: T.self)
+        }
+        
+        return concreteValue
+    }
+    
+    public func decodeOrThrowForKey<T: AnyObject>(key: String) throws -> T! {
+        guard containsValueForKey(key) else {
+            throw NSCoderDecodingError.NoValueForKey(key: key)
+        }
+        
+        guard let object = decodeObjectForKey(key) else {
+            throw NSCoderDecodingError.InternalInconsistency(key: key)
         }
         
         guard let objectAsSpecifiedType = object as? T else {
-            throw NSCoderDecodeError.TypeCastingFailed(
+            throw NSCoderDecodingError.TypeCastingFailed(
                 key: key,
                 value: object,
                 type: T.self)
@@ -203,12 +222,12 @@ extension NSCoder {
         return objectAsSpecifiedType
     }
     
-    public func decodeForKey<T: NSObject where T: NSCoding>(key: String)
+    public func decodeOrThrowForKey<T: NSObject where T: NSCoding>(key: String)
         throws
         -> T!
     {
         guard containsValueForKey(key) else {
-            throw NSCoderDecodeError.NoValueForKey(key: key)
+            throw NSCoderDecodingError.NoValueForKey(key: key)
         }
         
         guard let object = decodeObjectOfClass(T.self, forKey: key) else {
@@ -223,12 +242,174 @@ extension NSCoder {
                 fatalError("The decoder hints it contains value for key(\"\(key)\") but resulted in decoded with a nil value")
             }
             
-            throw NSCoderDecodeError.TypeCastingFailed(
+            throw NSCoderDecodingError.TypeCastingFailed(
                 key: key,
                 value: object,
                 type: T.self)
         }
         
         return object
+    }
+}
+
+//MARK: Maybe Decoding
+extension NSCoder {
+    public func decodeForKey<T: ObjCPrimitiveCodingType>(key: String)
+        -> T?
+    {
+        return try? decodeOrThrowForKey(key)
+    }
+    
+    public func decodeForKey<T: ObjCPrimitiveCodingType
+        where T: _ObjectiveCBridgeable>(
+        key: String)
+        -> T?
+    {
+        return try? decodeOrThrowForKey(key)
+    }
+    
+    public func decodeForKey<T: RawRepresentable
+        where T.RawValue: ObjCPrimitiveCodingType>
+        (key: String)
+        -> T?
+    {
+        return try? decodeOrThrowForKey(key)
+    }
+    
+    public func decodeForKey<T: _ObjectiveCBridgeable>(key: String)
+        -> T?
+    {
+        return try? decodeOrThrowForKey(key)
+    }
+    
+    public func decodeForKey<T: AnyObject
+        where T: _ObjectiveCBridgeable,
+        T._ObjectiveCType: NSCoding>
+        (key: String)
+        -> T?
+    {
+        return try? decodeOrThrowForKey(key)
+    }
+    
+    public func decodeForKey<T: AnyObject>(key: String) -> T? {
+        return try? decodeOrThrowForKey(key)
+    }
+    
+    public func decodeForKey<T: NSObject where T: NSCoding>(key: String)
+        -> T?
+    {
+        return try? decodeOrThrowForKey(key)
+    }
+}
+
+//MARK: Fallback Decoding
+extension NSCoder {
+    public func decodeForKey<T: ObjCPrimitiveCodingType>
+        (key: String,
+        @noescape fallBack: (error: NSCoderDecodingError) throws -> T)
+        rethrows
+        -> T
+    {
+        do {
+            return try decodeOrThrowForKey(key)
+        } catch let codeError as NSCoderDecodingError {
+            return try fallBack(error: codeError)
+        } catch let error {
+            fatalError("Unexpected Error: \(error)")
+        }
+    }
+    
+    public func decodeForKey<T: ObjCPrimitiveCodingType
+        where T: _ObjectiveCBridgeable>
+        (key: String,
+        @noescape fallBack: (error: NSCoderDecodingError) throws -> T)
+        rethrows
+        -> T
+    {
+        do {
+            return try decodeOrThrowForKey(key)
+        } catch let codeError as NSCoderDecodingError {
+            return try fallBack(error: codeError)
+        } catch let error {
+            fatalError("Unexpected Error: \(error)")
+        }
+    }
+    
+    public func decodeForKey<T: RawRepresentable
+        where T.RawValue: ObjCPrimitiveCodingType>
+        (key: String,
+        @noescape fallBack: (error: NSCoderDecodingError) throws -> T)
+        rethrows
+        -> T
+    {
+        do {
+            return try decodeOrThrowForKey(key)
+        } catch let codeError as NSCoderDecodingError {
+            return try fallBack(error: codeError)
+        } catch let error {
+            fatalError("Unexpected Error: \(error)")
+        }
+    }
+    
+    public func decodeForKey<T: _ObjectiveCBridgeable>
+        (key: String,
+        @noescape fallBack: (error: NSCoderDecodingError) throws -> T)
+        rethrows
+        -> T
+    {
+        do {
+            return try decodeOrThrowForKey(key)
+        } catch let codeError as NSCoderDecodingError {
+            return try fallBack(error: codeError)
+        } catch let error {
+            fatalError("Unexpected Error: \(error)")
+        }
+    }
+    
+    public func decodeForKey<T: AnyObject
+        where T: _ObjectiveCBridgeable,
+        T._ObjectiveCType: NSCoding>
+        (key: String,
+        @noescape fallBack: (error: NSCoderDecodingError) throws -> T)
+        rethrows
+        -> T
+    {
+        do {
+            return try decodeOrThrowForKey(key)
+        } catch let codeError as NSCoderDecodingError {
+            return try fallBack(error: codeError)
+        } catch let error {
+            fatalError("Unexpected Error: \(error)")
+        }
+    }
+    
+    public func decodeForKey<T: AnyObject>
+        (key: String,
+        @noescape fallBack: (error: NSCoderDecodingError) throws -> T)
+        rethrows
+        -> T
+    {
+        do {
+            return try decodeOrThrowForKey(key)
+        } catch let codeError as NSCoderDecodingError {
+            return try fallBack(error: codeError)
+        } catch let error {
+            fatalError("Unexpected Error: \(error)")
+        }
+    }
+    
+    public func decodeForKey<T: NSObject where T: NSCoding>
+        (key: String,
+        @noescape fallBack: (error: NSCoderDecodingError) throws -> T)
+        rethrows
+        -> T
+    {
+        do {
+            return try decodeOrThrowForKey(key)
+        } catch let codeError as NSCoderDecodingError {
+            return try fallBack(error: codeError)
+        } catch let error {
+            fatalError("Unexpected Error: \(error)")
+        }
     }
 }

@@ -17,13 +17,14 @@ import Foundation
  object itself. You are able to add dispatched protocols at runtime.
 
  - Discussion: Where the `ObjCProtocolDispatcherType` is different from 
- `ObjCProtocolInterceptor` is:
+ `ObjCProtocolInterceptor` are:
  1. The role of `ObjCProtocolInterceptor`'s receiver is just the receiver itself
  but `ObjCProtocolDispatcherType` could have multiple receivers;
  2. `ObjCProtocolDispatcherType` is a pre-implemented protocol but 
  `ObjCProtocolInterceptor` is a class;
- 3. You are able to add dispatched protocols to any object conforms to 
- `ObjCProtocolDispatcherType` at runtime which `ObjCProtocolInterceptor` not.
+ 3. You are allowed to add dispatched protocols to any object conforms to
+ `ObjCProtocolDispatcherType` at runtime which `ObjCProtocolInterceptor` 
+ doesn't.
 */
 public protocol ObjCProtocolDispatcherType: NSObjectProtocol {
     
@@ -44,13 +45,13 @@ extension ObjCProtocolDispatcherType {
 
 extension ObjCProtocolDispatcherType {
     /** Returns the object to which unrecognized messages should first be
-    directed.
+     directed.
     
     - Descusstion: Your should call this method in your class'es
-    forwardingTargetForSelector(:Selector)'s implementation. The reasons why you
-    should do in this way are: 1) Protocol extension doesn't override existed
-    implementation in any conformed type; 2) Extension shall always extend new
-    members and never override existed members.
+     forwardingTargetForSelector(:)'s implementation. The reasons why you should
+     do in this way are: 1) Protocol extension doesn't override existed 
+     implementation in any conformed type; 2) Extension shall always extend new
+     members and never override existed members.
     */
     public func nest_forwardingTargetForSelector(aSelector: Selector)
         -> AnyObject?
@@ -92,14 +93,14 @@ extension ObjCProtocolDispatcherType {
     }
     
     /** Returns a Boolean value that indicates whether the receiver implements
-    or inherits a method that can respond to a specified message.
-    
-    - Descusstion: Your should call this method in your class'es
-    respondsToSelector(:Selector)'s implementation. The reasons why you should
-    do in this way are: 1) Protocol extension doesn't override existed
-    implementation in any conformed type; 2) Extension shall always extend new
-    members and never override existed members.
-    */
+     or inherits a method that can respond to a specified message.
+     
+     - Descusstion: Your should call this method in your class'es 
+     respondsToSelector(:)'s implementation. The reasons why you should do in
+     this way are: 1) Protocol extension doesn't override existed implementation 
+     in any conformed type; 2) Extension shall always extend new members and
+     never override existed members.
+     */
     public func nest_respondsToSelector(aSelector: Selector) -> Bool {
         let needsDispatch = doesSelectorBelongToAnyDispatchedProtocol(aSelector)
         

@@ -20,7 +20,8 @@ public func withObjCSelfAwareSwizzleContext<F>(
 {
     let className = class_getName(aClass)
     let metaClass = objc_getMetaClass(className)
-    return withObjCSelfAwareSwizzleContext(forInstanceMethodSelector: aSelector,
+    return withObjCSelfAwareSwizzleContext(
+        forInstanceMethodSelector: aSelector,
         onClass: metaClass as! AnyClass,
         original: original,
         swizzled: swizzled)
@@ -33,7 +34,8 @@ public func withObjCSelfAwareSwizzleContext<F>(
     swizzled: F)
     -> ObjCSelfAwareSwizzleContext
 {
-    return ObjCSelfAwareSwizzleContext(targetClass: aClass,
+    return ObjCSelfAwareSwizzleContext(
+        targetClass: aClass,
         targetSelector: aSelector,
         isMetaClass: class_isMetaClass(aClass),
         originalPtr: unsafeBitCast(originalPtr, UnsafeMutablePointer<IMP>.self),
