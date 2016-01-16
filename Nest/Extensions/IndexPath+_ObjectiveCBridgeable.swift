@@ -21,7 +21,7 @@ extension IndexPath: _ObjectiveCBridgeable {
         inout result: IndexPath?)
         -> Bool
     {
-        result = IndexPath(source.indices)
+        result = IndexPath(NSIndexPath: source)
         
         return true
     }
@@ -29,7 +29,7 @@ extension IndexPath: _ObjectiveCBridgeable {
     public static func _forceBridgeFromObjectiveC(source: _ObjectiveCType,
         inout result: IndexPath?)
     {
-        result = IndexPath(source.indices)
+        result = IndexPath(NSIndexPath: source)
     }
     
     public static func _isBridgedToObjectiveC() -> Bool {
