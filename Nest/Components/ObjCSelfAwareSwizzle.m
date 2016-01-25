@@ -40,10 +40,12 @@ static void OCSASPerformSelfAwareSwizzleWithContext(
     Class,
     OCSASSelfAwareSwizzleTaskContext *);
 
+#if DEBUG
 static BOOL OCSASDoesClassHostSelfAwareSelectorOnClass(Class, Class);
 
 static NSString * OCSASSelfAwareSwizzleContextDescription(
     ObjCSelfAwareSwizzleContext *);
+#endif
 
 #pragma mark - Functions Implementations
 void OCSASSelfAwareSwizzleTaskContextCleanupHandelr(void * taskContext) {
@@ -124,6 +126,7 @@ void OCSASSelfAwareSwizzleTaskSelectorHandelr(SEL taskSelector,
 #endif
 }
 
+#if DEBUG
 BOOL OCSASDoesClassHostSelfAwareSelectorOnClass(Class hostClass,
     Class targetClass)
 {
@@ -139,6 +142,7 @@ BOOL OCSASDoesClassHostSelfAwareSelectorOnClass(Class hostClass,
     
     return NO;
 }
+#endif
 
 void OCSASPerformSelfAwareSwizzleWithContext(
     ObjCSelfAwareSwizzleContext * context,
@@ -263,6 +267,7 @@ void OCSASPerformSelfAwareSwizzleWithContext(
     
 }
 
+#if DEBUG
 NSString * OCSASSelfAwareSwizzleContextDescription(
     ObjCSelfAwareSwizzleContext * context)
 {
@@ -276,6 +281,7 @@ NSString * OCSASSelfAwareSwizzleContextDescription(
                 NSStringFromSelector(context.targetSelector)];
     }
 }
+#endif
 
 #pragma mark - Register Self-Aware Swizzle as A Launch Task
 @interface NSObject(SelfAwareSwizzle)
