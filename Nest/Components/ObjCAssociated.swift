@@ -24,7 +24,3 @@ extension ObjCAssociated where T: NSCopying {
         return self.dynamicType.init(value.copyWithZone(zone) as! Type)
     }
 }
-
-public func associated<T>(value: T) -> ObjCAssociated<T> {
-    return ObjCAssociated<T>(value)
-}

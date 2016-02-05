@@ -38,11 +38,11 @@ public final class ObjCSelectorInterceptor: NSObject {
     }
     
     public func addMiddleMan(middleMan: NSObject) {
-        _middleMen.append(weakify(middleMan))
+        _middleMen.append(Weak(middleMan))
     }
     
     public func removeMiddleMan(middleMan: NSObject) -> NSObject? {
-        if let index = _middleMen.indexOf(weakify(middleMan)) {
+        if let index = _middleMen.indexOf(Weak(middleMan)) {
             return _middleMen.removeAtIndex(index).value
         }
         return nil
