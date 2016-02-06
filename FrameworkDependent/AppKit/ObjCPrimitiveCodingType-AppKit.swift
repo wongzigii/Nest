@@ -9,7 +9,7 @@
 import AppKit
 
 extension CGFloat: ObjCPrimitiveCodingType {
-    public func encodeTo(encoder: NSCoder, forKey key: String) {
+    public func encodeTo(encoder: NSCoder, for key: String) {
         #if arch(x86_64) || arch(arm64)
             encoder.encodeDouble(Double(self), forKey: key)
         #else
@@ -17,7 +17,7 @@ extension CGFloat: ObjCPrimitiveCodingType {
         #endif
     }
     
-    public static func decodeFrom(decoder: NSCoder, forKey key: String)
+    public static func decodeFrom(decoder: NSCoder, for key: String)
         -> CGFloat
     {
         #if arch(x86_64) || arch(arm64)
@@ -29,11 +29,11 @@ extension CGFloat: ObjCPrimitiveCodingType {
 }
 
 extension CGPoint: ObjCPrimitiveCodingType {
-    public func encodeTo(encoder: NSCoder, forKey key: String) {
+    public func encodeTo(encoder: NSCoder, for key: String) {
         encoder.encodePoint(self, forKey: key)
     }
     
-    public static func decodeFrom(decoder: NSCoder, forKey key: String)
+    public static func decodeFrom(decoder: NSCoder, for key: String)
         -> CGPoint
     {
         return decoder.decodePointForKey(key)
@@ -41,11 +41,11 @@ extension CGPoint: ObjCPrimitiveCodingType {
 }
 
 extension CGSize: ObjCPrimitiveCodingType {
-    public func encodeTo(encoder: NSCoder, forKey key: String) {
+    public func encodeTo(encoder: NSCoder, for key: String) {
         encoder.encodeSize(self, forKey: key)
     }
     
-    public static func decodeFrom(decoder: NSCoder, forKey key: String)
+    public static func decodeFrom(decoder: NSCoder, for key: String)
         -> CGSize
     {
         return decoder.decodeSizeForKey(key)
@@ -53,11 +53,11 @@ extension CGSize: ObjCPrimitiveCodingType {
 }
 
 extension CGRect: ObjCPrimitiveCodingType {
-    public func encodeTo(encoder: NSCoder, forKey key: String) {
+    public func encodeTo(encoder: NSCoder, for key: String) {
         encoder.encodeRect(self, forKey: key)
     }
     
-    public static func decodeFrom(decoder: NSCoder, forKey key: String)
+    public static func decodeFrom(decoder: NSCoder, for key: String)
         -> CGRect
     {
         return decoder.decodeRectForKey(key)

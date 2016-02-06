@@ -58,17 +58,17 @@ private class CustomView: View, ObjCKeyValueAccessible {
     private required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         do {
-            outletEntity = try decodeOrThrow(aDecoder, forKey: .outletEntity)
+            outletEntity = try decodeOrThrow(aDecoder, for: .outletEntity)
             outletCollectionEntity = try decodeOrThrow(
                 aDecoder,
-                forKey: .outletCollectionEntity)
-            scalarEntity = try decodeOrThrow(aDecoder, forKey: .scalarEntity)
+                for: .outletCollectionEntity)
+            scalarEntity = try decodeOrThrow(aDecoder, for: .scalarEntity)
             scalarGroupEntity = try decodeOrThrow(
                 aDecoder,
-                forKey: .scalarGroupEntity)
+                for: .scalarGroupEntity)
             implicitlyNSCodingConformedObject = try decodeOrThrow(
                 aDecoder,
-                forKey: .implicitlyNSCodingConformedObject)
+                for: .implicitlyNSCodingConformedObject)
         } catch _ {
             return nil
         }
@@ -76,17 +76,17 @@ private class CustomView: View, ObjCKeyValueAccessible {
     
     private override func encodeWithCoder(aCoder: NSCoder) {
         super.encodeWithCoder(aCoder)
-        encode(outletEntity, to: aCoder, forKey: .outletEntity)
+        encode(outletEntity, to: aCoder, for: .outletEntity)
         encode(
             outletCollectionEntity,
             to: aCoder,
-            forKey: .outletCollectionEntity)
-        encode(scalarEntity, to: aCoder, forKey: .scalarEntity)
-        encode(scalarGroupEntity, to: aCoder, forKey: .scalarGroupEntity)
+            for: .outletCollectionEntity)
+        encode(scalarEntity, to: aCoder, for: .scalarEntity)
+        encode(scalarGroupEntity, to: aCoder, for: .scalarGroupEntity)
         encode(
             implicitlyNSCodingConformedObject,
             to: aCoder,
-            forKey: .implicitlyNSCodingConformedObject)
+            for: .implicitlyNSCodingConformedObject)
     }
 }
 

@@ -25,9 +25,3 @@ extension IndexPath {
         indices.dealloc(NSIndexPath.length)
     }
 }
-
-
-
-
-
-

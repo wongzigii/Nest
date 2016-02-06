@@ -11,11 +11,11 @@ import Foundation
 
 // Specialization for CoreMedia types
 extension CMTime: ObjCPrimitiveCodingType {
-    public func encodeTo(encoder: NSCoder, forKey key: String) {
+    public func encodeTo(encoder: NSCoder, for key: String) {
         encoder.encodeCMTime(self, forKey: key)
     }
     
-    public static func decodeFrom(decoder: NSCoder, forKey key: String)
+    public static func decodeFrom(decoder: NSCoder, for key: String)
         -> CMTime
     {
         return decoder.decodeCMTimeForKey(key)
@@ -23,11 +23,11 @@ extension CMTime: ObjCPrimitiveCodingType {
 }
 
 extension CMTimeRange: ObjCPrimitiveCodingType {
-    public func encodeTo(encoder: NSCoder, forKey key: String) {
+    public func encodeTo(encoder: NSCoder, for key: String) {
         encoder.encodeCMTimeRange(self, forKey: key)
     }
     
-    public static func decodeFrom(decoder: NSCoder, forKey key: String)
+    public static func decodeFrom(decoder: NSCoder, for key: String)
         -> CMTimeRange
     {
         return decoder.decodeCMTimeRangeForKey(key)
@@ -35,11 +35,11 @@ extension CMTimeRange: ObjCPrimitiveCodingType {
 }
 
 extension CMTimeMapping: ObjCPrimitiveCodingType {
-    public func encodeTo(encoder: NSCoder, forKey key: String) {
+    public func encodeTo(encoder: NSCoder, for key: String) {
         encoder.encodeCMTimeMapping(self, forKey: key)
     }
     
-    public static func decodeFrom(decoder: NSCoder, forKey key: String)
+    public static func decodeFrom(decoder: NSCoder, for key: String)
         -> CMTimeMapping
     {
         return decoder.decodeCMTimeMappingForKey(key)

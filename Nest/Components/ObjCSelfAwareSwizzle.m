@@ -32,19 +32,20 @@ typedef NS_OPTIONS(NSUInteger, OCSASSelfAwareSwizzleSelectorMatchResult) {
 static LTLaunchTaskContextCleanupHandler
     OCSASSelfAwareSwizzleTaskContextCleanupHandelr;
 
-static LTLaunchTaskSelectorHandler
-    OCSASSelfAwareSwizzleTaskSelectorHandelr;
+static LTLaunchTaskSelectorHandler OCSASSelfAwareSwizzleTaskSelectorHandelr;
 
 static void OCSASPerformSelfAwareSwizzleWithContext(
     ObjCSelfAwareSwizzleContext *,
     Class,
-    OCSASSelfAwareSwizzleTaskContext *);
+    OCSASSelfAwareSwizzleTaskContext *
+);
 
 #if DEBUG
 static BOOL OCSASDoesClassHostSelfAwareSelectorOnClass(Class, Class);
 
 static NSString * OCSASSelfAwareSwizzleContextDescription(
-    ObjCSelfAwareSwizzleContext *);
+    ObjCSelfAwareSwizzleContext *
+);
 #endif
 
 #pragma mark - Functions Implementations
@@ -59,11 +60,13 @@ void OCSASSelfAwareSwizzleTaskContextCleanupHandelr(void * taskContext) {
     free(selfAwareSwizzleTaskContext);
 }
 
-void OCSASSelfAwareSwizzleTaskSelectorHandelr(SEL taskSelector,
+void OCSASSelfAwareSwizzleTaskSelectorHandelr(
+    SEL taskSelector,
     id taskOwner,
     Method taskMethod,
     NSArray * taskArgs,
-    void * taskContext)
+    void * taskContext
+    )
 {
     OCSASSelfAwareSwizzleTaskContext * selfAwareSwizzleTaskContext =
     (OCSASSelfAwareSwizzleTaskContext *)taskContext;
@@ -72,8 +75,10 @@ void OCSASSelfAwareSwizzleTaskSelectorHandelr(SEL taskSelector,
     OCSASSelfAwareSwizzleContextGetterRef selfAwareSwizzleContextGetter =
     (OCSASSelfAwareSwizzleContextGetterRef)method_getImplementation(taskMethod);
     
-    id potentialContext = (* selfAwareSwizzleContextGetter)(taskOwner,
-        taskSelector);
+    id potentialContext = (* selfAwareSwizzleContextGetter)(
+        taskOwner,
+        taskSelector
+    );
     
     if (potentialContext == nil) {
 #if DEBUG
@@ -87,9 +92,11 @@ void OCSASSelfAwareSwizzleTaskSelectorHandelr(SEL taskSelector,
     if ([potentialContext isKindOfClass:[ObjCSelfAwareSwizzleContext class]]) {
         ObjCSelfAwareSwizzleContext * swizzleContext =
         (ObjCSelfAwareSwizzleContext *)potentialContext;
-        OCSASPerformSelfAwareSwizzleWithContext(swizzleContext,
+        OCSASPerformSelfAwareSwizzleWithContext(
+            swizzleContext,
             taskOwner,
-            selfAwareSwizzleTaskContext);
+            selfAwareSwizzleTaskContext
+        );
     } else if ([potentialContext isKindOfClass:[NSArray class]]) {
         NSArray * potentialContexts = (NSArray *)potentialContext;
         
@@ -127,8 +134,10 @@ void OCSASSelfAwareSwizzleTaskSelectorHandelr(SEL taskSelector,
 }
 
 #if DEBUG
-BOOL OCSASDoesClassHostSelfAwareSelectorOnClass(Class hostClass,
-    Class targetClass)
+BOOL OCSASDoesClassHostSelfAwareSelectorOnClass(
+    Class hostClass,
+    Class targetClass
+    )
 {
     if (hostClass == targetClass) {
         return YES;
@@ -147,7 +156,8 @@ BOOL OCSASDoesClassHostSelfAwareSelectorOnClass(Class hostClass,
 void OCSASPerformSelfAwareSwizzleWithContext(
     ObjCSelfAwareSwizzleContext * context,
     Class aClass,
-    OCSASSelfAwareSwizzleTaskContext * taskContext)
+    OCSASSelfAwareSwizzleTaskContext * taskContext
+    )
 {
     Class targetClass = context.targetClass;
     
@@ -174,18 +184,24 @@ void OCSASPerformSelfAwareSwizzleWithContext(
 #endif
     
     CFMutableDictionaryRef swizzledRecordsForClass = (CFMutableDictionaryRef)
-    CFDictionaryGetValue(taskContext -> swizzledRecords,
-        (__bridge const void *)(targetClass));
+    CFDictionaryGetValue(
+        taskContext -> swizzledRecords,
+        (__bridge const void *)(targetClass)
+    );
     
     if (swizzledRecordsForClass == NULL) {
-        swizzledRecordsForClass = CFDictionaryCreateMutable(kCFAllocatorDefault,
+        swizzledRecordsForClass = CFDictionaryCreateMutable(
+            kCFAllocatorDefault,
             0,
             NULL,
-            &kCFTypeDictionaryValueCallBacks);
+            &kCFTypeDictionaryValueCallBacks
+        );
         
-        CFDictionarySetValue(taskContext -> swizzledRecords,
+        CFDictionarySetValue(
+            taskContext -> swizzledRecords,
             (__bridge const void *)(targetClass),
-            swizzledRecordsForClass);
+            swizzledRecordsForClass
+        );
         
         CFRelease(swizzledRecordsForClass);
     }
@@ -195,9 +211,11 @@ void OCSASPerformSelfAwareSwizzleWithContext(
             targetSelector);
     
     if (swizzledContexts == NULL) {
-        swizzledContexts = CFArrayCreateMutable(kCFAllocatorDefault,
-                        0,
-                        &kCFTypeArrayCallBacks);
+        swizzledContexts = CFArrayCreateMutable(
+            kCFAllocatorDefault,
+            0,
+            &kCFTypeArrayCallBacks
+        );
         
         CFDictionarySetValue(swizzledRecordsForClass,
             targetSelector,
@@ -269,7 +287,8 @@ void OCSASPerformSelfAwareSwizzleWithContext(
 
 #if DEBUG
 NSString * OCSASSelfAwareSwizzleContextDescription(
-    ObjCSelfAwareSwizzleContext * context)
+    ObjCSelfAwareSwizzleContext * context
+    )
 {
     if (context.isMetaClass) {
         return [NSString stringWithFormat:@"[%@ +%@]",
@@ -299,7 +318,8 @@ NSString * OCSASSelfAwareSwizzleContextDescription(
         kCFAllocatorDefault,
         0,
         NULL,
-        &kCFTypeDictionaryValueCallBacks);
+        &kCFTypeDictionaryValueCallBacks
+    );
     
     // Create task info
     LTLaunchTaskInfo ObjCSelfAwareSwizzleLaunchTaskInfo =

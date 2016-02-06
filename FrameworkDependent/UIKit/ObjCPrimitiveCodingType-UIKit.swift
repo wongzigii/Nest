@@ -9,7 +9,7 @@
 import UIKit
 
 extension CGFloat: ObjCPrimitiveCodingType {
-    public func encodeTo(encoder: NSCoder, forKey key: String) {
+    public func encodeTo(encoder: NSCoder, for key: String) {
         #if arch(x86_64) || arch(arm64)
             encoder.encodeDouble(Double(self), forKey: key)
         #else
@@ -17,7 +17,7 @@ extension CGFloat: ObjCPrimitiveCodingType {
         #endif
     }
     
-    public static func decodeFrom(decoder: NSCoder, forKey key: String)
+    public static func decodeFrom(decoder: NSCoder, for key: String)
         -> CGFloat
     {
         #if arch(x86_64) || arch(arm64)
@@ -29,11 +29,11 @@ extension CGFloat: ObjCPrimitiveCodingType {
 }
 
 extension CGPoint: ObjCPrimitiveCodingType {
-    public func encodeTo(encoder: NSCoder, forKey key: String) {
+    public func encodeTo(encoder: NSCoder, for key: String) {
         encoder.encodeCGPoint(self, forKey: key)
     }
     
-    public static func decodeFrom(decoder: NSCoder, forKey key: String)
+    public static func decodeFrom(decoder: NSCoder, for key: String)
         -> CGPoint
     {
         return decoder.decodeCGPointForKey(key)
@@ -41,11 +41,11 @@ extension CGPoint: ObjCPrimitiveCodingType {
 }
 
 extension CGSize: ObjCPrimitiveCodingType {
-    public func encodeTo(encoder: NSCoder, forKey key: String) {
+    public func encodeTo(encoder: NSCoder, for key: String) {
         encoder.encodeCGSize(self, forKey: key)
     }
     
-    public static func decodeFrom(decoder: NSCoder, forKey key: String)
+    public static func decodeFrom(decoder: NSCoder, for key: String)
         -> CGSize
     {
         return decoder.decodeCGSizeForKey(key)
@@ -53,11 +53,11 @@ extension CGSize: ObjCPrimitiveCodingType {
 }
 
 extension CGRect: ObjCPrimitiveCodingType {
-    public func encodeTo(encoder: NSCoder, forKey key: String) {
+    public func encodeTo(encoder: NSCoder, for key: String) {
         encoder.encodeCGRect(self, forKey: key)
     }
     
-    public static func decodeFrom(decoder: NSCoder, forKey key: String)
+    public static func decodeFrom(decoder: NSCoder, for key: String)
         -> CGRect
     {
         return decoder.decodeCGRectForKey(key)
@@ -65,11 +65,11 @@ extension CGRect: ObjCPrimitiveCodingType {
 }
 
 extension CGAffineTransform: ObjCPrimitiveCodingType {
-    public func encodeTo(encoder: NSCoder, forKey key: String) {
+    public func encodeTo(encoder: NSCoder, for key: String) {
         encoder.encodeCGAffineTransform(self, forKey: key)
     }
     
-    public static func decodeFrom(decoder: NSCoder, forKey key: String)
+    public static func decodeFrom(decoder: NSCoder, for key: String)
         -> CGAffineTransform
     {
         return decoder.decodeCGAffineTransformForKey(key)
@@ -77,11 +77,11 @@ extension CGAffineTransform: ObjCPrimitiveCodingType {
 }
 
 extension UIEdgeInsets: ObjCPrimitiveCodingType {
-    public func encodeTo(encoder: NSCoder, forKey key: String) {
+    public func encodeTo(encoder: NSCoder, for key: String) {
         encoder.encodeUIEdgeInsets(self, forKey: key)
     }
     
-    public static func decodeFrom(decoder: NSCoder, forKey key: String)
+    public static func decodeFrom(decoder: NSCoder, for key: String)
         -> UIEdgeInsets
     {
         return decoder.decodeUIEdgeInsetsForKey(key)
@@ -89,11 +89,11 @@ extension UIEdgeInsets: ObjCPrimitiveCodingType {
 }
 
 extension UIOffset: ObjCPrimitiveCodingType {
-    public func encodeTo(encoder: NSCoder, forKey key: String) {
+    public func encodeTo(encoder: NSCoder, for key: String) {
         encoder.encodeUIOffset(self, forKey: key)
     }
     
-    public static func decodeFrom(decoder: NSCoder, forKey key: String)
+    public static func decodeFrom(decoder: NSCoder, for key: String)
         -> UIOffset
     {
         return decoder.decodeUIOffsetForKey(key)

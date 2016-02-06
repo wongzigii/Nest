@@ -35,49 +35,62 @@ extension NSCoder {
     //MARK: - Objective-C Primitive Coding Types
     public func encode<T: ObjCPrimitiveCodingType>(
         value: T?,
-        forKey key: String)
+        for key: String
+        )
     {
-        value?.encodeTo(self, forKey: key)
+        value?.encodeTo(self, for: key)
     }
     
     //MARK: Overload for ObjCPrimitiveCodingType and _ObjectiveCBridgeable
-    public func encode<T: ObjCPrimitiveCodingType
-        where T: _ObjectiveCBridgeable>
-        (value: T?,
-        forKey key: String)
+    public func encode<
+        T: ObjCPrimitiveCodingType where
+        T: _ObjectiveCBridgeable
+        >(
+        value: T?,
+        for key: String
+        )
     {
-        value?.encodeTo(self, forKey: key)
+        value?.encodeTo(self, for: key)
     }
     
     //MARK: - RawRepresentable with Objective-C Primitive Coding Raw Type
-    public func encode<T: RawRepresentable
-        where T.RawValue: ObjCPrimitiveCodingType>
-        (value: T?,
-        forKey key: String)
+    public func encode<
+        T: RawRepresentable where
+        T.RawValue: ObjCPrimitiveCodingType
+        >(
+        value: T?,
+        for key: String
+        )
     {
-        value?.rawValue.encodeTo(self, forKey: key)
+        value?.rawValue.encodeTo(self, for: key)
     }
     
     //MARK: - Objective-C Bridgeable Swift Value Types
-    public func encode<T: _ObjectiveCBridgeable>(
+    public func encode<
+        T: _ObjectiveCBridgeable
+        >(
         value: T?,
-        forKey key: String)
+        for key: String
+        )
     {
         encodeObject(value?._bridgeToObjectiveC(), forKey: key)
     }
     
     //MARK: - NSCoding Conformed Objective-C Bridgable Pure Swift Objects
-    public func encode<T: AnyObject
+    public func encode<
+        T: AnyObject
         where T: _ObjectiveCBridgeable,
-        T._ObjectiveCType: NSCoding>
-        (value: T?,
-        forKey key: String)
+        T._ObjectiveCType: NSCoding
+        >(
+        value: T?,
+        for key: String
+        )
     {
         encodeObject(value?._bridgeToObjectiveC(), forKey: key)
     }
     
     //MARK: - NSObject and Its Descendants
-    public func encode<T: NSObject>(value: T?, forKey key: String) {
+    public func encode<T: NSObject>(value: T?, for key: String) {
         encodeObject(value, forKey: key)
     }
 }
@@ -99,7 +112,7 @@ values and non-null values, the return value is wrapped with an
 `ImplicitUnwrappedOptional` container.
 */
 extension NSCoder {
-    public func decodeOrThrowForKey<T: ObjCPrimitiveCodingType>(key: String)
+    public func decodeOrThrowFor<T: ObjCPrimitiveCodingType>(key: String)
         throws
         -> T!
     {
@@ -107,10 +120,10 @@ extension NSCoder {
             throw NSCoderDecodingError.NoValueForKey(key: key)
         }
         
-        return T.decodeFrom(self, forKey: key)
+        return T.decodeFrom(self, for: key)
     }
     
-    public func decodeOrThrowForKey<T: ObjCPrimitiveCodingType
+    public func decodeOrThrowFor<T: ObjCPrimitiveCodingType
         where T: _ObjectiveCBridgeable>(
         key: String)
         throws
@@ -120,10 +133,10 @@ extension NSCoder {
             throw NSCoderDecodingError.NoValueForKey(key: key)
         }
         
-        return T.decodeFrom(self, forKey: key)
+        return T.decodeFrom(self, for: key)
     }
     
-    public func decodeOrThrowForKey<T: RawRepresentable
+    public func decodeOrThrowFor<T: RawRepresentable
         where T.RawValue: ObjCPrimitiveCodingType>
         (key: String)
         throws
@@ -133,7 +146,7 @@ extension NSCoder {
             throw NSCoderDecodingError.NoValueForKey(key: key)
         }
         
-        let rawValue = T.RawValue.decodeFrom(self, forKey: key)
+        let rawValue = T.RawValue.decodeFrom(self, for: key)
         guard let value = T(rawValue: rawValue) else {
             throw NSCoderDecodingError.InvalidRawValue(
                 key: key,
@@ -144,7 +157,7 @@ extension NSCoder {
         return value
     }
     
-    public func decodeOrThrowForKey<T: _ObjectiveCBridgeable>(key: String)
+    public func decodeOrThrowFor<T: _ObjectiveCBridgeable>(key: String)
         throws
         -> T!
     {
@@ -172,7 +185,7 @@ extension NSCoder {
         return concreteValue
     }
     
-    public func decodeOrThrowForKey<T: AnyObject
+    public func decodeOrThrowFor<T: AnyObject
         where T: _ObjectiveCBridgeable,
         T._ObjectiveCType: NSCoding>
         (key: String)
@@ -203,7 +216,7 @@ extension NSCoder {
         return concreteValue
     }
     
-    public func decodeOrThrowForKey<T: AnyObject>(key: String) throws -> T! {
+    public func decodeOrThrowFor<T: AnyObject>(key: String) throws -> T! {
         guard containsValueForKey(key) else {
             throw NSCoderDecodingError.NoValueForKey(key: key)
         }
@@ -222,7 +235,7 @@ extension NSCoder {
         return objectAsSpecifiedType
     }
     
-    public func decodeOrThrowForKey<T: NSObject where T: NSCoding>(key: String)
+    public func decodeOrThrowFor<T: NSObject where T: NSCoding>(key: String)
         throws
         -> T!
     {
@@ -254,139 +267,152 @@ extension NSCoder {
 
 //MARK: Maybe Decoding
 extension NSCoder {
-    public func decodeForKey<T: ObjCPrimitiveCodingType>(key: String)
+    public func decodeFor<T: ObjCPrimitiveCodingType>(key: String)
         -> T?
     {
-        return try? decodeOrThrowForKey(key)
+        return try? decodeOrThrowFor(key)
     }
     
-    public func decodeForKey<T: ObjCPrimitiveCodingType
-        where T: _ObjectiveCBridgeable>(
-        key: String)
+    public func decodeFor<T: ObjCPrimitiveCodingType where
+        T: _ObjectiveCBridgeable
+        >(
+        key: String
+        )
         -> T?
     {
-        return try? decodeOrThrowForKey(key)
+        return try? decodeOrThrowFor(key)
     }
     
-    public func decodeForKey<T: RawRepresentable
-        where T.RawValue: ObjCPrimitiveCodingType>
-        (key: String)
+    public func decodeFor<T: RawRepresentable where
+        T.RawValue: ObjCPrimitiveCodingType
+        >(
+        key: String
+        )
         -> T?
     {
-        return try? decodeOrThrowForKey(key)
+        return try? decodeOrThrowFor(key)
     }
     
-    public func decodeForKey<T: _ObjectiveCBridgeable>(key: String)
+    public func decodeFor<T: _ObjectiveCBridgeable>(key: String) -> T? {
+        return try? decodeOrThrowFor(key)
+    }
+    
+    public func decodeFor<T: AnyObject where
+        T: _ObjectiveCBridgeable,
+        T._ObjectiveCType: NSCoding
+        >(
+        key: String
+        )
         -> T?
     {
-        return try? decodeOrThrowForKey(key)
+        return try? decodeOrThrowFor(key)
     }
     
-    public func decodeForKey<T: AnyObject
-        where T: _ObjectiveCBridgeable,
-        T._ObjectiveCType: NSCoding>
-        (key: String)
-        -> T?
-    {
-        return try? decodeOrThrowForKey(key)
+    public func decodeFor<T: AnyObject>(key: String) -> T? {
+        return try? decodeOrThrowFor(key)
     }
     
-    public func decodeForKey<T: AnyObject>(key: String) -> T? {
-        return try? decodeOrThrowForKey(key)
-    }
-    
-    public func decodeForKey<T: NSObject where T: NSCoding>(key: String)
-        -> T?
-    {
-        return try? decodeOrThrowForKey(key)
+    public func decodeFor<T: NSObject where T: NSCoding>(key: String) -> T? {
+        return try? decodeOrThrowFor(key)
     }
 }
 
 //MARK: Fallback Decoding
 extension NSCoder {
-    public func decodeForKey<T: ObjCPrimitiveCodingType>
-        (key: String,
-        @autoclosure fallback: () -> T)
+    public func decodeFor<T: ObjCPrimitiveCodingType>(
+        key: String,
+        @autoclosure fallback: () -> T
+        )
         -> T
     {
         do {
-            return try decodeOrThrowForKey(key)
+            return try decodeOrThrowFor(key)
         } catch _ {
             return fallback()
         }
     }
     
-    public func decodeForKey<T: ObjCPrimitiveCodingType
-        where T: _ObjectiveCBridgeable>
-        (key: String,
-        @autoclosure fallback: () -> T)
+    public func decodeFor<T: ObjCPrimitiveCodingType where
+        T: _ObjectiveCBridgeable
+        >(
+        key: String,
+        @autoclosure fallback: () -> T
+        )
         -> T
     {
         do {
-            return try decodeOrThrowForKey(key)
+            return try decodeOrThrowFor(key)
         } catch _ {
             return fallback()
         }
     }
     
-    public func decodeForKey<T: RawRepresentable
-        where T.RawValue: ObjCPrimitiveCodingType>
-        (key: String,
-        @autoclosure fallback: () -> T)
+    public func decodeFor<T: RawRepresentable where
+        T.RawValue: ObjCPrimitiveCodingType
+        >(
+        key: String,
+        @autoclosure fallback: () -> T
+        )
         -> T
     {
         do {
-            return try decodeOrThrowForKey(key)
+            return try decodeOrThrowFor(key)
         } catch _ {
             return fallback()
         }
     }
     
-    public func decodeForKey<T: _ObjectiveCBridgeable>
-        (key: String,
-        @autoclosure fallback: () -> T)
+    public func decodeFor<T: _ObjectiveCBridgeable
+        >(
+        key: String,
+        @autoclosure fallback: () -> T
+        )
         -> T
     {
         do {
-            return try decodeOrThrowForKey(key)
+            return try decodeOrThrowFor(key)
         } catch _ {
             return fallback()
         }
     }
     
-    public func decodeForKey<T: AnyObject
-        where T: _ObjectiveCBridgeable,
-        T._ObjectiveCType: NSCoding>
-        (key: String,
-        @autoclosure fallback: () -> T)
+    public func decodeFor<T: AnyObject where
+        T: _ObjectiveCBridgeable,
+        T._ObjectiveCType: NSCoding
+        >(
+        key: String,
+        @autoclosure fallback: () -> T
+        )
         -> T
     {
         do {
-            return try decodeOrThrowForKey(key)
+            return try decodeOrThrowFor(key)
         } catch _ {
             return fallback()
         }
     }
     
-    public func decodeForKey<T: AnyObject>
-        (key: String,
-        @autoclosure fallback: () -> T)
+    public func decodeFor<T: AnyObject>(
+        key: String,
+        @autoclosure fallback: () -> T
+        )
         -> T
     {
         do {
-            return try decodeOrThrowForKey(key)
+            return try decodeOrThrowFor(key)
         } catch _ {
             return fallback()
         }
     }
     
-    public func decodeForKey<T: NSObject where T: NSCoding>
-        (key: String,
-        @autoclosure fallback: () -> T)
+    public func decodeFor<T: NSObject where T: NSCoding>(
+        key: String,
+        @autoclosure fallback: () -> T
+        )
         -> T
     {
         do {
-            return try decodeOrThrowForKey(key)
+            return try decodeOrThrowFor(key)
         } catch _ {
             return fallback()
         }

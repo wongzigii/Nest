@@ -37,20 +37,19 @@ private class CustomView: View {
     }
     
     private required init?(coder aDecoder: NSCoder) {
-        outletEntity = aDecoder.decodeForKey("outletEntity")!
-        outletCollectionEntity = aDecoder
-            .decodeForKey("outletCollectionEntity")!
-        scalarEntity = aDecoder.decodeForKey("scalarEntity")!
-        scalarGroupEntity = aDecoder.decodeForKey("scalarGroupEntity")!
+        outletEntity = aDecoder.decodeFor("outletEntity")!
+        outletCollectionEntity = aDecoder.decodeFor("outletCollectionEntity")!
+        scalarEntity = aDecoder.decodeFor("scalarEntity")!
+        scalarGroupEntity = aDecoder.decodeFor("scalarGroupEntity")!
         super.init(coder: aDecoder)
     }
     
     private override func encodeWithCoder(aCoder: NSCoder) {
         super.encodeWithCoder(aCoder)
-        aCoder.encode(outletEntity, forKey: "outletEntity")
-        aCoder.encode(outletCollectionEntity, forKey: "outletCollectionEntity")
-        aCoder.encode(scalarEntity, forKey: "scalarEntity")
-        aCoder.encode(scalarGroupEntity, forKey: "scalarGroupEntity")
+        aCoder.encode(outletEntity, for: "outletEntity")
+        aCoder.encode(outletCollectionEntity, for: "outletCollectionEntity")
+        aCoder.encode(scalarEntity, for: "scalarEntity")
+        aCoder.encode(scalarGroupEntity, for: "scalarGroupEntity")
     }
 }
 
