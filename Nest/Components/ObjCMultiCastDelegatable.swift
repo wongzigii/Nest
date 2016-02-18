@@ -16,7 +16,7 @@ public protocol ObjCMultiCastDelegatable: class {
 }
 
 private var weakDelegatesKey =
-"com.WeZZard.Nest.MultiCastDelegateHosterType.weakDelegatesKey"
+"com.WeZZard.Nest.ObjCMultiCastDelegatable.weakDelegatesKey"
 
 extension ObjCMultiCastDelegatable {
     public var delegates: [Delegate] { return weakDelegates.flatMap {$0.value} }

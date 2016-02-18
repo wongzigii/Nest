@@ -15,7 +15,8 @@ public func withObjCSelfAwareSwizzleContext<F>(
     forClassMethodSelector aSelector: Selector,
     onClass aClass: AnyClass,
     original: UnsafeMutablePointer<F>,
-    swizzled: F)
+    swizzled: F
+    )
     -> ObjCSelfAwareSwizzleContext
 {
     let className = class_getName(aClass)
@@ -24,14 +25,16 @@ public func withObjCSelfAwareSwizzleContext<F>(
         forInstanceMethodSelector: aSelector,
         onClass: metaClass as! AnyClass,
         original: original,
-        swizzled: swizzled)
+        swizzled: swizzled
+    )
 }
 
 public func withObjCSelfAwareSwizzleContext<F>(
     forInstanceMethodSelector aSelector: Selector,
     onClass aClass: AnyClass,
     original originalPtr:  UnsafeMutablePointer<F>,
-    swizzled: F)
+    swizzled: F
+    )
     -> ObjCSelfAwareSwizzleContext
 {
     return ObjCSelfAwareSwizzleContext(
@@ -39,7 +42,8 @@ public func withObjCSelfAwareSwizzleContext<F>(
         targetSelector: aSelector,
         isMetaClass: class_isMetaClass(aClass),
         originalPtr: unsafeBitCast(originalPtr, UnsafeMutablePointer<IMP>.self),
-        swizzled: unsafeBitCast(swizzled, IMP.self))
+        swizzled: unsafeBitCast(swizzled, IMP.self)
+    )
 }
 
 @objc
@@ -51,11 +55,13 @@ final public class ObjCSelfAwareSwizzleContext: NSObject {
     private let swizzled: IMP
     private var onceToken: dispatch_once_t = 0
     
-    private init(targetClass: AnyClass,
+    private init(
+        targetClass: AnyClass,
         targetSelector: Selector,
         isMetaClass: Bool,
         originalPtr: UnsafeMutablePointer<IMP>,
-        swizzled: IMP)
+        swizzled: IMP
+        )
     {
         self.targetClass = targetClass
         self.targetSelector = targetSelector

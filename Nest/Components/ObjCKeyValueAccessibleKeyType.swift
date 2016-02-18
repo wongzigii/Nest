@@ -24,17 +24,24 @@ extension ObjCKeyValueAccessibleKeyType where RawValue == String,
     UnicodeScalarLiteralType == String,
     StringLiteralType == String
 {
-    public init(extendedGraphemeClusterLiteral
-        value: Self.ExtendedGraphemeClusterLiteralType)
+    public init(
+        extendedGraphemeClusterLiteral value: ExtendedGraphemeClusterLiteralType
+        )
     {
         self.init(rawValue: value)
     }
     
-    public init(unicodeScalarLiteral value: Self.UnicodeScalarLiteralType) {
+    public init(
+        unicodeScalarLiteral value: Self.UnicodeScalarLiteralType
+        )
+    {
         self.init(rawValue: value)
     }
     
-    public init(stringLiteral value: Self.StringLiteralType) {
+    public init(
+        stringLiteral value: Self.StringLiteralType
+        )
+    {
         self.init(rawValue: value)
     }
     

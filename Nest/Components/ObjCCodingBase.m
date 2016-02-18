@@ -419,10 +419,10 @@ void ObjCCodingBaseSetIntegerBasedValue(
                                    forKey:propertyName];
     } else if (propertyType[0] == 'f') {
         [NSException raise:NSInternalInconsistencyException
-                    format:@"Cannot set floating pointer value with native value setter"];
+                    format:@"Cannot set floating pointer value with integer based value setter"];
     } else if (propertyType[0] == 'd') {
         [NSException raise:NSInternalInconsistencyException
-                    format:@"Cannot set floating pointer value with native value setter"];
+                    format:@"Cannot set floating pointer value with integer based value setter"];
     } else if (propertyType[0] == 'B') {
         [[self internalStorage] setObject:@(value.asBOOL)
                                    forKey:propertyName];

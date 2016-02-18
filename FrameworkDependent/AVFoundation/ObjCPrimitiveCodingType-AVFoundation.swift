@@ -1,5 +1,5 @@
 //
-//  ObjCPrimitiveCodingType+AVFoundation.swift
+//  ObjCCodingPrimitiveType+AVFoundation.swift
 //  Nest
 //
 //  Created by Manfred on 12/7/15.
@@ -10,7 +10,7 @@ import AVFoundation
 import Foundation
 
 // Specialization for CoreMedia types
-extension CMTime: ObjCPrimitiveCodingType {
+extension CMTime: ObjCCodingPrimitiveType {
     public func encodeTo(encoder: NSCoder, for key: String) {
         encoder.encodeCMTime(self, forKey: key)
     }
@@ -22,7 +22,7 @@ extension CMTime: ObjCPrimitiveCodingType {
     }
 }
 
-extension CMTimeRange: ObjCPrimitiveCodingType {
+extension CMTimeRange: ObjCCodingPrimitiveType {
     public func encodeTo(encoder: NSCoder, for key: String) {
         encoder.encodeCMTimeRange(self, forKey: key)
     }
@@ -34,7 +34,7 @@ extension CMTimeRange: ObjCPrimitiveCodingType {
     }
 }
 
-extension CMTimeMapping: ObjCPrimitiveCodingType {
+extension CMTimeMapping: ObjCCodingPrimitiveType {
     public func encodeTo(encoder: NSCoder, for key: String) {
         encoder.encodeCMTimeMapping(self, forKey: key)
     }

@@ -31,12 +31,15 @@ public class PersistenceController {
     private var preparationQueue: dispatch_queue_t =
     dispatch_queue_create(
         "com.WeZZard.Nest.PersistenceController.PreparationQueue",
-        DISPATCH_QUEUE_SERIAL)
+        DISPATCH_QUEUE_SERIAL
+    )
     
-    public init(storeURL: NSURL,
+    public init(
+        storeURL: NSURL,
         type: NSPersistentStoreType,
         modelName: String,
-        modelExtension: String = "momd")
+        modelExtension: String = "momd"
+        )
     {
         state = .Preparing
         

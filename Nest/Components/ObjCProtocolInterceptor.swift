@@ -9,8 +9,8 @@
 import Foundation
 import SwiftExt
 
-/** `ObjCProtocolInterceptor` is a proxy which intercepts messages to the middle
- man which originally intended to be sent to the receiver.
+/** `ObjCProtocolInterceptor` is a proxy which intercepts messages which 
+ originally intended to be sent to the receiver to the middle man.
  
  - Discussion: `ObjCProtocolInterceptor` is a class cluster which dynamically
  subclasses itself to conform to the intercepted protocols at the runtime.
@@ -112,29 +112,16 @@ public final class ObjCProtocolInterceptor: NSObject {
     }
     
     /**
-     Creates a protocol interceptor which intercepts a single Objecitve-C
-     protocol.
-     
-     - Parameter     protocols:  An Objective-C protocol, such as
-     UITableViewDelegate.self.
-    */
-    public class func againstProtocol(aProtocol: Protocol)
-        -> ObjCProtocolInterceptor
-    {
-        return againstProtocols([aProtocol])
-    }
-    
-    /**
      Creates a protocol interceptor which intercepts a variable-length sort of
      Objecitve-C protocols.
      
      - Parameter     protocols:  A variable length sort of Objective-C protocol,
      such as UITableViewDelegate.self.
     */
-    public class func againstProtocols(protocols: Protocol ...)
+    public class func against(protocols: Protocol ...)
         -> ObjCProtocolInterceptor
     {
-        return againstProtocols(protocols)
+        return against(protocols)
     }
     
     /**
@@ -144,7 +131,7 @@ public final class ObjCProtocolInterceptor: NSObject {
      - Parameter     protocols:  An array of Objective-C protocols, such as
      [UITableViewDelegate.self].
     */
-    public class func againstProtocols(protocols: [Protocol])
+    public class func against(protocols: [Protocol])
         -> ObjCProtocolInterceptor
     {
         let protocolNames = protocols.map { NSStringFromProtocol($0) }
@@ -152,10 +139,12 @@ public final class ObjCProtocolInterceptor: NSObject {
         let concatenatedProtocolsName = sortedProtocolNames
             .joinWithSeparator(",")
         
-        let theConcreteClass = concreteClassWithProtocols(protocols,
-            concatenatedProtocolsName: concatenatedProtocolsName)
+        let concreteClass = concreteClassWithProtocols(
+            protocols,
+            concatenatedProtocolsName: concatenatedProtocolsName
+        )
         
-        let protocolInterceptor = theConcreteClass.init()
+        let protocolInterceptor = concreteClass.init()
             as! ObjCProtocolInterceptor
         protocolInterceptor._interceptedProtocols = protocols
         
@@ -182,15 +171,18 @@ public final class ObjCProtocolInterceptor: NSObject {
      you can only init the returned class to be a `ObjCProtocolInterceptor` but
      not its subclass.
     */
-    private class func concreteClassWithProtocols(protocols: [Protocol],
+    private class func concreteClassWithProtocols(
+        protocols: [Protocol],
         concatenatedProtocolsName: String,
-        salt: UInt? = nil)
+        salt: UInt? = nil
+        )
         -> NSObject.Type
     {
         let className: String = {
-            let basicClassName = NSStringFromClass(ObjCProtocolInterceptor.self)
-                + "_"
-                + concatenatedProtocolsName
+            let basicClassName
+                = NSStringFromClass(ObjCProtocolInterceptor.self)
+                    + "_"
+                    + concatenatedProtocolsName
             
             if let salt = salt { return basicClassName + "_\(salt)" }
                 else { return basicClassName }
@@ -204,8 +196,10 @@ public final class ObjCProtocolInterceptor: NSObject {
                 let isClassConformsToAllProtocols: Bool = {
                     // Check if the found class conforms to the protocols
                     for eachProtocol in protocols
-                        where !class_conformsToProtocol(anInterceptorClass,
-                            eachProtocol)
+                        where !class_conformsToProtocol(
+                            anInterceptorClass,
+                            eachProtocol
+                        )
                     {
                         return false
                     }
@@ -215,19 +209,25 @@ public final class ObjCProtocolInterceptor: NSObject {
                 if isClassConformsToAllProtocols {
                     return anInterceptorClass
                 } else {
-                    return concreteClassWithProtocols(protocols,
+                    return concreteClassWithProtocols(
+                        protocols,
                         concatenatedProtocolsName: concatenatedProtocolsName,
-                        salt: nextSalt)
+                        salt: nextSalt
+                    )
                 }
             default:
-                return concreteClassWithProtocols(protocols,
+                return concreteClassWithProtocols(
+                    protocols,
                     concatenatedProtocolsName: concatenatedProtocolsName,
-                    salt: nextSalt)
+                    salt: nextSalt
+                )
             }
         } else {
-            let subclass = objc_allocateClassPair(ObjCProtocolInterceptor.self,
+            let subclass = objc_allocateClassPair(
+                ObjCProtocolInterceptor.self,
                 className,
-                0)
+                0
+                )
                 as! NSObject.Type
             
             for eachProtocol in protocols {

@@ -10,18 +10,22 @@ import SwiftExt
 import Foundation
 
 /**
- By conforming `ObjCProtocolDispatcherType`, an object turned to be a proxy 
- which intercepts messages originally intended to send to the object itself to 
- the last appended dispatching destination. If all the dispatching destinations 
- are not able to respond the message, it will finally be dispatched to the 
- object itself. You are able to add dispatched protocols at runtime.
+ By conforming `ObjCProtocolDispatcherType`, an object gained the ability to 
+ turn to be a proxy which intercepts messages which originally intended to send 
+ to the object itself to the last appended dispatching destination. If all the
+ dispatching destinations are not able to respond the message, it will finally 
+ be dispatched back to the object itself. You are able to add dispatched 
+ protocols at runtime.
 
  - Discussion: Where the `ObjCProtocolDispatcherType` is different from 
  `ObjCProtocolInterceptor` are:
- 1. The role of `ObjCProtocolInterceptor`'s receiver is just the receiver itself
- but `ObjCProtocolDispatcherType` could have multiple receivers;
- 2. `ObjCProtocolDispatcherType` is a pre-implemented protocol but 
+ 
+ 1. `ObjCProtocolDispatcherType` is a pre-implemented protocol but
  `ObjCProtocolInterceptor` is a class;
+ 
+ 2. The role of `ObjCProtocolInterceptor`'s receiver is just the receiver itself
+ but `ObjCProtocolDispatcherType` could have multiple fallback-able receivers;
+ 
  3. You are allowed to add dispatched protocols to any object conforms to
  `ObjCProtocolDispatcherType` at runtime which `ObjCProtocolInterceptor` 
  doesn't.
@@ -178,7 +182,8 @@ extension ObjCProtocolDispatcherType {
     /// Append a protocol dispatch destination. The last appended should be
     /// dispatched firstly.
     public func appendProtocolDispatchDestination(
-        destination: NSObjectProtocol)
+        destination: NSObjectProtocol
+        )
     {
         _dispatchDestinations.addObject(destination)
         needsInvalidateDispatchTable = true
@@ -186,15 +191,17 @@ extension ObjCProtocolDispatcherType {
 }
 
 private var dispatchedProtocolsKey = "_dispatchedProtocols"
-private var _dispatchDestinationsKey = "_dispatchDestinations"
+private var dispatchDestinationsKey = "_dispatchDestinations"
 private var dispatchTableKey = "messageDispatchTable"
 private var needsInvalidateDispatchTableKey = "needsInvalidateDispatchTable"
 
 extension ObjCProtocolDispatcherType {
     private var needsInvalidateDispatchTable: Bool {
         get {
-            if let value = objc_getAssociatedObject(self,
-                &needsInvalidateDispatchTableKey)
+            if let value = objc_getAssociatedObject(
+                self,
+                &needsInvalidateDispatchTableKey
+                )
                 as? Bool
             {
                 return value
@@ -206,10 +213,12 @@ extension ObjCProtocolDispatcherType {
             let oldValue = needsInvalidateDispatchTable
             
             if oldValue != newValue {
-                objc_setAssociatedObject(self,
+                objc_setAssociatedObject(
+                    self,
                     &needsInvalidateDispatchTableKey,
                     newValue,
-                    .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+                    .OBJC_ASSOCIATION_RETAIN_NONATOMIC
+                )
                 
                 if newValue {
                     NSOperationQueue.mainQueue().addOperationWithBlock {
@@ -224,8 +233,10 @@ extension ObjCProtocolDispatcherType {
     
     private var dispatchTable: NSMapTable {
         get {
-            if let value = objc_getAssociatedObject(self,
-                &dispatchTableKey)
+            if let value = objc_getAssociatedObject(
+                self,
+                &dispatchTableKey
+                )
                 as? NSMapTable
             {
                 return value
@@ -239,10 +250,12 @@ extension ObjCProtocolDispatcherType {
             }
         }
         set {
-            objc_setAssociatedObject(self,
+            objc_setAssociatedObject(
+                self,
                 &dispatchTableKey,
                 newValue,
-                .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+                .OBJC_ASSOCIATION_RETAIN_NONATOMIC
+            )
         }
     }
     
@@ -257,49 +270,61 @@ extension ObjCProtocolDispatcherType {
     
     private var _dispatchedProtocols: NSHashTable {
         get {
-            if let protocols = objc_getAssociatedObject(self,
-                &dispatchedProtocolsKey)
+            if let protocols = objc_getAssociatedObject(
+                self,
+                &dispatchedProtocolsKey
+                )
                 as? NSHashTable
             {
                 return protocols
             } else {
                 let initialValue = NSHashTable()
-                objc_setAssociatedObject(self,
+                objc_setAssociatedObject(
+                    self,
                     &dispatchedProtocolsKey,
                     initialValue,
-                    .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+                    .OBJC_ASSOCIATION_RETAIN_NONATOMIC
+                )
                 return initialValue
             }
         }
         set {
-            objc_setAssociatedObject(self,
+            objc_setAssociatedObject(
+                self,
                 &dispatchedProtocolsKey,
                 newValue,
-                .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+                .OBJC_ASSOCIATION_RETAIN_NONATOMIC
+            )
         }
     }
     
     private var _dispatchDestinations: NSHashTable {
         get {
-            if let destinations = objc_getAssociatedObject(self,
-                &_dispatchDestinationsKey)
+            if let destinations = objc_getAssociatedObject(
+                self,
+                &dispatchDestinationsKey
+                )
                 as? NSHashTable
             {
                 return destinations
             } else {
                 let initialValue = NSHashTable.weakObjectsHashTable()
-                objc_setAssociatedObject(self,
-                    &_dispatchDestinationsKey,
+                objc_setAssociatedObject(
+                    self,
+                    &dispatchDestinationsKey,
                     initialValue,
-                    .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+                    .OBJC_ASSOCIATION_RETAIN_NONATOMIC
+                )
                 return initialValue
             }
         }
         set {
-            objc_setAssociatedObject(self,
-                &_dispatchDestinationsKey,
+            objc_setAssociatedObject(
+                self,
+                &dispatchDestinationsKey,
                 newValue,
-                .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+                .OBJC_ASSOCIATION_RETAIN_NONATOMIC
+            )
         }
     }
     

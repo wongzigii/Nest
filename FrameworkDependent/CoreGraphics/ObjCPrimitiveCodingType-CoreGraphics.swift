@@ -1,12 +1,12 @@
 //
-//  ObjCCodingPrimitiveType-AppKit.swift
+//  ObjCPrimitiveCodingType-CoreGraphics.swift
 //  Nest
 //
-//  Created by Manfred on 12/7/15.
+//  Created by Manfred on 2/16/16.
 //
 //
 
-import AppKit
+import CoreGraphics
 
 extension CGFloat: ObjCCodingPrimitiveType {
     public func encodeTo(encoder: NSCoder, for key: String) {
@@ -28,38 +28,62 @@ extension CGFloat: ObjCCodingPrimitiveType {
     }
 }
 
+extension CGVector: ObjCCodingPrimitiveType {
+    public func encodeTo(encoder: NSCoder, for key: String) {
+        encoder.encodeCGVector(self, forKey: key)
+    }
+    
+    public static func decodeFrom(decoder: NSCoder, for key: String)
+        -> CGVector
+    {
+        return decoder.decodeCGVectorForKey(key)
+    }
+}
+
 extension CGPoint: ObjCCodingPrimitiveType {
     public func encodeTo(encoder: NSCoder, for key: String) {
-        encoder.encodePoint(self, forKey: key)
+        encoder.encodeCGPoint(self, forKey: key)
     }
     
     public static func decodeFrom(decoder: NSCoder, for key: String)
         -> CGPoint
     {
-        return decoder.decodePointForKey(key)
+        return decoder.decodeCGPointForKey(key)
     }
 }
 
 extension CGSize: ObjCCodingPrimitiveType {
     public func encodeTo(encoder: NSCoder, for key: String) {
-        encoder.encodeSize(self, forKey: key)
+        encoder.encodeCGSize(self, forKey: key)
     }
     
     public static func decodeFrom(decoder: NSCoder, for key: String)
         -> CGSize
     {
-        return decoder.decodeSizeForKey(key)
+        return decoder.decodeCGSizeForKey(key)
     }
 }
 
 extension CGRect: ObjCCodingPrimitiveType {
     public func encodeTo(encoder: NSCoder, for key: String) {
-        encoder.encodeRect(self, forKey: key)
+        encoder.encodeCGRect(self, forKey: key)
     }
     
     public static func decodeFrom(decoder: NSCoder, for key: String)
         -> CGRect
     {
-        return decoder.decodeRectForKey(key)
+        return decoder.decodeCGRectForKey(key)
+    }
+}
+
+extension CGAffineTransform: ObjCCodingPrimitiveType {
+    public func encodeTo(encoder: NSCoder, for key: String) {
+        encoder.encodeCGAffineTransform(self, forKey: key)
+    }
+    
+    public static func decodeFrom(decoder: NSCoder, for key: String)
+        -> CGAffineTransform
+    {
+        return decoder.decodeCGAffineTransformForKey(key)
     }
 }

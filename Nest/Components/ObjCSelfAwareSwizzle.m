@@ -30,9 +30,9 @@ typedef NS_OPTIONS(NSUInteger, OCSASSelfAwareSwizzleSelectorMatchResult) {
 
 #pragma mark - Functions Prototypes
 static LTLaunchTaskContextCleanupHandler
-    OCSASSelfAwareSwizzleTaskContextCleanupHandelr;
+    OCSASSelfAwareSwizzleTaskContextCleanupHandler;
 
-static LTLaunchTaskSelectorHandler OCSASSelfAwareSwizzleTaskSelectorHandelr;
+static LTLaunchTaskSelectorHandler OCSASSelfAwareSwizzleTaskSelectorHandler;
 
 static void OCSASPerformSelfAwareSwizzleWithContext(
     ObjCSelfAwareSwizzleContext *,
@@ -49,7 +49,7 @@ static NSString * OCSASSelfAwareSwizzleContextDescription(
 #endif
 
 #pragma mark - Functions Implementations
-void OCSASSelfAwareSwizzleTaskContextCleanupHandelr(void * taskContext) {
+void OCSASSelfAwareSwizzleTaskContextCleanupHandler(void * taskContext) {
     OCSASSelfAwareSwizzleTaskContext * selfAwareSwizzleTaskContext =
         (OCSASSelfAwareSwizzleTaskContext *)taskContext;
     
@@ -60,7 +60,7 @@ void OCSASSelfAwareSwizzleTaskContextCleanupHandelr(void * taskContext) {
     free(selfAwareSwizzleTaskContext);
 }
 
-void OCSASSelfAwareSwizzleTaskSelectorHandelr(
+void OCSASSelfAwareSwizzleTaskSelectorHandler(
     SEL taskSelector,
     id taskOwner,
     Method taskMethod,
@@ -82,7 +82,7 @@ void OCSASSelfAwareSwizzleTaskSelectorHandelr(
     
     if (potentialContext == nil) {
 #if DEBUG
-        NSLog(@"Expected Self-Aware Swizzle selector: %@ on %@ returns nil.",
+        NSLog(@"Unexpected Self-Aware Swizzle selector: %@ on %@ returns nil.",
               NSStringFromSelector(taskSelector),
               NSStringFromClass(taskOwner));
 #endif
@@ -107,9 +107,11 @@ void OCSASSelfAwareSwizzleTaskSelectorHandelr(
              {
                  ObjCSelfAwareSwizzleContext * swizzleContext =
                  (ObjCSelfAwareSwizzleContext *)eachPotentialContext;
-                 OCSASPerformSelfAwareSwizzleWithContext(swizzleContext,
+                 OCSASPerformSelfAwareSwizzleWithContext(
+                    swizzleContext,
                     taskOwner,
-                    selfAwareSwizzleTaskContext);
+                    selfAwareSwizzleTaskContext
+                );
              }
 #if DEBUG
              else {
@@ -322,11 +324,12 @@ NSString * OCSASSelfAwareSwizzleContextDescription(
     );
     
     // Create task info
-    LTLaunchTaskInfo ObjCSelfAwareSwizzleLaunchTaskInfo =
-    LTLaunchTaskInfoMake("_ObjCSelfAwareSwizzle_",
-                         &OCSASSelfAwareSwizzleTaskSelectorHandelr,
-                         taskContextRef,
-                         &OCSASSelfAwareSwizzleTaskContextCleanupHandelr);
+    LTLaunchTaskInfo ObjCSelfAwareSwizzleLaunchTaskInfo = LTLaunchTaskInfoMake(
+        "_ObjCSelfAwareSwizzle_",
+        &OCSASSelfAwareSwizzleTaskSelectorHandler,
+        taskContextRef,
+        &OCSASSelfAwareSwizzleTaskContextCleanupHandler
+    );
     
     ObjCSelfAwareSwizzleLaunchTaskInfo.priority = -100;
     

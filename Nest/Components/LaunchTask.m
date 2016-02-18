@@ -93,9 +93,11 @@ BOOL LTRegisterLaunchTaskInfo(LTLaunchTaskInfo info) {
     return YES;
 }
 
-CFComparisonResult LTLaunchTaskInfoComparator( const void *val1,
+CFComparisonResult LTLaunchTaskInfoComparator(
+    const void *val1,
     const void *val2,
-    void *context )
+    void *context
+    )
 {
     LTLaunchTaskInfo * info1 = (LTLaunchTaskInfo *) val1;
     LTLaunchTaskInfo * info2 = (LTLaunchTaskInfo *) val2;
@@ -141,9 +143,11 @@ void LTPerformLaunchTasksOnLoadedClasses(id firstArg, ...) {
             
             Class * classList = objc_copyClassList(&classCount);
             
-            for (CFIndex infoIndex = 0;
-                 infoIndex < registeredInfoCount;
-                 infoIndex ++)
+            for (
+                CFIndex infoIndex = 0;
+                infoIndex < registeredInfoCount;
+                infoIndex ++
+                )
             {
                 for (unsigned int classIndex = 0;
                      classIndex < classCount;
@@ -151,12 +155,16 @@ void LTPerformLaunchTasksOnLoadedClasses(id firstArg, ...) {
                 {
                     Class class = classList[classIndex];
                     LTLaunchTaskInfo * info = (LTLaunchTaskInfo *)
-                    CFArrayGetValueAtIndex(kLTRegisteredLaunchTaskInfo,
-                        infoIndex);
+                    CFArrayGetValueAtIndex(
+                        kLTRegisteredLaunchTaskInfo,
+                        infoIndex
+                    );
                     
-                    LTScanAndActivateLaunchTaskSelectorsOnClass(class,
+                    LTScanAndActivateLaunchTaskSelectorsOnClass(
+                        class,
                         info,
-                        args);
+                        args
+                    );
                 }
                 
             }
@@ -212,9 +220,7 @@ void LTScanAndActivateLaunchTaskSelectorsOnClass(Class aClass,
         LTLaunchTaskSelectorMatchResult selectorMatchResult =
         LTMatchLaunchTaskSelector(selector, info);
         
-        if (selectorMatchResult
-            & LTLaunchTaskSelectorMatchResultMatched)
-        {
+        if (selectorMatchResult & LTLaunchTaskSelectorMatchResultMatched) {
             void * context = info -> context;
             info -> selectorHandler(selector, aClass, method, args, context);
         }
@@ -240,17 +246,20 @@ LTLaunchTaskSelectorMatchResult LTMatchLaunchTaskSelector(SEL selector,
     const char * selectorName = sel_getName(selector);
     
     if (strncmp(expectedSelectorPrefix,
-                selectorName,
-                expectedSelectorPrefixLength)
-        == 0)
+            selectorName,
+            expectedSelectorPrefixLength
+        ) == 0
+        )
     {
         return LTLaunchTaskSelectorMatchResultMatched;
     }
 #if DEBUG
-    else if (strncasecmp(expectedSelectorPrefix,
-                         selectorName,
-                         expectedSelectorPrefixLength)
-             == 0)
+    else if (strncasecmp(
+                expectedSelectorPrefix,
+                selectorName,
+                expectedSelectorPrefixLength
+             ) == 0
+             )
     {
         return LTLaunchTaskSelectorMatchResultUnmatched
         | LTLaunchTaskSelectorMatchResultMatchedIgnoreCase;
@@ -262,11 +271,13 @@ LTLaunchTaskSelectorMatchResult LTMatchLaunchTaskSelector(SEL selector,
 #endif
 }
 
-void LTLaunchTaskSelectorHandlerDefault(SEL taskSelector,
+void LTLaunchTaskSelectorHandlerDefault(
+    SEL taskSelector,
     id taskOwner,
     Method taskMethod,
     NSArray * taskArgs,
-    void * taskContext)
+    void * taskContext
+    )
 {
     unsigned int taskMethodArgCount = method_getNumberOfArguments(taskMethod);
     
@@ -285,8 +296,8 @@ void LTLaunchTaskSelectorHandlerDefault(SEL taskSelector,
     NSInvocation * taskMethodInvocation =
     [NSInvocation invocationWithMethodSignature:taskMethodSignature];
     
-    [taskMethodInvocation setTarget:taskOwner];
-    [taskMethodInvocation setSelector:taskSelector];
+    taskMethodInvocation.target = taskOwner;
+    taskMethodInvocation.selector = taskSelector;
     
     int argumentsToSend = MIN(taskArgCount, availableArgCount);
     
@@ -298,8 +309,10 @@ void LTLaunchTaskSelectorHandlerDefault(SEL taskSelector,
     [taskMethodInvocation invoke];
 }
 
-BOOL LTLaunchTaskInfoEqualToInfo(LTLaunchTaskInfo * info1,
-    LTLaunchTaskInfo * info2)
+BOOL LTLaunchTaskInfoEqualToInfo(
+    LTLaunchTaskInfo * info1,
+    LTLaunchTaskInfo * info2
+    )
 {
     return (strcmp(info1 -> selectorPrefix, info2 -> selectorPrefix) == 0)
     && info1 -> selectorPrefixLength    == info2 -> selectorPrefixLength
@@ -338,25 +351,33 @@ void LTSwizzleAllPossibleAppDelegates() {
                     
                     // Keep original
                     IMP original_imp =
-                    class_getMethodImplementation(eachClass,
-                        selector_launchTasksPerform);
+                    class_getMethodImplementation(
+                        eachClass,
+                        selector_launchTasksPerform
+                    );
                     
-                    CFDictionarySetValue(kLTLaunchTasksPerformerReplacingMap,
+                    CFDictionarySetValue(
+                        kLTLaunchTasksPerformerReplacingMap,
                         (__bridge const void *)(eachClass),
-                        original_imp);
+                        original_imp
+                    );
                     
                     // Set new
-                    class_replaceMethod(eachClass,
+                    class_replaceMethod(
+                        eachClass,
                         selector_launchTasksPerform,
                         (IMP)&LTSwizzledLaunchTasksPerformer,
-                        LTLaunchTasksPerformSelectorEncode);
+                        LTLaunchTasksPerformSelectorEncode
+                    );
                     
                 } else {
                     // Inject
-                    class_addMethod(eachClass,
+                    class_addMethod(
+                        eachClass,
                         selector_launchTasksPerform,
                         (IMP)&LTInjectedLaunchTasksPerformer,
-                        LTLaunchTasksPerformSelectorEncode);
+                        LTLaunchTasksPerformSelectorEncode
+                    );
                     
                 }
                 
