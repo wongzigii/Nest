@@ -49,7 +49,7 @@ static NSString * OCSASSelfAwareSwizzleContextDescription(
 #endif
 
 #pragma mark - Functions Implementations
-void OCSASSelfAwareSwizzleTaskContextCleanupHandler(void * taskContext) {
+void OCSASSelfAwareSwizzleTaskContextCleanupHandler(const void * taskContext) {
     OCSASSelfAwareSwizzleTaskContext * selfAwareSwizzleTaskContext =
         (OCSASSelfAwareSwizzleTaskContext *)taskContext;
     
@@ -65,7 +65,7 @@ void OCSASSelfAwareSwizzleTaskSelectorHandler(
     id taskOwner,
     Method taskMethod,
     NSArray * taskArgs,
-    void * taskContext
+    const void * taskContext
     )
 {
     OCSASSelfAwareSwizzleTaskContext * selfAwareSwizzleTaskContext =
@@ -324,7 +324,8 @@ NSString * OCSASSelfAwareSwizzleContextDescription(
     );
     
     // Create task info
-    LTLaunchTaskInfo ObjCSelfAwareSwizzleLaunchTaskInfo = LTLaunchTaskInfoMake(
+    LTLaunchTaskInfo ObjCSelfAwareSwizzleLaunchTaskInfo
+    = LTLaunchTaskInfoCreate(
         "_ObjCSelfAwareSwizzle_",
         &OCSASSelfAwareSwizzleTaskSelectorHandler,
         taskContextRef,
