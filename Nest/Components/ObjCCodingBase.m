@@ -146,10 +146,44 @@ static NSMutableDictionary * kPropertyNameForSetterForClass = nil;
 }
 
 + (BOOL)synthesizeDynamicPropertySetterWithSelector:(SEL)selector {
+    Class class = [self class];
+    
+    while (class != [ObjCCodingBase class]) {
+        if ([self synthesizeDynamicPropertySetterWithSelector:selector
+                                                     forClass:class])
+        {
+            return YES;
+        }
+        
+        class = [class superclass];
+    }
+    
+    return NO;
+}
+
++ (BOOL)synthesizeDynamicPropertyGetterWithSelector:(SEL)selector {
+    Class class = [self class];
+    
+    while (class != [ObjCCodingBase class]) {
+        if ([self synthesizeDynamicPropertyGetterWithSelector:selector
+                                                     forClass:class])
+        {
+            return YES;
+        }
+        
+        class = [class superclass];
+    }
+    
+    return NO;
+}
+
++ (BOOL)synthesizeDynamicPropertySetterWithSelector:(SEL)selector
+                                           forClass:(Class)class
+{
     unsigned int propertyCount = 0;
     
     objc_property_t * propertyList =
-    class_copyPropertyList([self class], &propertyCount);
+    class_copyPropertyList(class, &propertyCount);
     
     unsigned int propertyIndex = 0;
     BOOL targeted = NO;
@@ -173,8 +207,27 @@ static NSMutableDictionary * kPropertyNameForSetterForClass = nil;
                 targeted = YES;
             }
         } else {
+            size_t propertyNameLength = strlen(rawPropertyName);
+            
+            NSString * propertyName = nil;
+            
+            if (propertyNameLength > 1) {
+                char firstLetter = *(rawPropertyName);
+                propertyName
+                = [NSString stringWithFormat:@"%@%@",
+                   [NSString stringWithCString:&firstLetter
+                                      encoding:NSUTF8StringEncoding]
+                   .capitalizedString,
+                   [NSString stringWithCString:(rawPropertyName + 1)
+                                      encoding:NSUTF8StringEncoding]];
+            } else {
+                propertyName
+                = [NSString stringWithCString:rawPropertyName
+                                     encoding:NSUTF8StringEncoding];
+            }
+            
             NSString * propertySetter
-            = [[@"set" stringByAppendingString:propertyName.capitalizedString]
+            = [[@"set" stringByAppendingString:propertyName]
                stringByAppendingString:@":"];
             
             const char * rawPropertySetter
@@ -187,7 +240,9 @@ static NSMutableDictionary * kPropertyNameForSetterForClass = nil;
         }
         
         if (targeted) {
-            [self cacheSetter:selector withPropertyName:propertyName];
+            [self cacheSetter:selector
+             withPropertyName:propertyName 
+                     forClass:class];
             
             const char * propertyType
             = property_copyAttributeValue(property, "T");
@@ -197,17 +252,16 @@ static NSMutableDictionary * kPropertyNameForSetterForClass = nil;
             const char * setterTypes
             = strcat(setterTypesPrototype, propertyType);
             
-            
             if (propertyType[0] == 'd' || propertyType[0] == 'f') {
                 class_addMethod(
-                    [self class],
+                    class,
                     selector,
                     (IMP)&ObjCCodingBaseSetFloatingPointValue,
                     setterTypes
                 );
             } else {
                 class_addMethod(
-                    [self class],
+                    class,
                     selector,
                     (IMP)&ObjCCodingBaseSetIntegerBasedValue,
                     setterTypes
@@ -223,11 +277,13 @@ static NSMutableDictionary * kPropertyNameForSetterForClass = nil;
     return targeted;
 }
 
-+ (BOOL)synthesizeDynamicPropertyGetterWithSelector:(SEL)selector {
++ (BOOL)synthesizeDynamicPropertyGetterWithSelector:(SEL)selector
+                                           forClass:(Class)class
+{
     unsigned int propertyCount = 0;
     
     objc_property_t * propertyList =
-    class_copyPropertyList([self class], &propertyCount);
+    class_copyPropertyList(class, &propertyCount);
     
     unsigned int propertyIndex = 0;
     BOOL targeted = NO;
@@ -257,7 +313,9 @@ static NSMutableDictionary * kPropertyNameForSetterForClass = nil;
         }
         
         if (targeted) {
-            [self cacheGetter:selector withPropertyName:propertyName];
+            [self cacheGetter:selector
+             withPropertyName:propertyName
+                     forClass:class];
             
             const char * propertyType
             = property_copyAttributeValue(property, "T");
@@ -278,14 +336,14 @@ static NSMutableDictionary * kPropertyNameForSetterForClass = nil;
             
             if (propertyType[0] == 'd' || propertyType[0] == 'f') {
                 class_addMethod(
-                    [self class],
+                    class,
                     selector,
                     (IMP)&ObjCCodingBaseGetFloatingPointValue,
                     getterTypes
                 );
             } else {
                 class_addMethod(
-                    [self class],
+                    class,
                     selector,
                     (IMP)&ObjCCodingBaseGetIntegerBasedValue,
                     getterTypes
@@ -301,8 +359,11 @@ static NSMutableDictionary * kPropertyNameForSetterForClass = nil;
     return targeted;
 }
 
-+ (void)cacheSetter:(SEL)selector withPropertyName:(NSString *)propertyName {
-    NSString * className = NSStringFromClass(self);
++ (void)cacheSetter:(SEL)selector
+   withPropertyName:(NSString *)propertyName
+           forClass:(Class)class
+{
+    NSString * className = NSStringFromClass(class);
     NSString * selectorName = NSStringFromSelector(selector);
     
     if (kPropertyNameForSetterForClass == nil) {
@@ -321,8 +382,11 @@ static NSMutableDictionary * kPropertyNameForSetterForClass = nil;
     }
 }
 
-+ (void)cacheGetter:(SEL)selector withPropertyName:(NSString *)propertyName {
-    NSString * className = NSStringFromClass(self);
++ (void)cacheGetter:(SEL)selector
+   withPropertyName:(NSString *)propertyName
+           forClass:(Class)class
+{
+    NSString * className = NSStringFromClass(class);
     NSString * selectorName = NSStringFromSelector(selector);
     
     if (kPropertyNameForGetterForClass == nil) {
@@ -342,14 +406,48 @@ static NSMutableDictionary * kPropertyNameForSetterForClass = nil;
 }
 
 - (NSString *)propertyNameForSetter:(SEL)selector {
-    NSString * className = NSStringFromClass([self class]);
+    Class class = [self class];
+    
+    while (class != [ObjCCodingBase class]) {
+        NSString * propertyName = [self propertyNameForSetter:selector
+                                                     forClass:class];
+        
+        if (propertyName) {
+            return propertyName;
+        }
+        
+        class = [class superclass];
+    }
+    
+    return nil;
+}
+
+- (NSString *)propertyNameForGetter:(SEL)selector {
+    Class class = [self class];
+    
+    while (class != [ObjCCodingBase class]) {
+        NSString * propertyName = [self propertyNameForGetter:selector
+                                                     forClass:class];
+        
+        if (propertyName) {
+            return propertyName;
+        }
+        
+        class = [class superclass];
+    }
+    
+    return nil;
+}
+
+- (NSString *)propertyNameForSetter:(SEL)selector forClass:(Class)class {
+    NSString * className = NSStringFromClass(class);
     NSString * selectorName = NSStringFromSelector(selector);
     
     return kPropertyNameForSetterForClass[className][selectorName];
 }
 
-- (NSString *)propertyNameForGetter:(SEL)selector {
-    NSString * className = NSStringFromClass([self class]);
+- (NSString *)propertyNameForGetter:(SEL)selector forClass:(Class)class {
+    NSString * className = NSStringFromClass(class);
     NSString * selectorName = NSStringFromSelector(selector);
     
     return kPropertyNameForGetterForClass[className][selectorName];
