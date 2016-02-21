@@ -2,83 +2,155 @@
 //  ObjCSelfAwareSwizzle.swift
 //  Nest
 //
-//  Created by Manfred on 11/22/15.
+//  Created by Manfred on 2/21/16.
 //
 //
 
 import Foundation
 import ObjectiveC
 
-public typealias ObjCSelfAwareSwizzling = (IMP) -> IMP
-
-public func withObjCSelfAwareSwizzleContext<F>(
-    forClassMethodSelector aSelector: Selector,
-    onClass aClass: AnyClass,
-    original: UnsafeMutablePointer<F>,
-    swizzled: F
-    )
-    -> ObjCSelfAwareSwizzleContext
-{
-    let className = class_getName(aClass)
-    let metaClass = objc_getMetaClass(className)
-    return withObjCSelfAwareSwizzleContext(
-        forInstanceMethodSelector: aSelector,
-        onClass: metaClass as! AnyClass,
-        original: original,
-        swizzled: swizzled
-    )
-}
-
-public func withObjCSelfAwareSwizzleContext<F>(
-    forInstanceMethodSelector aSelector: Selector,
-    onClass aClass: AnyClass,
-    original originalPtr:  UnsafeMutablePointer<F>,
-    swizzled: F
-    )
-    -> ObjCSelfAwareSwizzleContext
-{
-    return ObjCSelfAwareSwizzleContext(
-        targetClass: aClass,
-        targetSelector: aSelector,
-        isMetaClass: class_isMetaClass(aClass),
-        originalPtr: unsafeBitCast(originalPtr, UnsafeMutablePointer<IMP>.self),
-        swizzled: unsafeBitCast(swizzled, IMP.self)
-    )
-}
-
 @objc
-final public class ObjCSelfAwareSwizzleContext: NSObject {
-    public let targetClass: AnyClass
-    public let targetSelector: Selector
+final public class ObjCSelfAwareSwizzle: NSObject {
+    internal private(set) var source: ObjCSelfAwareSwizzleSource
+    
+    @objc public var targetClass: AnyClass {
+        switch source {
+        case let .Implementation(targetClass, _, _, _):
+            return targetClass
+        case let .Selector(targetClass, _, _):
+            return targetClass
+        }
+    }
+    
+    @objc public var targetSelector: Selector {
+        switch source {
+        case let .Implementation(_, targetSelector, _, _):
+            return targetSelector
+        case let .Selector(_, targetSelector, _):
+            return targetSelector
+        }
+    }
+    
     public let isMetaClass: Bool
-    private let originalPtr: UnsafePointer<IMP>
-    private let swizzled: IMP
+    
     private var onceToken: dispatch_once_t = 0
     
-    private init(
-        targetClass: AnyClass,
-        targetSelector: Selector,
-        isMetaClass: Bool,
+    @nonobjc internal init(
+        `class`: AnyClass,
+        selector: Selector,
         originalPtr: UnsafeMutablePointer<IMP>,
         swizzled: IMP
         )
     {
-        self.targetClass = targetClass
-        self.targetSelector = targetSelector
-        self.isMetaClass = isMetaClass
-        self.originalPtr = UnsafePointer<IMP>(originalPtr)
-        self.swizzled = swizzled
+        source = .Implementation(
+            class: `class`,
+            selector: selector,
+            originalImplPointer: originalPtr,
+            swizzledImpl: swizzled
+        )
+        isMetaClass = class_isMetaClass(`class`)
         super.init()
     }
     
-    public func perform(original: IMP) -> IMP {
-        var swizzled: IMP = nil
+    @nonobjc internal init(
+        class: AnyClass,
+        originalSelector: Selector,
+        swizzledSelector: Selector
+        )
+    {
+        assert(
+            originalSelector != swizzledSelector,
+            "Selector to swizzle(\(originalSelector)) shall not be same to the swizzling selector(\(swizzledSelector))."
+        )
+        
+        source = .Selector(
+            class: `class`,
+            originalSelector: originalSelector,
+            swizzledSelector: swizzledSelector
+        )
+        isMetaClass = class_isMetaClass(`class`)
+        super.init()
+    }
+    
+    public func perform(error: NSErrorPointer) -> Bool {
+        var succeeded = false
+        
+        error.memory = NSError(
+            domain: "com.WeZZard.Nest.ObjCSelfAwareSwizzle",
+            code: -1,
+            userInfo: [
+                NSLocalizedDescriptionKey
+                    : "Duplicate performing of swizzle: \(self.description)."
+            ]
+        )
+        
         dispatch_once(&onceToken) { () -> Void in
-            let mutableOriginalPtr = UnsafeMutablePointer<IMP>(self.originalPtr)
-            mutableOriginalPtr.memory = original
-            swizzled = self.swizzled
+            error.memory = nil
+            
+            switch self.source {
+            case let .Implementation(
+                targetClass,
+                targetSelector,
+                originalImplPtr,
+                swizzledImpl
+                ):
+                
+                let originalImpl = class_getMethodImplementation(
+                    targetClass,
+                    targetSelector
+                )
+                
+                originalImplPtr.memory = originalImpl
+                
+                let targetMethod = class_getInstanceMethod(
+                    targetClass,
+                    targetSelector
+                )
+                
+                let encoding = method_getTypeEncoding(targetMethod);
+                
+                class_replaceMethod(
+                    targetClass,
+                    targetSelector,
+                    swizzledImpl,
+                    encoding
+                )
+                
+                self.source = .Implementation(
+                    class: targetClass,
+                    selector: targetSelector,
+                    originalImplPointer: originalImplPtr,
+                    swizzledImpl: swizzledImpl
+                )
+                
+            case let .Selector(
+                targetClass, 
+                originalSelector, 
+                swizzledSelector
+                ):
+                
+                let originalMethod = class_getInstanceMethod(
+                    targetClass,
+                    originalSelector
+                )
+                
+                let swizzledMethod = class_getInstanceMethod(
+                    targetClass,
+                    swizzledSelector
+                )
+                
+                method_exchangeImplementations(originalMethod, swizzledMethod)
+                
+                break
+            }
+            
+            
+            succeeded = true
         }
-        return swizzled
+        /*
+         
+         */
+        return succeeded
     }
     
     public override var description: String {
@@ -97,13 +169,12 @@ final public class ObjCSelfAwareSwizzleContext: NSObject {
     }
     
     public override func isEqual(object: AnyObject?) -> Bool {
-        if let compared = object as? ObjCSelfAwareSwizzleContext {
+        if let compared = object as? ObjCSelfAwareSwizzle {
             return targetClass === compared.targetClass
                 && targetSelector == compared.targetSelector
                 && isMetaClass == compared.isMetaClass
-                && swizzled == compared.swizzled
+                && source == compared.source
         }
         return super.isEqual(object)
     }
 }
-

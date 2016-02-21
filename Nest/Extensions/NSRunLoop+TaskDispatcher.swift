@@ -29,6 +29,24 @@ public enum NSRunLoopTaskInvokeTiming: Int {
     case Idle
 }
 
+private struct DeallocSwizzleRecipe: ObjCSelfAwareSwizzleRecipeType {
+    private typealias FunctionPointer =
+        @convention(c) (Unmanaged<NSRunLoop>, Selector) -> Void
+    private static var original: FunctionPointer!
+    private static let swizzled: FunctionPointer =  {
+        (aSelf, aSelector) -> Void in
+        
+        let unretainedSelf = aSelf.takeUnretainedValue()
+        
+        if unretainedSelf.isDispatchObserverLoaded {
+            let observer = unretainedSelf.dispatchObserver
+            CFRunLoopObserverInvalidate(observer)
+        }
+        
+        DeallocSwizzleRecipe.original(aSelf, aSelector)
+    }
+}
+
 extension NSRunLoop {
     public func perform(closure: ()->Void) -> Task {
         objc_sync_enter(self)
@@ -40,31 +58,13 @@ extension NSRunLoop {
     }
     
     @objc private class func _ObjCSelfAwareSwizzle_dealloc()
-        -> ObjCSelfAwareSwizzleContext
+        -> ObjCSelfAwareSwizzle
     {
-        class SwizzleRecipe {
-            typealias FunctionPointer =
-                @convention(c) (Unmanaged<NSRunLoop>, Selector) -> Void
-            static var original: FunctionPointer!
-            static let swizzled: FunctionPointer =  {
-                (aSelf, aSelector) -> Void in
-                
-                let unretainedSelf = aSelf.takeUnretainedValue()
-                
-                if unretainedSelf.isDispatchObserverLoaded {
-                    let observer = unretainedSelf.dispatchObserver
-                    CFRunLoopObserverInvalidate(observer)
-                }
-                
-                SwizzleRecipe.original(aSelf, aSelector)
-            }
-        }
-        
-        return withObjCSelfAwareSwizzleContext(
-            forInstanceMethodSelector: "dealloc",
-            onClass: self,
-            original: &SwizzleRecipe.original,
-            swizzled: SwizzleRecipe.swizzled)
+        return swizzleInstanceMethodSelector(
+            "dealloc",
+            on: self,
+            recipe: DeallocSwizzleRecipe.self
+        )
     }
     
     public final class Task {
