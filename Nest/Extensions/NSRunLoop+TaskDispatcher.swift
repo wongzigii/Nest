@@ -61,14 +61,13 @@ extension NSRunLoop {
         -> ObjCSelfAwareSwizzle
     {
         return swizzleInstanceMethodSelector(
-            "dealloc",
+            NSSelectorFromString("dealloc"),
             on: self,
             recipe: DeallocSwizzleRecipe.self
         )
     }
     
     public final class Task {
-    
         
         private let weakRunLoop: Weak<NSRunLoop>
         

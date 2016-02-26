@@ -17,15 +17,15 @@ public enum NSCoderDecodingError: ErrorType {
     
     case TypeCastingFailed(key: String, value: Any, type: Any.Type)
     
-    case InternalInconsistency(key: String)
+    case InternalInconsistency(key: String, explanation: String)
     
     public var key: String {
         switch self {
-        case let .NoValueForKey(key):           return key
-        case let .InvalidRawValue(key, _, _):   return key
-        case let .TypeCastingFailed(key, _, _): return key
-        case let .BridgingFailed(key, _, _):    return key
-        case let .InternalInconsistency(key):   return key
+        case let .NoValueForKey(key):               return key
+        case let .InvalidRawValue(key, _, _):       return key
+        case let .TypeCastingFailed(key, _, _):     return key
+        case let .BridgingFailed(key, _, _):        return key
+        case let .InternalInconsistency(key, _):    return key
         }
     }
 }
@@ -173,7 +173,10 @@ extension NSCoder {
         }
         
         guard let object = decodeObjectForKey(key) else {
-            throw NSCoderDecodingError.InternalInconsistency(key: key)
+            throw NSCoderDecodingError.InternalInconsistency(
+                key: key,
+                explanation: "The decoder hints it contains value for key(\"\(key)\") but resulted in a nil decoded value."
+            )
         }
         
         var value: T?
@@ -209,7 +212,10 @@ extension NSCoder {
         }
         
         guard let object = decodeObjectForKey(key) else {
-            throw NSCoderDecodingError.InternalInconsistency(key: key)
+            throw NSCoderDecodingError.InternalInconsistency(
+                key: key,
+                explanation: "The decoder hints it contains value for key(\"\(key)\") but resulted in a nil decoded value."
+            )
         }
         
         var value: T?
@@ -236,7 +242,10 @@ extension NSCoder {
         }
         
         guard let object = decodeObjectForKey(key) else {
-            throw NSCoderDecodingError.InternalInconsistency(key: key)
+            throw NSCoderDecodingError.InternalInconsistency(
+                key: key,
+                explanation: "The decoder hints it contains value for key(\"\(key)\") but resulted in a nil decoded value."
+            )
         }
         
         guard let objectAsSpecifiedType = object as? T else {
@@ -267,7 +276,10 @@ extension NSCoder {
             // casting failure where decoder's `requiresSecureCoding` responded
             // to false.
             guard let object = decodeObjectForKey(key) else {
-                fatalError("The decoder hints it contains value for key(\"\(key)\") but resulted in a nil decoded value.")
+                throw NSCoderDecodingError.InternalInconsistency(
+                    key: key,
+                    explanation: "The decoder hints it contains value for key(\"\(key)\") but resulted in a nil decoded value."
+                )
             }
             
             throw NSCoderDecodingError.TypeCastingFailed(

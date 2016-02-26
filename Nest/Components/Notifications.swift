@@ -522,7 +522,7 @@ extension PrimitiveNotificationType {
 All the notification should conforms to `NotificationType`
 */
 public protocol NotificationType: PrimitiveNotificationType {
-    typealias NotificationPoster: NotificationPosterType
+    associatedtype NotificationPoster: NotificationPosterType
     var notificationPoster: Weak<NotificationPoster> {get}
 }
 

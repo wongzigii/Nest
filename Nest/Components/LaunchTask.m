@@ -17,40 +17,99 @@
 #import "LaunchTask-AppKit.h"
 #endif
 
+#pragma mark - Types
+typedef struct LTLaunchTaskInfo {
+    const char * selectorPrefix;
+    size_t selectorPrefixLength;
+    LTLaunchTaskSelectorHandler selectorHandler;
+    const void * context;
+    LTLaunchTaskContextCleanupHandler contextCleanupHandler;
+    int priority; // 0 by default
+} LTLaunchTaskInfo;
+
 typedef NS_OPTIONS(NSUInteger, LTLaunchTaskSelectorMatchResult) {
     LTLaunchTaskSelectorMatchResultUnmatched            = 0,
     LTLaunchTaskSelectorMatchResultMatched              = 1 << 0,
     LTLaunchTaskSelectorMatchResultMatchedIgnoreCase    = 1 << 1,
 };
 
+#pragma mark - Function Prototypes
+static LTLaunchTaskInfo * LTLaunchTaskInfoCreate(
+    const char *,
+    const LTLaunchTaskSelectorHandler,
+    const void *,
+    const LTLaunchTaskContextCleanupHandler,
+    int
+);
+
+static BOOL LTRegisterLaunchTaskInfo(const LTLaunchTaskInfo *);
+
 static void LTSwizzleAllPossibleAppDelegates();
+
 static LTLaunchTaskSelectorMatchResult LTMatchLaunchTaskSelector(
     SEL,
-    LTLaunchTaskInfo *
+    const LTLaunchTaskInfo *
 );
 
 static void LTScanAndActivateLaunchTaskSelectorsOnClass(
     Class,
-    LTLaunchTaskInfo *,
+    const LTLaunchTaskInfo *,
     NSArray *
 );
 
 // All the compare operation shall be gauranteed in a same thread.
-static BOOL LTLaunchTaskInfoEqualToInfo(LTLaunchTaskInfo *, LTLaunchTaskInfo *);
+static BOOL LTLaunchTaskInfoEqualToInfo(
+    const LTLaunchTaskInfo *,
+    const LTLaunchTaskInfo *
+);
 
 static void LTLaunchTaskInfoRelease(LTLaunchTaskInfo *);
 
-static LTLaunchTaskSelectorHandler  LTLaunchTaskSelectorHandlerDefault;
+static void LTLaunchTaskSelectorHandlerDefault(
+    SEL,
+    id,
+    Method,
+    NSArray *,
+    const void *
+);
 
+#pragma mark - Values
 static CFMutableArrayRef            kLTRegisteredLaunchTaskInfo = NULL;
 static CFMutableDictionaryRef       kLTLaunchTasksPerformerReplacingMap = NULL;
 
-#pragma mark - Extern Variables
-LTLaunchTaskInfo LTLaunchTaskInfoCreate(
+#pragma mark - Function Implementations
+BOOL LTRegisterLaunchTask(
     const char * selectorPrefix,
-    LTLaunchTaskSelectorHandlerRef launchTaskSelectorHandler,
-    void * context,
-    LTLaunchTaskContextCleanupHandlerRef contextCleanupHandler
+    LTLaunchTaskSelectorHandler selectorHandler,
+    const void * context,
+    LTLaunchTaskContextCleanupHandler contextCleanupHandler,
+    int priority
+    )
+{
+    // Create task info
+    LTLaunchTaskInfo * launchTaskInfo = LTLaunchTaskInfoCreate(
+        selectorPrefix,
+        selectorHandler,
+        context,
+        contextCleanupHandler,
+        priority
+    );
+    
+    // Register task info
+    if (LTRegisterLaunchTaskInfo(launchTaskInfo)) {
+        return YES;
+    } else {
+        LTLaunchTaskInfoRelease(launchTaskInfo);
+        return NO;
+    }
+}
+
+LTLaunchTaskInfo * LTLaunchTaskInfoCreate(
+    const char * selectorPrefix,
+    LTLaunchTaskSelectorHandler launchTaskSelectorHandler,
+    const void * context,
+    LTLaunchTaskContextCleanupHandler contextCleanupHandler,
+    int priotity
     )
 {
     size_t prefixLength = strlen(selectorPrefix);
@@ -58,7 +117,9 @@ LTLaunchTaskInfo LTLaunchTaskInfoCreate(
     char * managedSelectorPrefix = malloc(prefixLength * sizeof(char));
     memcpy(managedSelectorPrefix, selectorPrefix, prefixLength * sizeof(char));
     
-    LTLaunchTaskInfo info = (LTLaunchTaskInfo) {
+    LTLaunchTaskInfo * info = malloc(sizeof(LTLaunchTaskInfo));
+    
+    * info = (LTLaunchTaskInfo) {
         managedSelectorPrefix,
         prefixLength,
         launchTaskSelectorHandler,
@@ -75,10 +136,13 @@ void LTLaunchTaskInfoRelease(LTLaunchTaskInfo * info) {
     free(info);
 }
 
-BOOL LTRegisterLaunchTaskInfo(LTLaunchTaskInfo info) {
+BOOL LTRegisterLaunchTaskInfo(const LTLaunchTaskInfo * info) {
     if (kLTRegisteredLaunchTaskInfo == NULL) {
-        kLTRegisteredLaunchTaskInfo = CFArrayCreateMutable(kCFAllocatorDefault,
-            0, nil);
+        kLTRegisteredLaunchTaskInfo = CFArrayCreateMutable(
+            kCFAllocatorDefault,
+            0,
+            nil
+        );
     }
     
     CFIndex registeredInfoCount = CFArrayGetCount(kLTRegisteredLaunchTaskInfo);
@@ -87,16 +151,12 @@ BOOL LTRegisterLaunchTaskInfo(LTLaunchTaskInfo info) {
         LTLaunchTaskInfo * registeredInfo = (LTLaunchTaskInfo *)
             CFArrayGetValueAtIndex(kLTRegisteredLaunchTaskInfo, index);
         
-        if (LTLaunchTaskInfoEqualToInfo(registeredInfo, &info)) {
+        if (LTLaunchTaskInfoEqualToInfo(registeredInfo, info)) {
             return NO;
         }
     }
     
-    LTLaunchTaskInfo * infoRef = malloc(sizeof(LTLaunchTaskInfo));
-    
-    memcpy(infoRef, &info, sizeof(LTLaunchTaskInfo));
-    
-    CFArrayAppendValue(kLTRegisteredLaunchTaskInfo, infoRef);
+    CFArrayAppendValue(kLTRegisteredLaunchTaskInfo, info);
     
     return YES;
 }
@@ -190,10 +250,10 @@ void LTPerformLaunchTasksOnLoadedClasses(id firstArg, ...) {
                     const void * context = registeredInfo->context;
                     NSCAssert(context != NULL,
                               @"Context shall not be NULL here");
-                    LTLaunchTaskContextCleanupHandlerRef cleanupHandler =
+                    LTLaunchTaskContextCleanupHandler cleanupHandler =
                     registeredInfo->contextCleanupHandler;
                     
-                    (*cleanupHandler)(context);
+                    (*cleanupHandler)((void *)context);
                 }
                 
                 LTLaunchTaskInfoRelease(registeredInfo);
@@ -213,7 +273,7 @@ void LTPerformLaunchTasksOnLoadedClasses(id firstArg, ...) {
 
 void LTScanAndActivateLaunchTaskSelectorsOnClass(
     Class aClass,
-    LTLaunchTaskInfo * info,
+    const LTLaunchTaskInfo * info,
     NSArray * args
     )
 {
@@ -252,7 +312,7 @@ void LTScanAndActivateLaunchTaskSelectorsOnClass(
 
 LTLaunchTaskSelectorMatchResult LTMatchLaunchTaskSelector(
     SEL selector,
-    LTLaunchTaskInfo * info
+    const LTLaunchTaskInfo * info
     )
 {
     const char * expectedSelectorPrefix = info -> selectorPrefix;
@@ -326,8 +386,8 @@ void LTLaunchTaskSelectorHandlerDefault(
 }
 
 BOOL LTLaunchTaskInfoEqualToInfo(
-    LTLaunchTaskInfo * info1,
-    LTLaunchTaskInfo * info2
+    const LTLaunchTaskInfo * info1,
+    const LTLaunchTaskInfo * info2
     )
 {
     return (strcmp(info1 -> selectorPrefix, info2 -> selectorPrefix) == 0)
@@ -417,16 +477,12 @@ IMP LTLaunchTaskPerformerReplacedImpForClass(Class aClass) {
 + (void)load {
     LTSwizzleAllPossibleAppDelegates();
     
-    // Create task info
-    LTLaunchTaskInfo defaultLaunchTaskInfo =
-    LTLaunchTaskInfoCreate(
+    LTRegisterLaunchTask(
         "_LaunchTask_",
         &LTLaunchTaskSelectorHandlerDefault,
         NULL,
-        NULL
+        NULL,
+        0
     );
-    
-    // Register task info
-    LTRegisterLaunchTaskInfo(defaultLaunchTaskInfo);
 }
 @end

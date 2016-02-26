@@ -19,7 +19,10 @@ extension IndexPath {
     public init(NSIndexPath: Foundation.NSIndexPath) {
         let indices = UnsafeMutablePointer<Int>.alloc(NSIndexPath.length)
         NSIndexPath.getIndexes(indices)
-        let arrayOfIndices = [Index](head: indices, length: NSIndexPath.length)
+        let arrayOfIndices = [Index](
+            pointer: indices,
+            length: NSIndexPath.length
+        )
         self = IndexPath(arrayOfIndices)
         indices.destroy()
         indices.dealloc(NSIndexPath.length)

@@ -80,7 +80,7 @@ final public class ObjCSelfAwareSwizzle: NSObject {
             code: -1,
             userInfo: [
                 NSLocalizedDescriptionKey
-                    : "Duplicate performing of swizzle: \(self.description)."
+                    : "Duplicate performing of the same swizzle object: \(self.description)."
             ]
         )
         
@@ -100,6 +100,18 @@ final public class ObjCSelfAwareSwizzle: NSObject {
                     targetSelector
                 )
                 
+                if originalImpl == nil {
+                    error.memory = NSError(
+                        domain: "com.WeZZard.Nest.ObjCSelfAwareSwizzle",
+                        code: -2,
+                        userInfo: [
+                            NSLocalizedDescriptionKey
+                                : "Target class is nil: \(self.description)."
+                        ]
+                    )
+                    break
+                }
+                
                 originalImplPtr.memory = originalImpl
                 
                 let targetMethod = class_getInstanceMethod(
@@ -107,7 +119,31 @@ final public class ObjCSelfAwareSwizzle: NSObject {
                     targetSelector
                 )
                 
+                if targetMethod == nil {
+                    error.memory = NSError(
+                        domain: "com.WeZZard.Nest.ObjCSelfAwareSwizzle",
+                        code: -2,
+                        userInfo: [
+                            NSLocalizedDescriptionKey
+                                : "The target class(\(targetClass)) or its superclasses do not contain an instance method with the specified selector: \(self.descriptionForSelector(targetSelector))."
+                        ]
+                    )
+                    break
+                }
+                
                 let encoding = method_getTypeEncoding(targetMethod);
+                
+                if encoding == nil {
+                    error.memory = NSError(
+                        domain: "com.WeZZard.Nest.ObjCSelfAwareSwizzle",
+                        code: -2,
+                        userInfo: [
+                            NSLocalizedDescriptionKey
+                                : "Not type encoding for target method of selector: \(self.descriptionForSelector(targetSelector))."
+                        ]
+                    )
+                    break
+                }
                 
                 class_replaceMethod(
                     targetClass,
@@ -123,6 +159,8 @@ final public class ObjCSelfAwareSwizzle: NSObject {
                     swizzledImpl: swizzledImpl
                 )
                 
+                succeeded = true
+                
             case let .Selector(
                 targetClass, 
                 originalSelector, 
@@ -134,23 +172,52 @@ final public class ObjCSelfAwareSwizzle: NSObject {
                     originalSelector
                 )
                 
+                if originalMethod == nil {
+                    error.memory = NSError(
+                        domain: "com.WeZZard.Nest.ObjCSelfAwareSwizzle",
+                        code: -2,
+                        userInfo: [
+                            NSLocalizedDescriptionKey
+                                : "The target class(\(targetClass)) or its superclasses do not contain an instance method with the specified selector: \(self.descriptionForSelector(originalSelector))."
+                        ]
+                    )
+                    break
+                }
+                
                 let swizzledMethod = class_getInstanceMethod(
                     targetClass,
                     swizzledSelector
                 )
                 
+                if swizzledMethod == nil {
+                    error.memory = NSError(
+                        domain: "com.WeZZard.Nest.ObjCSelfAwareSwizzle",
+                        code: -2,
+                        userInfo: [
+                            NSLocalizedDescriptionKey
+                                : "The target class(\(targetClass)) or its superclasses do not contain an instance method with the specified selector: \(self.descriptionForSelector(swizzledSelector))."
+                        ]
+                    )
+                    break
+                }
+                
                 method_exchangeImplementations(originalMethod, swizzledMethod)
                 
-                break
+                succeeded = true
             }
             
             
-            succeeded = true
         }
-        /*
-         
-         */
+        
         return succeeded
+    }
+    
+    private func descriptionForSelector(selector: Selector) -> String {
+        if isMetaClass {
+            return "+\(selector)]"
+        } else {
+            return " -\(selector)]"
+        }
     }
     
     public override var description: String {

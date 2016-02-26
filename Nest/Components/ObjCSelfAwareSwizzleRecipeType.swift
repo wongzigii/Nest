@@ -9,7 +9,7 @@
 import Foundation
 
 public protocol ObjCSelfAwareSwizzleRecipeType {
-    typealias FunctionPointer
+    associatedtype FunctionPointer
     static var original: FunctionPointer! { get set }
     static var swizzled: FunctionPointer { get }
 }

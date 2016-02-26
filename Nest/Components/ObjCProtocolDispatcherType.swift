@@ -15,7 +15,7 @@ import Foundation
  to the object itself to the last appended dispatching destination. If all the
  dispatching destinations are not able to respond the message, it will finally 
  be dispatched back to the object itself. You are able to add dispatched 
- protocols at runtime.
+ protocols during the object's lifetime.
 
  - Discussion: Where the `ObjCProtocolDispatcherType` is different from 
  `ObjCProtocolInterceptor` are:

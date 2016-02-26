@@ -10,7 +10,7 @@ import Foundation
 import SwiftExt
 
 public protocol ObjCMultiCastDelegatable: class {
-    typealias Delegate: AnyObject
+    associatedtype Delegate: AnyObject
     
     var delegates: [Delegate] { get }
 }

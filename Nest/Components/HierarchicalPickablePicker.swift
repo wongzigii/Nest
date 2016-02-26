@@ -13,8 +13,8 @@ Conform to `HierarchicalPickable` if you want your type to be able to be
 recognized by `HierarchicalPickablePicker`
 */
 public protocol HierarchicalPickable: Hashable {
-    typealias ParentPickable = Self
-    typealias Pickable = Self
+    associatedtype ParentPickable = Self
+    associatedtype Pickable = Self
     
     /// Parent
     var parentPickable: ParentPickable? {get}

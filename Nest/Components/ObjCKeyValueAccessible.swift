@@ -9,7 +9,7 @@
 import Foundation
 
 public protocol ObjCKeyValueAccessible {
-    typealias Key: ObjCKeyValueAccessibleKeyType
+    associatedtype Key: ObjCKeyValueAccessibleKeyType
 }
 
 extension ObjCKeyValueAccessible where Self: NSObject,

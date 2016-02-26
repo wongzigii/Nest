@@ -36,11 +36,14 @@ public func sel_belongsToProtocol(
 }
 
 public func objc_method_description_isEmpty(
-    var methodDescription: objc_method_description
+    methodDescription: objc_method_description
     )
     -> Bool
 {
-    let ptr = withUnsafePointer(&methodDescription) { UnsafePointer<Int8>($0) }
+    var mutableMethodDescription = methodDescription
+    let ptr = withUnsafePointer(&mutableMethodDescription) {
+        UnsafePointer<Int8>($0)
+    }
     for offset in 0..<sizeof(objc_method_description) {
         if ptr[offset] != 0 {
             return false
@@ -49,12 +52,9 @@ public func objc_method_description_isEmpty(
     return true
 }
 
-public func property_isEmpty(
-    var property: objc_property_t
-    )
-    -> Bool
-{
-    let ptr = withUnsafePointer(&property) { UnsafePointer<Int8>($0) }
+public func property_isEmpty(property: objc_property_t) -> Bool {
+    var mutalbeProperty = property
+    let ptr = withUnsafePointer(&mutalbeProperty) { UnsafePointer<Int8>($0) }
     for offset in 0..<sizeof(objc_property_t) {
         if ptr[offset] != 0 {
             return false
@@ -63,12 +63,9 @@ public func property_isEmpty(
     return true
 }
 
-public func sel_isEmpty(
-    var selector: Selector
-    )
-    -> Bool
-{
-    let ptr = withUnsafePointer(&selector) { UnsafePointer<Int8>($0) }
+public func sel_isEmpty(selector: Selector) -> Bool {
+    var mutableSelector = selector
+    let ptr = withUnsafePointer(&mutableSelector) { UnsafePointer<Int8>($0) }
     for offset in 0..<sizeof(Selector) {
         if ptr[offset] != 0 {
             return false

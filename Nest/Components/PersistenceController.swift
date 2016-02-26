@@ -91,10 +91,14 @@ public class PersistenceController {
                 fatalError("Error migrating store: \(error)")
             }
             
-            NSNotificationCenter.defaultCenter().addObserver(self,
-                selector: "handleManagedObjectContextDidSaveNotification:",
+            NSNotificationCenter.defaultCenter().addObserver(
+                self,
+                selector: #selector(
+                    self.handleManagedObjectContextDidSaveNotification(_:)
+                ),
                 name: NSManagedObjectContextDidSaveNotification,
-                object: self.savingContext)
+                object: self.savingContext
+            )
             
             self.savingContext.persistentStoreCoordinator
                 = persistenStoreCoordinator

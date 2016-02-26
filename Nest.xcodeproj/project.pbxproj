@@ -170,6 +170,27 @@
 		6360D3401C73688900D64CE8 /* ObjCPrimitiveCodingType-CoreGraphics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6360D33E1C73688900D64CE8 /* ObjCPrimitiveCodingType-CoreGraphics.swift */; };
 		6360D3411C73688900D64CE8 /* ObjCPrimitiveCodingType-CoreGraphics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6360D33E1C73688900D64CE8 /* ObjCPrimitiveCodingType-CoreGraphics.swift */; };
 		6360D3421C73688900D64CE8 /* ObjCPrimitiveCodingType-CoreGraphics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6360D33E1C73688900D64CE8 /* ObjCPrimitiveCodingType-CoreGraphics.swift */; };
+		6371F1F11C7F31FE00837BB7 /* ObjCCodingBaseAccessors.m in Sources */ = {isa = PBXBuildFile; fileRef = 6371F1EF1C7F31FE00837BB7 /* ObjCCodingBaseAccessors.m */; };
+		6371F1F21C7F31FE00837BB7 /* ObjCCodingBaseAccessors.m in Sources */ = {isa = PBXBuildFile; fileRef = 6371F1EF1C7F31FE00837BB7 /* ObjCCodingBaseAccessors.m */; };
+		6371F1F31C7F31FE00837BB7 /* ObjCCodingBaseAccessors.m in Sources */ = {isa = PBXBuildFile; fileRef = 6371F1EF1C7F31FE00837BB7 /* ObjCCodingBaseAccessors.m */; };
+		6371F1F41C7F31FE00837BB7 /* ObjCCodingBaseAccessors.m in Sources */ = {isa = PBXBuildFile; fileRef = 6371F1EF1C7F31FE00837BB7 /* ObjCCodingBaseAccessors.m */; };
+		6371F1FB1C7F35FC00837BB7 /* ObjCCodingBasePropertySynthesize.h in Headers */ = {isa = PBXBuildFile; fileRef = 6371F1F91C7F35FC00837BB7 /* ObjCCodingBasePropertySynthesize.h */; };
+		6371F1FC1C7F35FC00837BB7 /* ObjCCodingBasePropertySynthesize.h in Headers */ = {isa = PBXBuildFile; fileRef = 6371F1F91C7F35FC00837BB7 /* ObjCCodingBasePropertySynthesize.h */; };
+		6371F1FD1C7F35FC00837BB7 /* ObjCCodingBasePropertySynthesize.h in Headers */ = {isa = PBXBuildFile; fileRef = 6371F1F91C7F35FC00837BB7 /* ObjCCodingBasePropertySynthesize.h */; };
+		6371F1FE1C7F35FC00837BB7 /* ObjCCodingBasePropertySynthesize.h in Headers */ = {isa = PBXBuildFile; fileRef = 6371F1F91C7F35FC00837BB7 /* ObjCCodingBasePropertySynthesize.h */; };
+		6371F1FF1C7F35FC00837BB7 /* ObjCCodingBasePropertySynthesize.m in Sources */ = {isa = PBXBuildFile; fileRef = 6371F1FA1C7F35FC00837BB7 /* ObjCCodingBasePropertySynthesize.m */; };
+		6371F2001C7F35FC00837BB7 /* ObjCCodingBasePropertySynthesize.m in Sources */ = {isa = PBXBuildFile; fileRef = 6371F1FA1C7F35FC00837BB7 /* ObjCCodingBasePropertySynthesize.m */; };
+		6371F2011C7F35FC00837BB7 /* ObjCCodingBasePropertySynthesize.m in Sources */ = {isa = PBXBuildFile; fileRef = 6371F1FA1C7F35FC00837BB7 /* ObjCCodingBasePropertySynthesize.m */; };
+		6371F2021C7F35FC00837BB7 /* ObjCCodingBasePropertySynthesize.m in Sources */ = {isa = PBXBuildFile; fileRef = 6371F1FA1C7F35FC00837BB7 /* ObjCCodingBasePropertySynthesize.m */; };
+		6371F2051C7F57FC00837BB7 /* ObjCCodingBaseAccessors-CoreGraphics.m in Sources */ = {isa = PBXBuildFile; fileRef = 6371F2031C7F57FC00837BB7 /* ObjCCodingBaseAccessors-CoreGraphics.m */; };
+		6371F2061C7F57FC00837BB7 /* ObjCCodingBaseAccessors-CoreGraphics.m in Sources */ = {isa = PBXBuildFile; fileRef = 6371F2031C7F57FC00837BB7 /* ObjCCodingBaseAccessors-CoreGraphics.m */; };
+		6371F2071C7F57FC00837BB7 /* ObjCCodingBaseAccessors-CoreGraphics.m in Sources */ = {isa = PBXBuildFile; fileRef = 6371F2031C7F57FC00837BB7 /* ObjCCodingBaseAccessors-CoreGraphics.m */; };
+		6371F2081C7F57FC00837BB7 /* ObjCCodingBaseAccessors-CoreGraphics.m in Sources */ = {isa = PBXBuildFile; fileRef = 6371F2031C7F57FC00837BB7 /* ObjCCodingBaseAccessors-CoreGraphics.m */; };
+		6371F2141C7F829C00837BB7 /* ObjCCodingBaseAccessors-UIKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 6371F2121C7F829C00837BB7 /* ObjCCodingBaseAccessors-UIKit.m */; };
+		6371F2171C7F829C00837BB7 /* ObjCCodingBaseAccessors-UIKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 6371F2121C7F829C00837BB7 /* ObjCCodingBaseAccessors-UIKit.m */; };
+		6371F21E1C7F834F00837BB7 /* ObjCCodingBaseAccessors-QuartzCore.m in Sources */ = {isa = PBXBuildFile; fileRef = 6371F21C1C7F834F00837BB7 /* ObjCCodingBaseAccessors-QuartzCore.m */; };
+		6371F21F1C7F834F00837BB7 /* ObjCCodingBaseAccessors-QuartzCore.m in Sources */ = {isa = PBXBuildFile; fileRef = 6371F21C1C7F834F00837BB7 /* ObjCCodingBaseAccessors-QuartzCore.m */; };
+		6371F2201C7F834F00837BB7 /* ObjCCodingBaseAccessors-QuartzCore.m in Sources */ = {isa = PBXBuildFile; fileRef = 6371F21C1C7F834F00837BB7 /* ObjCCodingBaseAccessors-QuartzCore.m */; };
 		63BEA8741C79875D002171C2 /* ObjCSelfAwareSwizzle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63BEA8731C79875D002171C2 /* ObjCSelfAwareSwizzle.swift */; };
 		63BEA8761C79904A002171C2 /* ObjCSelfAwareSwizzleSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63BEA8751C79904A002171C2 /* ObjCSelfAwareSwizzleSource.swift */; };
 		63BEA8781C799951002171C2 /* ObjCSelfAwareSwizzleRecipeType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63BEA8771C799951002171C2 /* ObjCSelfAwareSwizzleRecipeType.swift */; };
@@ -190,6 +211,14 @@
 		63C3C8871C2AB52200A864E4 /* IndexPath+_ObjectiveCBridgeable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C3C8851C2AB52200A864E4 /* IndexPath+_ObjectiveCBridgeable.swift */; };
 		63C3C8881C2AB52200A864E4 /* IndexPath+_ObjectiveCBridgeable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C3C8851C2AB52200A864E4 /* IndexPath+_ObjectiveCBridgeable.swift */; };
 		63C3C8891C2AB52200A864E4 /* IndexPath+_ObjectiveCBridgeable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C3C8851C2AB52200A864E4 /* IndexPath+_ObjectiveCBridgeable.swift */; };
+		63C886371C7F15F300F5677F /* LegacyUtilities.h in Headers */ = {isa = PBXBuildFile; fileRef = 63C886351C7F15F300F5677F /* LegacyUtilities.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		63C886381C7F15F300F5677F /* LegacyUtilities.h in Headers */ = {isa = PBXBuildFile; fileRef = 63C886351C7F15F300F5677F /* LegacyUtilities.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		63C886391C7F15F300F5677F /* LegacyUtilities.h in Headers */ = {isa = PBXBuildFile; fileRef = 63C886351C7F15F300F5677F /* LegacyUtilities.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		63C8863A1C7F15F300F5677F /* LegacyUtilities.h in Headers */ = {isa = PBXBuildFile; fileRef = 63C886351C7F15F300F5677F /* LegacyUtilities.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		63C8863B1C7F15F300F5677F /* LegacyUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 63C886361C7F15F300F5677F /* LegacyUtilities.m */; };
+		63C8863C1C7F15F300F5677F /* LegacyUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 63C886361C7F15F300F5677F /* LegacyUtilities.m */; };
+		63C8863D1C7F15F300F5677F /* LegacyUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 63C886361C7F15F300F5677F /* LegacyUtilities.m */; };
+		63C8863E1C7F15F300F5677F /* LegacyUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 63C886361C7F15F300F5677F /* LegacyUtilities.m */; };
 		63DCC69B1C64D753001949C9 /* ObjCCodingBase.h in Headers */ = {isa = PBXBuildFile; fileRef = 63DCC6991C64D753001949C9 /* ObjCCodingBase.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		63DCC69C1C64D753001949C9 /* ObjCCodingBase.h in Headers */ = {isa = PBXBuildFile; fileRef = 63DCC6991C64D753001949C9 /* ObjCCodingBase.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		63DCC69D1C64D753001949C9 /* ObjCCodingBase.h in Headers */ = {isa = PBXBuildFile; fileRef = 63DCC6991C64D753001949C9 /* ObjCCodingBase.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -205,10 +234,10 @@
 		63ED3B2C1C12056E008B8A5C /* LaunchTaskInternal.h in Headers */ = {isa = PBXBuildFile; fileRef = 63ED3B291C12056E008B8A5C /* LaunchTaskInternal.h */; };
 		63ED3B2D1C12056E008B8A5C /* LaunchTaskInternal.h in Headers */ = {isa = PBXBuildFile; fileRef = 63ED3B291C12056E008B8A5C /* LaunchTaskInternal.h */; };
 		63ED3B2E1C12056E008B8A5C /* LaunchTaskInternal.h in Headers */ = {isa = PBXBuildFile; fileRef = 63ED3B291C12056E008B8A5C /* LaunchTaskInternal.h */; };
-		63F0B5241C11D6DC00710C41 /* LaunchTask.h in Headers */ = {isa = PBXBuildFile; fileRef = 63F0B5221C11D6DB00710C41 /* LaunchTask.h */; };
-		63F0B5251C11D6DC00710C41 /* LaunchTask.h in Headers */ = {isa = PBXBuildFile; fileRef = 63F0B5221C11D6DB00710C41 /* LaunchTask.h */; };
-		63F0B5261C11D6DC00710C41 /* LaunchTask.h in Headers */ = {isa = PBXBuildFile; fileRef = 63F0B5221C11D6DB00710C41 /* LaunchTask.h */; };
-		63F0B5271C11D6DC00710C41 /* LaunchTask.h in Headers */ = {isa = PBXBuildFile; fileRef = 63F0B5221C11D6DB00710C41 /* LaunchTask.h */; };
+		63F0B5241C11D6DC00710C41 /* LaunchTask.h in Headers */ = {isa = PBXBuildFile; fileRef = 63F0B5221C11D6DB00710C41 /* LaunchTask.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		63F0B5251C11D6DC00710C41 /* LaunchTask.h in Headers */ = {isa = PBXBuildFile; fileRef = 63F0B5221C11D6DB00710C41 /* LaunchTask.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		63F0B5261C11D6DC00710C41 /* LaunchTask.h in Headers */ = {isa = PBXBuildFile; fileRef = 63F0B5221C11D6DB00710C41 /* LaunchTask.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		63F0B5271C11D6DC00710C41 /* LaunchTask.h in Headers */ = {isa = PBXBuildFile; fileRef = 63F0B5221C11D6DB00710C41 /* LaunchTask.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		63F0B5281C11D6DC00710C41 /* LaunchTask.m in Sources */ = {isa = PBXBuildFile; fileRef = 63F0B5231C11D6DB00710C41 /* LaunchTask.m */; };
 		63F0B5291C11D6DC00710C41 /* LaunchTask.m in Sources */ = {isa = PBXBuildFile; fileRef = 63F0B5231C11D6DB00710C41 /* LaunchTask.m */; };
 		63F0B52A1C11D6DC00710C41 /* LaunchTask.m in Sources */ = {isa = PBXBuildFile; fileRef = 63F0B5231C11D6DB00710C41 /* LaunchTask.m */; };
@@ -311,6 +340,14 @@
 		635F12D91BFB229E004982B4 /* SwiftExt.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftExt.framework; path = "Frameworks/SwiftExt/build/Debug-appletvos/SwiftExt.framework"; sourceTree = "<group>"; };
 		6360D33A1C73687E00D64CE8 /* _ObjectiveCBridgeable-QuartzCoreAddition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "_ObjectiveCBridgeable-QuartzCoreAddition.swift"; sourceTree = "<group>"; };
 		6360D33E1C73688900D64CE8 /* ObjCPrimitiveCodingType-CoreGraphics.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ObjCPrimitiveCodingType-CoreGraphics.swift"; sourceTree = "<group>"; };
+		6371F1EF1C7F31FE00837BB7 /* ObjCCodingBaseAccessors.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ObjCCodingBaseAccessors.m; sourceTree = "<group>"; };
+		6371F1F91C7F35FC00837BB7 /* ObjCCodingBasePropertySynthesize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ObjCCodingBasePropertySynthesize.h; sourceTree = "<group>"; };
+		6371F1FA1C7F35FC00837BB7 /* ObjCCodingBasePropertySynthesize.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ObjCCodingBasePropertySynthesize.m; sourceTree = "<group>"; };
+		6371F2031C7F57FC00837BB7 /* ObjCCodingBaseAccessors-CoreGraphics.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ObjCCodingBaseAccessors-CoreGraphics.m"; sourceTree = "<group>"; };
+		6371F2121C7F829C00837BB7 /* ObjCCodingBaseAccessors-UIKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ObjCCodingBaseAccessors-UIKit.m"; sourceTree = "<group>"; };
+		6371F21C1C7F834F00837BB7 /* ObjCCodingBaseAccessors-QuartzCore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ObjCCodingBaseAccessors-QuartzCore.m"; sourceTree = "<group>"; };
+		6371F22C1C7FA0C400837BB7 /* ObjCCodingBase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObjCCodingBase.swift; sourceTree = "<group>"; };
+		6371F2311C7FF5EE00837BB7 /* NestTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NestTests-Bridging-Header.h"; sourceTree = "<group>"; };
 		639D63EE1BE8404400B30F67 /* SwiftExt.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftExt.framework; path = "../SwiftExt/build/Debug-iphoneos/SwiftExt.framework"; sourceTree = "<group>"; };
 		639D63F01BE8404E00B30F67 /* SwiftExt.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftExt.framework; path = ../SwiftExt/build/Debug/SwiftExt.framework; sourceTree = "<group>"; };
 		63BEA8731C79875D002171C2 /* ObjCSelfAwareSwizzle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObjCSelfAwareSwizzle.swift; sourceTree = "<group>"; };
@@ -318,10 +355,12 @@
 		63BEA8771C799951002171C2 /* ObjCSelfAwareSwizzleRecipeType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObjCSelfAwareSwizzleRecipeType.swift; sourceTree = "<group>"; };
 		63C1D9FA1C3164E700D0F548 /* ObjCSelectorInterceptor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObjCSelectorInterceptor.swift; sourceTree = "<group>"; };
 		63C3C8851C2AB52200A864E4 /* IndexPath+_ObjectiveCBridgeable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "IndexPath+_ObjectiveCBridgeable.swift"; sourceTree = "<group>"; };
+		63C8862F1C7F146400F5677F /* Nest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Nest.h; sourceTree = "<group>"; };
+		63C886351C7F15F300F5677F /* LegacyUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LegacyUtilities.h; sourceTree = "<group>"; };
+		63C886361C7F15F300F5677F /* LegacyUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LegacyUtilities.m; sourceTree = "<group>"; };
 		63DCC6991C64D753001949C9 /* ObjCCodingBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ObjCCodingBase.h; sourceTree = "<group>"; };
 		63DCC69A1C64D753001949C9 /* ObjCCodingBase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ObjCCodingBase.m; sourceTree = "<group>"; };
 		63DCC6A31C64E3CC001949C9 /* ObjCCodingBaseTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObjCCodingBaseTest.swift; sourceTree = "<group>"; };
-		63DCC6A81C64E459001949C9 /* Nest-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Nest-Bridging-Header.h"; sourceTree = "<group>"; };
 		63ED3B291C12056E008B8A5C /* LaunchTaskInternal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LaunchTaskInternal.h; sourceTree = "<group>"; };
 		63F0B5221C11D6DB00710C41 /* LaunchTask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LaunchTask.h; sourceTree = "<group>"; };
 		63F0B5231C11D6DB00710C41 /* LaunchTask.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LaunchTask.m; sourceTree = "<group>"; };
@@ -427,6 +466,7 @@
 				633ECED91C158EF90082D870 /* ObjCPrimitiveCodingType-UIKit.swift */,
 				63F0B52C1C11D8D500710C41 /* LaunchTask-UIKit.h */,
 				63F0B52D1C11D8D500710C41 /* LaunchTask-UIKit.m */,
+				6371F2121C7F829C00837BB7 /* ObjCCodingBaseAccessors-UIKit.m */,
 			);
 			path = UIKit;
 			sourceTree = "<group>";
@@ -469,6 +509,7 @@
 				633ECE8C1C1542820082D870 /* NSProtocolInterceptorTest.swift */,
 				633ECE8E1C1542820082D870 /* NSRunLoop+TaskDispatcherTest.swift */,
 				633ECE8F1C1542820082D870 /* ObjectiveCTest.swift */,
+				6371F2311C7FF5EE00837BB7 /* NestTests-Bridging-Header.h */,
 			);
 			path = NestTests;
 			sourceTree = "<group>";
@@ -503,6 +544,7 @@
 		634711811B22D94600FA2C76 /* Nest */ = {
 			isa = PBXGroup;
 			children = (
+				63C886341C7F15E200F5677F /* Legacy */,
 				635F108E1BFAFABB004982B4 /* Components */,
 				635F109A1BFAFABB004982B4 /* Extensions */,
 				635F10A91BFAFABB004982B4 /* Miscellaneous */,
@@ -516,8 +558,12 @@
 			children = (
 				635F108F1BFAFABB004982B4 /* HierarchicalPickablePicker.swift */,
 				635F10901BFAFABB004982B4 /* Notifications.swift */,
+				6371F22C1C7FA0C400837BB7 /* ObjCCodingBase.swift */,
 				63DCC6991C64D753001949C9 /* ObjCCodingBase.h */,
 				63DCC69A1C64D753001949C9 /* ObjCCodingBase.m */,
+				6371F1F91C7F35FC00837BB7 /* ObjCCodingBasePropertySynthesize.h */,
+				6371F1FA1C7F35FC00837BB7 /* ObjCCodingBasePropertySynthesize.m */,
+				6371F1EF1C7F31FE00837BB7 /* ObjCCodingBaseAccessors.m */,
 				635F10911BFAFABB004982B4 /* ObjCCodingPrimitiveType.swift */,
 				633ECDA31C14487A0082D870 /* ObjCTypeEncoding.swift */,
 				635F10921BFAFABB004982B4 /* ObjCKeyValueAccessible.swift */,
@@ -654,6 +700,7 @@
 			isa = PBXGroup;
 			children = (
 				6360D33E1C73688900D64CE8 /* ObjCPrimitiveCodingType-CoreGraphics.swift */,
+				6371F2031C7F57FC00837BB7 /* ObjCCodingBaseAccessors-CoreGraphics.m */,
 			);
 			path = CoreGraphics;
 			sourceTree = "<group>";
@@ -662,14 +709,24 @@
 			isa = PBXGroup;
 			children = (
 				6360D33A1C73687E00D64CE8 /* _ObjectiveCBridgeable-QuartzCoreAddition.swift */,
+				6371F21C1C7F834F00837BB7 /* ObjCCodingBaseAccessors-QuartzCore.m */,
 			);
 			path = QuartzCore;
+			sourceTree = "<group>";
+		};
+		63C886341C7F15E200F5677F /* Legacy */ = {
+			isa = PBXGroup;
+			children = (
+				63C886351C7F15F300F5677F /* LegacyUtilities.h */,
+				63C886361C7F15F300F5677F /* LegacyUtilities.m */,
+			);
+			path = Legacy;
 			sourceTree = "<group>";
 		};
 		63DCC6A71C64E400001949C9 /* SupportingFiles */ = {
 			isa = PBXGroup;
 			children = (
-				63DCC6A81C64E459001949C9 /* Nest-Bridging-Header.h */,
+				63C8862F1C7F146400F5677F /* Nest.h */,
 			);
 			path = SupportingFiles;
 			sourceTree = "<group>";
@@ -683,7 +740,9 @@
 			files = (
 				63DCC69D1C64D753001949C9 /* ObjCCodingBase.h in Headers */,
 				63F0B5261C11D6DC00710C41 /* LaunchTask.h in Headers */,
+				63C886391C7F15F300F5677F /* LegacyUtilities.h in Headers */,
 				63ED3B2D1C12056E008B8A5C /* LaunchTaskInternal.h in Headers */,
+				6371F1FD1C7F35FC00837BB7 /* ObjCCodingBasePropertySynthesize.h in Headers */,
 				63F0B5381C11D8F000710C41 /* LaunchTask-WatchKit.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -694,7 +753,9 @@
 			files = (
 				63DCC69B1C64D753001949C9 /* ObjCCodingBase.h in Headers */,
 				63F0B5241C11D6DC00710C41 /* LaunchTask.h in Headers */,
+				63C886371C7F15F300F5677F /* LegacyUtilities.h in Headers */,
 				63ED3B2B1C12056E008B8A5C /* LaunchTaskInternal.h in Headers */,
+				6371F1FB1C7F35FC00837BB7 /* ObjCCodingBasePropertySynthesize.h in Headers */,
 				63F0B52E1C11D8D500710C41 /* LaunchTask-UIKit.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -705,7 +766,9 @@
 			files = (
 				63DCC69C1C64D753001949C9 /* ObjCCodingBase.h in Headers */,
 				63F0B5251C11D6DC00710C41 /* LaunchTask.h in Headers */,
+				63C886381C7F15F300F5677F /* LegacyUtilities.h in Headers */,
 				63ED3B2C1C12056E008B8A5C /* LaunchTaskInternal.h in Headers */,
+				6371F1FC1C7F35FC00837BB7 /* ObjCCodingBasePropertySynthesize.h in Headers */,
 				63F0B5341C11D8E200710C41 /* LaunchTask-AppKit.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -716,7 +779,9 @@
 			files = (
 				63DCC69E1C64D753001949C9 /* ObjCCodingBase.h in Headers */,
 				63F0B5271C11D6DC00710C41 /* LaunchTask.h in Headers */,
+				63C8863A1C7F15F300F5677F /* LegacyUtilities.h in Headers */,
 				63ED3B2E1C12056E008B8A5C /* LaunchTaskInternal.h in Headers */,
+				6371F1FE1C7F35FC00837BB7 /* ObjCCodingBasePropertySynthesize.h in Headers */,
 				63F0B52F1C11D8D500710C41 /* LaunchTask-UIKit.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -964,6 +1029,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6371F1F31C7F31FE00837BB7 /* ObjCCodingBaseAccessors.m in Sources */,
 				633ECEC11C1547900082D870 /* NSCoder+InterfaceNormalization.swift in Sources */,
 				635F10EF1BFAFABB004982B4 /* NSRunLoop+TaskDispatcher.swift in Sources */,
 				633ECE481C14A12F0082D870 /* ObjCTypeEncoding.swift in Sources */,
@@ -981,6 +1047,7 @@
 				635F10B31BFAFABB004982B4 /* Notifications.swift in Sources */,
 				635F10BF1BFAFABB004982B4 /* ObjCMultiCastDelegatable.swift in Sources */,
 				63C1D9FD1C3164E700D0F548 /* ObjCSelectorInterceptor.swift in Sources */,
+				6371F2071C7F57FC00837BB7 /* ObjCCodingBaseAccessors-CoreGraphics.m in Sources */,
 				63F0B5391C11D8F000710C41 /* LaunchTask-WatchKit.m in Sources */,
 				635F10F21BFAFABB004982B4 /* NSString+RangesOfString.swift in Sources */,
 				635F11061BFAFB4D004982B4 /* ObjectiveC.swift in Sources */,
@@ -996,9 +1063,11 @@
 				630D51FF1C0D7003007E2D5C /* NSManagedObject+ObjCKeyValueAccessible.swift in Sources */,
 				6315CB4E1BFD8746003A5840 /* ObjCSelfAwareSwizzle.m in Sources */,
 				635F10BC1BFAFABB004982B4 /* ObjCAssociated.swift in Sources */,
+				6371F2011C7F35FC00837BB7 /* ObjCCodingBasePropertySynthesize.m in Sources */,
 				635F110A1BFAFBA5004982B4 /* SubsequentSetupInitializable.swift in Sources */,
 				635F10D71BFAFABB004982B4 /* NSDate+Comparable.swift in Sources */,
 				635F10C51BFAFABB004982B4 /* ObjCProtocolInterceptor.swift in Sources */,
+				63C8863D1C7F15F300F5677F /* LegacyUtilities.m in Sources */,
 				635F10E01BFAFABB004982B4 /* NSIndexPath+IndexPathType.swift in Sources */,
 				635F10DA1BFAFABB004982B4 /* NSError+InitConveniences.swift in Sources */,
 				633ECED71C158A390082D870 /* _ObjectiveCBridgeable+FoundationAddition.swift in Sources */,
@@ -1019,19 +1088,23 @@
 				635F10F91BFAFABB004982B4 /* NSPersistentStoreType.swift in Sources */,
 				635F10FC1BFAFABB004982B4 /* NSRunLoopMode.swift in Sources */,
 				635F10C61BFAFABB004982B4 /* PersistenceController.swift in Sources */,
+				6371F21E1C7F834F00837BB7 /* ObjCCodingBaseAccessors-QuartzCore.m in Sources */,
 				635F10CF1BFAFABB004982B4 /* CFRunLoopActivity+CustomDebugStringConvertible.swift in Sources */,
 				633ECEDA1C158EF90082D870 /* ObjCPrimitiveCodingType-UIKit.swift in Sources */,
 				6360D33F1C73688900D64CE8 /* ObjCPrimitiveCodingType-CoreGraphics.swift in Sources */,
 				63050CA61C018C9300EDFEAD /* ObjCSelfAwareSwizzle+Utilities.swift in Sources */,
 				633ECE411C14A0680082D870 /* NSCoding+ObjCKeyValueAccessible.swift in Sources */,
 				633ECE3D1C149F3B0082D870 /* ObjCCodingPrimitiveType.swift in Sources */,
+				6371F1FF1C7F35FC00837BB7 /* ObjCCodingBasePropertySynthesize.m in Sources */,
 				635F10B11BFAFABB004982B4 /* Notifications.swift in Sources */,
 				635F10BD1BFAFABB004982B4 /* ObjCMultiCastDelegatable.swift in Sources */,
 				635F10F01BFAFABB004982B4 /* NSString+RangesOfString.swift in Sources */,
 				635F11041BFAFB4D004982B4 /* ObjectiveC.swift in Sources */,
+				63C8863B1C7F15F300F5677F /* LegacyUtilities.m in Sources */,
 				6360D33B1C73687E00D64CE8 /* _ObjectiveCBridgeable-QuartzCoreAddition.swift in Sources */,
 				63BEA8741C79875D002171C2 /* ObjCSelfAwareSwizzle.swift in Sources */,
 				635F10AE1BFAFABB004982B4 /* HierarchicalPickablePicker.swift in Sources */,
+				6371F2141C7F829C00837BB7 /* ObjCCodingBaseAccessors-UIKit.m in Sources */,
 				635F10E41BFAFABB004982B4 /* NSObjectProtocol+Collections.swift in Sources */,
 				63C3C8861C2AB52200A864E4 /* IndexPath+_ObjectiveCBridgeable.swift in Sources */,
 				63F0B5301C11D8D500710C41 /* LaunchTask-UIKit.m in Sources */,
@@ -1049,11 +1122,13 @@
 				6315CB4C1BFD8746003A5840 /* ObjCSelfAwareSwizzle.m in Sources */,
 				635F10BA1BFAFABB004982B4 /* ObjCAssociated.swift in Sources */,
 				635F11081BFAFBA5004982B4 /* SubsequentSetupInitializable.swift in Sources */,
+				6371F2051C7F57FC00837BB7 /* ObjCCodingBaseAccessors-CoreGraphics.m in Sources */,
 				635F10D51BFAFABB004982B4 /* NSDate+Comparable.swift in Sources */,
 				635F10C31BFAFABB004982B4 /* ObjCProtocolInterceptor.swift in Sources */,
 				635C250D1C2015CB00B0263F /* NSRange+Utilities.swift in Sources */,
 				635F10DE1BFAFABB004982B4 /* NSIndexPath+IndexPathType.swift in Sources */,
 				635F10D81BFAFABB004982B4 /* NSError+InitConveniences.swift in Sources */,
+				6371F1F11C7F31FE00837BB7 /* ObjCCodingBaseAccessors.m in Sources */,
 				635F10DB1BFAFABB004982B4 /* NSIndexPath+Comparable.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1089,12 +1164,15 @@
 				633ECE421C14A0690082D870 /* NSCoding+ObjCKeyValueAccessible.swift in Sources */,
 				633ECE3E1C149F3C0082D870 /* ObjCCodingPrimitiveType.swift in Sources */,
 				635F10B21BFAFABB004982B4 /* Notifications.swift in Sources */,
+				6371F2001C7F35FC00837BB7 /* ObjCCodingBasePropertySynthesize.m in Sources */,
 				635F10BE1BFAFABB004982B4 /* ObjCMultiCastDelegatable.swift in Sources */,
 				635F10F11BFAFABB004982B4 /* NSString+RangesOfString.swift in Sources */,
 				635F11051BFAFB4D004982B4 /* ObjectiveC.swift in Sources */,
 				635F10AF1BFAFABB004982B4 /* HierarchicalPickablePicker.swift in Sources */,
+				63C8863C1C7F15F300F5677F /* LegacyUtilities.m in Sources */,
 				6360D33C1C73687E00D64CE8 /* _ObjectiveCBridgeable-QuartzCoreAddition.swift in Sources */,
 				635F10E51BFAFABB004982B4 /* NSObjectProtocol+Collections.swift in Sources */,
+				6371F21F1C7F834F00837BB7 /* ObjCCodingBaseAccessors-QuartzCore.m in Sources */,
 				633ECEDE1C158F470082D870 /* ObjCPrimitiveCodingType-AppKit.swift in Sources */,
 				63C3C8871C2AB52200A864E4 /* IndexPath+_ObjectiveCBridgeable.swift in Sources */,
 				635F10F71BFAFABB004982B4 /* Variables.swift in Sources */,
@@ -1113,11 +1191,13 @@
 				63BEA87F1C79995A002171C2 /* ObjCSelfAwareSwizzle.swift in Sources */,
 				635F10BB1BFAFABB004982B4 /* ObjCAssociated.swift in Sources */,
 				635F11091BFAFBA5004982B4 /* SubsequentSetupInitializable.swift in Sources */,
+				6371F2061C7F57FC00837BB7 /* ObjCCodingBaseAccessors-CoreGraphics.m in Sources */,
 				635F10D61BFAFABB004982B4 /* NSDate+Comparable.swift in Sources */,
 				635F10C41BFAFABB004982B4 /* ObjCProtocolInterceptor.swift in Sources */,
 				635C250E1C2015CB00B0263F /* NSRange+Utilities.swift in Sources */,
 				635F10DF1BFAFABB004982B4 /* NSIndexPath+IndexPathType.swift in Sources */,
 				635F10D91BFAFABB004982B4 /* NSError+InitConveniences.swift in Sources */,
+				6371F1F21C7F31FE00837BB7 /* ObjCCodingBaseAccessors.m in Sources */,
 				635F10DC1BFAFABB004982B4 /* NSIndexPath+Comparable.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1147,19 +1227,23 @@
 				635F11741BFAFD83004982B4 /* CFRunLoopActivity+CustomDebugStringConvertible.swift in Sources */,
 				635F11811BFAFD83004982B4 /* NSPersistentStoreType.swift in Sources */,
 				635F11711BFAFD83004982B4 /* PersistenceController.swift in Sources */,
+				6371F2201C7F834F00837BB7 /* ObjCCodingBaseAccessors-QuartzCore.m in Sources */,
 				635F116A1BFAFD83004982B4 /* Notifications.swift in Sources */,
 				635F116E1BFAFD83004982B4 /* ObjCMultiCastDelegatable.swift in Sources */,
 				6360D3421C73688900D64CE8 /* ObjCPrimitiveCodingType-CoreGraphics.swift in Sources */,
 				633ECEDC1C158EF90082D870 /* ObjCPrimitiveCodingType-UIKit.swift in Sources */,
 				63050CA91C018C9300EDFEAD /* ObjCSelfAwareSwizzle+Utilities.swift in Sources */,
 				633ECE441C14A06A0082D870 /* NSCoding+ObjCKeyValueAccessible.swift in Sources */,
+				6371F2021C7F35FC00837BB7 /* ObjCCodingBasePropertySynthesize.m in Sources */,
 				633ECE401C149F3D0082D870 /* ObjCCodingPrimitiveType.swift in Sources */,
 				635F117F1BFAFD83004982B4 /* ObjectiveC.swift in Sources */,
 				635F11691BFAFD83004982B4 /* HierarchicalPickablePicker.swift in Sources */,
 				635F116C1BFAFD83004982B4 /* ObjCKeyValueAccessible.swift in Sources */,
+				63C8863E1C7F15F300F5677F /* LegacyUtilities.m in Sources */,
 				6360D33D1C73687E00D64CE8 /* _ObjectiveCBridgeable-QuartzCoreAddition.swift in Sources */,
 				635F116F1BFAFD83004982B4 /* ObjCProtocolDispatcherType.swift in Sources */,
 				635F116D1BFAFD83004982B4 /* ObjCAssociated.swift in Sources */,
+				6371F2171C7F829C00837BB7 /* ObjCCodingBaseAccessors-UIKit.m in Sources */,
 				63C3C8891C2AB52200A864E4 /* IndexPath+_ObjectiveCBridgeable.swift in Sources */,
 				635F11761BFAFD83004982B4 /* NSDate+Comparable.swift in Sources */,
 				635F117D1BFAFD83004982B4 /* NSRunLoop+TaskDispatcher.swift in Sources */,
@@ -1177,11 +1261,13 @@
 				63BEA8811C79995B002171C2 /* ObjCSelfAwareSwizzle.swift in Sources */,
 				635F11791BFAFD83004982B4 /* NSIndexPath+IndexPathType.swift in Sources */,
 				635F11801BFAFD83004982B4 /* Variables.swift in Sources */,
+				6371F2081C7F57FC00837BB7 /* ObjCCodingBaseAccessors-CoreGraphics.m in Sources */,
 				635F11771BFAFD83004982B4 /* NSError+InitConveniences.swift in Sources */,
 				635F117E1BFAFD83004982B4 /* NSString+RangesOfString.swift in Sources */,
 				635F117A1BFAFD83004982B4 /* NSObjectProtocol+Collections.swift in Sources */,
 				635C25101C2015CB00B0263F /* NSRange+Utilities.swift in Sources */,
 				635F11781BFAFD83004982B4 /* NSIndexPath+Comparable.swift in Sources */,
+				6371F1F41C7F31FE00837BB7 /* ObjCCodingBaseAccessors.m in Sources */,
 				635F11821BFAFD83004982B4 /* NSRunLoopMode.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1245,10 +1331,6 @@
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Frameworks/SwiftExt/build/Debug-watchos",
-				);
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -1263,16 +1345,17 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				HEADER_SEARCH_PATHS = "$(CONFIGURATION_BUILD_DIR)/**";
 				INFOPLIST_FILE = "PlatformDependent/Nest-watchOS/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = YES;
+				PRIVATE_HEADERS_FOLDER_PATH = Nest/Private;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.WeZZard.Nest-for-watchOS";
 				PRODUCT_NAME = Nest;
 				PUBLIC_HEADERS_FOLDER_PATH = Nest;
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "$(PROJECT_DIR)/NestTests/NestTests-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TARGETED_DEVICE_FAMILY = 4;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -1307,10 +1390,6 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Frameworks/SwiftExt/build/Debug-watchos",
-				);
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -1319,16 +1398,17 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				HEADER_SEARCH_PATHS = "$(CONFIGURATION_BUILD_DIR)/**";
 				INFOPLIST_FILE = "PlatformDependent/Nest-watchOS/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = NO;
+				PRIVATE_HEADERS_FOLDER_PATH = Nest/Private;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.WeZZard.Nest-for-watchOS";
 				PRODUCT_NAME = Nest;
 				PUBLIC_HEADERS_FOLDER_PATH = Nest;
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "$(PROJECT_DIR)/NestTests/NestTests-Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = 4;
 				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -1343,15 +1423,11 @@
 				APPLICATION_EXTENSION_API_ONLY = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_TESTABILITY = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(CONFIGURATION_BUILD_DIR)",
-				);
+				HEADER_SEARCH_PATHS = "$(CONFIGURATION_BUILD_DIR)";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_SWIFT_FLAGS = "-D DEBUG";
-				SWIFT_OBJC_BRIDGING_HEADER = "$(PROJECT_DIR)/SupportingFiles/Nest-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
@@ -1361,13 +1437,9 @@
 			buildSettings = {
 				APPLICATION_EXTENSION_API_ONLY = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(CONFIGURATION_BUILD_DIR)",
-				);
+				HEADER_SEARCH_PATHS = "$(CONFIGURATION_BUILD_DIR)";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
-				SWIFT_OBJC_BRIDGING_HEADER = "$(PROJECT_DIR)/SupportingFiles/Nest-Bridging-Header.h";
 			};
 			name = Release;
 		};
@@ -1397,10 +1469,6 @@
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Frameworks/SwiftExt/build/Debug-iphoneos",
-				);
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -1416,12 +1484,12 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				HEADER_SEARCH_PATHS = "$(CONFIGURATION_BUILD_DIR)/**";
 				INFOPLIST_FILE = "PlatformDependent/Nest-iOS/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				PRIVATE_HEADERS_FOLDER_PATH = Nest/Private;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.WeZZard.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = Nest;
 				PUBLIC_HEADERS_FOLDER_PATH = Nest;
@@ -1461,10 +1529,6 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Frameworks/SwiftExt/build/Debug-iphoneos",
-				);
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -1473,11 +1537,11 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				HEADER_SEARCH_PATHS = "$(CONFIGURATION_BUILD_DIR)/**";
 				INFOPLIST_FILE = "PlatformDependent/Nest-iOS/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = NO;
+				PRIVATE_HEADERS_FOLDER_PATH = Nest/Private;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.WeZZard.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = Nest;
 				PUBLIC_HEADERS_FOLDER_PATH = Nest;
@@ -1533,6 +1597,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.WeZZard.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = NestTest;
 				SDKROOT = iphoneos;
+				SWIFT_OBJC_BRIDGING_HEADER = "$(PROJECT_DIR)/NestTests/NestTests-Bridging-Header.h";
 			};
 			name = Debug;
 		};
@@ -1572,6 +1637,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.WeZZard.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = NestTest;
 				SDKROOT = iphoneos;
+				SWIFT_OBJC_BRIDGING_HEADER = "$(PROJECT_DIR)/NestTests/NestTests-Bridging-Header.h";
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -1602,10 +1668,6 @@
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Frameworks/SwiftExt/build/Debug",
-				);
 				FRAMEWORK_VERSION = A;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -1622,12 +1684,12 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				HEADER_SEARCH_PATHS = "$(CONFIGURATION_BUILD_DIR)/**";
 				INFOPLIST_FILE = "PlatformDependent/Nest-OS-X/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				PRIVATE_HEADERS_FOLDER_PATH = Nest/Private;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.WeZZard.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = Nest;
 				PUBLIC_HEADERS_FOLDER_PATH = Nest;
@@ -1666,10 +1728,6 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Frameworks/SwiftExt/build/Debug",
-				);
 				FRAMEWORK_VERSION = A;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -1679,11 +1737,11 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				HEADER_SEARCH_PATHS = "$(CONFIGURATION_BUILD_DIR)/**";
 				INFOPLIST_FILE = "PlatformDependent/Nest-OS-X/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = NO;
+				PRIVATE_HEADERS_FOLDER_PATH = Nest/Private;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.WeZZard.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = Nest;
 				PUBLIC_HEADERS_FOLDER_PATH = Nest;
@@ -1737,6 +1795,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.WeZZard.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = NestTest;
 				SDKROOT = macosx;
+				SWIFT_OBJC_BRIDGING_HEADER = "$(PROJECT_DIR)/NestTests/NestTests-Bridging-Header.h";
 			};
 			name = Debug;
 		};
@@ -1776,6 +1835,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.WeZZard.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = NestTest;
 				SDKROOT = macosx;
+				SWIFT_OBJC_BRIDGING_HEADER = "$(PROJECT_DIR)/NestTests/NestTests-Bridging-Header.h";
 			};
 			name = Release;
 		};
@@ -1804,10 +1864,6 @@
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Frameworks/SwiftExt/build/Debug-appletvos",
-				);
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -1822,11 +1878,11 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				HEADER_SEARCH_PATHS = "$(CONFIGURATION_BUILD_DIR)/**";
 				INFOPLIST_FILE = "PlatformDependent/Nest-tvOS/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = YES;
+				PRIVATE_HEADERS_FOLDER_PATH = Nest/Private;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.WeZZard.Nest-tvOS";
 				PRODUCT_NAME = Nest;
 				PUBLIC_HEADERS_FOLDER_PATH = Nest;
@@ -1865,10 +1921,6 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Frameworks/SwiftExt/build/Debug-appletvos",
-				);
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -1877,11 +1929,11 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				HEADER_SEARCH_PATHS = "$(CONFIGURATION_BUILD_DIR)/**";
 				INFOPLIST_FILE = "PlatformDependent/Nest-tvOS/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = NO;
+				PRIVATE_HEADERS_FOLDER_PATH = Nest/Private;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.WeZZard.Nest-tvOS";
 				PRODUCT_NAME = Nest;
 				PUBLIC_HEADERS_FOLDER_PATH = Nest;
@@ -1935,6 +1987,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.WeZZard.Nest-tvOSTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = appletvos;
+				SWIFT_OBJC_BRIDGING_HEADER = "$(PROJECT_DIR)/NestTests/NestTests-Bridging-Header.h";
 				TVOS_DEPLOYMENT_TARGET = 9.0;
 			};
 			name = Debug;
@@ -1973,6 +2026,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.WeZZard.Nest-tvOSTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = appletvos;
+				SWIFT_OBJC_BRIDGING_HEADER = "$(PROJECT_DIR)/NestTests/NestTests-Bridging-Header.h";
 				TVOS_DEPLOYMENT_TARGET = 9.0;
 				VALIDATE_PRODUCT = YES;
 			};

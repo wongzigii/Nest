@@ -11,15 +11,16 @@ public protocol ObjCKeyValueAccessibleKeyType:
     StringLiteralConvertible,
     Hashable
 {
-    typealias ExtendedGraphemeClusterLiteralType = String
-    typealias UnicodeScalarLiteralType = String
-    typealias StringLiteralType = String
-    typealias RawValue = String
-    typealias Element = Self
+    associatedtype ExtendedGraphemeClusterLiteralType = String
+    associatedtype UnicodeScalarLiteralType = String
+    associatedtype StringLiteralType = String
+    associatedtype RawValue = String
+    associatedtype Element = Self
     init(rawValue: Self.RawValue)
 }
 
-extension ObjCKeyValueAccessibleKeyType where RawValue == String,
+extension ObjCKeyValueAccessibleKeyType where
+    RawValue == String,
     ExtendedGraphemeClusterLiteralType == String,
     UnicodeScalarLiteralType == String,
     StringLiteralType == String
