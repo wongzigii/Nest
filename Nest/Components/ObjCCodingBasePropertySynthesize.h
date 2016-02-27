@@ -8,19 +8,20 @@
 
 @import Foundation;
 
-/** Register a accessor's getter and setter with given type identifier(
- Objective-C type encoding.)
+/** Registers an accessor's getter and setter with given a type identifier(
+ A part of or an Objective-C type encoding.)
  
  -Discussion: Hard Coded Type Encoding V.S. `@encode` Compiler Directive.
  
  Though `@encode` is much more flexible but since:
  
- 1. Type encodings inside the Objective-C runtime somtimes trailing with 
+ 1. Type encodings inside the Objective-C runtime sometimes trailing with
  Motorola garbage(argument frame size and argument frame offset, which is 
  architecture dependent.)
  
- 2. C struct using platform dependent types (NSInteger, NSUInteger, CGFloat) has
- different type encodings on different architectures.
+ 2. C struct contains members of platform dependent type(NSInteger, NSUInteger,
+ CGFloat or other user customized platform dependent types) has different type
+ encodings on different architectures.
  
  3. Object type encoding sometimes trailing with the object's class name inside
  the Objective-C type system.
