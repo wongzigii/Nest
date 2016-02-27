@@ -11,12 +11,30 @@
 #import <Nest/ObjCCodingBase.h>
 #import "ObjCCodingBasePropertySynthesize.h"
 
+static NSString *  kObjCCodingBaseVersionKey
+= @"com.WeZZard.Nest.ObjCCodingBase.version";
+
 @interface ObjCCodingBase()
 @property (nonatomic, readonly, strong) NSMutableDictionary * internalStorage;
 @end
 
 @implementation ObjCCodingBase
++ (NSInteger)version {
+    return 0;
+}
+
++ (BOOL)migrateValue:(id  _Nullable __autoreleasing *)value
+              forKey:(NSString *__autoreleasing  _Nonnull *)key
+                from:(NSInteger)fromVersion
+                  to:(NSInteger)toVersion
+{
+    return NO;
+}
+
 + (id)defaultValueForKey:(NSString *)key {
+    if ([key isEqualToString:NSStringFromSelector(@selector(version))]) {
+        return 0;
+    }
     return nil;
 }
 
@@ -58,6 +76,15 @@
     self = [super init];
     
     if (self) {
+        NSInteger classVersion = [[self class] version];
+        
+        NSInteger binaryVersion
+        = [aDecoder decodeIntegerForKey:kObjCCodingBaseVersionKey];
+        
+        BOOL shouldMigrate = classVersion != binaryVersion;
+        
+        BOOL isWholeMigrationSucceeded = YES;
+        
         _internalStorage = [[NSMutableDictionary alloc] init];
         
         Class inspectedClass = [self class];
@@ -82,19 +109,38 @@
                 
                 id value = [aDecoder decodeObjectForKey:propertyName];
                 
-                if (value == nil) {
-                    id defaultValue
-                    = [[self class] defaultValueForKey:propertyName];
+                if (shouldMigrate) {
+                    BOOL isValueMigrationSucceeded
+                    = [[self class] migrateValue:&value
+                                          forKey:&propertyName
+                                            from:binaryVersion
+                                              to:classVersion];
                     
-                    if (defaultValue != nil) {
-                        value = defaultValue;
+                    isWholeMigrationSucceeded
+                    = isWholeMigrationSucceeded && isValueMigrationSucceeded;
+                } else {
+                    if (value == nil) {
+                        id defaultValue
+                        = [[self class] defaultValueForKey:propertyName];
+                        
+                        if (defaultValue != nil) {
+                            value = defaultValue;
+                        }
                     }
                 }
                 
-                [self setValue:value forKey:propertyName];
+                if (propertyName != nil) {
+                    [self setValue:value forKey:propertyName];
+                }
             }
             
+            free(propertyList);
+            
             inspectedClass = [inspectedClass superclass];
+        }
+        
+        if (shouldMigrate && !isWholeMigrationSucceeded) {
+            return nil;
         }
     }
     

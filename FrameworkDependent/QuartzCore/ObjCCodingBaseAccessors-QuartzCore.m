@@ -93,8 +93,8 @@ CATransform3D GetCATransform3DValue(id self, SEL _cmd) {
         [NSException raise:NSInternalInconsistencyException
                     format:@"Cannot get value of %@ with getter",
          [NSString stringWithCString:propertyType encoding:NSUTF8StringEncoding]];
-        return (CATransform3D){
-            -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1
-        };
+        
+        memset(&convertedValue, -1, sizeof(convertedValue));
+        return convertedValue;
     }
 }

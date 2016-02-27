@@ -108,16 +108,15 @@ CGFloat2 GetCGFloat2Value(id self, SEL _cmd) {
     
     [value getValue:&convertedValue];
     
-    if (strncmp(propertyType, "{CGSize=", 8) == 0
-        || strncmp(propertyType, "{CGPoint=", 9) == 0
-        || strncmp(propertyType, "{CGVector=", 10) == 0)
-    {
+    if (strncmp(propertyType, "{UIOffset=", 10) == 0) {
         return convertedValue;
     } else {
         [NSException raise:NSInternalInconsistencyException
                     format:@"Cannot get value of %@ with CGFloat 2 getter",
          [NSString stringWithCString:propertyType encoding:NSUTF8StringEncoding]];
-        return (CGFloat2){-1, -1};
+        
+        memset(&convertedValue, -1, sizeof(convertedValue));
+        return convertedValue;
     }
 }
 
@@ -184,6 +183,8 @@ CGFloat4 GetCGFloat4Value(id self, SEL _cmd) {
         [NSException raise:NSInternalInconsistencyException
                     format:@"Cannot get value of %@ with CGFloat 4 getter",
          [NSString stringWithCString:propertyType encoding:NSUTF8StringEncoding]];
-        return (CGFloat4){-1, -1, -1, -1};
+        
+        memset(&convertedValue, -1, sizeof(convertedValue));
+        return convertedValue;
     }
 }

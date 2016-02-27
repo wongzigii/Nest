@@ -33,11 +33,6 @@ typedef union _FloatingPointValue {
     float asFloat;
 } FloatingPointValue;
 
-typedef union _PrimitiveValue {
-    FloatingPointValue  asFloatingPoint;
-    IntegerValue        asInteger;
-} PrimitiveValue;
-
 #pragma mark - Function Prototypes
 
 static void SetInteger(id, SEL, IntegerValue);
