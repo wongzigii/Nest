@@ -10,91 +10,83 @@
 @import ObjectiveC;
 @import QuartzCore;
 
+#if TARGET_OS_IOS || TARGET_OS_TV || TARGET_OS_WATCH
+@import UIKit;
+#elif TARGET_OS_MAC
+@import AppKit;
+#endif
+
 #import <Nest/ObjCCodingBase.h>
-#import "ObjCCodingBasePropertySynthesize.h"
+#import "ObjCCodingBase+Internal.h"
 
 static void SetCATransform3DValue(id, SEL, CATransform3D);
 
 static CATransform3D GetCATransform3DValue(id, SEL);
 
+static id DecodeCATransform3D (NSCoder *, NSString *);
+
+static void EncodeCATransform3D (NSCoder *, NSString *, id);
+    
 #pragma mark - Register
 @implementation ObjCCodingBase(QuartzCoreAccessors)
 + (void)load {
-    
-    ObjCCodingBaseRegisterAccessor(
-        "{CATransform3D=",
+    ObjCCodingBaseRegisterAccessorWithCodingCallBacks(
         (IMP)&GetCATransform3DValue,
-        (IMP)&SetCATransform3DValue
+        (IMP)&SetCATransform3DValue,
+        @encode(CATransform3D),
+        &DecodeCATransform3D,
+        &EncodeCATransform3D
     );
 }
 @end
 
 void SetCATransform3DValue(id self, SEL _cmd, CATransform3D value) {
-    NSString * propertyName
-    = ObjCCodingBasePropertyNameForSetter([self class], _cmd);
+    NSString * propertyName = nil;
+    const char * propertyType = NULL;
     
-    NSAssert(
-        propertyName != nil,
-        @"No property name for selector \"%@\".",
-        NSStringFromSelector(_cmd)
-    );
+    ObjCCodingBaseAssertAccessor(self, _cmd, ObjCCodingBaseAccessorKindSetter, &propertyName, &propertyType, NULL, @encode(CATransform3D), nil);
     
-    objc_property_t property = class_getProperty(
-        [self class],
-        [propertyName cStringUsingEncoding:NSUTF8StringEncoding]
-    );
+    NSValue * primitiveValue = [[NSValue alloc] initWithBytes:&value
+                                                     objCType:propertyType];
     
-    const char * propertyType
-    = property_copyAttributeValue(property, "T");
+    free((char *)propertyType);
     
     [self willChangeValueForKey:propertyName];
     
-    if (strncmp(propertyType, "{CGAffineTransform=", 15) == 0) {
-        NSValue * primitiveValue
-        = [NSValue valueWithBytes:&value objCType:propertyType];
-        [self setPrimitiveValue:primitiveValue forKey:propertyName];
-    } else {
-        [NSException raise:NSInternalInconsistencyException
-                    format:@"Cannot set value of %@ with setter",
-         [NSString stringWithCString:propertyType encoding:NSUTF8StringEncoding]];
-    }
+    [self setPrimitiveValue:primitiveValue forKey:propertyName];
     
     [self didChangeValueForKey:propertyName];
 }
 
 CATransform3D GetCATransform3DValue(id self, SEL _cmd) {
-    NSString * propertyName
-    = ObjCCodingBasePropertyNameForGetter([self class], _cmd);
+    NSString * propertyName = nil;
     
-    NSAssert(
-        propertyName != nil,
-        @"No property name for selector \"%@\".",
-        NSStringFromSelector(_cmd)
-    );
+    ObjCCodingBaseAssertAccessor(self, _cmd, ObjCCodingBaseAccessorKindGetter, &propertyName, NULL, NULL, @encode(CATransform3D), nil);
     
-    id value = [self primitiveValueForKey:propertyName];
+    CATransform3D value = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
     
-    objc_property_t property = class_getProperty(
-        [self class],
-        [propertyName cStringUsingEncoding:NSUTF8StringEncoding]
-    );
+    id primitiveValue = [self primitiveValueForKey:propertyName];
     
-    const char * propertyType
-    = property_copyAttributeValue(property, "T");
+    [primitiveValue getValue:&value];
     
-    CATransform3D convertedValue
-    = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+    return value;
+}
+
+id DecodeCATransform3D (NSCoder * decoder, NSString * key) {
+    NSData * data = [decoder decodeObjectForKey:key];
     
-    [value getValue:&convertedValue];
+    CATransform3D transform = {0, 0, 0, 0, 0, 0, 0, 0, 0};
     
-    if (strncmp(propertyType, "{CGAffineTransform=", 15) == 0) {
-        return convertedValue;
-    } else {
-        [NSException raise:NSInternalInconsistencyException
-                    format:@"Cannot get value of %@ with getter",
-         [NSString stringWithCString:propertyType encoding:NSUTF8StringEncoding]];
-        
-        memset(&convertedValue, -1, sizeof(convertedValue));
-        return convertedValue;
-    }
+    [data getBytes:&transform length:sizeof(CATransform3D)];
+    
+    return [NSValue valueWithCATransform3D:transform];
+}
+
+void EncodeCATransform3D (NSCoder * coder, NSString * key, id value) {
+    CATransform3D transform = [value CATransform3DValue];
+    
+    NSData * data = [NSData dataWithBytes:&transform
+                                   length:sizeof(CATransform3D)];
+    
+    [coder encodeObject:data forKey:key];
 }

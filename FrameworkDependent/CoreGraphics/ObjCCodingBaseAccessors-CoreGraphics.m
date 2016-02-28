@@ -10,292 +10,309 @@
 @import Foundation;
 @import CoreGraphics;
 
-#import <Nest/ObjCCodingBase.h>
-#import "ObjCCodingBasePropertySynthesize.h"
+#if TARGET_OS_IOS || TARGET_OS_TV || TARGET_OS_WATCH
+@import UIKit;
+#elif TARGET_OS_MAC
+@import AppKit;
+#endif
 
-/// Represents `CGPoint` and `CGSize`
+#import <Nest/ObjCCodingBase.h>
+#import "ObjCCodingBase+Internal.h"
+
+/// Represents `CGPoint`, `CGVector` and `CGSize`
 typedef struct _CGFloat2 {
     CGFloat member1;
     CGFloat member2;
 } CGFloat2;
 
-/// Represents `CGRect`
-typedef struct _CGFloat4 {
-    CGFloat member1;
-    CGFloat member2;
-    CGFloat member3;
-    CGFloat member4;
-} CGFloat4;
-
-/// Represents `CGAffineTransform`
-typedef struct _CGFloat9 {
-    CGFloat member1;
-    CGFloat member2;
-    CGFloat member3;
-    CGFloat member4;
-    CGFloat member5;
-    CGFloat member6;
-    CGFloat member7;
-    CGFloat member8;
-    CGFloat member9;
-} CGFloat9;
-
 static void SetCGFloat2Value(id, SEL, CGFloat2);
 
 static CGFloat2 GetCGFloat2Value(id, SEL);
 
-static void SetCGFloat4Value(id, SEL, CGFloat4);
+static void SetCGRectValue(id, SEL, CGRect);
 
-static CGFloat4 GetCGFloat4Value(id, SEL);
+static CGRect GetCGRectValue(id, SEL);
 
-static void SetCGFloat9Value(id, SEL, CGFloat9);
+static void SetCGAffineTransformValue(id, SEL, CGAffineTransform);
 
-static CGFloat9 GetCGFloat9Value(id, SEL);
+static CGAffineTransform GetCGAffineTransformValue(id, SEL);
+
+static id DecodeCGPoint (NSCoder *, NSString *);
+static void EncodeCGPoint (NSCoder *, NSString *, id);
+
+static id DecodeCGVector (NSCoder *, NSString *);
+static void EncodeCGVector (NSCoder *, NSString *, id);
+
+static id DecodeCGSize (NSCoder *, NSString *);
+static void EncodeCGSize (NSCoder *, NSString *, id);
+
+static id DecodeCGRect (NSCoder *, NSString *);
+static void EncodeCGRect (NSCoder *, NSString *, id);
+
+static id DecodeCGAffineTransform (NSCoder *, NSString *);
+static void EncodeCGAffineTransform (NSCoder *, NSString *, id);
 
 #pragma mark - Register
 @implementation ObjCCodingBase(CoreGraphicsAccessors)
 + (void)load {
-    ObjCCodingBaseRegisterAccessor(
-        "{CGPoint=",
+    ObjCCodingBaseRegisterAccessorWithCodingCallBacks(
         (IMP)&GetCGFloat2Value,
-        (IMP)&SetCGFloat2Value
+        (IMP)&SetCGFloat2Value,
+        @encode(CGPoint),
+        &DecodeCGPoint,
+        &EncodeCGPoint
     );
     
-    ObjCCodingBaseRegisterAccessor(
-        "{CGSize=",
+    ObjCCodingBaseRegisterAccessorWithCodingCallBacks(
         (IMP)&GetCGFloat2Value,
-        (IMP)&SetCGFloat2Value
+        (IMP)&SetCGFloat2Value,
+        @encode(CGSize),
+        &DecodeCGSize,
+        &EncodeCGSize
     );
     
-    ObjCCodingBaseRegisterAccessor(
-        "{CGVector=",
+    ObjCCodingBaseRegisterAccessorWithCodingCallBacks(
         (IMP)&GetCGFloat2Value,
-        (IMP)&SetCGFloat2Value
+        (IMP)&SetCGFloat2Value,
+        @encode(CGVector),
+        &DecodeCGVector,
+        &EncodeCGVector
     );
     
-    ObjCCodingBaseRegisterAccessor(
-        "{CGRect=",
-        (IMP)&GetCGFloat4Value,
-        (IMP)&SetCGFloat4Value
+    ObjCCodingBaseRegisterAccessorWithCodingCallBacks(
+        (IMP)&GetCGRectValue,
+        (IMP)&SetCGRectValue,
+        @encode(CGRect),
+        &DecodeCGRect,
+        &EncodeCGRect
     );
     
-    ObjCCodingBaseRegisterAccessor(
-        "{CGAffineTransform=",
-        (IMP)&GetCGFloat9Value,
-        (IMP)&SetCGFloat9Value
+    ObjCCodingBaseRegisterAccessorWithCodingCallBacks(
+        (IMP)&GetCGAffineTransformValue,
+        (IMP)&SetCGAffineTransformValue,
+        @encode(CGAffineTransform),
+        &DecodeCGAffineTransform,
+        &EncodeCGAffineTransform
     );
 }
 @end
 
 void SetCGFloat2Value(id self, SEL _cmd, CGFloat2 value) {
-    NSString * propertyName
-    = ObjCCodingBasePropertyNameForSetter([self class], _cmd);
+    NSString * propertyName = nil;
+    const char * propertyType = NULL;
     
-    NSAssert(
-        propertyName != nil,
-        @"No property name for selector \"%@\".",
-        NSStringFromSelector(_cmd)
-    );
+    ObjCCodingBaseAssertAccessor(self, _cmd, ObjCCodingBaseAccessorKindSetter, &propertyName, &propertyType, "CGFloat2", @encode(CGPoint), @encode(CGVector), @encode(CGSize), nil);
     
-    objc_property_t property = class_getProperty(
-        [self class],
-        [propertyName cStringUsingEncoding:NSUTF8StringEncoding]
-    );
+    NSValue * primitiveValue = [[NSValue alloc] initWithBytes:&value 
+                                                     objCType:propertyType];
     
-    const char * propertyType
-    = property_copyAttributeValue(property, "T");
+    free((char *)propertyType);
     
     [self willChangeValueForKey:propertyName];
     
-    if (strncmp(propertyType, "{CGSize=", 8) == 0
-        || strncmp(propertyType, "{CGPoint=", 9) == 0
-        || strncmp(propertyType, "{CGVector=", 10) == 0)
-    {
-        NSValue * primitiveValue
-        = [NSValue valueWithBytes:&value objCType:propertyType];
-        [self setPrimitiveValue:primitiveValue forKey:propertyName];
-    } else {
-        [NSException raise:NSInternalInconsistencyException
-                    format:@"Cannot set value of %@ with CGFloat 2 setter",
-         [NSString stringWithCString:propertyType encoding:NSUTF8StringEncoding]];
-    }
+    [self setPrimitiveValue:primitiveValue forKey:propertyName];
     
     [self didChangeValueForKey:propertyName];
 }
 
 CGFloat2 GetCGFloat2Value(id self, SEL _cmd) {
-    NSString * propertyName
-    = ObjCCodingBasePropertyNameForGetter([self class], _cmd);
+    NSString * propertyName = nil;
     
-    NSAssert(
-        propertyName != nil,
-        @"No property name for selector \"%@\".",
-        NSStringFromSelector(_cmd)
-    );
+    ObjCCodingBaseAssertAccessor(self, _cmd, ObjCCodingBaseAccessorKindGetter, &propertyName, NULL, "CGFloat2", @encode(CGPoint), @encode(CGVector), @encode(CGSize), nil);
     
-    id value = [self primitiveValueForKey:propertyName];
+    CGFloat2 value = {0, 0};
     
-    objc_property_t property = class_getProperty(
-        [self class],
-        [propertyName cStringUsingEncoding:NSUTF8StringEncoding]
-    );
+    id primitiveValue = [self primitiveValueForKey:propertyName];
     
-    const char * propertyType
-    = property_copyAttributeValue(property, "T");
+    [primitiveValue getValue:&value];
     
-    CGFloat2 convertedValue = {0, 0};
-    
-    [value getValue:&convertedValue];
-    
-    if (strncmp(propertyType, "{CGSize=", 8) == 0
-        || strncmp(propertyType, "{CGPoint=", 9) == 0
-        || strncmp(propertyType, "{CGVector=", 10) == 0)
-    {
-        return convertedValue;
-    } else {
-        [NSException raise:NSInternalInconsistencyException
-                    format:@"Cannot get value of %@ with CGFloat 2 getter",
-         [NSString stringWithCString:propertyType encoding:NSUTF8StringEncoding]];
-        
-        memset(&convertedValue, -1, sizeof(convertedValue));
-        return convertedValue;
-    }
+    return value;
 }
 
-void SetCGFloat4Value(id self, SEL _cmd, CGFloat4 value) {
-    NSString * propertyName
-    = ObjCCodingBasePropertyNameForSetter([self class], _cmd);
+void SetCGRectValue(id self, SEL _cmd, CGRect value) {
+    NSString * propertyName = nil;
+    const char * propertyType = NULL;
     
-    NSAssert(
-        propertyName != nil,
-        @"No property name for selector \"%@\".",
-        NSStringFromSelector(_cmd)
-    );
+    ObjCCodingBaseAssertAccessor(self, _cmd, ObjCCodingBaseAccessorKindSetter, &propertyName, &propertyType, NULL, @encode(CGRect), nil);
     
-    objc_property_t property = class_getProperty(
-        [self class],
-        [propertyName cStringUsingEncoding:NSUTF8StringEncoding]
-    );
     
-    const char * propertyType
-    = property_copyAttributeValue(property, "T");
+    NSValue * primitiveValue = [[NSValue alloc] initWithBytes:&value
+                                                     objCType:propertyType];
+    
+    free((char *)propertyType);
     
     [self willChangeValueForKey:propertyName];
     
-    if (strncmp(propertyType, "{CGRect=", 8) == 0) {
-        NSValue * primitiveValue
-        = [NSValue valueWithBytes:&value objCType:propertyType];
-        [self setPrimitiveValue:primitiveValue forKey:propertyName];
-    } else {
-        [NSException raise:NSInternalInconsistencyException
-                    format:@"Cannot set value of %@ with CGFloat 4 setter",
-         [NSString stringWithCString:propertyType encoding:NSUTF8StringEncoding]];
-    }
+    [self setPrimitiveValue:primitiveValue forKey:propertyName];
     
     [self didChangeValueForKey:propertyName];
 }
 
-CGFloat4 GetCGFloat4Value(id self, SEL _cmd) {
-    NSString * propertyName
-    = ObjCCodingBasePropertyNameForGetter([self class], _cmd);
+CGRect GetCGRectValue(id self, SEL _cmd) {
+    NSString * propertyName = nil;
     
-    NSAssert(
-        propertyName != nil,
-        @"No property name for selector \"%@\".",
-        NSStringFromSelector(_cmd)
-    );
+    ObjCCodingBaseAssertAccessor(self, _cmd, ObjCCodingBaseAccessorKindGetter, &propertyName, NULL, NULL, @encode(CGRect), nil);
     
-    id value = [self primitiveValueForKey:propertyName];
+    CGRect value = CGRectMake(0, 0, 0, 0);
     
-    objc_property_t property = class_getProperty(
-        [self class],
-        [propertyName cStringUsingEncoding:NSUTF8StringEncoding]
-    );
+    id primitiveValue = [self primitiveValueForKey:propertyName];
     
-    const char * propertyType
-    = property_copyAttributeValue(property, "T");
+    [primitiveValue getValue:&value];
     
-    CGFloat4 convertedValue = {0, 0, 0, 0};
-    
-    [value getValue:&convertedValue];
-    
-    if (strncmp(propertyType, "{CGRect=", 8) == 0) {
-        return convertedValue;
-    } else {
-        [NSException raise:NSInternalInconsistencyException
-                    format:@"Cannot get value of %@ with CGFloat 4 getter",
-         [NSString stringWithCString:propertyType encoding:NSUTF8StringEncoding]];
-        
-        memset(&convertedValue, -1, sizeof(convertedValue));
-        return convertedValue;
-    }
+    return value;
 }
 
-void SetCGFloat9Value(id self, SEL _cmd, CGFloat9 value) {
-    NSString * propertyName
-    = ObjCCodingBasePropertyNameForSetter([self class], _cmd);
+void SetCGAffineTransformValue(id self, SEL _cmd, CGAffineTransform value) {
+    NSString * propertyName = nil;
+    const char * propertyType = NULL;
     
-    NSAssert(
-        propertyName != nil,
-        @"No property name for selector \"%@\".",
-        NSStringFromSelector(_cmd)
-    );
+    ObjCCodingBaseAssertAccessor(self, _cmd, ObjCCodingBaseAccessorKindSetter, &propertyName, &propertyType, NULL, @encode(CGAffineTransform), nil);
     
-    objc_property_t property = class_getProperty(
-        [self class],
-        [propertyName cStringUsingEncoding:NSUTF8StringEncoding]
-    );
+    NSValue * primitiveValue = [[NSValue alloc] initWithBytes:&value
+                                                     objCType:propertyType];
     
-    const char * propertyType
-    = property_copyAttributeValue(property, "T");
+    free((char *)propertyType);
     
     [self willChangeValueForKey:propertyName];
     
-    if (strncmp(propertyType, "{CGAffineTransform=", 19) == 0) {
-        NSValue * primitiveValue
-        = [NSValue valueWithBytes:&value objCType:propertyType];
-        [self setPrimitiveValue:primitiveValue forKey:propertyName];
-    } else {
-        [NSException raise:NSInternalInconsistencyException
-                    format:@"Cannot set value of %@ with CGFloat 9 setter",
-         [NSString stringWithCString:propertyType encoding:NSUTF8StringEncoding]];
-    }
+    [self setPrimitiveValue:primitiveValue forKey:propertyName];
     
     [self didChangeValueForKey:propertyName];
 }
 
-CGFloat9 GetCGFloat9Value(id self, SEL _cmd) {
-    NSString * propertyName
-    = ObjCCodingBasePropertyNameForGetter([self class], _cmd);
+CGAffineTransform GetCGAffineTransformValue(id self, SEL _cmd) {
+    NSString * propertyName = nil;
     
-    NSAssert(
-        propertyName != nil,
-        @"No property name for selector \"%@\".",
-        NSStringFromSelector(_cmd)
-    );
+    ObjCCodingBaseAssertAccessor(self, _cmd, ObjCCodingBaseAccessorKindGetter, &propertyName, NULL, NULL, @encode(CGAffineTransform), nil);
     
-    id value = [self primitiveValueForKey:propertyName];
+    CGAffineTransform value = {0, 0, 0, 0, 0, 0};
     
-    objc_property_t property = class_getProperty(
-        [self class],
-        [propertyName cStringUsingEncoding:NSUTF8StringEncoding]
-    );
+    id primitiveValue = [self primitiveValueForKey:propertyName];
     
-    const char * propertyType
-    = property_copyAttributeValue(property, "T");
+    [primitiveValue getValue:&value];
     
-    CGFloat9 convertedValue = {0, 0, 0, 0, 0, 0, 0, 0, 0};
+    return value;
+}
+
+#pragma mark Coding
+id DecodeCGPoint (NSCoder * decoder, NSString * key) {
+#if TARGET_OS_IOS || TARGET_OS_TV || TARGET_OS_WATCH
+    CGPoint point = [decoder decodeCGPointForKey:key];
+    return [NSValue valueWithCGPoint:point];
+#elif TARGET_OS_MAC
+    CGPoint point = [decoder decodePointForKey: key];
+    return [NSValue valueWithPoint: point];
+#endif
+}
+
+void EncodeCGPoint (NSCoder * coder, NSString * key, id value) {
+#if TARGET_OS_IOS || TARGET_OS_TV || TARGET_OS_WATCH
+    CGPoint point = [value CGPointValue];
+    [coder encodeCGPoint:point forKey:key];
+#elif TARGET_OS_MAC
+    CGPoint point = [value pointValue];
+    [coder encodePoint:point forKey:key];
+#endif
+}
+
+id DecodeCGVector (NSCoder * decoder, NSString * key) {
+#if TARGET_OS_IOS || TARGET_OS_TV || TARGET_OS_WATCH
+    CGVector vector = [decoder decodeCGVectorForKey:key];
+    return [NSValue valueWithCGVector:vector];
+#elif TARGET_OS_MAC
+    NSData * data = [decoder decodeObjectForKey:key];
     
-    [value getValue:&convertedValue];
+    CGVector vector = {0, 0};
+    [data getBytes:&vector length:sizeof(CGVector)];
     
-    if (strncmp(propertyType, "{CGAffineTransform=", 19) == 0) {
-        return convertedValue;
-    } else {
-        [NSException raise:NSInternalInconsistencyException
-                    format:@"Cannot get value of %@ with CGFloat 9 getter",
-         [NSString stringWithCString:propertyType encoding:NSUTF8StringEncoding]];
-        
-        memset(&convertedValue, -1, sizeof(convertedValue));
-        return convertedValue;
-    }
+    return [NSValue valueWithBytes:&vector objCType:@encode(CGVector)];
+#endif
+}
+
+void EncodeCGVector (NSCoder * coder, NSString * key, id value) {
+#if TARGET_OS_IOS || TARGET_OS_TV || TARGET_OS_WATCH
+    CGVector vector = [value CGVectorValue];
+    [coder encodeCGVector:vector forKey:key];
+#elif TARGET_OS_MAC
+    CGVector vector = {0, 0};
+    
+    [value getValue:&vector];
+    
+    NSData * data = [NSData dataWithBytes:&vector
+                                   length:sizeof(CGVector)];
+    
+    [coder encodeObject:data forKey:key];
+#endif
+}
+
+id DecodeCGSize (NSCoder * decoder, NSString * key) {
+#if TARGET_OS_IOS || TARGET_OS_TV || TARGET_OS_WATCH
+    CGSize size = [decoder decodeCGSizeForKey:key];
+    return [NSValue valueWithCGSize:size];
+#elif TARGET_OS_MAC
+    CGSize size = [decoder decodeSizeForKey: key];
+    return [NSValue valueWithSize: size];
+#endif
+}
+
+void EncodeCGSize (NSCoder * coder, NSString * key, id value) {
+#if TARGET_OS_IOS || TARGET_OS_TV || TARGET_OS_WATCH
+    CGSize size = [value CGSizeValue];
+    [coder encodeCGSize:size forKey:key];
+#elif TARGET_OS_MAC
+    CGSize size = [value sizeValue];
+    [coder encodeSize:size forKey:key];
+#endif
+}
+
+id DecodeCGRect (NSCoder * decoder, NSString * key) {
+#if TARGET_OS_IOS || TARGET_OS_TV || TARGET_OS_WATCH
+    CGRect rect = [decoder decodeCGRectForKey:key];
+    return [NSValue valueWithCGRect:rect];
+#elif TARGET_OS_MAC
+    CGRect rect = [decoder decodeRectForKey: key];
+    return [NSValue valueWithRect: rect];
+#endif
+}
+
+void EncodeCGRect (NSCoder * coder, NSString * key, id value) {
+#if TARGET_OS_IOS || TARGET_OS_TV || TARGET_OS_WATCH
+    CGRect rect = [value CGRectValue];
+    [coder encodeCGRect:rect forKey:key];
+#elif TARGET_OS_MAC
+    CGRect rect = [value rectValue];
+    [coder encodeRect:rect forKey:key];
+#endif
+}
+
+id DecodeCGAffineTransform (NSCoder * decoder, NSString * key) {
+#if TARGET_OS_IOS || TARGET_OS_TV || TARGET_OS_WATCH
+    CGAffineTransform transform = [decoder decodeCGAffineTransformForKey:key];
+    return [NSValue valueWithCGAffineTransform:transform];
+#elif TARGET_OS_MAC
+    NSData * data = [decoder decodeObjectForKey:key];
+    
+    CGAffineTransform transform = {0, 0, 0, 0, 0, 0};
+    
+    [data getBytes:&transform length:sizeof(CGAffineTransform)];
+    
+    return [NSValue valueWithBytes:&transform 
+                          objCType:@encode(CGAffineTransform)];
+#endif
+}
+
+void EncodeCGAffineTransform (NSCoder * coder, NSString * key, id value) {
+#if TARGET_OS_IOS || TARGET_OS_TV || TARGET_OS_WATCH
+    CGAffineTransform transform = [value CGAffineTransformValue];
+    [coder encodeCGAffineTransform:transform forKey:key];
+#elif TARGET_OS_MAC
+    CGAffineTransform transform = {0, 0, 0, 0, 0, 0};
+    
+    [value getValue:&transform];
+    
+    NSData * data = [NSData dataWithBytes:&transform
+                                   length:sizeof(CGAffineTransform)];
+    
+    [coder encodeObject:data forKey:key];
+#endif
 }

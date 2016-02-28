@@ -10,181 +10,130 @@
 @import ObjectiveC;
 
 #import <Nest/ObjCCodingBase.h>
-#import "ObjCCodingBasePropertySynthesize.h"
+#import "ObjCCodingBase+Internal.h"
 
-/// Represents `CGPoint` and `CGSize`
-typedef struct _CGFloat2 {
-    CGFloat member1;
-    CGFloat member2;
-} CGFloat2;
+static void SetUIOffsetValue(id, SEL, UIOffset);
 
-/// Represents `CGRect`
-typedef struct _CGFloat4 {
-    CGFloat member1;
-    CGFloat member2;
-    CGFloat member3;
-    CGFloat member4;
-} CGFloat4;
+static UIOffset GetUIOffsetValue(id, SEL);
 
-static void SetCGFloat2Value(id, SEL, CGFloat2);
+static void SetUIEdgeInsetsValue(id, SEL, UIEdgeInsets);
 
-static CGFloat2 GetCGFloat2Value(id, SEL);
+static UIEdgeInsets GetUIEdgeInsetsValue(id, SEL);
 
-static void SetCGFloat4Value(id, SEL, CGFloat4);
+static id DecodeUIOffset (NSCoder *, NSString *);
 
-static CGFloat4 GetCGFloat4Value(id, SEL);
+static void EncodeUIOffset (NSCoder *, NSString *, id);
+
+static id DecodeUIEdgeInsets (NSCoder *, NSString *);
+
+static void EncodeUIEdgeInsets (NSCoder *, NSString *, id);
 
 #pragma mark - Register
 @implementation ObjCCodingBase(UIKitAccessors)
 + (void)load {
-    ObjCCodingBaseRegisterAccessor(
-        "{UIOffset=",
-        (IMP)&GetCGFloat2Value,
-        (IMP)&SetCGFloat2Value
+    ObjCCodingBaseRegisterAccessorWithCodingCallBacks(
+        (IMP)&GetUIOffsetValue,
+        (IMP)&SetUIOffsetValue,
+        @encode(UIOffset),
+        &DecodeUIOffset,
+        &EncodeUIOffset
     );
     
-    ObjCCodingBaseRegisterAccessor(
-        "{UIEdgeInsets=",
-        (IMP)&GetCGFloat4Value,
-        (IMP)&SetCGFloat4Value
+    ObjCCodingBaseRegisterAccessorWithCodingCallBacks(
+        (IMP)&GetUIEdgeInsetsValue,
+        (IMP)&SetUIEdgeInsetsValue,
+        @encode(UIEdgeInsets),
+        &DecodeUIEdgeInsets,
+        &EncodeUIEdgeInsets
     );
 }
 @end
 
-void SetCGFloat2Value(id self, SEL _cmd, CGFloat2 value) {
-    NSString * propertyName
-    = ObjCCodingBasePropertyNameForSetter([self class], _cmd);
+void SetUIOffsetValue(id self, SEL _cmd, UIOffset value) {
+    NSString * propertyName = nil;
+    const char * propertyType = NULL;
     
-    NSAssert(
-        propertyName != nil,
-        @"No property name for selector \"%@\".",
-        NSStringFromSelector(_cmd)
-    );
+    ObjCCodingBaseAssertAccessor(self, _cmd, ObjCCodingBaseAccessorKindSetter, &propertyName, &propertyType, NULL, @encode(UIOffset), nil);
     
-    objc_property_t property = class_getProperty(
-        [self class],
-        [propertyName cStringUsingEncoding:NSUTF8StringEncoding]
-    );
+    NSValue * primitiveValue = [[NSValue alloc] initWithBytes:&value
+                                                     objCType:propertyType];
     
-    const char * propertyType
-    = property_copyAttributeValue(property, "T");
+    free((char *)propertyType);
     
     [self willChangeValueForKey:propertyName];
     
-    if (strncmp(propertyType, "{UIOffset=", 10) == 0) {
-        NSValue * primitiveValue
-        = [NSValue valueWithBytes:&value objCType:propertyType];
-        [self setPrimitiveValue:primitiveValue forKey:propertyName];
-    } else {
-        [NSException raise:NSInternalInconsistencyException
-                    format:@"Cannot set value of %@ with CGFloat 2 setter",
-         [NSString stringWithCString:propertyType encoding:NSUTF8StringEncoding]];
-    }
+    [self setPrimitiveValue:primitiveValue forKey:propertyName];
     
     [self didChangeValueForKey:propertyName];
 }
 
-CGFloat2 GetCGFloat2Value(id self, SEL _cmd) {
-    NSString * propertyName
-    = ObjCCodingBasePropertyNameForGetter([self class], _cmd);
+UIOffset GetUIOffsetValue(id self, SEL _cmd) {
+    NSString * propertyName = nil;
     
-    NSAssert(
-        propertyName != nil,
-        @"No property name for selector \"%@\".",
-        NSStringFromSelector(_cmd)
-    );
+    ObjCCodingBaseAssertAccessor(self, _cmd, ObjCCodingBaseAccessorKindGetter, &propertyName, NULL, NULL, @encode(UIOffset), nil);
     
-    id value = [self primitiveValueForKey:propertyName];
+    UIOffset value = {0, 0};
     
-    objc_property_t property = class_getProperty(
-        [self class],
-        [propertyName cStringUsingEncoding:NSUTF8StringEncoding]
-    );
+    id primitiveValue = [self primitiveValueForKey:propertyName];
     
-    const char * propertyType
-    = property_copyAttributeValue(property, "T");
+    [primitiveValue getValue:&value];
     
-    CGFloat2 convertedValue = {0, 0};
-    
-    [value getValue:&convertedValue];
-    
-    if (strncmp(propertyType, "{UIOffset=", 10) == 0) {
-        return convertedValue;
-    } else {
-        [NSException raise:NSInternalInconsistencyException
-                    format:@"Cannot get value of %@ with CGFloat 2 getter",
-         [NSString stringWithCString:propertyType encoding:NSUTF8StringEncoding]];
-        
-        memset(&convertedValue, -1, sizeof(convertedValue));
-        return convertedValue;
-    }
+    return value;
 }
 
-void SetCGFloat4Value(id self, SEL _cmd, CGFloat4 value) {
-    NSString * propertyName
-    = ObjCCodingBasePropertyNameForSetter([self class], _cmd);
+void SetUIEdgeInsetsValue(id self, SEL _cmd, UIEdgeInsets value) {
+    NSString * propertyName = nil;
+    const char * propertyType = NULL;
     
-    NSAssert(
-        propertyName != nil,
-        @"No property name for selector \"%@\".",
-        NSStringFromSelector(_cmd)
-    );
+    ObjCCodingBaseAssertAccessor(self, _cmd, ObjCCodingBaseAccessorKindSetter, &propertyName, &propertyType, NULL, @encode(UIEdgeInsets), nil);
     
-    objc_property_t property = class_getProperty(
-        [self class],
-        [propertyName cStringUsingEncoding:NSUTF8StringEncoding]
-    );
     
-    const char * propertyType
-    = property_copyAttributeValue(property, "T");
+    NSValue * primitiveValue = [[NSValue alloc] initWithBytes:&value
+                                                     objCType:propertyType];
+    
+    free((char *)propertyType);
     
     [self willChangeValueForKey:propertyName];
     
-    if (strncmp(propertyType, "{UIEdgeInsets=", 14) == 0) {
-        NSValue * primitiveValue
-        = [NSValue valueWithBytes:&value objCType:propertyType];
-        [self setPrimitiveValue:primitiveValue forKey:propertyName];
-    } else {
-        [NSException raise:NSInternalInconsistencyException
-                    format:@"Cannot set value of %@ with CGFloat 4 setter",
-         [NSString stringWithCString:propertyType encoding:NSUTF8StringEncoding]];
-    }
+    [self setPrimitiveValue:primitiveValue forKey:propertyName];
     
     [self didChangeValueForKey:propertyName];
 }
 
-CGFloat4 GetCGFloat4Value(id self, SEL _cmd) {
-    NSString * propertyName
-    = ObjCCodingBasePropertyNameForGetter([self class], _cmd);
+UIEdgeInsets GetUIEdgeInsetsValue(id self, SEL _cmd) {
+    NSString * propertyName = nil;
     
-    NSAssert(
-        propertyName != nil,
-        @"No property name for selector \"%@\".",
-        NSStringFromSelector(_cmd)
-    );
+    ObjCCodingBaseAssertAccessor(self, _cmd, ObjCCodingBaseAccessorKindGetter, &propertyName, NULL, NULL, @encode(UIEdgeInsets), nil);
     
-    id value = [self primitiveValueForKey:propertyName];
+    UIEdgeInsets value = {0, 0, 0, 0};
     
-    objc_property_t property = class_getProperty(
-        [self class],
-        [propertyName cStringUsingEncoding:NSUTF8StringEncoding]
-    );
+    id primitiveValue = [self primitiveValueForKey:propertyName];
     
-    const char * propertyType
-    = property_copyAttributeValue(property, "T");
+    [primitiveValue getValue:&value];
     
-    CGFloat4 convertedValue = {0, 0, 0, 0};
+    return value;
+}
+
+id DecodeUIOffset (NSCoder * decoder, NSString * key) {
+    UIOffset offset = [decoder decodeUIOffsetForKey:key];
     
-    [value getValue:&convertedValue];
+    return [NSValue valueWithUIOffset:offset];
+}
+
+void EncodeUIOffset (NSCoder * coder, NSString * key, id value) {
+    UIOffset offset = [value UIOffsetValue];
     
-    if (strncmp(propertyType, "{UIEdgeInsets=", 14) == 0) {
-        return convertedValue;
-    } else {
-        [NSException raise:NSInternalInconsistencyException
-                    format:@"Cannot get value of %@ with CGFloat 4 getter",
-         [NSString stringWithCString:propertyType encoding:NSUTF8StringEncoding]];
-        
-        memset(&convertedValue, -1, sizeof(convertedValue));
-        return convertedValue;
-    }
+    [coder encodeUIOffset:offset forKey:key];
+}
+
+id DecodeUIEdgeInsets (NSCoder * decoder, NSString * key) {
+    UIEdgeInsets edgeInsets = [decoder decodeUIEdgeInsetsForKey:key];
+    
+    return [NSValue valueWithUIEdgeInsets:edgeInsets];
+}
+
+void EncodeUIEdgeInsets (NSCoder * coder, NSString * key, id value) {
+    UIEdgeInsets edgeInsets = [value UIEdgeInsetsValue];
+    
+    [coder encodeUIEdgeInsets:edgeInsets forKey:key];
 }

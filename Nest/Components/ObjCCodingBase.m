@@ -9,7 +9,10 @@
 @import ObjectiveC;
 
 #import <Nest/ObjCCodingBase.h>
-#import "ObjCCodingBasePropertySynthesize.h"
+#import "ObjCCodingBase+Internal.h"
+
+typedef void (* EncodeObjectForKeyToCoder) (id, SEL, id, NSString *, NSCoder *);
+typedef id (* DecodeObjectForKeyFromCoder) (id, SEL, NSString *, NSCoder *);
 
 static NSString *  kObjCCodingBaseVersionKey
 = @"com.WeZZard.Nest.ObjCCodingBase.version";
@@ -64,94 +67,109 @@ static NSString *  kObjCCodingBaseVersionKey
 
 - (instancetype)init {
     self = [super init];
-    
+
     if (self) {
         _internalStorage = [[NSMutableDictionary alloc] init];
     }
-    
+
     return self;
 }
 
 - (instancetype)initWithCoder:(NSCoder *)aDecoder {
     self = [super init];
-    
+
     if (self) {
         NSInteger classVersion = [[self class] version];
-        
+
         NSInteger binaryVersion
         = [aDecoder decodeIntegerForKey:kObjCCodingBaseVersionKey];
-        
+
         BOOL shouldMigrate = classVersion != binaryVersion;
-        
+
         BOOL isWholeMigrationSucceeded = YES;
-        
+
         _internalStorage = [[NSMutableDictionary alloc] init];
-        
+
         Class inspectedClass = [self class];
-        
+
         Class searchingTerminateClass = [ObjCCodingBase class];
-        
+
         while (inspectedClass != searchingTerminateClass) {
-            
+
             unsigned int propertyCount = 0;
-            
+
             objc_property_t * propertyList
             = class_copyPropertyList(inspectedClass, &propertyCount);
-            
+
             for (unsigned int index = 0; index < propertyCount; index ++) {
                 objc_property_t property = propertyList[index];
-                
+
                 const char * rawPropertyName = property_getName(property);
-                
+
                 NSString * propertyName
                 = [NSString stringWithCString:rawPropertyName
                                      encoding:NSUTF8StringEncoding];
-                
-                id value = [aDecoder decodeObjectForKey:propertyName];
-                
+
+                ObjCCodingBaseDecodeCallBack decode
+                = ObjCCodingBaseDecodeCallBackForProperty(
+                    [self class],
+                    propertyName
+                );
+
+                id value = (* decode)(aDecoder, propertyName);
+
                 if (shouldMigrate) {
                     BOOL isValueMigrationSucceeded
                     = [[self class] migrateValue:&value
                                           forKey:&propertyName
                                             from:binaryVersion
                                               to:classVersion];
-                    
+
                     isWholeMigrationSucceeded
                     = isWholeMigrationSucceeded && isValueMigrationSucceeded;
                 } else {
                     if (value == nil) {
                         id defaultValue
                         = [[self class] defaultValueForKey:propertyName];
-                        
+
                         if (defaultValue != nil) {
                             value = defaultValue;
                         }
                     }
                 }
-                
+
                 if (propertyName != nil) {
                     [self setValue:value forKey:propertyName];
                 }
             }
-            
+
             free(propertyList);
-            
+
             inspectedClass = [inspectedClass superclass];
         }
-        
+
         if (shouldMigrate && !isWholeMigrationSucceeded) {
             return nil;
         }
     }
-    
+
     return self;
 }
 
-- (void)encodeWithCoder:(NSCoder *)coder
-{
+- (void)encodeWithCoder:(NSCoder *)coder {
+    [coder encodeInteger:[[self class] version]
+                  forKey:kObjCCodingBaseVersionKey];
+
     for (NSString * key in _internalStorage) {
-        id value = [self valueForKey:key];
-        [coder encodeObject:value forKey:key];
+        id value = _internalStorage[key];
+
+        ObjCCodingBaseEncodeCallBack encode
+        = ObjCCodingBaseEncodeCallBackForProperty(
+            [self class],
+            key
+        );
+
+        (* encode)(coder, key, value);
     }
 }
 
@@ -165,5 +183,12 @@ static NSString *  kObjCCodingBaseVersionKey
     }
 }
 
-@end
+- (void)_encodeObject:(id)object forKey:(NSString *)key to:(NSCoder *)coder {
+    [coder encodeObject:object forKey:key];
+}
 
+- (id)_encodeObjectForKey:(NSString *)key from:(NSCoder *)coder {
+    return [coder decodeObjectForKey:key];
+}
+
+@end

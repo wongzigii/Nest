@@ -10,7 +10,7 @@
 @import Foundation;
 
 #import <Nest/ObjCCodingBase.h>
-#import "ObjCCodingBasePropertySynthesize.h"
+#import "ObjCCodingBase+Internal.h"
 
 #pragma mark - Types
 typedef union _IntegerValue {
@@ -25,7 +25,6 @@ typedef union _IntegerValue {
     unsigned long asUnsignedLong;
     unsigned long long asUnsignedLongLong;
     BOOL asBOOL;
-    void * asAny;
 } IntegerValue;
 
 typedef union _FloatingPointValue {
@@ -39,55 +38,58 @@ static void SetInteger(id, SEL, IntegerValue);
 
 static IntegerValue GetInteger(id, SEL);
 
-static void SetFloating(id, SEL,FloatingPointValue);
+static void SetFloating(id, SEL, FloatingPointValue);
 
 static FloatingPointValue GetFloating(id, SEL);
+
+static void SetObject(id, SEL, id);
+
+static id GetObject(id, SEL);
+
+static void SetSelector(id, SEL, SEL);
+
+static SEL GetSelector(id, SEL);
 
 #pragma mark - Register
 @implementation ObjCCodingBase(NativeAccessors)
 + (void)load {
-    ObjCCodingBaseRegisterAccessor("@", (IMP)&GetInteger, (IMP)&SetInteger);
-    ObjCCodingBaseRegisterAccessor("c", (IMP)&GetInteger, (IMP)&SetInteger);
-    ObjCCodingBaseRegisterAccessor("i", (IMP)&GetInteger, (IMP)&SetInteger);
-    ObjCCodingBaseRegisterAccessor("s", (IMP)&GetInteger, (IMP)&SetInteger);
-    ObjCCodingBaseRegisterAccessor("l", (IMP)&GetInteger, (IMP)&SetInteger);
-    ObjCCodingBaseRegisterAccessor("q", (IMP)&GetInteger, (IMP)&SetInteger);
-    ObjCCodingBaseRegisterAccessor("C", (IMP)&GetInteger, (IMP)&SetInteger);
-    ObjCCodingBaseRegisterAccessor("I", (IMP)&GetInteger, (IMP)&SetInteger);
-    ObjCCodingBaseRegisterAccessor("S", (IMP)&GetInteger, (IMP)&SetInteger);
-    ObjCCodingBaseRegisterAccessor("L", (IMP)&GetInteger, (IMP)&SetInteger);
-    ObjCCodingBaseRegisterAccessor("Q", (IMP)&GetInteger, (IMP)&SetInteger);
-    ObjCCodingBaseRegisterAccessor("B", (IMP)&GetInteger, (IMP)&SetInteger);
-    ObjCCodingBaseRegisterAccessor("d", (IMP)&GetFloating, (IMP)&SetFloating);
-    ObjCCodingBaseRegisterAccessor("f", (IMP)&GetFloating, (IMP)&SetFloating);
+    ObjCCodingBaseRegisterAccessor((IMP)&GetSelector, (IMP)&SetSelector, @encode(SEL));
+    
+    ObjCCodingBaseRegisterAccessor((IMP)&GetObject, (IMP)&SetObject, @encode(id));
+    
+    ObjCCodingBaseRegisterAccessor((IMP)&GetInteger, (IMP)&SetInteger, @encode(char));
+    ObjCCodingBaseRegisterAccessor((IMP)&GetInteger, (IMP)&SetInteger, @encode(int));
+    ObjCCodingBaseRegisterAccessor((IMP)&GetInteger, (IMP)&SetInteger, @encode(short));
+    ObjCCodingBaseRegisterAccessor((IMP)&GetInteger, (IMP)&SetInteger, @encode(long));
+    ObjCCodingBaseRegisterAccessor((IMP)&GetInteger, (IMP)&SetInteger, @encode(long long));
+    ObjCCodingBaseRegisterAccessor((IMP)&GetInteger, (IMP)&SetInteger, @encode(unsigned char));
+    ObjCCodingBaseRegisterAccessor((IMP)&GetInteger, (IMP)&SetInteger, @encode(unsigned int));
+    ObjCCodingBaseRegisterAccessor((IMP)&GetInteger, (IMP)&SetInteger, @encode(unsigned short));
+    ObjCCodingBaseRegisterAccessor((IMP)&GetInteger, (IMP)&SetInteger, @encode(unsigned long));
+    ObjCCodingBaseRegisterAccessor((IMP)&GetInteger, (IMP)&SetInteger, @encode(unsigned long long));
+    ObjCCodingBaseRegisterAccessor((IMP)&GetInteger, (IMP)&SetInteger, @encode(BOOL));
+    
+    ObjCCodingBaseRegisterAccessor((IMP)&GetFloating, (IMP)&SetFloating, @encode(double));
+    ObjCCodingBaseRegisterAccessor((IMP)&GetFloating, (IMP)&SetFloating, @encode(float));
 }
 @end
 
 #pragma mark - Function Implementations
 void SetInteger(id self, SEL _cmd, IntegerValue value) {
-    NSString * propertyName
-    = ObjCCodingBasePropertyNameForSetter([self class], _cmd);
+    NSString * propertyName = nil;
+    const char * propertyType = NULL;
     
-    NSAssert(
-        propertyName != nil,
-        @"No property name for selector \"%@\".",
-        NSStringFromSelector(_cmd)
-    );
-    
-    objc_property_t property = class_getProperty(
-        [self class],
-        [propertyName cStringUsingEncoding:NSUTF8StringEncoding]
-    );
-    
-    const char * propertyType
-    = property_copyAttributeValue(property, "T");
+    ObjCCodingBaseAssertAccessor(self, _cmd, ObjCCodingBaseAccessorKindSetter, &propertyName, &propertyType, "integer", @encode(char), @encode(short), @encode(int), @encode(long), @encode(long long), @encode(unsigned char), @encode(unsigned short), @encode(unsigned int), @encode(unsigned long), @encode(unsigned long long), @encode(BOOL), nil);
     
     [self willChangeValueForKey:propertyName];
     
-    if (propertyType[0] == '@') {
-        [self setPrimitiveValue:(__bridge id)(value.asAny)
-                         forKey:propertyName];
-    } else if (propertyType[0] == 'c') {
+    /* Because `NSNumber` doesn't get `-initWithBytes:objCType:` implemented,
+     the super implementation(belongs to `NSValue`) always returns
+     `NSConcreteValue` instance instead of `NSNumber`'s concrete class instance,
+     and `NSCoder`'s decoding for numbers relies on `NSNumber`'s accessor, we
+     must dispatch the conversion manually.
+     */
+    if (propertyType[0] == 'c') {
         [self setPrimitiveValue:@(value.asChar)
                          forKey:propertyName];
     } else if (propertyType[0] == 'i') {
@@ -120,128 +122,108 @@ void SetInteger(id self, SEL _cmd, IntegerValue value) {
     } else if (propertyType[0] == 'B') {
         [self setPrimitiveValue:@(value.asBOOL)
                          forKey:propertyName];
-    } else {
-        [NSException raise:NSInternalInconsistencyException
-                    format:@"Cannot set value of %@ with integer setter",
-         [NSString stringWithCString:propertyType encoding:NSUTF8StringEncoding]];
     }
+    
+    free((char *)propertyType);
     
     [self didChangeValueForKey:propertyName];
 }
 
 IntegerValue GetInteger(id self, SEL _cmd) {
-    NSString * propertyName
-    = ObjCCodingBasePropertyNameForGetter([self class], _cmd);
+    NSString * propertyName = nil;
     
-    NSAssert(
-        propertyName != nil,
-        @"No property name for selector \"%@\".",
-        NSStringFromSelector(_cmd)
-    );
+    ObjCCodingBaseAssertAccessor(self, _cmd, ObjCCodingBaseAccessorKindGetter, &propertyName, NULL, "integer", @encode(char), @encode(short), @encode(int), @encode(long), @encode(long long), @encode(unsigned char), @encode(unsigned short), @encode(unsigned int), @encode(unsigned long), @encode(unsigned long long), @encode(BOOL), nil);
     
-    id value = [self primitiveValueForKey:propertyName];
+    id primitiveValue = [self primitiveValueForKey:propertyName];
     
-    objc_property_t property = class_getProperty(
-        [self class],
-        [propertyName cStringUsingEncoding:NSUTF8StringEncoding]
-    );
+    // Use the biggest sized type to set 0.
+    IntegerValue value = (IntegerValue)(long long)0;
     
-    const char * propertyType
-    = property_copyAttributeValue(property, "T");
+    [primitiveValue getValue:&value];
     
-    if (propertyType[0] == '@') {
-        return (IntegerValue)(__bridge void *)(value);
-    } else if (propertyType[0] == 'c') {
-        return (IntegerValue)[value charValue];
-    } else if (propertyType[0] == 'i') {
-        return (IntegerValue)[value intValue];
-    } else if (propertyType[0] == 's') {
-        return (IntegerValue)[value shortValue];
-    } else if (propertyType[0] == 'l') {
-        return (IntegerValue)[value longValue];
-    } else if (propertyType[0] == 'q') {
-        return (IntegerValue)[value longLongValue];
-    } else if (propertyType[0] == 'C') {
-        return (IntegerValue)[value unsignedCharValue];
-    } else if (propertyType[0] == 'I') {
-        return (IntegerValue)[value unsignedIntValue];
-    } else if (propertyType[0] == 'S') {
-        return (IntegerValue)[value unsignedShortValue];
-    } else if (propertyType[0] == 'L') {
-        return (IntegerValue)[value unsignedLongValue];
-    } else if (propertyType[0] == 'Q') {
-        return (IntegerValue)[value unsignedLongLongValue];
-    } else if (propertyType[0] == 'B') {
-        return (IntegerValue)[value boolValue];
-    } else {
-        [NSException raise:NSInternalInconsistencyException
-                    format:@"Cannot get value of %@ with integer getter",
-         [NSString stringWithCString:propertyType encoding:NSUTF8StringEncoding]];
-        return (IntegerValue)-1;
-    }
+    return value;
 }
 
 void SetFloating(id self, SEL _cmd, FloatingPointValue value) {
-    NSString * propertyName
-    = ObjCCodingBasePropertyNameForSetter([self class], _cmd);
+    NSString * propertyName = nil;
+    const char * propertyType = NULL;
     
-    NSAssert(
-        propertyName != nil,
-        @"No property name for selector \"%@\".",
-        NSStringFromSelector(_cmd)
-    );
-    
-    objc_property_t property = class_getProperty(
-        [self class],
-        [propertyName cStringUsingEncoding:NSUTF8StringEncoding]
-    );
-    
-    const char * propertyType
-    = property_copyAttributeValue(property, "T");
+    ObjCCodingBaseAssertAccessor(self, _cmd, ObjCCodingBaseAccessorKindSetter, &propertyName, &propertyType, "floating point", @encode(double), @encode(float), nil);
     
     [self willChangeValueForKey:propertyName];
     
+    /* Because `NSNumber` doesn't get `-initWithBytes:objCType:` implemented,
+     the super implementation(belongs to `NSValue`) always returns 
+     `NSConcreteValue` instance instead of `NSNumber`'s concrete class instance,
+     and `NSCoder`'s decoding for numbers relies on `NSNumber`'s accessor, we 
+     must dispatch the conversion manually.
+     */
     if (propertyType[0] == 'f') {
         [self setPrimitiveValue:@(value.asFloat) forKey:propertyName];
     } else if (propertyType[0] == 'd') {
         [self setPrimitiveValue:@(value.asDouble) forKey:propertyName];
-    } else {
-        [NSException raise:NSInternalInconsistencyException
-                    format:@"Cannot get value of %@ with floating pointer getter",
-         [NSString stringWithCString:propertyType encoding:NSUTF8StringEncoding]];
     }
+    
+    free((char *)propertyType);
     
     [self didChangeValueForKey:propertyName];
 }
 
 FloatingPointValue GetFloating(id self, SEL _cmd) {
-    NSString * propertyName
-    = ObjCCodingBasePropertyNameForGetter([self class], _cmd);
+    NSString * propertyName = nil;
     
-    NSAssert(
-        propertyName != nil,
-        @"No property name for selector \"%@\".",
-        NSStringFromSelector(_cmd)
-    );
+    ObjCCodingBaseAssertAccessor(self, _cmd, ObjCCodingBaseAccessorKindGetter, &propertyName, NULL, "floating point", @encode(double), @encode(float), nil);
+    
+    id primitiveValue = [self primitiveValueForKey:propertyName];
+    
+    // Use the biggest sized type to set 0.
+    FloatingPointValue floatingPointValue = (FloatingPointValue)(double)0.0;
+    
+    [primitiveValue getValue:&floatingPointValue];
+    
+    return floatingPointValue;
+}
+
+void SetObject(id self, SEL _cmd, id value) {
+    NSString * propertyName = nil;
+    
+    ObjCCodingBaseAssertAccessor(self, _cmd, ObjCCodingBaseAccessorKindSetter, &propertyName, NULL, "object", @encode(id), nil);
+    
+    [self willChangeValueForKey:propertyName];
+    
+    [self setPrimitiveValue:value forKey:propertyName];
+    
+    [self didChangeValueForKey:propertyName];
+}
+
+id GetObject(id self, SEL _cmd) {
+    NSString * propertyName = nil;
+    
+    ObjCCodingBaseAssertAccessor(self, _cmd, ObjCCodingBaseAccessorKindGetter, &propertyName, NULL, "object", @encode(id), nil);
     
     id value = [self primitiveValueForKey:propertyName];
     
-    objc_property_t property = class_getProperty(
-        [self class],
-        [propertyName cStringUsingEncoding:NSUTF8StringEncoding]
-    );
+    return value;
+}
+
+void SetSelector(id self, SEL _cmd, SEL selector) {
+    NSString * propertyName = nil;
     
-    const char * propertyType
-    = property_copyAttributeValue(property, "T");
+    ObjCCodingBaseAssertAccessor(self, _cmd, ObjCCodingBaseAccessorKindSetter, &propertyName, NULL, "selector", @encode(SEL), nil);
     
-    if (propertyType[0] == 'f') {
-        return (FloatingPointValue)[value floatValue];
-    } else if (propertyType[0] == 'd') {
-        return (FloatingPointValue)[value doubleValue];
-    } else {
-        [NSException raise:NSInternalInconsistencyException
-                    format:@"Cannot set value of %@ with floating pointer setter",
-         [NSString stringWithCString:propertyType encoding:NSUTF8StringEncoding]];
-        return (FloatingPointValue)(-1.0);
-    }
+    [self willChangeValueForKey:propertyName];
+    
+    [self setPrimitiveValue:NSStringFromSelector(selector) forKey:propertyName];
+    
+    [self didChangeValueForKey:propertyName];
+}
+
+SEL GetSelector(id self, SEL _cmd) {
+    NSString * propertyName = nil;
+    
+    ObjCCodingBaseAssertAccessor(self, _cmd, ObjCCodingBaseAccessorKindGetter, &propertyName, NULL, "selector", @encode(SEL), nil);
+    
+    id value = [self primitiveValueForKey:propertyName];
+    
+    return NSSelectorFromString(value);
 }
