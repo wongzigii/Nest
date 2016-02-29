@@ -25,17 +25,17 @@ static void SetCMTimeMappingValue(id, SEL, CMTimeMapping);
 
 static CMTimeMapping GetCMTimeMappingValue(id, SEL);
 
-static id DecodeCMTime (NSCoder *, NSString *);
+static id DecodeCMTime (Class, NSCoder *, NSString *);
 
-static void EncodeCMTime (NSCoder *, NSString *, id);
+static void EncodeCMTime (Class, NSCoder *, NSString *, id);
 
-static id DecodeCMTimeRange (NSCoder *, NSString *);
+static id DecodeCMTimeRange (Class, NSCoder *, NSString *);
 
-static void EncodeCMTimeRange (NSCoder *, NSString *, id);
+static void EncodeCMTimeRange (Class, NSCoder *, NSString *, id);
 
-static id DecodeCMTimeMapping (NSCoder *, NSString *);
+static id DecodeCMTimeMapping (Class, NSCoder *, NSString *);
 
-static void EncodeCMTimeMapping (NSCoder *, NSString *, id);
+static void EncodeCMTimeMapping (Class, NSCoder *, NSString *, id);
 
 #pragma mark - Register
 @implementation ObjCCodingBase(AVFoundationAccessors)
@@ -163,37 +163,37 @@ CMTimeMapping GetCMTimeMappingValue(id self, SEL _cmd) {
     return value;
 }
 
-id DecodeCMTime (NSCoder * decoder, NSString * key) {
+id DecodeCMTime (Class aClass, NSCoder * decoder, NSString * key) {
     CMTime time = [decoder decodeCMTimeForKey: key];
     
     return [NSValue valueWithCMTime:time];
 }
 
-void EncodeCMTime (NSCoder * coder, NSString * key, id value) {
+void EncodeCMTime (Class aClass, NSCoder * coder, NSString * key, id value) {
     CMTime time = [value CMTimeValue];
     
     [coder encodeCMTime:time forKey:key];
 }
 
-id DecodeCMTimeRange (NSCoder * decoder, NSString * key) {
+id DecodeCMTimeRange (Class aClass, NSCoder * decoder, NSString * key) {
     CMTimeRange timeRange = [decoder decodeCMTimeRangeForKey: key];
     
     return [NSValue valueWithCMTimeRange:timeRange];
 }
 
-void EncodeCMTimeRange (NSCoder * coder, NSString * key, id value) {
+void EncodeCMTimeRange (Class aClass, NSCoder * coder, NSString * key, id value) {
     CMTimeRange timeRange = [value CMTimeRangeValue];
     
     [coder encodeCMTimeRange:timeRange forKey:key];
 }
 
-id DecodeCMTimeMapping (NSCoder * decoder, NSString * key) {
+id DecodeCMTimeMapping (Class aClass, NSCoder * decoder, NSString * key) {
     CMTimeMapping timeMapping = [decoder decodeCMTimeMappingForKey: key];
     
     return [NSValue valueWithCMTimeMapping:timeMapping];
 }
 
-void EncodeCMTimeMapping (NSCoder * coder, NSString * key, id value) {
+void EncodeCMTimeMapping (Class aClass, NSCoder * coder, NSString * key, id value) {
     CMTimeMapping timeMapping = [value CMTimeMappingValue];
     
     [coder encodeCMTimeMapping:timeMapping forKey:key];

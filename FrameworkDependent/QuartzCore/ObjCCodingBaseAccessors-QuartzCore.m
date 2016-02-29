@@ -23,9 +23,9 @@ static void SetCATransform3DValue(id, SEL, CATransform3D);
 
 static CATransform3D GetCATransform3DValue(id, SEL);
 
-static id DecodeCATransform3D (NSCoder *, NSString *);
+static id DecodeCATransform3D (Class, NSCoder *, NSString *);
 
-static void EncodeCATransform3D (NSCoder *, NSString *, id);
+static void EncodeCATransform3D (Class, NSCoder *, NSString *, id);
     
 #pragma mark - Register
 @implementation ObjCCodingBase(QuartzCoreAccessors)
@@ -72,7 +72,7 @@ CATransform3D GetCATransform3DValue(id self, SEL _cmd) {
     return value;
 }
 
-id DecodeCATransform3D (NSCoder * decoder, NSString * key) {
+id DecodeCATransform3D (Class aClass, NSCoder * decoder, NSString * key) {
     NSData * data = [decoder decodeObjectForKey:key];
     
     CATransform3D transform = {0, 0, 0, 0, 0, 0, 0, 0, 0};
@@ -82,7 +82,7 @@ id DecodeCATransform3D (NSCoder * decoder, NSString * key) {
     return [NSValue valueWithCATransform3D:transform];
 }
 
-void EncodeCATransform3D (NSCoder * coder, NSString * key, id value) {
+void EncodeCATransform3D (Class aClass, NSCoder * coder, NSString * key, id value) {
     CATransform3D transform = [value CATransform3DValue];
     
     NSData * data = [NSData dataWithBytes:&transform

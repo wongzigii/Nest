@@ -53,8 +53,8 @@ static void ObjCCodingBaseAccessorRelease(ObjCCodingBaseAccessor *);
 static Boolean ObjCCodingBaseAccessorEqual(const void *, const void *);
 
 #pragma mark Coding
-id ObjCCodingBaseDefaultDecodeCallBack (NSCoder *, NSString *);
-void ObjCCodingBaseDefaultEncodeCallBack (NSCoder *, NSString *, id);
+id ObjCCodingBaseDefaultDecodeCallBack (Class, NSCoder *, NSString *);
+void ObjCCodingBaseDefaultEncodeCallBack (Class, NSCoder *, NSString *, id);
 
 #pragma mark Internal Utilities
 NSString * ObjCCodingBaseCapitalizedPropertyName(const char *);
@@ -73,6 +73,12 @@ static CFMutableArrayRef kRegisteredAccessors = NULL;
 
 static CFMutableDictionaryRef kPropertyNameForGetterForClass = NULL;
 static CFMutableDictionaryRef kPropertyNameForSetterForClass = NULL;
+
+const ObjCCodingBaseDecodeCallBack kObjCCodingBaseDefaultDecodeCallBack
+= &ObjCCodingBaseDefaultDecodeCallBack;
+
+const ObjCCodingBaseEncodeCallBack kObjCCodingBaseDefaultEncodeCallBack
+= &ObjCCodingBaseDefaultEncodeCallBack;
 
 #pragma mark - Function Implmentation
 #pragma mark Synthesize
@@ -125,7 +131,7 @@ BOOL _ObjCCodingBaseSynthesizeSetter(Class class, SEL selector) {
                stringByAppendingString:@":"];
 
             const char * rawPropertySetter
-            = [propertySetter cStringUsingEncoding:NSUTF8StringEncoding];
+            = [propertySetter UTF8String];
 
             if (strcmp(rawPropertySetter, rawSelectorName) == 0) {
                 targeted = YES;
@@ -592,7 +598,7 @@ void ObjCCodingBaseAssertAccessor(
     // Get property type encoding
     objc_property_t property = class_getProperty(
         [self class],
-        [propertyName cStringUsingEncoding:NSUTF8StringEncoding]
+        [propertyName UTF8String]
     );
 
     const char * propertyTypeEncoding
@@ -632,11 +638,9 @@ void ObjCCodingBaseAssertAccessor(
         size_t firstAllowedTypeEncodingSize
         = sizeof(char) * firstAllowedTypeEncodingLength;
 
-        allowedTypeEncodings
-        = malloc(firstAllowedTypeEncodingSize);
+        allowedTypeEncodings = malloc(firstAllowedTypeEncodingSize);
 
-        allocatedAllowedTypeEncodingsSize
-        = firstAllowedTypeEncodingSize;
+        allocatedAllowedTypeEncodingsSize = firstAllowedTypeEncodingSize;
 
         memcpy(
             allowedTypeEncodings,
@@ -735,17 +739,118 @@ void ObjCCodingBaseAssertAccessor(
 }
 
 #pragma mark Coding
-id ObjCCodingBaseDefaultDecodeCallBack (NSCoder * coder, NSString * key) {
-    return [coder decodeObjectForKey:key];
+id ObjCCodingBaseDefaultDecodeCallBack (
+    Class aClass,
+    NSCoder * coder,
+    NSString * key
+    )
+{
+    id decodedValue = [coder decodeObjectForKey:key];
+    
+    if ([decodedValue isKindOfClass:[NSData class]]) {
+        NSData * decodedData = decodedValue;
+        
+        objc_property_t property = class_getProperty(
+            aClass,
+            [key UTF8String]
+        );
+        
+        const char * propertyTypeEncoding
+        = property_copyAttributeValue(property, "T");
+        
+        static const char * identifierEncoding = @encode(NSData);
+        
+        static const char * ommittedEncodings[] = {
+            @encode(char),
+            @encode(int), 
+            @encode(short),
+            @encode(long),
+            @encode(long long),
+            @encode(unsigned char), 
+            @encode(unsigned int),
+            @encode(unsigned short),
+            @encode(unsigned long),
+            @encode(unsigned long long),
+            @encode(BOOL),
+            @encode(double),
+            @encode(float),
+            NULL
+        };
+        
+        int checkingOmmittedIndex = 0;
+        const char * checkingOmmittedEncoding
+        = ommittedEncodings[checkingOmmittedIndex];
+        
+        while (checkingOmmittedEncoding) {
+            size_t checkingOmmittedEncodingLength
+            = strlen(checkingOmmittedEncoding);
+            
+            if (strncmp(
+                    propertyTypeEncoding,
+                    checkingOmmittedEncoding,
+                    checkingOmmittedEncodingLength
+                ) != 0)
+            {
+                free((char *)propertyTypeEncoding);
+                return decodedValue;
+            }
+            
+            checkingOmmittedIndex += 1;
+            checkingOmmittedEncoding = ommittedEncodings[checkingOmmittedIndex];
+        }
+        
+        const size_t identifierEncodingLength = strlen(identifierEncoding);
+        
+        if (strncmp(
+                propertyTypeEncoding,
+                identifierEncoding, 
+                identifierEncodingLength
+            ) != 0)
+        {
+            void * data = malloc(decodedData.length);
+            
+            [decodedData getBytes:data length:decodedData.length];
+            
+            NSValue * value = [NSValue valueWithBytes:data
+                                             objCType:propertyTypeEncoding];
+            
+            free(data);
+            free((char *)propertyTypeEncoding);
+            
+            return value;
+        }
+        
+        free((char *)propertyTypeEncoding);
+    }
+    
+    return decodedValue;
 }
 
 void ObjCCodingBaseDefaultEncodeCallBack (
+    Class aClass,
     NSCoder * coder,
     NSString * key,
     id value
     )
 {
-    [coder encodeObject:value forKey:key];
+    if ([value isKindOfClass:[NSValue class]]
+        && ![value isKindOfClass:[NSNumber class]])
+    {
+        NSUInteger size;
+        const char * encoding = [value objCType];
+        NSGetSizeAndAlignment(encoding, &size, NULL);
+        
+        void * ptr = malloc(size);
+        [value getValue:ptr];
+        
+        NSData * data = [NSData dataWithBytes:ptr length:size];
+        
+        free(ptr);
+        
+        [coder encodeObject:data forKey:key];
+    } else {
+        [coder encodeObject:value forKey:key];
+    }
 }
 
 ObjCCodingBaseEncodeCallBack ObjCCodingBaseEncodeCallBackForProperty(
@@ -755,7 +860,7 @@ ObjCCodingBaseEncodeCallBack ObjCCodingBaseEncodeCallBackForProperty(
 {
     objc_property_t property = class_getProperty(
         aClass,
-        [propertyName cStringUsingEncoding:NSUTF8StringEncoding]
+        [propertyName UTF8String]
     );
 
     const char * propertyTypeEncoding
@@ -780,7 +885,7 @@ ObjCCodingBaseDecodeCallBack ObjCCodingBaseDecodeCallBackForProperty(
 {
     objc_property_t property = class_getProperty(
         aClass,
-        [propertyName cStringUsingEncoding:NSUTF8StringEncoding]
+        [propertyName UTF8String]
     );
 
     const char * propertyTypeEncoding

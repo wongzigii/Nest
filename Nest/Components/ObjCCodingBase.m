@@ -116,7 +116,7 @@ static NSString *  kObjCCodingBaseVersionKey
                     propertyName
                 );
 
-                id value = (* decode)(aDecoder, propertyName);
+                id value = (* decode)([self class], aDecoder, propertyName);
 
                 if (shouldMigrate) {
                     BOOL isValueMigrationSucceeded
@@ -169,7 +169,7 @@ static NSString *  kObjCCodingBaseVersionKey
             key
         );
 
-        (* encode)(coder, key, value);
+        (* encode)([self class], coder, key, value);
     }
 }
 

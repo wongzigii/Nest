@@ -37,20 +37,20 @@ static void SetCGAffineTransformValue(id, SEL, CGAffineTransform);
 
 static CGAffineTransform GetCGAffineTransformValue(id, SEL);
 
-static id DecodeCGPoint (NSCoder *, NSString *);
-static void EncodeCGPoint (NSCoder *, NSString *, id);
+static id DecodeCGPoint (Class, NSCoder *, NSString *);
+static void EncodeCGPoint (Class, NSCoder *, NSString *, id);
 
-static id DecodeCGVector (NSCoder *, NSString *);
-static void EncodeCGVector (NSCoder *, NSString *, id);
+static id DecodeCGVector (Class, NSCoder *, NSString *);
+static void EncodeCGVector (Class, NSCoder *, NSString *, id);
 
-static id DecodeCGSize (NSCoder *, NSString *);
-static void EncodeCGSize (NSCoder *, NSString *, id);
+static id DecodeCGSize (Class, NSCoder *, NSString *);
+static void EncodeCGSize (Class, NSCoder *, NSString *, id);
 
-static id DecodeCGRect (NSCoder *, NSString *);
-static void EncodeCGRect (NSCoder *, NSString *, id);
+static id DecodeCGRect (Class, NSCoder *, NSString *);
+static void EncodeCGRect (Class, NSCoder *, NSString *, id);
 
-static id DecodeCGAffineTransform (NSCoder *, NSString *);
-static void EncodeCGAffineTransform (NSCoder *, NSString *, id);
+static id DecodeCGAffineTransform (Class, NSCoder *, NSString *);
+static void EncodeCGAffineTransform (Class, NSCoder *, NSString *, id);
 
 #pragma mark - Register
 @implementation ObjCCodingBase(CoreGraphicsAccessors)
@@ -195,7 +195,7 @@ CGAffineTransform GetCGAffineTransformValue(id self, SEL _cmd) {
 }
 
 #pragma mark Coding
-id DecodeCGPoint (NSCoder * decoder, NSString * key) {
+id DecodeCGPoint (Class aClass, NSCoder * decoder, NSString * key) {
 #if TARGET_OS_IOS || TARGET_OS_TV || TARGET_OS_WATCH
     CGPoint point = [decoder decodeCGPointForKey:key];
     return [NSValue valueWithCGPoint:point];
@@ -205,7 +205,7 @@ id DecodeCGPoint (NSCoder * decoder, NSString * key) {
 #endif
 }
 
-void EncodeCGPoint (NSCoder * coder, NSString * key, id value) {
+void EncodeCGPoint (Class aClass, NSCoder * coder, NSString * key, id value) {
 #if TARGET_OS_IOS || TARGET_OS_TV || TARGET_OS_WATCH
     CGPoint point = [value CGPointValue];
     [coder encodeCGPoint:point forKey:key];
@@ -215,7 +215,7 @@ void EncodeCGPoint (NSCoder * coder, NSString * key, id value) {
 #endif
 }
 
-id DecodeCGVector (NSCoder * decoder, NSString * key) {
+id DecodeCGVector (Class aClass, NSCoder * decoder, NSString * key) {
 #if TARGET_OS_IOS || TARGET_OS_TV || TARGET_OS_WATCH
     CGVector vector = [decoder decodeCGVectorForKey:key];
     return [NSValue valueWithCGVector:vector];
@@ -229,7 +229,7 @@ id DecodeCGVector (NSCoder * decoder, NSString * key) {
 #endif
 }
 
-void EncodeCGVector (NSCoder * coder, NSString * key, id value) {
+void EncodeCGVector (Class aClass, NSCoder * coder, NSString * key, id value) {
 #if TARGET_OS_IOS || TARGET_OS_TV || TARGET_OS_WATCH
     CGVector vector = [value CGVectorValue];
     [coder encodeCGVector:vector forKey:key];
@@ -245,7 +245,7 @@ void EncodeCGVector (NSCoder * coder, NSString * key, id value) {
 #endif
 }
 
-id DecodeCGSize (NSCoder * decoder, NSString * key) {
+id DecodeCGSize (Class aClass, NSCoder * decoder, NSString * key) {
 #if TARGET_OS_IOS || TARGET_OS_TV || TARGET_OS_WATCH
     CGSize size = [decoder decodeCGSizeForKey:key];
     return [NSValue valueWithCGSize:size];
@@ -255,7 +255,7 @@ id DecodeCGSize (NSCoder * decoder, NSString * key) {
 #endif
 }
 
-void EncodeCGSize (NSCoder * coder, NSString * key, id value) {
+void EncodeCGSize (Class aClass, NSCoder * coder, NSString * key, id value) {
 #if TARGET_OS_IOS || TARGET_OS_TV || TARGET_OS_WATCH
     CGSize size = [value CGSizeValue];
     [coder encodeCGSize:size forKey:key];
@@ -265,7 +265,7 @@ void EncodeCGSize (NSCoder * coder, NSString * key, id value) {
 #endif
 }
 
-id DecodeCGRect (NSCoder * decoder, NSString * key) {
+id DecodeCGRect (Class aClass, NSCoder * decoder, NSString * key) {
 #if TARGET_OS_IOS || TARGET_OS_TV || TARGET_OS_WATCH
     CGRect rect = [decoder decodeCGRectForKey:key];
     return [NSValue valueWithCGRect:rect];
@@ -275,7 +275,7 @@ id DecodeCGRect (NSCoder * decoder, NSString * key) {
 #endif
 }
 
-void EncodeCGRect (NSCoder * coder, NSString * key, id value) {
+void EncodeCGRect (Class aClass, NSCoder * coder, NSString * key, id value) {
 #if TARGET_OS_IOS || TARGET_OS_TV || TARGET_OS_WATCH
     CGRect rect = [value CGRectValue];
     [coder encodeCGRect:rect forKey:key];
@@ -285,7 +285,7 @@ void EncodeCGRect (NSCoder * coder, NSString * key, id value) {
 #endif
 }
 
-id DecodeCGAffineTransform (NSCoder * decoder, NSString * key) {
+id DecodeCGAffineTransform (Class aClass, NSCoder * decoder, NSString * key) {
 #if TARGET_OS_IOS || TARGET_OS_TV || TARGET_OS_WATCH
     CGAffineTransform transform = [decoder decodeCGAffineTransformForKey:key];
     return [NSValue valueWithCGAffineTransform:transform];
@@ -301,7 +301,7 @@ id DecodeCGAffineTransform (NSCoder * decoder, NSString * key) {
 #endif
 }
 
-void EncodeCGAffineTransform (NSCoder * coder, NSString * key, id value) {
+void EncodeCGAffineTransform (Class aClass, NSCoder * coder, NSString * key, id value) {
 #if TARGET_OS_IOS || TARGET_OS_TV || TARGET_OS_WATCH
     CGAffineTransform transform = [value CGAffineTransformValue];
     [coder encodeCGAffineTransform:transform forKey:key];

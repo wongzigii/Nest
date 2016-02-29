@@ -20,13 +20,13 @@ static void SetUIEdgeInsetsValue(id, SEL, UIEdgeInsets);
 
 static UIEdgeInsets GetUIEdgeInsetsValue(id, SEL);
 
-static id DecodeUIOffset (NSCoder *, NSString *);
+static id DecodeUIOffset (Class, NSCoder *, NSString *);
 
-static void EncodeUIOffset (NSCoder *, NSString *, id);
+static void EncodeUIOffset (Class, NSCoder *, NSString *, id);
 
-static id DecodeUIEdgeInsets (NSCoder *, NSString *);
+static id DecodeUIEdgeInsets (Class, NSCoder *, NSString *);
 
-static void EncodeUIEdgeInsets (NSCoder *, NSString *, id);
+static void EncodeUIEdgeInsets (Class, NSCoder *, NSString *, id);
 
 #pragma mark - Register
 @implementation ObjCCodingBase(UIKitAccessors)
@@ -114,25 +114,25 @@ UIEdgeInsets GetUIEdgeInsetsValue(id self, SEL _cmd) {
     return value;
 }
 
-id DecodeUIOffset (NSCoder * decoder, NSString * key) {
+id DecodeUIOffset (Class aClass, NSCoder * decoder, NSString * key) {
     UIOffset offset = [decoder decodeUIOffsetForKey:key];
     
     return [NSValue valueWithUIOffset:offset];
 }
 
-void EncodeUIOffset (NSCoder * coder, NSString * key, id value) {
+void EncodeUIOffset (Class aClass, NSCoder * coder, NSString * key, id value) {
     UIOffset offset = [value UIOffsetValue];
     
     [coder encodeUIOffset:offset forKey:key];
 }
 
-id DecodeUIEdgeInsets (NSCoder * decoder, NSString * key) {
+id DecodeUIEdgeInsets (Class aClass, NSCoder * decoder, NSString * key) {
     UIEdgeInsets edgeInsets = [decoder decodeUIEdgeInsetsForKey:key];
     
     return [NSValue valueWithUIEdgeInsets:edgeInsets];
 }
 
-void EncodeUIEdgeInsets (NSCoder * coder, NSString * key, id value) {
+void EncodeUIEdgeInsets (Class aClass, NSCoder * coder, NSString * key, id value) {
     UIEdgeInsets edgeInsets = [value UIEdgeInsetsValue];
     
     [coder encodeUIEdgeInsets:edgeInsets forKey:key];

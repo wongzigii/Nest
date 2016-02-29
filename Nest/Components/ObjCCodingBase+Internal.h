@@ -8,18 +8,34 @@
 
 @import Foundation;
 
-typedef id (*ObjCCodingBaseDecodeCallBack) (NSCoder *, NSString *);
-typedef void (*ObjCCodingBaseEncodeCallBack) (NSCoder *, NSString *, id);
+typedef id (*ObjCCodingBaseDecodeCallBack) (Class, NSCoder *, NSString *);
+
+typedef void (*ObjCCodingBaseEncodeCallBack) (Class, NSCoder *, NSString *, id);
+
+/** The default implementation of decode call-back.
+ 
+ -Dicussion: The default decode call-back took Foundation's mechanism(NSCoder's 
+ special taking for `NSNumber`) into consideration. It decodes value with
+ `NSCoder`'s `-decodeObjectForKey:`. But for those `NSValue` wrapped, and non-
+ `NSNumber` values, the call-back would convert them from `NSData` at first.
+ */
+FOUNDATION_EXTERN const ObjCCodingBaseDecodeCallBack
+kObjCCodingBaseDefaultDecodeCallBack;
+
+/** The default implementation of encode call-back.
+ 
+ -Dicussion: The default encode call-back took Foundation's mechanism(NSCoder's 
+ special taking for `NSNumber`) into consideration. Encodes values with 
+ `NSCoder`'s `-encodeObject:forKey:`. But for those `NSValue` wrapped, and non-
+ `NSNumber` values, the call-back would convert them into `NSData` at first.
+ */
+FOUNDATION_EXTERN const ObjCCodingBaseEncodeCallBack
+kObjCCodingBaseDefaultEncodeCallBack;
 
 /** Registers an accessor's getter and setter with given a type identifier(
  A part of or an Objective-C type encoding.) 
  Wraps `ObjCCodingBaseRegisterAccessorWithCodingCallBacks` with default coding
  call-backs.
-
- - Dicussion:
-
- Never try to register accessors whose type doesn't get supported by `NSCoder`.
- Such as `void *` or `char *`.
  */
 FOUNDATION_EXTERN BOOL ObjCCodingBaseRegisterAccessor(
     const IMP, // getter implementation
@@ -27,6 +43,9 @@ FOUNDATION_EXTERN BOOL ObjCCodingBaseRegisterAccessor(
     const char * // type identifier
 );
 
+/** Registers an accessor's getter and setter with given a type identifier(
+ A part of or an Objective-C type encoding) and decode, encode call-backs.
+ */
 FOUNDATION_EXTERN BOOL ObjCCodingBaseRegisterAccessorWithCodingCallBacks(
     const IMP, // getter implementation
     const IMP, // setter implmentation
@@ -64,7 +83,8 @@ typedef NS_ENUM(NSInteger) {
 
  @param     r_propertyType      Accessor's relative property type. Could be nil.
 
- @param     description     The accessor's description.
+ @param     description     The accessor's description. Use nil value to make
+    the function to deduce the description from allowed type encodings.
 
  @param     firstAllowedTypeEncodings, ...      Allowed type encodings for the
     accessor implementation. At leat 1 allowed type encoding is required.

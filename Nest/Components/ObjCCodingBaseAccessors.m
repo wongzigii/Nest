@@ -60,12 +60,20 @@ static SEL GetSelector(id, SEL);
     ObjCCodingBaseRegisterAccessor((IMP)&GetInteger, (IMP)&SetInteger, @encode(char));
     ObjCCodingBaseRegisterAccessor((IMP)&GetInteger, (IMP)&SetInteger, @encode(int));
     ObjCCodingBaseRegisterAccessor((IMP)&GetInteger, (IMP)&SetInteger, @encode(short));
+#ifdef __LP64__
+    ObjCCodingBaseRegisterAccessor((IMP)&GetInteger, (IMP)&SetInteger, "l");
+#else
     ObjCCodingBaseRegisterAccessor((IMP)&GetInteger, (IMP)&SetInteger, @encode(long));
+#endif
     ObjCCodingBaseRegisterAccessor((IMP)&GetInteger, (IMP)&SetInteger, @encode(long long));
     ObjCCodingBaseRegisterAccessor((IMP)&GetInteger, (IMP)&SetInteger, @encode(unsigned char));
     ObjCCodingBaseRegisterAccessor((IMP)&GetInteger, (IMP)&SetInteger, @encode(unsigned int));
     ObjCCodingBaseRegisterAccessor((IMP)&GetInteger, (IMP)&SetInteger, @encode(unsigned short));
+#ifdef __LP64__
+    ObjCCodingBaseRegisterAccessor((IMP)&GetInteger, (IMP)&SetInteger, "L");
+#else
     ObjCCodingBaseRegisterAccessor((IMP)&GetInteger, (IMP)&SetInteger, @encode(unsigned long));
+#endif
     ObjCCodingBaseRegisterAccessor((IMP)&GetInteger, (IMP)&SetInteger, @encode(unsigned long long));
     ObjCCodingBaseRegisterAccessor((IMP)&GetInteger, (IMP)&SetInteger, @encode(BOOL));
     
