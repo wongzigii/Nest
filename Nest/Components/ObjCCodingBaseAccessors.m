@@ -50,6 +50,10 @@ static void SetSelector(id, SEL, SEL);
 
 static SEL GetSelector(id, SEL);
 
+static void SetNSRange(id, SEL, NSRange);
+
+static NSRange GetNSRange(id, SEL);
+
 #pragma mark - Register
 @implementation ObjCCodingBase(NativeAccessors)
 + (void)load {
@@ -79,6 +83,8 @@ static SEL GetSelector(id, SEL);
     
     ObjCCodingBaseRegisterAccessor((IMP)&GetFloating, (IMP)&SetFloating, @encode(double));
     ObjCCodingBaseRegisterAccessor((IMP)&GetFloating, (IMP)&SetFloating, @encode(float));
+    
+    ObjCCodingBaseRegisterAccessor((IMP)&GetNSRange, (IMP)&SetNSRange, @encode(NSRange));
 }
 @end
 
@@ -234,4 +240,26 @@ SEL GetSelector(id self, SEL _cmd) {
     id value = [self primitiveValueForKey:propertyName];
     
     return NSSelectorFromString(value);
+}
+
+void SetNSRange(id self, SEL _cmd, NSRange range) {
+    NSString * propertyName = nil;
+    
+    ObjCCodingBaseAssertAccessor(self, _cmd, ObjCCodingBaseAccessorKindSetter, &propertyName, NULL, NULL, @encode(NSRange), nil);
+    
+    [self willChangeValueForKey:propertyName];
+    
+    [self setPrimitiveValue:[NSValue valueWithRange:range] forKey:propertyName];
+    
+    [self didChangeValueForKey:propertyName];
+}
+
+NSRange GetNSRange(id self, SEL _cmd) {
+    NSString * propertyName = nil;
+    
+    ObjCCodingBaseAssertAccessor(self, _cmd, ObjCCodingBaseAccessorKindGetter, &propertyName, NULL, NULL, @encode(NSRange), nil);
+    
+    id value = [self primitiveValueForKey:propertyName];
+    
+    return [value rangeValue];
 }

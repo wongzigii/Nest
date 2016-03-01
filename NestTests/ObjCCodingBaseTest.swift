@@ -33,6 +33,7 @@ private enum ArchivableEnum {
         UInt64,
         Bool
     )
+    case FoundationAccessor(NSRange)
     case FloatingPointAccessor(Double, Float)
     case CGAccessor(CGPoint, CGVector, CGSize, CGRect, CGAffineTransform)
     
@@ -212,6 +213,43 @@ class ObjCCodingBaseTest: XCTestCase {
                 
                 XCTAssert(doubleOriginal == doubleUnarchived)
                 XCTAssert(floatOriginal == floatUnarchived)
+                
+                break
+            default:
+                XCTFail()
+            }
+        }
+    }
+    
+    
+    
+    func testFoundationAccessor() {
+        let anEnumCase: ArchivableEnum = .FoundationAccessor(
+            NSRange(location: 19, length: 84)
+        )
+        
+        let anObject = ArchivableObject(anEnumCase)
+        
+        let archivedArbitraryObject = NSKeyedArchiver
+            .archivedDataWithRootObject(anObject)
+        
+        let unarchivedArbitraryObject = NSKeyedUnarchiver
+            .unarchiveObjectWithData(archivedArbitraryObject)
+        
+        if let unarchivedArbitraryObject
+            = unarchivedArbitraryObject as? ArchivableObject
+        {
+            switch (anEnumCase, unarchivedArbitraryObject.archivableEnum) {
+            case let (
+                .FoundationAccessor(
+                    rangeOriginal
+                ),
+                .FoundationAccessor(
+                    rangeUnarchived
+                )
+                ):
+                
+                XCTAssert(rangeOriginal == rangeUnarchived)
                 
                 break
             default:
@@ -464,6 +502,12 @@ extension ArchivableEnum: _ObjectiveCBridgeable {
             return bridged
         }
         
+        if case let .FoundationAccessor(range) = self {
+            let bridged = _ArchivableEnumFoundationAccessorObjCBridged()
+            bridged.rangeValue = range
+            return bridged
+        }
+        
         if case let .CGAccessor(point, vector, size, rect, transform) = self {
             let bridged = _ArchivableEnumCGAccessorObjCBridged()
             bridged.CGPointValue = point
@@ -549,6 +593,14 @@ extension ArchivableEnum: _ObjectiveCBridgeable {
             result = .FloatingPointAccessor(
                 floatingPointAccessor.doubleValue,
                 floatingPointAccessor.floatValue
+            )
+        }
+        
+        if let rangeAccessor = source
+            as? _ArchivableEnumFoundationAccessorObjCBridged
+        {
+            result = .FoundationAccessor(
+                rangeAccessor.rangeValue
             )
         }
         
@@ -662,6 +714,13 @@ private final class _ArchivableEnumFloatingPointAccessorObjCBridged:
     
     @NSManaged 
     private var floatValue: Float
+}
+
+private final class _ArchivableEnumFoundationAccessorObjCBridged:
+    _ArchivableEnumObjCBridged
+{
+    @NSManaged
+    private var rangeValue: NSRange
 }
 
 private final class _ArchivableEnumCGAccessorObjCBridged:

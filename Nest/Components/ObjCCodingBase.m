@@ -49,19 +49,19 @@ static NSString *  kObjCCodingBaseVersionKey
     _internalStorage[key] = value;
 }
 
-- (id)valueForUndefinedKey:(NSString *)key {
+- (id)valueForKey:(NSString *)key {
     if (ObjCCodingBaseIsPropertyName([self class], key)) {
         return [self primitiveValueForKey:key];
     } else {
-        return [super valueForUndefinedKey:key];
+        return [super valueForKey:key];
     }
 }
 
-- (void)setValue:(id)value forUndefinedKey:(NSString *)key {
+- (void)setValue:(id)value forKey:(NSString *)key {
     if (ObjCCodingBaseIsPropertyName([self class], key)) {
         [self setPrimitiveValue:value forKey:key];
     } else {
-        [super setValue:value forUndefinedKey:key];
+        [super setValue:value forKey:key];
     }
 }
 

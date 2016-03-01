@@ -605,7 +605,7 @@ void ObjCCodingBaseAssertAccessor(
     = property_copyAttributeValue(property, "T");
 
     if (r_propertyType != NULL) {
-        * r_propertyType = propertyTypeEncoding;
+        *r_propertyType = propertyTypeEncoding;
     }
 
     // Iterate allowed type encodings
@@ -634,7 +634,7 @@ void ObjCCodingBaseAssertAccessor(
             return;
         }
 
-        // Concatenate accessor description
+        // Create allowed type encoding string
         size_t firstAllowedTypeEncodingSize
         = sizeof(char) * firstAllowedTypeEncodingLength;
 
@@ -655,7 +655,8 @@ void ObjCCodingBaseAssertAccessor(
 
             size_t eachAllowedTypeEncodingLength
             = strlen(eachAllowedTypeEncoding);
-
+            
+            // Check type encoding viability
             BOOL isEachAllowedTypeEncodingViable
             = strncmp(
                 propertyTypeEncoding,
@@ -664,6 +665,7 @@ void ObjCCodingBaseAssertAccessor(
             ) == 0;
 
             if (isEachAllowedTypeEncodingViable) {
+                // Do cleanup when type encoding is viable
                 if (allowedTypeEncodings != NULL) {
                     free((void *)allowedTypeEncodings);
                     if (r_propertyType == NULL) {
@@ -672,8 +674,8 @@ void ObjCCodingBaseAssertAccessor(
                 }
                 return;
             }
-
-            // Concatenate accessor description
+            
+            // Concatenate allowed type encodings
             size_t eachAllowedTypeEncodingSize
             = sizeof(char) * eachAllowedTypeEncodingLength;
 
@@ -747,66 +749,76 @@ id ObjCCodingBaseDefaultDecodeCallBack (
 {
     id decodedValue = [coder decodeObjectForKey:key];
     
+    // A special conversion for `NSData` `decodedValue` instance
     if ([decodedValue isKindOfClass:[NSData class]]) {
         NSData * decodedData = decodedValue;
         
-        objc_property_t property = class_getProperty(
-            aClass,
-            [key UTF8String]
-        );
+        objc_property_t property = class_getProperty(aClass, [key UTF8String]);
         
         const char * propertyTypeEncoding
         = property_copyAttributeValue(property, "T");
         
-        static const char * identifierEncoding = @encode(NSData);
+        static const char * identityEncoding = @encode(NSData);
         
-        static const char * ommittedEncodings[] = {
-            @encode(char),
-            @encode(int), 
-            @encode(short),
-            @encode(long),
-            @encode(long long),
-            @encode(unsigned char), 
-            @encode(unsigned int),
-            @encode(unsigned short),
-            @encode(unsigned long),
-            @encode(unsigned long long),
-            @encode(BOOL),
-            @encode(double),
-            @encode(float),
-            NULL
-        };
+        const size_t identifierEncodingLength = strlen(identityEncoding);
         
-        int checkingOmmittedIndex = 0;
-        const char * checkingOmmittedEncoding
-        = ommittedEncodings[checkingOmmittedIndex];
-        
-        while (checkingOmmittedEncoding) {
-            size_t checkingOmmittedEncodingLength
-            = strlen(checkingOmmittedEncoding);
-            
-            if (strncmp(
-                    propertyTypeEncoding,
-                    checkingOmmittedEncoding,
-                    checkingOmmittedEncodingLength
-                ) != 0)
-            {
-                free((char *)propertyTypeEncoding);
-                return decodedValue;
-            }
-            
-            checkingOmmittedIndex += 1;
-            checkingOmmittedEncoding = ommittedEncodings[checkingOmmittedIndex];
-        }
-        
-        const size_t identifierEncodingLength = strlen(identifierEncoding);
-        
+        // Only works for the properties which are not type of `NSData`
         if (strncmp(
                 propertyTypeEncoding,
-                identifierEncoding, 
+                identityEncoding, 
                 identifierEncodingLength
             ) != 0)
         {
+            
+            // Continue to filter natively supported `NSNumber`s out
+            
+            // I don't want count the omitted encodings manually, use a `NULL`
+            // terminated array instead.
+            static const char * omittedEncodings[] = {
+                @encode(char),
+                @encode(int),
+                @encode(short),
+#ifdef __LP64__
+                "l",
+#else
+                @encode(long),
+#endif
+                @encode(long long),
+                @encode(unsigned char),
+                @encode(unsigned int),
+                @encode(unsigned short),
+                @encode(unsigned long),
+                @encode(unsigned long long),
+                @encode(BOOL),
+                @encode(double),
+                @encode(float),
+                NULL
+            };
+            
+            int currentOmittedEncodingIndex = 0;
+            const char * currentOmittedEncoding
+            = omittedEncodings[currentOmittedEncodingIndex];
+            
+            while (currentOmittedEncoding) {
+                size_t currentOmittedEncodingLength
+                = strlen(currentOmittedEncoding);
+                
+                if (strncmp(
+                        propertyTypeEncoding,
+                        currentOmittedEncoding,
+                        currentOmittedEncodingLength
+                    ) == 0)
+                {
+                    free((char *)propertyTypeEncoding);
+                    return decodedValue;
+                }
+                
+                currentOmittedEncodingIndex += 1;
+                currentOmittedEncoding
+                = omittedEncodings[currentOmittedEncodingIndex];
+            }
+            
+            // Deal with `NSData` -> `NSValue` conversion
             void * data = malloc(decodedData.length);
             
             [decodedData getBytes:data length:decodedData.length];
