@@ -10,4 +10,5 @@
 
 #import <Nest/LegacyUtilities.h>
 #import <Nest/LaunchTask.h>
+#import <Nest/ObjCKeyValueStore.h>
 #import <Nest/ObjCCodingBase.h>

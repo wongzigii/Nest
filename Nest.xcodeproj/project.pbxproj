@@ -170,10 +170,6 @@
 		6360D3401C73688900D64CE8 /* ObjCPrimitiveCodingType-CoreGraphics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6360D33E1C73688900D64CE8 /* ObjCPrimitiveCodingType-CoreGraphics.swift */; };
 		6360D3411C73688900D64CE8 /* ObjCPrimitiveCodingType-CoreGraphics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6360D33E1C73688900D64CE8 /* ObjCPrimitiveCodingType-CoreGraphics.swift */; };
 		6360D3421C73688900D64CE8 /* ObjCPrimitiveCodingType-CoreGraphics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6360D33E1C73688900D64CE8 /* ObjCPrimitiveCodingType-CoreGraphics.swift */; };
-		6371F1F11C7F31FE00837BB7 /* ObjCCodingBaseAccessors.m in Sources */ = {isa = PBXBuildFile; fileRef = 6371F1EF1C7F31FE00837BB7 /* ObjCCodingBaseAccessors.m */; };
-		6371F1F21C7F31FE00837BB7 /* ObjCCodingBaseAccessors.m in Sources */ = {isa = PBXBuildFile; fileRef = 6371F1EF1C7F31FE00837BB7 /* ObjCCodingBaseAccessors.m */; };
-		6371F1F31C7F31FE00837BB7 /* ObjCCodingBaseAccessors.m in Sources */ = {isa = PBXBuildFile; fileRef = 6371F1EF1C7F31FE00837BB7 /* ObjCCodingBaseAccessors.m */; };
-		6371F1F41C7F31FE00837BB7 /* ObjCCodingBaseAccessors.m in Sources */ = {isa = PBXBuildFile; fileRef = 6371F1EF1C7F31FE00837BB7 /* ObjCCodingBaseAccessors.m */; };
 		6371F1FB1C7F35FC00837BB7 /* ObjCCodingBase+Internal.h in Headers */ = {isa = PBXBuildFile; fileRef = 6371F1F91C7F35FC00837BB7 /* ObjCCodingBase+Internal.h */; };
 		6371F1FC1C7F35FC00837BB7 /* ObjCCodingBase+Internal.h in Headers */ = {isa = PBXBuildFile; fileRef = 6371F1F91C7F35FC00837BB7 /* ObjCCodingBase+Internal.h */; };
 		6371F1FD1C7F35FC00837BB7 /* ObjCCodingBase+Internal.h in Headers */ = {isa = PBXBuildFile; fileRef = 6371F1F91C7F35FC00837BB7 /* ObjCCodingBase+Internal.h */; };
@@ -182,15 +178,51 @@
 		6371F2001C7F35FC00837BB7 /* ObjCCodingBase+Internal.m in Sources */ = {isa = PBXBuildFile; fileRef = 6371F1FA1C7F35FC00837BB7 /* ObjCCodingBase+Internal.m */; };
 		6371F2011C7F35FC00837BB7 /* ObjCCodingBase+Internal.m in Sources */ = {isa = PBXBuildFile; fileRef = 6371F1FA1C7F35FC00837BB7 /* ObjCCodingBase+Internal.m */; };
 		6371F2021C7F35FC00837BB7 /* ObjCCodingBase+Internal.m in Sources */ = {isa = PBXBuildFile; fileRef = 6371F1FA1C7F35FC00837BB7 /* ObjCCodingBase+Internal.m */; };
-		6371F2051C7F57FC00837BB7 /* ObjCCodingBaseAccessors-CoreGraphics.m in Sources */ = {isa = PBXBuildFile; fileRef = 6371F2031C7F57FC00837BB7 /* ObjCCodingBaseAccessors-CoreGraphics.m */; };
-		6371F2061C7F57FC00837BB7 /* ObjCCodingBaseAccessors-CoreGraphics.m in Sources */ = {isa = PBXBuildFile; fileRef = 6371F2031C7F57FC00837BB7 /* ObjCCodingBaseAccessors-CoreGraphics.m */; };
-		6371F2071C7F57FC00837BB7 /* ObjCCodingBaseAccessors-CoreGraphics.m in Sources */ = {isa = PBXBuildFile; fileRef = 6371F2031C7F57FC00837BB7 /* ObjCCodingBaseAccessors-CoreGraphics.m */; };
-		6371F2081C7F57FC00837BB7 /* ObjCCodingBaseAccessors-CoreGraphics.m in Sources */ = {isa = PBXBuildFile; fileRef = 6371F2031C7F57FC00837BB7 /* ObjCCodingBaseAccessors-CoreGraphics.m */; };
-		6371F2141C7F829C00837BB7 /* ObjCCodingBaseAccessors-UIKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 6371F2121C7F829C00837BB7 /* ObjCCodingBaseAccessors-UIKit.m */; };
-		6371F2171C7F829C00837BB7 /* ObjCCodingBaseAccessors-UIKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 6371F2121C7F829C00837BB7 /* ObjCCodingBaseAccessors-UIKit.m */; };
-		6371F21E1C7F834F00837BB7 /* ObjCCodingBaseAccessors-QuartzCore.m in Sources */ = {isa = PBXBuildFile; fileRef = 6371F21C1C7F834F00837BB7 /* ObjCCodingBaseAccessors-QuartzCore.m */; };
-		6371F21F1C7F834F00837BB7 /* ObjCCodingBaseAccessors-QuartzCore.m in Sources */ = {isa = PBXBuildFile; fileRef = 6371F21C1C7F834F00837BB7 /* ObjCCodingBaseAccessors-QuartzCore.m */; };
-		6371F2201C7F834F00837BB7 /* ObjCCodingBaseAccessors-QuartzCore.m in Sources */ = {isa = PBXBuildFile; fileRef = 6371F21C1C7F834F00837BB7 /* ObjCCodingBaseAccessors-QuartzCore.m */; };
+		6371F2051C7F57FC00837BB7 /* ObjCCodingBase-CoreGraphics.m in Sources */ = {isa = PBXBuildFile; fileRef = 6371F2031C7F57FC00837BB7 /* ObjCCodingBase-CoreGraphics.m */; };
+		6371F2061C7F57FC00837BB7 /* ObjCCodingBase-CoreGraphics.m in Sources */ = {isa = PBXBuildFile; fileRef = 6371F2031C7F57FC00837BB7 /* ObjCCodingBase-CoreGraphics.m */; };
+		6371F2071C7F57FC00837BB7 /* ObjCCodingBase-CoreGraphics.m in Sources */ = {isa = PBXBuildFile; fileRef = 6371F2031C7F57FC00837BB7 /* ObjCCodingBase-CoreGraphics.m */; };
+		6371F2081C7F57FC00837BB7 /* ObjCCodingBase-CoreGraphics.m in Sources */ = {isa = PBXBuildFile; fileRef = 6371F2031C7F57FC00837BB7 /* ObjCCodingBase-CoreGraphics.m */; };
+		6371F2141C7F829C00837BB7 /* ObjCCodingBase-UIKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 6371F2121C7F829C00837BB7 /* ObjCCodingBase-UIKit.m */; };
+		6371F2171C7F829C00837BB7 /* ObjCCodingBase-UIKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 6371F2121C7F829C00837BB7 /* ObjCCodingBase-UIKit.m */; };
+		637A560C1C8830E8001A178A /* NSRange+CollectionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 637A560B1C8830E8001A178A /* NSRange+CollectionType.swift */; };
+		637A560D1C8830E8001A178A /* NSRange+CollectionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 637A560B1C8830E8001A178A /* NSRange+CollectionType.swift */; };
+		637A560E1C8830E8001A178A /* NSRange+CollectionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 637A560B1C8830E8001A178A /* NSRange+CollectionType.swift */; };
+		637A560F1C8830E8001A178A /* NSRange+CollectionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 637A560B1C8830E8001A178A /* NSRange+CollectionType.swift */; };
+		637A56121C88348F001A178A /* ObjCKeyValueStore.h in Headers */ = {isa = PBXBuildFile; fileRef = 637A56101C88348F001A178A /* ObjCKeyValueStore.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		637A56131C88348F001A178A /* ObjCKeyValueStore.h in Headers */ = {isa = PBXBuildFile; fileRef = 637A56101C88348F001A178A /* ObjCKeyValueStore.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		637A56141C88348F001A178A /* ObjCKeyValueStore.h in Headers */ = {isa = PBXBuildFile; fileRef = 637A56101C88348F001A178A /* ObjCKeyValueStore.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		637A56151C88348F001A178A /* ObjCKeyValueStore.h in Headers */ = {isa = PBXBuildFile; fileRef = 637A56101C88348F001A178A /* ObjCKeyValueStore.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		637A56161C88348F001A178A /* ObjCKeyValueStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 637A56111C88348F001A178A /* ObjCKeyValueStore.m */; };
+		637A56171C88348F001A178A /* ObjCKeyValueStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 637A56111C88348F001A178A /* ObjCKeyValueStore.m */; };
+		637A56181C88348F001A178A /* ObjCKeyValueStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 637A56111C88348F001A178A /* ObjCKeyValueStore.m */; };
+		637A56191C88348F001A178A /* ObjCKeyValueStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 637A56111C88348F001A178A /* ObjCKeyValueStore.m */; };
+		637A561C1C88358B001A178A /* ObjCKeyValueStore+Internal.h in Headers */ = {isa = PBXBuildFile; fileRef = 637A561A1C88358B001A178A /* ObjCKeyValueStore+Internal.h */; };
+		637A561D1C88358B001A178A /* ObjCKeyValueStore+Internal.h in Headers */ = {isa = PBXBuildFile; fileRef = 637A561A1C88358B001A178A /* ObjCKeyValueStore+Internal.h */; };
+		637A561E1C88358B001A178A /* ObjCKeyValueStore+Internal.h in Headers */ = {isa = PBXBuildFile; fileRef = 637A561A1C88358B001A178A /* ObjCKeyValueStore+Internal.h */; };
+		637A561F1C88358B001A178A /* ObjCKeyValueStore+Internal.h in Headers */ = {isa = PBXBuildFile; fileRef = 637A561A1C88358B001A178A /* ObjCKeyValueStore+Internal.h */; };
+		637A56201C88358B001A178A /* ObjCKeyValueStore+Internal.m in Sources */ = {isa = PBXBuildFile; fileRef = 637A561B1C88358B001A178A /* ObjCKeyValueStore+Internal.m */; };
+		637A56211C88358B001A178A /* ObjCKeyValueStore+Internal.m in Sources */ = {isa = PBXBuildFile; fileRef = 637A561B1C88358B001A178A /* ObjCKeyValueStore+Internal.m */; };
+		637A56221C88358B001A178A /* ObjCKeyValueStore+Internal.m in Sources */ = {isa = PBXBuildFile; fileRef = 637A561B1C88358B001A178A /* ObjCKeyValueStore+Internal.m */; };
+		637A56231C88358B001A178A /* ObjCKeyValueStore+Internal.m in Sources */ = {isa = PBXBuildFile; fileRef = 637A561B1C88358B001A178A /* ObjCKeyValueStore+Internal.m */; };
+		637A562A1C883AF0001A178A /* ObjCKeyValueStore+DefaultAccessors.m in Sources */ = {isa = PBXBuildFile; fileRef = 637A56251C883AF0001A178A /* ObjCKeyValueStore+DefaultAccessors.m */; };
+		637A562B1C883AF0001A178A /* ObjCKeyValueStore+DefaultAccessors.m in Sources */ = {isa = PBXBuildFile; fileRef = 637A56251C883AF0001A178A /* ObjCKeyValueStore+DefaultAccessors.m */; };
+		637A562C1C883AF0001A178A /* ObjCKeyValueStore+DefaultAccessors.m in Sources */ = {isa = PBXBuildFile; fileRef = 637A56251C883AF0001A178A /* ObjCKeyValueStore+DefaultAccessors.m */; };
+		637A562D1C883AF0001A178A /* ObjCKeyValueStore+DefaultAccessors.m in Sources */ = {isa = PBXBuildFile; fileRef = 637A56251C883AF0001A178A /* ObjCKeyValueStore+DefaultAccessors.m */; };
+		637A56341C883E63001A178A /* ObjCKeyValueStore-CoreGraphics.m in Sources */ = {isa = PBXBuildFile; fileRef = 637A562F1C883E63001A178A /* ObjCKeyValueStore-CoreGraphics.m */; };
+		637A56351C883E63001A178A /* ObjCKeyValueStore-CoreGraphics.m in Sources */ = {isa = PBXBuildFile; fileRef = 637A562F1C883E63001A178A /* ObjCKeyValueStore-CoreGraphics.m */; };
+		637A56361C883E63001A178A /* ObjCKeyValueStore-CoreGraphics.m in Sources */ = {isa = PBXBuildFile; fileRef = 637A562F1C883E63001A178A /* ObjCKeyValueStore-CoreGraphics.m */; };
+		637A56371C883E63001A178A /* ObjCKeyValueStore-CoreGraphics.m in Sources */ = {isa = PBXBuildFile; fileRef = 637A562F1C883E63001A178A /* ObjCKeyValueStore-CoreGraphics.m */; };
+		637A563E1C883F59001A178A /* ObjCKeyValueStore-QuartzCore.m in Sources */ = {isa = PBXBuildFile; fileRef = 637A56391C883F59001A178A /* ObjCKeyValueStore-QuartzCore.m */; };
+		637A563F1C883F59001A178A /* ObjCKeyValueStore-QuartzCore.m in Sources */ = {isa = PBXBuildFile; fileRef = 637A56391C883F59001A178A /* ObjCKeyValueStore-QuartzCore.m */; };
+		637A56401C883F59001A178A /* ObjCKeyValueStore-QuartzCore.m in Sources */ = {isa = PBXBuildFile; fileRef = 637A56391C883F59001A178A /* ObjCKeyValueStore-QuartzCore.m */; };
+		637A56411C883F59001A178A /* ObjCKeyValueStore-QuartzCore.m in Sources */ = {isa = PBXBuildFile; fileRef = 637A56391C883F59001A178A /* ObjCKeyValueStore-QuartzCore.m */; };
+		637A56481C88451E001A178A /* ObjCKeyValueStore-AVFoundation.m in Sources */ = {isa = PBXBuildFile; fileRef = 637A56431C88451E001A178A /* ObjCKeyValueStore-AVFoundation.m */; };
+		637A56491C88451E001A178A /* ObjCKeyValueStore-AVFoundation.m in Sources */ = {isa = PBXBuildFile; fileRef = 637A56431C88451E001A178A /* ObjCKeyValueStore-AVFoundation.m */; };
+		637A564A1C88451E001A178A /* ObjCKeyValueStore-AVFoundation.m in Sources */ = {isa = PBXBuildFile; fileRef = 637A56431C88451E001A178A /* ObjCKeyValueStore-AVFoundation.m */; };
+		637A564B1C88451E001A178A /* ObjCKeyValueStore-AVFoundation.m in Sources */ = {isa = PBXBuildFile; fileRef = 637A56431C88451E001A178A /* ObjCKeyValueStore-AVFoundation.m */; };
+		637A56521C8845A6001A178A /* ObjCKeyValueStore-UIKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 637A564D1C8845A6001A178A /* ObjCKeyValueStore-UIKit.m */; };
+		637A56561C885183001A178A /* ObjCKeyValueStore-UIKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 637A564D1C8845A6001A178A /* ObjCKeyValueStore-UIKit.m */; };
+		637A56571C885191001A178A /* ObjCKeyValueStore-UIKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 637A564D1C8845A6001A178A /* ObjCKeyValueStore-UIKit.m */; };
 		63BEA8741C79875D002171C2 /* ObjCSelfAwareSwizzle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63BEA8731C79875D002171C2 /* ObjCSelfAwareSwizzle.swift */; };
 		63BEA8761C79904A002171C2 /* ObjCSelfAwareSwizzleSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63BEA8751C79904A002171C2 /* ObjCSelfAwareSwizzleSource.swift */; };
 		63BEA8781C799951002171C2 /* ObjCSelfAwareSwizzleRecipeType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63BEA8771C799951002171C2 /* ObjCSelfAwareSwizzleRecipeType.swift */; };
@@ -211,9 +243,9 @@
 		63C3C8871C2AB52200A864E4 /* IndexPath+_ObjectiveCBridgeable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C3C8851C2AB52200A864E4 /* IndexPath+_ObjectiveCBridgeable.swift */; };
 		63C3C8881C2AB52200A864E4 /* IndexPath+_ObjectiveCBridgeable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C3C8851C2AB52200A864E4 /* IndexPath+_ObjectiveCBridgeable.swift */; };
 		63C3C8891C2AB52200A864E4 /* IndexPath+_ObjectiveCBridgeable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C3C8851C2AB52200A864E4 /* IndexPath+_ObjectiveCBridgeable.swift */; };
-		63C5BD811C82CCE200A22F27 /* ObjCCodingBaseAccessors-AVFoundation.m in Sources */ = {isa = PBXBuildFile; fileRef = 63C5BD801C82CCE200A22F27 /* ObjCCodingBaseAccessors-AVFoundation.m */; };
-		63C5BD821C82CCE200A22F27 /* ObjCCodingBaseAccessors-AVFoundation.m in Sources */ = {isa = PBXBuildFile; fileRef = 63C5BD801C82CCE200A22F27 /* ObjCCodingBaseAccessors-AVFoundation.m */; };
-		63C5BD831C82CCE200A22F27 /* ObjCCodingBaseAccessors-AVFoundation.m in Sources */ = {isa = PBXBuildFile; fileRef = 63C5BD801C82CCE200A22F27 /* ObjCCodingBaseAccessors-AVFoundation.m */; };
+		63C5BD811C82CCE200A22F27 /* ObjCCodingBase-AVFoundation.m in Sources */ = {isa = PBXBuildFile; fileRef = 63C5BD801C82CCE200A22F27 /* ObjCCodingBase-AVFoundation.m */; };
+		63C5BD821C82CCE200A22F27 /* ObjCCodingBase-AVFoundation.m in Sources */ = {isa = PBXBuildFile; fileRef = 63C5BD801C82CCE200A22F27 /* ObjCCodingBase-AVFoundation.m */; };
+		63C5BD831C82CCE200A22F27 /* ObjCCodingBase-AVFoundation.m in Sources */ = {isa = PBXBuildFile; fileRef = 63C5BD801C82CCE200A22F27 /* ObjCCodingBase-AVFoundation.m */; };
 		63C886371C7F15F300F5677F /* LegacyUtilities.h in Headers */ = {isa = PBXBuildFile; fileRef = 63C886351C7F15F300F5677F /* LegacyUtilities.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		63C886381C7F15F300F5677F /* LegacyUtilities.h in Headers */ = {isa = PBXBuildFile; fileRef = 63C886351C7F15F300F5677F /* LegacyUtilities.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		63C886391C7F15F300F5677F /* LegacyUtilities.h in Headers */ = {isa = PBXBuildFile; fileRef = 63C886351C7F15F300F5677F /* LegacyUtilities.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -347,14 +379,21 @@
 		635F12D91BFB229E004982B4 /* SwiftExt.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftExt.framework; path = "Frameworks/SwiftExt/build/Debug-appletvos/SwiftExt.framework"; sourceTree = "<group>"; };
 		6360D33A1C73687E00D64CE8 /* _ObjectiveCBridgeable-QuartzCoreAddition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "_ObjectiveCBridgeable-QuartzCoreAddition.swift"; sourceTree = "<group>"; };
 		6360D33E1C73688900D64CE8 /* ObjCPrimitiveCodingType-CoreGraphics.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ObjCPrimitiveCodingType-CoreGraphics.swift"; sourceTree = "<group>"; };
-		6371F1EF1C7F31FE00837BB7 /* ObjCCodingBaseAccessors.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ObjCCodingBaseAccessors.m; sourceTree = "<group>"; };
 		6371F1F91C7F35FC00837BB7 /* ObjCCodingBase+Internal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ObjCCodingBase+Internal.h"; sourceTree = "<group>"; };
 		6371F1FA1C7F35FC00837BB7 /* ObjCCodingBase+Internal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ObjCCodingBase+Internal.m"; sourceTree = "<group>"; };
-		6371F2031C7F57FC00837BB7 /* ObjCCodingBaseAccessors-CoreGraphics.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ObjCCodingBaseAccessors-CoreGraphics.m"; sourceTree = "<group>"; };
-		6371F2121C7F829C00837BB7 /* ObjCCodingBaseAccessors-UIKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ObjCCodingBaseAccessors-UIKit.m"; sourceTree = "<group>"; };
-		6371F21C1C7F834F00837BB7 /* ObjCCodingBaseAccessors-QuartzCore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ObjCCodingBaseAccessors-QuartzCore.m"; sourceTree = "<group>"; };
-		6371F22C1C7FA0C400837BB7 /* ObjCCodingBase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObjCCodingBase.swift; sourceTree = "<group>"; };
+		6371F2031C7F57FC00837BB7 /* ObjCCodingBase-CoreGraphics.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ObjCCodingBase-CoreGraphics.m"; sourceTree = "<group>"; };
+		6371F2121C7F829C00837BB7 /* ObjCCodingBase-UIKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ObjCCodingBase-UIKit.m"; sourceTree = "<group>"; };
 		6371F2311C7FF5EE00837BB7 /* NestTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NestTests-Bridging-Header.h"; sourceTree = "<group>"; };
+		637A560B1C8830E8001A178A /* NSRange+CollectionType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSRange+CollectionType.swift"; sourceTree = "<group>"; };
+		637A56101C88348F001A178A /* ObjCKeyValueStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ObjCKeyValueStore.h; sourceTree = "<group>"; };
+		637A56111C88348F001A178A /* ObjCKeyValueStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ObjCKeyValueStore.m; sourceTree = "<group>"; };
+		637A561A1C88358B001A178A /* ObjCKeyValueStore+Internal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ObjCKeyValueStore+Internal.h"; sourceTree = "<group>"; };
+		637A561B1C88358B001A178A /* ObjCKeyValueStore+Internal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ObjCKeyValueStore+Internal.m"; sourceTree = "<group>"; };
+		637A56251C883AF0001A178A /* ObjCKeyValueStore+DefaultAccessors.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ObjCKeyValueStore+DefaultAccessors.m"; sourceTree = "<group>"; };
+		637A562F1C883E63001A178A /* ObjCKeyValueStore-CoreGraphics.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ObjCKeyValueStore-CoreGraphics.m"; sourceTree = "<group>"; };
+		637A56391C883F59001A178A /* ObjCKeyValueStore-QuartzCore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ObjCKeyValueStore-QuartzCore.m"; sourceTree = "<group>"; };
+		637A56431C88451E001A178A /* ObjCKeyValueStore-AVFoundation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ObjCKeyValueStore-AVFoundation.m"; sourceTree = "<group>"; };
+		637A564D1C8845A6001A178A /* ObjCKeyValueStore-UIKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ObjCKeyValueStore-UIKit.m"; sourceTree = "<group>"; };
 		639D63EE1BE8404400B30F67 /* SwiftExt.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftExt.framework; path = "../SwiftExt/build/Debug-iphoneos/SwiftExt.framework"; sourceTree = "<group>"; };
 		639D63F01BE8404E00B30F67 /* SwiftExt.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftExt.framework; path = ../SwiftExt/build/Debug/SwiftExt.framework; sourceTree = "<group>"; };
 		63BEA8731C79875D002171C2 /* ObjCSelfAwareSwizzle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObjCSelfAwareSwizzle.swift; sourceTree = "<group>"; };
@@ -362,7 +401,7 @@
 		63BEA8771C799951002171C2 /* ObjCSelfAwareSwizzleRecipeType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObjCSelfAwareSwizzleRecipeType.swift; sourceTree = "<group>"; };
 		63C1D9FA1C3164E700D0F548 /* ObjCSelectorInterceptor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObjCSelectorInterceptor.swift; sourceTree = "<group>"; };
 		63C3C8851C2AB52200A864E4 /* IndexPath+_ObjectiveCBridgeable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "IndexPath+_ObjectiveCBridgeable.swift"; sourceTree = "<group>"; };
-		63C5BD801C82CCE200A22F27 /* ObjCCodingBaseAccessors-AVFoundation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ObjCCodingBaseAccessors-AVFoundation.m"; sourceTree = "<group>"; };
+		63C5BD801C82CCE200A22F27 /* ObjCCodingBase-AVFoundation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ObjCCodingBase-AVFoundation.m"; sourceTree = "<group>"; };
 		63C8862F1C7F146400F5677F /* Nest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Nest.h; sourceTree = "<group>"; };
 		63C886351C7F15F300F5677F /* LegacyUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LegacyUtilities.h; sourceTree = "<group>"; };
 		63C886361C7F15F300F5677F /* LegacyUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LegacyUtilities.m; sourceTree = "<group>"; };
@@ -472,7 +511,8 @@
 			isa = PBXGroup;
 			children = (
 				633ECED91C158EF90082D870 /* ObjCPrimitiveCodingType-UIKit.swift */,
-				6371F2121C7F829C00837BB7 /* ObjCCodingBaseAccessors-UIKit.m */,
+				637A564D1C8845A6001A178A /* ObjCKeyValueStore-UIKit.m */,
+				6371F2121C7F829C00837BB7 /* ObjCCodingBase-UIKit.m */,
 				63F0B52C1C11D8D500710C41 /* LaunchTask-UIKit.h */,
 				63F0B52D1C11D8D500710C41 /* LaunchTask-UIKit.m */,
 			);
@@ -503,7 +543,8 @@
 			children = (
 				633ECE531C14B9290082D870 /* ObjCPrimitiveCodingType-AVFoundation.swift */,
 				633ECEC81C1557460082D870 /* _ObjectiveCBridgeable-AVFoundationAddition.swift */,
-				63C5BD801C82CCE200A22F27 /* ObjCCodingBaseAccessors-AVFoundation.m */,
+				637A56431C88451E001A178A /* ObjCKeyValueStore-AVFoundation.m */,
+				63C5BD801C82CCE200A22F27 /* ObjCCodingBase-AVFoundation.m */,
 			);
 			path = AVFoundation;
 			sourceTree = "<group>";
@@ -567,12 +608,15 @@
 			children = (
 				635F108F1BFAFABB004982B4 /* HierarchicalPickablePicker.swift */,
 				635F10901BFAFABB004982B4 /* Notifications.swift */,
-				6371F22C1C7FA0C400837BB7 /* ObjCCodingBase.swift */,
+				637A56101C88348F001A178A /* ObjCKeyValueStore.h */,
+				637A56111C88348F001A178A /* ObjCKeyValueStore.m */,
+				637A561A1C88358B001A178A /* ObjCKeyValueStore+Internal.h */,
+				637A561B1C88358B001A178A /* ObjCKeyValueStore+Internal.m */,
+				637A56251C883AF0001A178A /* ObjCKeyValueStore+DefaultAccessors.m */,
 				63DCC6991C64D753001949C9 /* ObjCCodingBase.h */,
 				63DCC69A1C64D753001949C9 /* ObjCCodingBase.m */,
 				6371F1F91C7F35FC00837BB7 /* ObjCCodingBase+Internal.h */,
 				6371F1FA1C7F35FC00837BB7 /* ObjCCodingBase+Internal.m */,
-				6371F1EF1C7F31FE00837BB7 /* ObjCCodingBaseAccessors.m */,
 				635F10911BFAFABB004982B4 /* ObjCCodingPrimitiveType.swift */,
 				633ECDA31C14487A0082D870 /* ObjCTypeEncoding.swift */,
 				635F10921BFAFABB004982B4 /* ObjCKeyValueAccessible.swift */,
@@ -607,6 +651,7 @@
 				63C3C8851C2AB52200A864E4 /* IndexPath+_ObjectiveCBridgeable.swift */,
 				635F10A21BFAFABB004982B4 /* NSObjectProtocol+Collections.swift */,
 				635C250C1C2015CB00B0263F /* NSRange+Utilities.swift */,
+				637A560B1C8830E8001A178A /* NSRange+CollectionType.swift */,
 				635F10A51BFAFABB004982B4 /* NSRunLoop+TaskDispatcher.swift */,
 				635F10A61BFAFABB004982B4 /* NSString+RangesOfString.swift */,
 				633ECEBE1C1547900082D870 /* NSCoder+InterfaceNormalization.swift */,
@@ -709,7 +754,8 @@
 			isa = PBXGroup;
 			children = (
 				6360D33E1C73688900D64CE8 /* ObjCPrimitiveCodingType-CoreGraphics.swift */,
-				6371F2031C7F57FC00837BB7 /* ObjCCodingBaseAccessors-CoreGraphics.m */,
+				637A562F1C883E63001A178A /* ObjCKeyValueStore-CoreGraphics.m */,
+				6371F2031C7F57FC00837BB7 /* ObjCCodingBase-CoreGraphics.m */,
 			);
 			path = CoreGraphics;
 			sourceTree = "<group>";
@@ -718,7 +764,7 @@
 			isa = PBXGroup;
 			children = (
 				6360D33A1C73687E00D64CE8 /* _ObjectiveCBridgeable-QuartzCoreAddition.swift */,
-				6371F21C1C7F834F00837BB7 /* ObjCCodingBaseAccessors-QuartzCore.m */,
+				637A56391C883F59001A178A /* ObjCKeyValueStore-QuartzCore.m */,
 			);
 			path = QuartzCore;
 			sourceTree = "<group>";
@@ -751,7 +797,9 @@
 				63DCC69D1C64D753001949C9 /* ObjCCodingBase.h in Headers */,
 				63F0B5261C11D6DC00710C41 /* LaunchTask.h in Headers */,
 				63C886391C7F15F300F5677F /* LegacyUtilities.h in Headers */,
+				637A56141C88348F001A178A /* ObjCKeyValueStore.h in Headers */,
 				63ED3B2D1C12056E008B8A5C /* LaunchTaskInternal.h in Headers */,
+				637A561E1C88358B001A178A /* ObjCKeyValueStore+Internal.h in Headers */,
 				6371F1FD1C7F35FC00837BB7 /* ObjCCodingBase+Internal.h in Headers */,
 				63F0B5381C11D8F000710C41 /* LaunchTask-WatchKit.h in Headers */,
 			);
@@ -765,7 +813,9 @@
 				63DCC69B1C64D753001949C9 /* ObjCCodingBase.h in Headers */,
 				63F0B5241C11D6DC00710C41 /* LaunchTask.h in Headers */,
 				63C886371C7F15F300F5677F /* LegacyUtilities.h in Headers */,
+				637A56121C88348F001A178A /* ObjCKeyValueStore.h in Headers */,
 				63ED3B2B1C12056E008B8A5C /* LaunchTaskInternal.h in Headers */,
+				637A561C1C88358B001A178A /* ObjCKeyValueStore+Internal.h in Headers */,
 				6371F1FB1C7F35FC00837BB7 /* ObjCCodingBase+Internal.h in Headers */,
 				63F0B52E1C11D8D500710C41 /* LaunchTask-UIKit.h in Headers */,
 			);
@@ -779,7 +829,9 @@
 				63DCC69C1C64D753001949C9 /* ObjCCodingBase.h in Headers */,
 				63F0B5251C11D6DC00710C41 /* LaunchTask.h in Headers */,
 				63C886381C7F15F300F5677F /* LegacyUtilities.h in Headers */,
+				637A56131C88348F001A178A /* ObjCKeyValueStore.h in Headers */,
 				63ED3B2C1C12056E008B8A5C /* LaunchTaskInternal.h in Headers */,
+				637A561D1C88358B001A178A /* ObjCKeyValueStore+Internal.h in Headers */,
 				6371F1FC1C7F35FC00837BB7 /* ObjCCodingBase+Internal.h in Headers */,
 				63F0B5341C11D8E200710C41 /* LaunchTask-AppKit.h in Headers */,
 			);
@@ -793,7 +845,9 @@
 				63DCC69E1C64D753001949C9 /* ObjCCodingBase.h in Headers */,
 				63F0B5271C11D6DC00710C41 /* LaunchTask.h in Headers */,
 				63C8863A1C7F15F300F5677F /* LegacyUtilities.h in Headers */,
+				637A56151C88348F001A178A /* ObjCKeyValueStore.h in Headers */,
 				63ED3B2E1C12056E008B8A5C /* LaunchTaskInternal.h in Headers */,
+				637A561F1C88358B001A178A /* ObjCKeyValueStore+Internal.h in Headers */,
 				6371F1FE1C7F35FC00837BB7 /* ObjCCodingBase+Internal.h in Headers */,
 				63F0B52F1C11D8D500710C41 /* LaunchTask-UIKit.h in Headers */,
 			);
@@ -1042,15 +1096,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6371F1F31C7F31FE00837BB7 /* ObjCCodingBaseAccessors.m in Sources */,
+				637A56361C883E63001A178A /* ObjCKeyValueStore-CoreGraphics.m in Sources */,
 				633ECEC11C1547900082D870 /* NSCoder+InterfaceNormalization.swift in Sources */,
 				635F10EF1BFAFABB004982B4 /* NSRunLoop+TaskDispatcher.swift in Sources */,
 				633ECE481C14A12F0082D870 /* ObjCTypeEncoding.swift in Sources */,
+				637A560E1C8830E8001A178A /* NSRange+CollectionType.swift in Sources */,
 				63F0B52A1C11D6DC00710C41 /* LaunchTask.m in Sources */,
+				637A56571C885191001A178A /* ObjCKeyValueStore-UIKit.m in Sources */,
 				63C3C8881C2AB52200A864E4 /* IndexPath+_ObjectiveCBridgeable.swift in Sources */,
 				635F10FB1BFAFABB004982B4 /* NSPersistentStoreType.swift in Sources */,
 				635F10FE1BFAFABB004982B4 /* NSRunLoopMode.swift in Sources */,
 				63BEA87A1C799951002171C2 /* ObjCSelfAwareSwizzleRecipeType.swift in Sources */,
+				637A56401C883F59001A178A /* ObjCKeyValueStore-QuartzCore.m in Sources */,
+				637A56221C88358B001A178A /* ObjCKeyValueStore+Internal.m in Sources */,
 				635F10C81BFAFABB004982B4 /* PersistenceController.swift in Sources */,
 				635F10D11BFAFABB004982B4 /* CFRunLoopActivity+CustomDebugStringConvertible.swift in Sources */,
 				63050CA81C018C9300EDFEAD /* ObjCSelfAwareSwizzle+Utilities.swift in Sources */,
@@ -1058,9 +1116,10 @@
 				6360D3411C73688900D64CE8 /* ObjCPrimitiveCodingType-CoreGraphics.swift in Sources */,
 				633ECE3F1C149F3D0082D870 /* ObjCCodingPrimitiveType.swift in Sources */,
 				635F10B31BFAFABB004982B4 /* Notifications.swift in Sources */,
+				637A56181C88348F001A178A /* ObjCKeyValueStore.m in Sources */,
 				635F10BF1BFAFABB004982B4 /* ObjCMultiCastDelegatable.swift in Sources */,
 				63C1D9FD1C3164E700D0F548 /* ObjCSelectorInterceptor.swift in Sources */,
-				6371F2071C7F57FC00837BB7 /* ObjCCodingBaseAccessors-CoreGraphics.m in Sources */,
+				6371F2071C7F57FC00837BB7 /* ObjCCodingBase-CoreGraphics.m in Sources */,
 				63F0B5391C11D8F000710C41 /* LaunchTask-WatchKit.m in Sources */,
 				635F10F21BFAFABB004982B4 /* NSString+RangesOfString.swift in Sources */,
 				635F11061BFAFB4D004982B4 /* ObjectiveC.swift in Sources */,
@@ -1075,10 +1134,12 @@
 				635F10C21BFAFABB004982B4 /* ObjCProtocolDispatcherType.swift in Sources */,
 				630D51FF1C0D7003007E2D5C /* NSManagedObject+ObjCKeyValueAccessible.swift in Sources */,
 				6315CB4E1BFD8746003A5840 /* ObjCSelfAwareSwizzle.m in Sources */,
+				637A564A1C88451E001A178A /* ObjCKeyValueStore-AVFoundation.m in Sources */,
 				635F10BC1BFAFABB004982B4 /* ObjCAssociated.swift in Sources */,
 				6371F2011C7F35FC00837BB7 /* ObjCCodingBase+Internal.m in Sources */,
 				635F110A1BFAFBA5004982B4 /* SubsequentSetupInitializable.swift in Sources */,
 				635F10D71BFAFABB004982B4 /* NSDate+Comparable.swift in Sources */,
+				637A562C1C883AF0001A178A /* ObjCKeyValueStore+DefaultAccessors.m in Sources */,
 				635F10C51BFAFABB004982B4 /* ObjCProtocolInterceptor.swift in Sources */,
 				63C8863D1C7F15F300F5677F /* LegacyUtilities.m in Sources */,
 				635F10E01BFAFABB004982B4 /* NSIndexPath+IndexPathType.swift in Sources */,
@@ -1099,9 +1160,10 @@
 				635F10ED1BFAFABB004982B4 /* NSRunLoop+TaskDispatcher.swift in Sources */,
 				633ECE541C14B9290082D870 /* ObjCPrimitiveCodingType-AVFoundation.swift in Sources */,
 				635F10F91BFAFABB004982B4 /* NSPersistentStoreType.swift in Sources */,
+				637A56161C88348F001A178A /* ObjCKeyValueStore.m in Sources */,
 				635F10FC1BFAFABB004982B4 /* NSRunLoopMode.swift in Sources */,
+				637A560C1C8830E8001A178A /* NSRange+CollectionType.swift in Sources */,
 				635F10C61BFAFABB004982B4 /* PersistenceController.swift in Sources */,
-				6371F21E1C7F834F00837BB7 /* ObjCCodingBaseAccessors-QuartzCore.m in Sources */,
 				635F10CF1BFAFABB004982B4 /* CFRunLoopActivity+CustomDebugStringConvertible.swift in Sources */,
 				633ECEDA1C158EF90082D870 /* ObjCPrimitiveCodingType-UIKit.swift in Sources */,
 				6360D33F1C73688900D64CE8 /* ObjCPrimitiveCodingType-CoreGraphics.swift in Sources */,
@@ -1115,18 +1177,24 @@
 				635F11041BFAFB4D004982B4 /* ObjectiveC.swift in Sources */,
 				63C8863B1C7F15F300F5677F /* LegacyUtilities.m in Sources */,
 				6360D33B1C73687E00D64CE8 /* _ObjectiveCBridgeable-QuartzCoreAddition.swift in Sources */,
+				637A56481C88451E001A178A /* ObjCKeyValueStore-AVFoundation.m in Sources */,
 				63BEA8741C79875D002171C2 /* ObjCSelfAwareSwizzle.swift in Sources */,
 				635F10AE1BFAFABB004982B4 /* HierarchicalPickablePicker.swift in Sources */,
-				6371F2141C7F829C00837BB7 /* ObjCCodingBaseAccessors-UIKit.m in Sources */,
+				637A56341C883E63001A178A /* ObjCKeyValueStore-CoreGraphics.m in Sources */,
+				6371F2141C7F829C00837BB7 /* ObjCCodingBase-UIKit.m in Sources */,
 				635F10E41BFAFABB004982B4 /* NSObjectProtocol+Collections.swift in Sources */,
 				63C3C8861C2AB52200A864E4 /* IndexPath+_ObjectiveCBridgeable.swift in Sources */,
+				637A56201C88358B001A178A /* ObjCKeyValueStore+Internal.m in Sources */,
 				63F0B5301C11D8D500710C41 /* LaunchTask-UIKit.m in Sources */,
 				635F10F61BFAFABB004982B4 /* Variables.swift in Sources */,
 				635F10B71BFAFABB004982B4 /* ObjCKeyValueAccessible.swift in Sources */,
+				637A56521C8845A6001A178A /* ObjCKeyValueStore-UIKit.m in Sources */,
+				637A562A1C883AF0001A178A /* ObjCKeyValueStore+DefaultAccessors.m in Sources */,
 				633ECD971C142EDA0082D870 /* ObjCKeyValueAccessibleKeyType.swift in Sources */,
 				63C1D9FB1C3164E700D0F548 /* ObjCSelectorInterceptor.swift in Sources */,
+				637A563E1C883F59001A178A /* ObjCKeyValueStore-QuartzCore.m in Sources */,
 				635F10C01BFAFABB004982B4 /* ObjCProtocolDispatcherType.swift in Sources */,
-				63C5BD811C82CCE200A22F27 /* ObjCCodingBaseAccessors-AVFoundation.m in Sources */,
+				63C5BD811C82CCE200A22F27 /* ObjCCodingBase-AVFoundation.m in Sources */,
 				633ECED51C158A390082D870 /* _ObjectiveCBridgeable+FoundationAddition.swift in Sources */,
 				633ECEBF1C1547900082D870 /* NSCoder+InterfaceNormalization.swift in Sources */,
 				63DCC69F1C64D753001949C9 /* ObjCCodingBase.m in Sources */,
@@ -1136,13 +1204,12 @@
 				6315CB4C1BFD8746003A5840 /* ObjCSelfAwareSwizzle.m in Sources */,
 				635F10BA1BFAFABB004982B4 /* ObjCAssociated.swift in Sources */,
 				635F11081BFAFBA5004982B4 /* SubsequentSetupInitializable.swift in Sources */,
-				6371F2051C7F57FC00837BB7 /* ObjCCodingBaseAccessors-CoreGraphics.m in Sources */,
+				6371F2051C7F57FC00837BB7 /* ObjCCodingBase-CoreGraphics.m in Sources */,
 				635F10D51BFAFABB004982B4 /* NSDate+Comparable.swift in Sources */,
 				635F10C31BFAFABB004982B4 /* ObjCProtocolInterceptor.swift in Sources */,
 				635C250D1C2015CB00B0263F /* NSRange+Utilities.swift in Sources */,
 				635F10DE1BFAFABB004982B4 /* NSIndexPath+IndexPathType.swift in Sources */,
 				635F10D81BFAFABB004982B4 /* NSError+InitConveniences.swift in Sources */,
-				6371F1F11C7F31FE00837BB7 /* ObjCCodingBaseAccessors.m in Sources */,
 				635F10DB1BFAFABB004982B4 /* NSIndexPath+Comparable.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1177,6 +1244,7 @@
 				6360D3401C73688900D64CE8 /* ObjCPrimitiveCodingType-CoreGraphics.swift in Sources */,
 				633ECE421C14A0690082D870 /* NSCoding+ObjCKeyValueAccessible.swift in Sources */,
 				633ECE3E1C149F3C0082D870 /* ObjCCodingPrimitiveType.swift in Sources */,
+				637A56171C88348F001A178A /* ObjCKeyValueStore.m in Sources */,
 				635F10B21BFAFABB004982B4 /* Notifications.swift in Sources */,
 				6371F2001C7F35FC00837BB7 /* ObjCCodingBase+Internal.m in Sources */,
 				635F10BE1BFAFABB004982B4 /* ObjCMultiCastDelegatable.swift in Sources */,
@@ -1186,7 +1254,6 @@
 				63C8863C1C7F15F300F5677F /* LegacyUtilities.m in Sources */,
 				6360D33C1C73687E00D64CE8 /* _ObjectiveCBridgeable-QuartzCoreAddition.swift in Sources */,
 				635F10E51BFAFABB004982B4 /* NSObjectProtocol+Collections.swift in Sources */,
-				6371F21F1C7F834F00837BB7 /* ObjCCodingBaseAccessors-QuartzCore.m in Sources */,
 				633ECEDE1C158F470082D870 /* ObjCPrimitiveCodingType-AppKit.swift in Sources */,
 				63C3C8871C2AB52200A864E4 /* IndexPath+_ObjectiveCBridgeable.swift in Sources */,
 				635F10F71BFAFABB004982B4 /* Variables.swift in Sources */,
@@ -1194,6 +1261,7 @@
 				63BEA8791C799951002171C2 /* ObjCSelfAwareSwizzleRecipeType.swift in Sources */,
 				635F10C11BFAFABB004982B4 /* ObjCProtocolDispatcherType.swift in Sources */,
 				633ECD981C142EDA0082D870 /* ObjCKeyValueAccessibleKeyType.swift in Sources */,
+				637A562B1C883AF0001A178A /* ObjCKeyValueStore+DefaultAccessors.m in Sources */,
 				63C1D9FC1C3164E700D0F548 /* ObjCSelectorInterceptor.swift in Sources */,
 				63F0B5351C11D8E200710C41 /* LaunchTask-AppKit.m in Sources */,
 				633ECED61C158A390082D870 /* _ObjectiveCBridgeable+FoundationAddition.swift in Sources */,
@@ -1202,17 +1270,21 @@
 				630D51FE1C0D7003007E2D5C /* NSManagedObject+ObjCKeyValueAccessible.swift in Sources */,
 				63BEA87C1C799955002171C2 /* ObjCSelfAwareSwizzleSource.swift in Sources */,
 				6315CB4D1BFD8746003A5840 /* ObjCSelfAwareSwizzle.m in Sources */,
+				637A56211C88358B001A178A /* ObjCKeyValueStore+Internal.m in Sources */,
 				63BEA87F1C79995A002171C2 /* ObjCSelfAwareSwizzle.swift in Sources */,
+				637A563F1C883F59001A178A /* ObjCKeyValueStore-QuartzCore.m in Sources */,
 				635F10BB1BFAFABB004982B4 /* ObjCAssociated.swift in Sources */,
 				635F11091BFAFBA5004982B4 /* SubsequentSetupInitializable.swift in Sources */,
-				63C5BD821C82CCE200A22F27 /* ObjCCodingBaseAccessors-AVFoundation.m in Sources */,
-				6371F2061C7F57FC00837BB7 /* ObjCCodingBaseAccessors-CoreGraphics.m in Sources */,
+				63C5BD821C82CCE200A22F27 /* ObjCCodingBase-AVFoundation.m in Sources */,
+				6371F2061C7F57FC00837BB7 /* ObjCCodingBase-CoreGraphics.m in Sources */,
 				635F10D61BFAFABB004982B4 /* NSDate+Comparable.swift in Sources */,
 				635F10C41BFAFABB004982B4 /* ObjCProtocolInterceptor.swift in Sources */,
 				635C250E1C2015CB00B0263F /* NSRange+Utilities.swift in Sources */,
 				635F10DF1BFAFABB004982B4 /* NSIndexPath+IndexPathType.swift in Sources */,
+				637A56491C88451E001A178A /* ObjCKeyValueStore-AVFoundation.m in Sources */,
 				635F10D91BFAFABB004982B4 /* NSError+InitConveniences.swift in Sources */,
-				6371F1F21C7F31FE00837BB7 /* ObjCCodingBaseAccessors.m in Sources */,
+				637A56351C883E63001A178A /* ObjCKeyValueStore-CoreGraphics.m in Sources */,
+				637A560D1C8830E8001A178A /* NSRange+CollectionType.swift in Sources */,
 				635F10DC1BFAFABB004982B4 /* NSIndexPath+Comparable.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1240,9 +1312,10 @@
 				63F0B52B1C11D6DC00710C41 /* LaunchTask.m in Sources */,
 				633ECE571C14B9290082D870 /* ObjCPrimitiveCodingType-AVFoundation.swift in Sources */,
 				635F11741BFAFD83004982B4 /* CFRunLoopActivity+CustomDebugStringConvertible.swift in Sources */,
+				637A56191C88348F001A178A /* ObjCKeyValueStore.m in Sources */,
 				635F11811BFAFD83004982B4 /* NSPersistentStoreType.swift in Sources */,
+				637A560F1C8830E8001A178A /* NSRange+CollectionType.swift in Sources */,
 				635F11711BFAFD83004982B4 /* PersistenceController.swift in Sources */,
-				6371F2201C7F834F00837BB7 /* ObjCCodingBaseAccessors-QuartzCore.m in Sources */,
 				635F116A1BFAFD83004982B4 /* Notifications.swift in Sources */,
 				635F116E1BFAFD83004982B4 /* ObjCMultiCastDelegatable.swift in Sources */,
 				6360D3421C73688900D64CE8 /* ObjCPrimitiveCodingType-CoreGraphics.swift in Sources */,
@@ -1256,18 +1329,23 @@
 				635F116C1BFAFD83004982B4 /* ObjCKeyValueAccessible.swift in Sources */,
 				63C8863E1C7F15F300F5677F /* LegacyUtilities.m in Sources */,
 				6360D33D1C73687E00D64CE8 /* _ObjectiveCBridgeable-QuartzCoreAddition.swift in Sources */,
+				637A564B1C88451E001A178A /* ObjCKeyValueStore-AVFoundation.m in Sources */,
 				635F116F1BFAFD83004982B4 /* ObjCProtocolDispatcherType.swift in Sources */,
 				635F116D1BFAFD83004982B4 /* ObjCAssociated.swift in Sources */,
-				6371F2171C7F829C00837BB7 /* ObjCCodingBaseAccessors-UIKit.m in Sources */,
+				637A56371C883E63001A178A /* ObjCKeyValueStore-CoreGraphics.m in Sources */,
+				6371F2171C7F829C00837BB7 /* ObjCCodingBase-UIKit.m in Sources */,
 				63C3C8891C2AB52200A864E4 /* IndexPath+_ObjectiveCBridgeable.swift in Sources */,
 				635F11761BFAFD83004982B4 /* NSDate+Comparable.swift in Sources */,
+				637A56231C88358B001A178A /* ObjCKeyValueStore+Internal.m in Sources */,
 				635F117D1BFAFD83004982B4 /* NSRunLoop+TaskDispatcher.swift in Sources */,
 				63BEA87B1C799951002171C2 /* ObjCSelfAwareSwizzleRecipeType.swift in Sources */,
 				63F0B5311C11D8D500710C41 /* LaunchTask-UIKit.m in Sources */,
+				637A562D1C883AF0001A178A /* ObjCKeyValueStore+DefaultAccessors.m in Sources */,
 				633ECD9A1C142EDA0082D870 /* ObjCKeyValueAccessibleKeyType.swift in Sources */,
 				63C1D9FE1C3164E700D0F548 /* ObjCSelectorInterceptor.swift in Sources */,
+				637A56411C883F59001A178A /* ObjCKeyValueStore-QuartzCore.m in Sources */,
 				635F11701BFAFD83004982B4 /* ObjCProtocolInterceptor.swift in Sources */,
-				63C5BD831C82CCE200A22F27 /* ObjCCodingBaseAccessors-AVFoundation.m in Sources */,
+				63C5BD831C82CCE200A22F27 /* ObjCCodingBase-AVFoundation.m in Sources */,
 				630D52001C0D7003007E2D5C /* NSManagedObject+ObjCKeyValueAccessible.swift in Sources */,
 				633ECED81C158A390082D870 /* _ObjectiveCBridgeable+FoundationAddition.swift in Sources */,
 				63DCC6A21C64D753001949C9 /* ObjCCodingBase.m in Sources */,
@@ -1277,13 +1355,13 @@
 				63BEA8811C79995B002171C2 /* ObjCSelfAwareSwizzle.swift in Sources */,
 				635F11791BFAFD83004982B4 /* NSIndexPath+IndexPathType.swift in Sources */,
 				635F11801BFAFD83004982B4 /* Variables.swift in Sources */,
-				6371F2081C7F57FC00837BB7 /* ObjCCodingBaseAccessors-CoreGraphics.m in Sources */,
+				6371F2081C7F57FC00837BB7 /* ObjCCodingBase-CoreGraphics.m in Sources */,
+				637A56561C885183001A178A /* ObjCKeyValueStore-UIKit.m in Sources */,
 				635F11771BFAFD83004982B4 /* NSError+InitConveniences.swift in Sources */,
 				635F117E1BFAFD83004982B4 /* NSString+RangesOfString.swift in Sources */,
 				635F117A1BFAFD83004982B4 /* NSObjectProtocol+Collections.swift in Sources */,
 				635C25101C2015CB00B0263F /* NSRange+Utilities.swift in Sources */,
 				635F11781BFAFD83004982B4 /* NSIndexPath+Comparable.swift in Sources */,
-				6371F1F41C7F31FE00837BB7 /* ObjCCodingBaseAccessors.m in Sources */,
 				635F11821BFAFD83004982B4 /* NSRunLoopMode.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

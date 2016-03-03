@@ -49,22 +49,6 @@ static NSString *  kObjCCodingBaseVersionKey
     _internalStorage[key] = value;
 }
 
-- (id)valueForKey:(NSString *)key {
-    if (ObjCCodingBaseIsPropertyName([self class], key)) {
-        return [self primitiveValueForKey:key];
-    } else {
-        return [super valueForKey:key];
-    }
-}
-
-- (void)setValue:(id)value forKey:(NSString *)key {
-    if (ObjCCodingBaseIsPropertyName([self class], key)) {
-        [self setPrimitiveValue:value forKey:key];
-    } else {
-        [super setValue:value forKey:key];
-    }
-}
-
 - (instancetype)init {
     self = [super init];
 
@@ -170,16 +154,6 @@ static NSString *  kObjCCodingBaseVersionKey
         );
 
         (* encode)([self class], coder, key, value);
-    }
-}
-
-+ (BOOL)resolveInstanceMethod:(SEL)selector {
-    if (ObjCCodingBaseSynthesizeGetter(self, selector)) {
-        return YES;
-    } else if (ObjCCodingBaseSynthesizeSetter(self, selector)) {
-        return YES;
-    } else {
-        return [super resolveInstanceMethod:selector];
     }
 }
 

@@ -8,9 +8,11 @@
 
 @import Foundation;
 
+#import <Nest/ObjCKeyValueStore.h>
+
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ObjCCodingBase : NSObject<NSCoding>
+@interface ObjCCodingBase : ObjCKeyValueStore<NSCoding>
 
 /** Returns the version of `ObjCCodingBase` subclass. The default implementaiton
  always returns 0.
@@ -44,14 +46,6 @@ NS_ASSUME_NONNULL_BEGIN
 /** Returns a fallback value for a non-migration decoding a property named
  `key`. */
 + (id __nullable)defaultValueForKey:(NSString *)key;
-
-/** Primitive methods give access to the generic dictionary storage from 
- subclasses that implement explicit accessors like -setName/-name to add custom 
- document logic.
- */
-- (id __nullable)primitiveValueForKey:(NSString *)key;
-- (void)setPrimitiveValue:(id __nullable)value forKey:(NSString *)key;
-
 @end
 
 NS_ASSUME_NONNULL_END
