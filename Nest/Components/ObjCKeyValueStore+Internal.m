@@ -701,19 +701,45 @@ NSString * ObjCKeyValueStoreAccessorCapitalizedPropertyName(
     const char * rawPropertyName
     )
 {
-    size_t propertyNameLength = strlen(rawPropertyName);
-
+    NSString * propertyName = [NSString stringWithUTF8String:rawPropertyName];
+    
     NSString * capitalizedPropertyName = nil;
 
+    NSUInteger propertyNameLength = [propertyName length];
+    
     if (propertyNameLength > 1) {
-        char firstLetter = *(rawPropertyName);
-        capitalizedPropertyName
-        = [NSString stringWithFormat:@"%@%@",
-           [NSString stringWithCString:&firstLetter
-                              encoding:NSUTF8StringEncoding]
-           .capitalizedString,
-           [NSString stringWithCString:(rawPropertyName + 1)
-                              encoding:NSUTF8StringEncoding]];
+        NSRange propertyNameRange = NSMakeRange(0, propertyNameLength);
+        
+        NSMutableString * capitalizedBase = [[NSMutableString alloc] init];
+        __block NSRange firstSubstringRange;
+        [propertyName enumerateSubstringsInRange:propertyNameRange
+                                         options:NSStringEnumerationByComposedCharacterSequences
+                                      usingBlock:
+         ^(NSString * _Nullable substring,
+            NSRange substringRange,
+            NSRange enclosingRange,
+            BOOL * _Nonnull stop
+           )
+         {
+             if (substringRange.location == 0) {
+                 [capitalizedBase appendString: substring.capitalizedString];
+                 firstSubstringRange = substringRange;
+             } else {
+                 * stop = YES;
+             }
+         }];
+        
+        NSUInteger firstSubstringEnd = NSMaxRange(firstSubstringRange);
+        NSUInteger restSubstringLength
+        = propertyNameLength - firstSubstringRange.length;
+        NSRange restSubstringRange
+        = NSMakeRange(firstSubstringEnd, restSubstringLength);
+        NSString * restString
+        = [propertyName substringWithRange:restSubstringRange];
+        
+        [capitalizedBase appendString:restString];
+        
+        capitalizedPropertyName = capitalizedBase;
     } else {
         capitalizedPropertyName
         = [NSString stringWithCString:rawPropertyName
