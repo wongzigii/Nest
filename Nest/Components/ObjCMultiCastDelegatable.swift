@@ -19,9 +19,11 @@ private var weakDelegatesKey =
 "com.WeZZard.Nest.ObjCMultiCastDelegatable.weakDelegatesKey"
 
 extension ObjCMultiCastDelegatable {
-    public var delegates: [Delegate] { return weakDelegates.flatMap {$0.value} }
+    public var delegates: [Delegate] {
+        return _delegates.flatMap {$0.value}
+    }
     
-    private var weakDelegates: [Weak<Delegate>] {
+    private var _delegates: [Weak<Delegate>] {
         get {
             return (objc_getAssociatedObject(self, &weakDelegatesKey)
                 as? ObjCAssociated<[Weak<Delegate>]>)?.value
@@ -35,17 +37,17 @@ extension ObjCMultiCastDelegatable {
         }
     }
     
-    public func addDelegate(delegate: Delegate) {
+    public func add(delegate: Delegate) {
         let weakDelegate = Weak<Delegate>(delegate)
-        if !weakDelegates.contains(weakDelegate) {
-            weakDelegates.append(weakDelegate)
+        if !_delegates.contains(weakDelegate) {
+            _delegates.append(weakDelegate)
         }
     }
     
-    public func removeDelegate(delegate: Delegate) {
+    public func remove(delegate: Delegate) {
         let weakDelegate = Weak<Delegate>(delegate)
-        if let index = weakDelegates.indexOf(weakDelegate) {
-            weakDelegates.removeAtIndex(index)
+        if let index = _delegates.index(of: weakDelegate) {
+            _delegates.remove(at: index)
         }
     }
 }

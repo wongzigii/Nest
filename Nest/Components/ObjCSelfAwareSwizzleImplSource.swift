@@ -1,5 +1,5 @@
 //
-//  ObjCSelfAwareSwizzleSource.swift
+//  ObjCSelfAwareSwizzleImplSource.swift
 //  Nest
 //
 //  Created by Manfred on 2/21/16.
@@ -9,15 +9,15 @@
 import Foundation
 import ObjectiveC
 
-internal enum ObjCSelfAwareSwizzleSource: Equatable {
-    case Implementation(
+internal enum ObjCSelfAwareSwizzleImplSource: Equatable {
+    case impl(
         class: AnyClass,
         selector: ObjectiveC.Selector,
         originalImplPointer: UnsafeMutablePointer<IMP>,
         swizzledImpl: IMP
     )
     
-    case Selector(
+    case selector(
         class: AnyClass,
         originalSelector: ObjectiveC.Selector,
         swizzledSelector: ObjectiveC.Selector
@@ -25,35 +25,25 @@ internal enum ObjCSelfAwareSwizzleSource: Equatable {
 }
 
 internal func == (
-    lhs: ObjCSelfAwareSwizzleSource,
-    rhs: ObjCSelfAwareSwizzleSource
+    lhs: ObjCSelfAwareSwizzleImplSource,
+    rhs: ObjCSelfAwareSwizzleImplSource
     )
     -> Bool
 {
     switch (lhs, rhs) {
     case let (
-        .Implementation(
-            lhsClass,
-            lhsSelector,
-            lhsOriginalImplPointer,
-            lhsSwizzledImpl
-        ),
-        .Implementation(
-            rhsClass,
-            rhsSelector,
-            rhsOriginalImplPointer,
-            rhsSwizzledImpl
-        )
+        .impl(lhsClass, lhsSel, lhsOriginalImplPtr, lhsSwizzledImpl),
+        .impl(rhsClass, rhsSel, rhsOriginalImplPtr, rhsSwizzledImpl)
         ):
         
         return lhsClass === rhsClass
-            && lhsSelector == rhsSelector
-            && lhsOriginalImplPointer == rhsOriginalImplPointer
+            && lhsSel == rhsSel
+            && lhsOriginalImplPtr == rhsOriginalImplPtr
             && lhsSwizzledImpl == rhsSwizzledImpl
         
     case let (
-        .Selector(lhsClass, lhsOriginalSelector, lhsSwizzledSelector),
-        .Selector(rhsClass, rhsOriginalSelector, rhsSwizzledSelector)
+        .selector(lhsClass, lhsOriginalSelector, lhsSwizzledSelector),
+        .selector(rhsClass, rhsOriginalSelector, rhsSwizzledSelector)
         ):
         
         return lhsClass === rhsClass

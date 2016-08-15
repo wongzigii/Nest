@@ -10,21 +10,21 @@ import Foundation
 import CoreGraphics
 
 extension CGFloat: ObjCCodingPrimitiveType {
-    public func encodeTo(encoder: NSCoder, for key: String) {
+    public func encode(to encoder: NSCoder, for key: String) {
         #if arch(x86_64) || arch(arm64)
-            encoder.encodeDouble(Double(self), forKey: key)
+            encoder.encode(Double(self), forKey: key)
         #else
-            encoder.encodeFloat(Float(self), forKey: key)
+            encoder.encode(Float(self), forKey: key)
         #endif
     }
     
-    public static func decodeFrom(decoder: NSCoder, for key: String)
+    public static func decode(from decoder: NSCoder, for key: String)
         -> CGFloat
     {
         #if arch(x86_64) || arch(arm64)
-            return CGFloat(decoder.decodeDoubleForKey(key))
+            return CGFloat(decoder.decodeDouble(forKey: key))
         #else
-            return CGFloat(decoder.decodeFloatForKey(key))
+            return CGFloat(decoder.decodeFloat(forKey: key))
         #endif
     }
 }

@@ -13,7 +13,7 @@ import CoreData
 public class PersistenceController {
     
     public enum State: Int {
-        case NotPrepared, Preparing, Ready, Failed
+        case notPrepared, preparing, ready, failed
     }
     
     // Managed object context used for fetching and update
@@ -26,43 +26,41 @@ public class PersistenceController {
     private var pendingSavingCompletions: [(Bool) -> Void] = []
     public private(set) var saving: Bool = false
     
-    private var state: State = .NotPrepared
+    private var state: State = .notPrepared
     
-    private var preparationQueue: dispatch_queue_t =
-    dispatch_queue_create(
-        "com.WeZZard.Nest.PersistenceController.PreparationQueue",
-        DISPATCH_QUEUE_SERIAL
+    private var preparationQueue: DispatchQueue = DispatchQueue(
+        label: "com.WeZZard.Nest.PersistenceController.PreparationQueue"
     )
     
     public init(
-        storeURL: NSURL,
+        storeURL: URL,
         type: NSPersistentStoreType,
         modelName: String,
         modelExtension: String = "momd"
         )
     {
-        state = .Preparing
+        state = .preparing
         
         fetchingContext = NSManagedObjectContext(
-            concurrencyType: .MainQueueConcurrencyType)
+            concurrencyType: .mainQueueConcurrencyType)
         
         savingContext = NSManagedObjectContext(
-            concurrencyType: .PrivateQueueConcurrencyType)
+            concurrencyType: .privateQueueConcurrencyType)
         
-        fetchingContext.parentContext = savingContext
+        fetchingContext.parent = savingContext
         
-        dispatch_async(preparationQueue) { () -> Void in
-            guard let modelURL = NSBundle.mainBundle()
-                .URLForResource(modelName, withExtension:modelExtension) else
+        preparationQueue.async { () -> Void in
+            guard let modelURL = Bundle.main
+                .url(forResource: modelName, withExtension:modelExtension) else
             {
-                self.state = .Failed
+                self.state = .failed
                 fatalError("Error loading model from bundle")
             }
             
             guard let managedObjectModel
-                = NSManagedObjectModel(contentsOfURL: modelURL) else
+                = NSManagedObjectModel(contentsOf: modelURL) else
             {
-                self.state = .Failed
+                self.state = .failed
                 fatalError("Error initializing model from: \(modelURL)")
             }
             
@@ -70,51 +68,47 @@ public class PersistenceController {
                 managedObjectModel: managedObjectModel)
             
             do {
-                guard let containingDir = storeURL
-                    .URLByDeletingLastPathComponent else
-                {
-                    fatalError("Cannot get containing directory")
-                }
+                let containingDir = storeURL.deletingLastPathComponent()
                 
-                try NSFileManager.defaultManager()
-                    .createDirectoryAtURL(containingDir,
+                try FileManager.default
+                    .createDirectory(at: containingDir,
                         withIntermediateDirectories: true,
                         attributes: nil)
                 
                 try persistenStoreCoordinator
-                    .addPersistentStoreWithType(type.primitiveValue,
-                        configuration: nil,
-                        URL: storeURL,
+                    .addPersistentStore(ofType: type.primitiveValue,
+                        configurationName: nil,
+                        at: storeURL,
                         options: nil)
             } catch {
-                self.state = .Failed
+                self.state = .failed
                 fatalError("Error migrating store: \(error)")
             }
             
-            NSNotificationCenter.defaultCenter().addObserver(
+            Foundation.NotificationCenter.default.addObserver(
                 self,
                 selector: #selector(
                     self.handleManagedObjectContextDidSaveNotification(_:)
                 ),
-                name: NSManagedObjectContextDidSaveNotification,
+                name: NSNotification.Name.NSManagedObjectContextDidSave,
                 object: self.savingContext
             )
             
             self.savingContext.persistentStoreCoordinator
                 = persistenStoreCoordinator
             
-            self.state = .Ready
+            self.state = .ready
         }
     }
     
     deinit {
-        NSNotificationCenter.defaultCenter().removeObserver(self,
-            name: NSManagedObjectContextDidSaveNotification,
+        Foundation.NotificationCenter.default.removeObserver(self,
+            name: NSNotification.Name.NSManagedObjectContextDidSave,
             object: savingContext)
     }
     
     private func saveWithCompletionHandler(
-        comletionHandler: ((success: Bool) -> Void)?)
+        _ comletionHandler: ((success: Bool) -> Void)?)
     {
         perform { (managedObjectContext) -> Void in
             switch self.saving {
@@ -123,7 +117,7 @@ public class PersistenceController {
             case false:
                 self.saving = true
                 
-                self.savingContext.performBlock { _ in
+                self.savingContext.perform { _ in
                     
                     do {
                         try self.savingContext.save()
@@ -144,40 +138,40 @@ public class PersistenceController {
     public typealias DatabaseTransaction =
         (context: NSManagedObjectContext) -> Void
     
-    public func perform(transaction: DatabaseTransaction) {
+    public func perform(_ transaction: DatabaseTransaction) {
         switch state {
-        case .Ready:
+        case .ready:
             let context = fetchingContext
-            fetchingContext.performBlock({ () -> Void in
+            fetchingContext.perform({ () -> Void in
                 transaction(context: context)
             })
-        case .NotPrepared:
-            dispatch_async(preparationQueue, { () -> Void in ()
+        case .notPrepared:
+            preparationQueue.async(execute: { () -> Void in ()
                 self.perform(transaction)
             })
-        case .Preparing:
-            dispatch_async(preparationQueue, { () -> Void in ()
+        case .preparing:
+            preparationQueue.async(execute: { () -> Void in ()
                 self.perform(transaction)
             })
-        case .Failed:
+        case .failed:
             assertionFailure("Persistence controller initialization failed")
         }
     }
     
-    public func performAndWait(transaction: DatabaseTransaction) {
+    public func performAndWait(_ transaction: DatabaseTransaction) {
         switch state {
-        case .Ready:
+        case .ready:
             let context = fetchingContext
-            fetchingContext.performBlockAndWait({ () -> Void in
+            fetchingContext.performAndWait({ () -> Void in
                 transaction(context: context)
             })
-        case .NotPrepared:
-            while state == .Preparing || state == .NotPrepared {}
+        case .notPrepared:
+            while state == .preparing || state == .notPrepared {}
             performAndWait(transaction)
-        case .Preparing:
-            while state == .Preparing {}
+        case .preparing:
+            while state == .preparing {}
             performAndWait(transaction)
-        case .Failed:
+        case .failed:
             assertionFailure("Persistence controller initialization failed")
         }
     }
@@ -185,7 +179,7 @@ public class PersistenceController {
     private func launch() { /* Do nothing here */ }
     
     dynamic private func handleManagedObjectContextDidSaveNotification(
-        notification: NSNotification)
+        _ notification: Notification)
     {
         saving = false
         if hasPendingSavingRequest {
@@ -209,16 +203,16 @@ extension SingletonPersistenceControllerType where Self: PersistenceController {
     }
     
     public static func saveWithCompletionHandler(
-        comletionHandler: ((success: Bool) -> Void)?)
+        _ comletionHandler: ((success: Bool) -> Void)?)
     {
         shared.saveWithCompletionHandler(comletionHandler)
     }
     
-    public static func perform(transaction: DatabaseTransaction) {
+    public static func perform(_ transaction: DatabaseTransaction) {
         shared.perform(transaction)
     }
     
-    public static func performAndWait(transaction: DatabaseTransaction) {
+    public static func performAndWait(_ transaction: DatabaseTransaction) {
         shared.performAndWait(transaction)
     }
 }

@@ -38,9 +38,13 @@ static void SetInteger(id, SEL, IntegerValue);
 
 static IntegerValue GetInteger(id, SEL);
 
-static void SetFloating(id, SEL, FloatingPointValue);
+static void SetFloat(id, SEL, float);
 
-static FloatingPointValue GetFloating(id, SEL);
+static float GetFloat(id, SEL);
+
+static void SetDouble(id, SEL, double);
+
+static double GetDouble(id, SEL);
 
 static void SetObject(id, SEL, id);
 
@@ -81,8 +85,8 @@ static NSRange GetNSRange(id, SEL);
     ObjCKeyValueStoreRegisterAccessor((IMP)&GetInteger, (IMP)&SetInteger, @encode(unsigned long long));
     ObjCKeyValueStoreRegisterAccessor((IMP)&GetInteger, (IMP)&SetInteger, @encode(BOOL));
 
-    ObjCKeyValueStoreRegisterAccessor((IMP)&GetFloating, (IMP)&SetFloating, @encode(double));
-    ObjCKeyValueStoreRegisterAccessor((IMP)&GetFloating, (IMP)&SetFloating, @encode(float));
+    ObjCKeyValueStoreRegisterAccessor((IMP)&GetDouble, (IMP)&SetDouble, @encode(double));
+    ObjCKeyValueStoreRegisterAccessor((IMP)&GetFloat, (IMP)&SetFloat, @encode(float));
 
     ObjCKeyValueStoreRegisterAccessor((IMP)&GetNSRange, (IMP)&SetNSRange, @encode(NSRange));
 }
@@ -158,11 +162,11 @@ IntegerValue GetInteger(id self, SEL _cmd) {
     return value;
 }
 
-void SetFloating(id self, SEL _cmd, FloatingPointValue value) {
+void SetFloat(id self, SEL _cmd, float value) {
     NSString * propertyName = nil;
     const char * propertyType = NULL;
 
-    ObjCKeyValueStoreAssertAccessor(self, _cmd, ObjCKeyValueStoreAccessorKindSetter, &propertyName, &propertyType, "floating point", @encode(double), @encode(float), nil);
+    ObjCKeyValueStoreAssertAccessor(self, _cmd, ObjCKeyValueStoreAccessorKindSetter, &propertyName, &propertyType, "float", @encode(double), @encode(float), nil);
 
     [self willChangeValueForKey:propertyName];
 
@@ -172,30 +176,62 @@ void SetFloating(id self, SEL _cmd, FloatingPointValue value) {
      and `NSCoder`'s decoding for numbers relies on `NSNumber`'s accessor, we
      must dispatch the conversion manually.
      */
-    if (propertyType[0] == 'f') {
-        [self setPrimitiveValue:@(value.asFloat) forKey:propertyName];
-    } else if (propertyType[0] == 'd') {
-        [self setPrimitiveValue:@(value.asDouble) forKey:propertyName];
-    }
+    [self setPrimitiveValue:@(value) forKey:propertyName];
 
     free((char *)propertyType);
 
     [self didChangeValueForKey:propertyName];
 }
 
-FloatingPointValue GetFloating(id self, SEL _cmd) {
+float GetFloat(id self, SEL _cmd) {
     NSString * propertyName = nil;
 
-    ObjCKeyValueStoreAssertAccessor(self, _cmd, ObjCKeyValueStoreAccessorKindGetter, &propertyName, NULL, "floating point", @encode(double), @encode(float), nil);
+    ObjCKeyValueStoreAssertAccessor(self, _cmd, ObjCKeyValueStoreAccessorKindGetter, &propertyName, NULL, "float", @encode(double), @encode(float), nil);
 
     id primitiveValue = [self primitiveValueForKey:propertyName];
 
     // Use the biggest sized type to set 0.
-    FloatingPointValue floatingPointValue = (FloatingPointValue)(double)0.0;
+    float floatValue = 0.0;
 
-    [primitiveValue getValue:&floatingPointValue];
+    [primitiveValue getValue:&floatValue];
 
-    return floatingPointValue;
+    return floatValue;
+}
+
+void SetDouble(id self, SEL _cmd, double value) {
+    NSString * propertyName = nil;
+    const char * propertyType = NULL;
+    
+    ObjCKeyValueStoreAssertAccessor(self, _cmd, ObjCKeyValueStoreAccessorKindSetter, &propertyName, &propertyType, "double", @encode(double), @encode(float), nil);
+    
+    [self willChangeValueForKey:propertyName];
+    
+    /* Because `NSNumber` doesn't get `-initWithBytes:objCType:` implemented,
+     the super implementation(belongs to `NSValue`) always returns
+     `NSConcreteValue` instance instead of `NSNumber`'s concrete class instance,
+     and `NSCoder`'s decoding for numbers relies on `NSNumber`'s accessor, we
+     must dispatch the conversion manually.
+     */
+    [self setPrimitiveValue:@(value) forKey:propertyName];
+    
+    free((char *)propertyType);
+    
+    [self didChangeValueForKey:propertyName];
+}
+
+double GetDouble(id self, SEL _cmd) {
+    NSString * propertyName = nil;
+    
+    ObjCKeyValueStoreAssertAccessor(self, _cmd, ObjCKeyValueStoreAccessorKindGetter, &propertyName, NULL, "double", @encode(double), @encode(float), nil);
+    
+    id primitiveValue = [self primitiveValueForKey:propertyName];
+    
+    // Use the biggest sized type to set 0.
+    double doubleValue = 0.0;
+    
+    [primitiveValue getValue:&doubleValue];
+    
+    return doubleValue;
 }
 
 void SetObject(id self, SEL _cmd, id value) {

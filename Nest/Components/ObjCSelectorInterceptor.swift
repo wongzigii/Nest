@@ -37,22 +37,22 @@ public final class ObjCSelectorInterceptor: NSObject {
         interceptedSelectors = selectorLiterals.map { Selector($0) }
     }
     
-    public func addMiddleMan(middleMan: NSObject) {
+    public func addMiddleMan(_ middleMan: NSObject) {
         _middleMen.append(Weak(middleMan))
     }
     
-    public func removeMiddleMan(middleMan: NSObject) -> NSObject? {
-        if let index = _middleMen.indexOf(Weak(middleMan)) {
-            return _middleMen.removeAtIndex(index).value
+    public func removeMiddleMan(_ middleMan: NSObject) -> NSObject? {
+        if let index = _middleMen.index(of: Weak(middleMan)) {
+            return _middleMen.remove(at: index).value
         }
         return nil
     }
-    public func containsMiddleMan(middleMan: NSObject) -> Bool {
+    public func containsMiddleMan(_ middleMan: NSObject) -> Bool {
         for each in _middleMen where each.value === middleMan { return true }
         return false
     }
     
-    private func doesSelectorBelongToAnyInterceptedSelector(aSelector: Selector)
+    private func doesSelectorBelongToAnyInterceptedSelector(_ aSelector: Selector)
         -> Bool
     {
         return interceptedSelectors.contains(aSelector)
@@ -60,17 +60,17 @@ public final class ObjCSelectorInterceptor: NSObject {
     
     /// Returns the object to which unrecognized messages should first be
     /// directed.
-    public override func forwardingTargetForSelector(aSelector: Selector)
+    public override func forwardingTarget(for aSelector: Selector)
         -> AnyObject?
     {
         var emptyMiddleManWrappersIndices = [Int]()
         
         defer {
-            _middleMen.removeIndicesInPlace(emptyMiddleManWrappersIndices)
+            _middleMen.remove(indices: emptyMiddleManWrappersIndices)
         }
         
-        for (index, middleManWrapper) in _middleMen.reverse().enumerate() {
-            if middleManWrapper.value?.respondsToSelector(aSelector) == true &&
+        for (index, middleManWrapper) in _middleMen.reversed().enumerated() {
+            if middleManWrapper.value?.responds(to: aSelector) == true &&
                 doesSelectorBelongToAnyInterceptedSelector(aSelector)
             {
                 return middleManWrapper.value
@@ -79,24 +79,24 @@ public final class ObjCSelectorInterceptor: NSObject {
             }
         }
         
-        if receiver?.respondsToSelector(aSelector) == true {
+        if receiver?.responds(to: aSelector) == true {
             return receiver
         }
         
-        return super.forwardingTargetForSelector(aSelector)
+        return super.forwardingTarget(for: aSelector)
     }
     
     /// Returns a Boolean value that indicates whether the receiver implements
     /// or inherits a method that can respond to a specified message.
-    public override func respondsToSelector(aSelector: Selector) -> Bool {
+    public override func responds(to aSelector: Selector) -> Bool {
         var emptyMiddleManWrappersIndices = [Int]()
         
         defer {
-            _middleMen.removeIndicesInPlace(emptyMiddleManWrappersIndices)
+            _middleMen.remove(indices: emptyMiddleManWrappersIndices)
         }
         
-        for (index, eachMiddleMan) in _middleMen.reverse().enumerate() {
-            if eachMiddleMan.value?.respondsToSelector(aSelector) == true &&
+        for (index, eachMiddleMan) in _middleMen.reversed().enumerated() {
+            if eachMiddleMan.value?.responds(to: aSelector) == true &&
                 doesSelectorBelongToAnyInterceptedSelector(aSelector)
             {
                 return true
@@ -105,10 +105,10 @@ public final class ObjCSelectorInterceptor: NSObject {
             }
         }
         
-        if receiver?.respondsToSelector(aSelector) == true {
+        if receiver?.responds(to: aSelector) == true {
             return true
         }
         
-        return super.respondsToSelector(aSelector)
+        return super.responds(to: aSelector)
     }
 }

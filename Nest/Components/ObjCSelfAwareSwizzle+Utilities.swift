@@ -11,9 +11,9 @@ import ObjectiveC
 
 public typealias ObjCSelfAwareSwizzling = (IMP) -> IMP
 
-//MARK: Inter-Selector Swizzle
-public func swizzleClassMethodSelector(
-    aSelector: Selector,
+//MARK: Selector-Wise Swizzle
+public func swizzle(
+    classSelector aSelector: Selector,
     with anotherSelector: Selector,
     on aClass: AnyClass
     )
@@ -21,15 +21,15 @@ public func swizzleClassMethodSelector(
 {
     let className = class_getName(aClass)
     let metaClass = objc_getMetaClass(className)
-    return swizzleInstanceMethodSelector(
-        aSelector,
+    return swizzle(
+        instanceSelector: aSelector,
         with: anotherSelector,
         on: metaClass as! AnyClass
     )
 }
 
-public func swizzleInstanceMethodSelector(
-    aSelector: Selector,
+public func swizzle(
+    instanceSelector aSelector: Selector,
     with anotherSelector: Selector,
     on aClass: AnyClass
     )
@@ -42,9 +42,9 @@ public func swizzleInstanceMethodSelector(
     )
 }
 
-//MARK: Inter-Implementation Swizzle
-public func swizzleClassMethodSelector<F>(
-    aSelector: Selector,
+//MARK: Implementation-Wise Swizzle
+public func swizzle<F>(
+    classSelector aSelector: Selector,
     on aClass: AnyClass,
     original: UnsafeMutablePointer<F>,
     swizzled: F
@@ -53,16 +53,16 @@ public func swizzleClassMethodSelector<F>(
 {
     let className = class_getName(aClass)
     let metaClass = objc_getMetaClass(className)
-    return swizzleInstanceMethodSelector(
-        aSelector,
+    return swizzle(
+        instanceSelector: aSelector,
         on: metaClass as! AnyClass,
         original: original,
         swizzled: swizzled
     )
 }
 
-public func swizzleInstanceMethodSelector<F>(
-    aSelector: Selector,
+public func swizzle<F>(
+    instanceSelector aSelector: Selector,
     on aClass: AnyClass,
     original originalPtr: UnsafeMutablePointer<F>,
     swizzled: F
@@ -72,15 +72,15 @@ public func swizzleInstanceMethodSelector<F>(
     return ObjCSelfAwareSwizzle(
         class: aClass,
         selector: aSelector,
-        originalPtr: unsafeBitCast(originalPtr, UnsafeMutablePointer<IMP>.self),
-        swizzled: unsafeBitCast(swizzled, IMP.self)
+        originalPtr: unsafeBitCast(originalPtr, to: UnsafeMutablePointer<IMP>.self),
+        swizzled: unsafeBitCast(swizzled, to: IMP.self)
     )
 }
 
 
 //MARK: Recipe Swizzle
-public func swizzleClassMethodSelector<R: ObjCSelfAwareSwizzleRecipeType>(
-    aSelector: Selector,
+public func swizzle<R: ObjCSelfAwareSwizzleRecipeType>(
+    classSelector aSelector: Selector,
     on aClass: AnyClass,
     recipe: R.Type
     )
@@ -88,15 +88,15 @@ public func swizzleClassMethodSelector<R: ObjCSelfAwareSwizzleRecipeType>(
 {
     let className = class_getName(aClass)
     let metaClass = objc_getMetaClass(className)
-    return swizzleInstanceMethodSelector(
-        aSelector,
+    return swizzle(
+        instanceSelector: aSelector,
         on: metaClass as! AnyClass,
         recipe: recipe
     )
 }
 
-public func swizzleInstanceMethodSelector<R: ObjCSelfAwareSwizzleRecipeType>(
-    aSelector: Selector,
+public func swizzle<R: ObjCSelfAwareSwizzleRecipeType>(
+    instanceSelector aSelector: Selector,
     on aClass: AnyClass,
     recipe: R.Type
     )
@@ -106,45 +106,7 @@ public func swizzleInstanceMethodSelector<R: ObjCSelfAwareSwizzleRecipeType>(
     return ObjCSelfAwareSwizzle(
         class: aClass,
         selector: aSelector,
-        originalPtr: unsafeBitCast(originalPtr, UnsafeMutablePointer<IMP>.self),
-        swizzled: unsafeBitCast(recipe.swizzled, IMP.self)
+        originalPtr: unsafeBitCast(originalPtr, to: UnsafeMutablePointer<IMP>.self),
+        swizzled: unsafeBitCast(recipe.swizzled, to: IMP.self)
     )
 }
-
-//MARK: Deprecated
-@available(*, unavailable, renamed="swizzleClassMethodSelector")
-public func withObjCSelfAwareSwizzleContext<F>(
-    forClassMethodSelector aSelector: Selector,
-    onClass aClass: AnyClass,
-    original: UnsafeMutablePointer<F>,
-    swizzled: F
-    )
-    -> ObjCSelfAwareSwizzle
-{
-    let className = class_getName(aClass)
-    let metaClass = objc_getMetaClass(className)
-    return swizzleInstanceMethodSelector(
-        aSelector,
-        on: metaClass as! AnyClass,
-        original: original,
-        swizzled: swizzled
-    )
-}
-
-@available(*, unavailable, renamed="swizzleInstanceMethodSelector")
-public func withObjCSelfAwareSwizzleContext<F>(
-    forInstanceMethodSelector aSelector: Selector,
-    onClass aClass: AnyClass,
-    original originalPtr:  UnsafeMutablePointer<F>,
-    swizzled: F
-    )
-    -> ObjCSelfAwareSwizzle
-{
-    return ObjCSelfAwareSwizzle(
-        class: aClass,
-        selector: aSelector,
-        originalPtr: unsafeBitCast(originalPtr, UnsafeMutablePointer<IMP>.self),
-        swizzled: unsafeBitCast(swizzled, IMP.self)
-    )
-}
-

@@ -74,8 +74,8 @@ private class CustomView: View, ObjCKeyValueAccessible {
         }
     }
     
-    private override func encodeWithCoder(aCoder: NSCoder) {
-        super.encodeWithCoder(aCoder)
+    private override func encode(with aCoder: NSCoder) {
+        super.encode(with: aCoder)
         encode(outletEntity, to: aCoder, for: .outletEntity)
         encode(
             outletCollectionEntity,
@@ -116,13 +116,13 @@ class NSCodingObjCKeyValueAccessibleTest: XCTestCase,
                 {$0.stringValue = textFieldSampleText}
         #endif
         
-        aCustomView.implicitlyNSCodingConformedObject.enabled = false
+        aCustomView.implicitlyNSCodingConformedObject.isEnabled = false
         
         let archivedCustomView = NSKeyedArchiver
-            .archivedDataWithRootObject(aCustomView)
+            .archivedData(withRootObject: aCustomView)
         
         let unarchivedCustomView = NSKeyedUnarchiver
-            .unarchiveObjectWithData(archivedCustomView) as! CustomView
+            .unarchiveObject(with: archivedCustomView) as! CustomView
         
         XCTAssert(
             unarchivedCustomView.scalarEntity == 0,
@@ -160,8 +160,8 @@ class NSCodingObjCKeyValueAccessibleTest: XCTestCase,
         #endif
         
         XCTAssert(
-            unarchivedCustomView.implicitlyNSCodingConformedObject.enabled
-                == aCustomView.implicitlyNSCodingConformedObject.enabled,
+            unarchivedCustomView.implicitlyNSCodingConformedObject.isEnabled
+                == aCustomView.implicitlyNSCodingConformedObject.isEnabled,
             "Implicitly NSCoding conformed object encode and decode failed"
         )
         

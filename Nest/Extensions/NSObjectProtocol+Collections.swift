@@ -9,9 +9,9 @@
 import Foundation
 import SwiftExt
 
-extension SequenceType where Generator.Element: NSObjectProtocol {
+extension Sequence where Iterator.Element: NSObjectProtocol {
     /// Return `true` iff `x` is in `self`.
-    public func containsNSObjectProtocol(element: Generator.Element)
+    public func contains(nsObjectProtocol element: Iterator.Element)
         -> Bool
     {
         for each in self {
@@ -27,13 +27,13 @@ extension SequenceType where Generator.Element: NSObjectProtocol {
     }
 }
 
-extension CollectionType where Generator.Element: NSObjectProtocol {
+extension Collection where Iterator.Element: NSObjectProtocol {
     
     /// Returns the first index where `value` appears in `self` or `nil` if
     /// `value` is not found.
     ///
     /// - Complexity: O(`self.count`).
-    public func indexOfNSObjectProtocol(value: Generator.Element)
+    public func index(ofNSObjectProtocol value: Iterator.Element)
         -> Index?
     {
         if count > 0 {
@@ -46,7 +46,7 @@ extension CollectionType where Generator.Element: NSObjectProtocol {
                         return index
                     }
                 }
-                index = index.successor()
+                index = self.index(after: index)
             }
         }
         
@@ -54,17 +54,17 @@ extension CollectionType where Generator.Element: NSObjectProtocol {
     }
 }
 
-extension RangeReplaceableCollectionType where
-    Generator.Element : NSObjectProtocol
+extension RangeReplaceableCollection where
+    Iterator.Element : NSObjectProtocol
 {
     /// Return all the intersected elements
-    public func intersectedWithNSObjectProtocols(collection: Self) -> Self
+    public func intersected(withNSObjectProtocols collection: Self) -> Self
     {
         var newCollection = Self()
         
         for eachElement in self {
-            if (!newCollection.containsNSObjectProtocol(eachElement) &&
-                collection.containsNSObjectProtocol(eachElement))
+            if (!newCollection.contains(nsObjectProtocol: eachElement) &&
+                collection.contains(nsObjectProtocol: eachElement))
             {
                 newCollection.append(eachElement)
             }
@@ -74,16 +74,16 @@ extension RangeReplaceableCollectionType where
     }
 }
 
-extension RangeReplaceableCollectionType where
-    Generator.Element : NSObjectProtocol,
-    Index: protocol<Comparable, BidirectionalIndexType>
+extension RangeReplaceableCollection where
+    Iterator.Element : NSObjectProtocol,
+    Index: Comparable & Comparable
 {
     /// Remove an `NSObjectProtocol` element
-    public mutating func removeNSObjectProtocols(elements: Self) -> Self {
+    public mutating func removeNSObjectProtocols(_ elements: Self) -> Self {
         var indices: [Index] = []
         
         for eachElement in elements {
-            if let index = indexOfNSObjectProtocol(eachElement) {
+            if let index = index(ofNSObjectProtocol: eachElement) {
                 indices.append(index)
             }
         }
@@ -92,15 +92,19 @@ extension RangeReplaceableCollectionType where
         
         var removedIndicesCount = 0
         
-        let sortedIndices = indices.sort {$0 < $1}
+        let sortedIndices = indices.sorted {$0 < $1}
         
         for eachIndex in sortedIndices {
-            let finalIndex = eachIndex.advancedBy(
-                removed.endIndex.distanceTo(removed.startIndex))
+            let finalIndex = index(
+                eachIndex,
+                offsetBy: removed.distance(
+                    from: removed.endIndex, to: removed.startIndex
+                )
+            )
             let target = self[finalIndex]
             removed.append(target)
             removedIndicesCount += 1
-            removeAtIndex(finalIndex)
+            remove(at: finalIndex)
         }
         
         return removed

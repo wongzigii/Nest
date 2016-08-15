@@ -11,38 +11,36 @@ import ObjectiveC
 
 @objc
 final public class ObjCSelfAwareSwizzle: NSObject {
-    internal private(set) var source: ObjCSelfAwareSwizzleSource
+    internal private(set) var implSource: ObjCSelfAwareSwizzleImplSource
     
     @objc public var targetClass: AnyClass {
-        switch source {
-        case let .Implementation(targetClass, _, _, _):
+        switch implSource {
+        case let .impl(targetClass, _, _, _):
             return targetClass
-        case let .Selector(targetClass, _, _):
+        case let .selector(targetClass, _, _):
             return targetClass
         }
     }
     
     @objc public var targetSelector: Selector {
-        switch source {
-        case let .Implementation(_, targetSelector, _, _):
+        switch implSource {
+        case let .impl(_, targetSelector, _, _):
             return targetSelector
-        case let .Selector(_, targetSelector, _):
+        case let .selector(_, targetSelector, _):
             return targetSelector
         }
     }
     
     public let isMetaClass: Bool
     
-    private var onceToken: dispatch_once_t = 0
-    
     @nonobjc internal init(
-        `class`: AnyClass,
+        class: AnyClass,
         selector: Selector,
         originalPtr: UnsafeMutablePointer<IMP>,
         swizzled: IMP
         )
     {
-        source = .Implementation(
+        implSource = .impl(
             class: `class`,
             selector: selector,
             originalImplPointer: originalPtr,
@@ -63,7 +61,7 @@ final public class ObjCSelfAwareSwizzle: NSObject {
             "Selector to swizzle(\(originalSelector)) shall not be same to the swizzling selector(\(swizzledSelector))."
         )
         
-        source = .Selector(
+        implSource = .selector(
             class: `class`,
             originalSelector: originalSelector,
             swizzledSelector: swizzledSelector
@@ -72,10 +70,10 @@ final public class ObjCSelfAwareSwizzle: NSObject {
         super.init()
     }
     
-    public func perform(error: NSErrorPointer) -> Bool {
+    public func perform(_ error: NSErrorPointer) -> Bool {
         var succeeded = false
         
-        error.memory = NSError(
+        error?.pointee = NSError(
             domain: "com.WeZZard.Nest.ObjCSelfAwareSwizzle",
             code: -1,
             userInfo: [
@@ -84,135 +82,131 @@ final public class ObjCSelfAwareSwizzle: NSObject {
             ]
         )
         
-        dispatch_once(&onceToken) { () -> Void in
-            error.memory = nil
+        error?.pointee = nil
+        
+        switch implSource {
+        case let .impl(
+            targetClass,
+            targetSelector,
+            originalImplPtr,
+            swizzledImpl
+            ):
             
-            switch self.source {
-            case let .Implementation(
+            let originalImpl = class_getMethodImplementation(
                 targetClass,
-                targetSelector,
-                originalImplPtr,
-                swizzledImpl
-                ):
-                
-                let originalImpl = class_getMethodImplementation(
-                    targetClass,
-                    targetSelector
+                targetSelector
+            )
+            
+            if originalImpl == nil {
+                error?.pointee = NSError(
+                    domain: "com.WeZZard.Nest.ObjCSelfAwareSwizzle",
+                    code: -2,
+                    userInfo: [
+                        NSLocalizedDescriptionKey
+                            : "Target class is nil: \(ObjCSelfAwareSwizzle.description)."
+                    ]
                 )
-                
-                if originalImpl == nil {
-                    error.memory = NSError(
-                        domain: "com.WeZZard.Nest.ObjCSelfAwareSwizzle",
-                        code: -2,
-                        userInfo: [
-                            NSLocalizedDescriptionKey
-                                : "Target class is nil: \(self.description)."
-                        ]
-                    )
-                    break
-                }
-                
-                originalImplPtr.memory = originalImpl
-                
-                let targetMethod = class_getInstanceMethod(
-                    targetClass,
-                    targetSelector
-                )
-                
-                if targetMethod == nil {
-                    error.memory = NSError(
-                        domain: "com.WeZZard.Nest.ObjCSelfAwareSwizzle",
-                        code: -2,
-                        userInfo: [
-                            NSLocalizedDescriptionKey
-                                : "The target class(\(targetClass)) or its superclasses do not contain an instance method with the specified selector: \(self.descriptionForSelector(targetSelector))."
-                        ]
-                    )
-                    break
-                }
-                
-                let encoding = method_getTypeEncoding(targetMethod);
-                
-                if encoding == nil {
-                    error.memory = NSError(
-                        domain: "com.WeZZard.Nest.ObjCSelfAwareSwizzle",
-                        code: -2,
-                        userInfo: [
-                            NSLocalizedDescriptionKey
-                                : "Not type encoding for target method of selector: \(self.descriptionForSelector(targetSelector))."
-                        ]
-                    )
-                    break
-                }
-                
-                class_replaceMethod(
-                    targetClass,
-                    targetSelector,
-                    swizzledImpl,
-                    encoding
-                )
-                
-                self.source = .Implementation(
-                    class: targetClass,
-                    selector: targetSelector,
-                    originalImplPointer: originalImplPtr,
-                    swizzledImpl: swizzledImpl
-                )
-                
-                succeeded = true
-                
-            case let .Selector(
-                targetClass, 
-                originalSelector, 
-                swizzledSelector
-                ):
-                
-                let originalMethod = class_getInstanceMethod(
-                    targetClass,
-                    originalSelector
-                )
-                
-                if originalMethod == nil {
-                    error.memory = NSError(
-                        domain: "com.WeZZard.Nest.ObjCSelfAwareSwizzle",
-                        code: -2,
-                        userInfo: [
-                            NSLocalizedDescriptionKey
-                                : "The target class(\(targetClass)) or its superclasses do not contain an instance method with the specified selector: \(self.descriptionForSelector(originalSelector))."
-                        ]
-                    )
-                    break
-                }
-                
-                let swizzledMethod = class_getInstanceMethod(
-                    targetClass,
-                    swizzledSelector
-                )
-                
-                if swizzledMethod == nil {
-                    error.memory = NSError(
-                        domain: "com.WeZZard.Nest.ObjCSelfAwareSwizzle",
-                        code: -2,
-                        userInfo: [
-                            NSLocalizedDescriptionKey
-                                : "The target class(\(targetClass)) or its superclasses do not contain an instance method with the specified selector: \(self.descriptionForSelector(swizzledSelector))."
-                        ]
-                    )
-                    break
-                }
-                
-                method_exchangeImplementations(originalMethod, swizzledMethod)
-                
-                succeeded = true
+                break
             }
             
+            originalImplPtr.pointee = originalImpl!
             
+            let targetMethod = class_getInstanceMethod(
+                targetClass,
+                targetSelector
+            )
+            
+            if targetMethod == nil {
+                error?.pointee = NSError(
+                    domain: "com.WeZZard.Nest.ObjCSelfAwareSwizzle",
+                    code: -2,
+                    userInfo: [
+                        NSLocalizedDescriptionKey
+                            : "The target class(\(targetClass)) or its superclasses do not contain an instance method with the specified selector: \(self.descriptionForSelector(targetSelector))."
+                    ]
+                )
+                break
+            }
+            
+            let encoding = method_getTypeEncoding(targetMethod);
+            
+            if encoding == nil {
+                error?.pointee = NSError(
+                    domain: "com.WeZZard.Nest.ObjCSelfAwareSwizzle",
+                    code: -2,
+                    userInfo: [
+                        NSLocalizedDescriptionKey
+                            : "Not type encoding for target method of selector: \(self.descriptionForSelector(targetSelector))."
+                    ]
+                )
+                break
+            }
+            
+            class_replaceMethod(
+                targetClass,
+                targetSelector,
+                swizzledImpl,
+                encoding
+            )
+            
+            implSource = .impl(
+                class: targetClass,
+                selector: targetSelector,
+                originalImplPointer: originalImplPtr,
+                swizzledImpl: swizzledImpl
+            )
+            
+            succeeded = true
+            
+        case let .selector(
+            targetClass,
+            originalSelector,
+            swizzledSelector
+            ):
+            
+            let originalMethod = class_getInstanceMethod(
+                targetClass,
+                originalSelector
+            )
+            
+            if originalMethod == nil {
+                error?.pointee = NSError(
+                    domain: "com.WeZZard.Nest.ObjCSelfAwareSwizzle",
+                    code: -2,
+                    userInfo: [
+                        NSLocalizedDescriptionKey
+                            : "The target class(\(targetClass)) or its superclasses do not contain an instance method with the specified selector: \(self.descriptionForSelector(originalSelector))."
+                    ]
+                )
+                break
+            }
+            
+            let swizzledMethod = class_getInstanceMethod(
+                targetClass,
+                swizzledSelector
+            )
+            
+            if swizzledMethod == nil {
+                error?.pointee = NSError(
+                    domain: "com.WeZZard.Nest.ObjCSelfAwareSwizzle",
+                    code: -2,
+                    userInfo: [
+                        NSLocalizedDescriptionKey
+                            : "The target class(\(targetClass)) or its superclasses do not contain an instance method with the specified selector: \(self.descriptionForSelector(swizzledSelector))."
+                    ]
+                )
+                break
+            }
+            
+            method_exchangeImplementations(originalMethod, swizzledMethod)
+            
+            succeeded = true
         }
         
         return succeeded
     }
     
-    private func descriptionForSelector(selector: Selector) -> String {
+    private func descriptionForSelector(_ selector: Selector) -> String {
         if isMetaClass {
             return "+\(selector)]"
         } else {
@@ -221,7 +215,7 @@ final public class ObjCSelfAwareSwizzle: NSObject {
     }
     
     public override var description: String {
-        let objectAddress = unsafeAddressOf(self)
+        let objectAddress = unsafeAddress(of: self)
         let prefix = "<\(self.dynamicType): \(objectAddress); "
         let contextInfo: String = {
             if isMetaClass {
@@ -235,12 +229,12 @@ final public class ObjCSelfAwareSwizzle: NSObject {
         return prefix + contextInfo + ">"
     }
     
-    public override func isEqual(object: AnyObject?) -> Bool {
+    public override func isEqual(_ object: AnyObject?) -> Bool {
         if let compared = object as? ObjCSelfAwareSwizzle {
             return targetClass === compared.targetClass
                 && targetSelector == compared.targetSelector
                 && isMetaClass == compared.isMetaClass
-                && source == compared.source
+                && implSource == compared.implSource
         }
         return super.isEqual(object)
     }

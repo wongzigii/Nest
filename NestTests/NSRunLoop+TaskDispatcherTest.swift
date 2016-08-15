@@ -9,7 +9,7 @@
 import XCTest
 import Nest
 
-private typealias TimingSymbols = NSRunLoopTaskInvokeTiming
+private typealias TimingSymbols = RunLoopTaskInvokeTiming
 
 class NSRunLoop_TaskDispatcherTest: XCTestCase {
     private var timingSymbols: [TimingSymbols] = []
@@ -17,37 +17,37 @@ class NSRunLoop_TaskDispatcherTest: XCTestCase {
     /// Malfunctioned
     func testDispatchInvokeTiming() {
         
-        let expectation = expectationWithDescription("testDispatchInvokeTiming")
+        let expectation = self.expectation(description: "testDispatchInvokeTiming")
         
-        NSRunLoop.currentRunLoop().perform {
-            self.timingSymbols.append(.CurrentLoopEnded)
+        _ = RunLoop.current.perform {
+            self.timingSymbols.append(.currentLoopEnded)
             }.forModes(.commonModes)
-            .when(.CurrentLoopEnded)
+            .when(.currentLoopEnded)
         
-        NSRunLoop.currentRunLoop().perform {
-            self.timingSymbols.append(.NextLoopBegan)
+        _ = RunLoop.current.perform {
+            self.timingSymbols.append(.nextLoopBegan)
             }.forModes(.commonModes)
-            .when(.NextLoopBegan)
+            .when(.nextLoopBegan)
         
-        NSRunLoop.currentRunLoop().perform {
-            self.timingSymbols.append(.Idle)
+        _ = RunLoop.current.perform {
+            self.timingSymbols.append(.idle)
             
             }.forModes(.commonModes)
-            .when(.Idle)
+            .when(.idle)
         
-        NSRunLoop.currentRunLoop().perform {
+        _ = RunLoop.current.perform {
             if self.timingSymbols
-                == [.CurrentLoopEnded, .NextLoopBegan, .Idle]
+                == [.currentLoopEnded, .nextLoopBegan, .idle]
             {
                 expectation.fulfill()
             }
             
             }.forModes(.commonModes)
-            .when(.Idle)
+            .when(.idle)
         
-        NSRunLoop.currentRunLoop().runUntilDate(NSDate(timeIntervalSinceNow: 1))
+        RunLoop.current.run(until: Date(timeIntervalSinceNow: 1))
         
-        waitForExpectationsWithTimeout(3) { (error) -> Void in
+        waitForExpectations(timeout: 3) { (error) -> Void in
             if let error = error {
                 XCTFail("Dispatch invoke timing test failed with error: \(error)")
             }

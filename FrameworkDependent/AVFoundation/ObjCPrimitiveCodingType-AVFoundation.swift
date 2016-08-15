@@ -11,37 +11,37 @@ import Foundation
 
 // Specialization for CoreMedia types
 extension CMTime: ObjCCodingPrimitiveType {
-    public func encodeTo(encoder: NSCoder, for key: String) {
-        encoder.encodeCMTime(self, forKey: key)
+    public func encode(to encoder: NSCoder, for key: String) {
+        encoder.encode(self, forKey: key)
     }
     
-    public static func decodeFrom(decoder: NSCoder, for key: String)
+    public static func decode(from decoder: NSCoder, for key: String)
         -> CMTime
     {
-        return decoder.decodeCMTimeForKey(key)
+        return decoder.decodeTime(forKey: key)
     }
 }
 
 extension CMTimeRange: ObjCCodingPrimitiveType {
-    public func encodeTo(encoder: NSCoder, for key: String) {
-        encoder.encodeCMTimeRange(self, forKey: key)
+    public func encode(to encoder: NSCoder, for key: String) {
+        encoder.encode(self, forKey: key)
     }
     
-    public static func decodeFrom(decoder: NSCoder, for key: String)
+    public static func decode(from decoder: NSCoder, for key: String)
         -> CMTimeRange
     {
-        return decoder.decodeCMTimeRangeForKey(key)
+        return decoder.decodeTimeRange(forKey: key)
     }
 }
 
 extension CMTimeMapping: ObjCCodingPrimitiveType {
-    public func encodeTo(encoder: NSCoder, for key: String) {
-        encoder.encodeCMTimeMapping(self, forKey: key)
+    public func encode(to encoder: NSCoder, for key: String) {
+        encoder.encode(self, forKey: key)
     }
     
-    public static func decodeFrom(decoder: NSCoder, for key: String)
+    public static func decode(from decoder: NSCoder, for key: String)
         -> CMTimeMapping
     {
-        return decoder.decodeCMTimeMappingForKey(key)
+        return decoder.decodeTimeMapping(forKey: key)
     }
 }

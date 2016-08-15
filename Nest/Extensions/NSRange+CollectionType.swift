@@ -8,15 +8,18 @@
 
 import Foundation
 
-extension NSRange: CollectionType {
+extension NSRange: Collection {
     public typealias Element = Int
+    public typealias IndexDistance = Int
     
-    public typealias Generator = RangeGenerator<Int>
+    public typealias Iterator = IndexingIterator<CountableRange<Int>>
     
-    public func generate() -> Generator {
+    public func makeIterator() -> Iterator {
         let range = location..<(location + length)
-        return range.generate()
+        return range.makeIterator()
     }
+    
+    public var count: IndexDistance { return length }
 }
 
 extension NSRange: Indexable {
@@ -26,8 +29,29 @@ extension NSRange: Indexable {
     
     public var endIndex: Index { return location + length }
     
-    public subscript(position: Int) -> Index {
+    public subscript(position: Index) -> Element {
         precondition(position < length)
         return startIndex + position
+    }
+    
+    public typealias SubSequence = NSRange
+    
+    public subscript(bounds: Range<Index>) -> SubSequence {
+        precondition(bounds.lowerBound >= 0)
+        precondition(bounds.upperBound < length)
+        return SubSequence(
+            location: bounds.lowerBound + location,
+            length: bounds.count
+        )
+    }
+    
+    public func index(after i: Index) -> Index {
+        precondition(i < endIndex)
+        return i + 1
+    }
+    
+    public func formIndex(after i: inout Index) {
+        precondition(i < endIndex)
+        i += 1
     }
 }

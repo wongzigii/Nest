@@ -11,15 +11,15 @@ import XCTest
 import Nest
 
 private protocol MessagePool: class {
-    func pushMessage(message: String)
+    func pushMessage(_ message: String)
 }
 
 private let ReceiverToken = "Receiver received message"
 private let MiddleManToken = "Middle man received message"
 
 @objc private protocol OperatorDelegate: NSObjectProtocol {
-    optional func operatorDidSendMessageToMiddleMan()
-    optional func operatorDidSendMessageToReceiver()
+    @objc optional func operatorDidSendMessageToMiddleMan()
+    @objc optional func operatorDidSendMessageToReceiver()
 }
 
 private class RealDelegate: NSObject, OperatorDelegate {
@@ -36,7 +36,10 @@ private class RealDelegate: NSObject, OperatorDelegate {
 
 //MARK: - Test Cases
 class ObjCProtocolInterceptorTest: XCTestCase, MessagePool {
-    private var onceToken: dispatch_once_t = 0
+    private lazy var __once: () = {
+            self.delegate?.operatorDidSendMessageToMiddleMan?()
+            self.delegate?.operatorDidSendMessageToReceiver?()
+        }()
     
     private weak var delegate: OperatorDelegate?
     private var realDelegate: RealDelegate!
@@ -44,15 +47,12 @@ class ObjCProtocolInterceptorTest: XCTestCase, MessagePool {
     
     private var messagePool: [String] = []
     
-    private func pushMessage(message: String) {
+    private func pushMessage(_ message: String) {
         messagePool.append(message)
     }
     
     private func sendMessageIfNecessary() {
-        dispatch_once(&onceToken) {
-            self.delegate?.operatorDidSendMessageToMiddleMan?()
-            self.delegate?.operatorDidSendMessageToReceiver?()
-        }
+        _ = self.__once
     }
     
     override func setUp() {
@@ -65,7 +65,7 @@ class ObjCProtocolInterceptorTest: XCTestCase, MessagePool {
         let aProtocolInterceptor = ObjCProtocolInterceptor
             .against(OperatorDelegate.self)
         aProtocolInterceptor.receiver = aRealDelegate
-        aProtocolInterceptor.containsMiddleMan(self)
+        _ = aProtocolInterceptor.contains(middleMan: self)
         protocolInterceptor = aProtocolInterceptor
         
         delegate = aProtocolInterceptor as? OperatorDelegate

@@ -29,16 +29,16 @@ class ObjectiveCTest: XCTestCase {
         
         let matchedPairs: [String: Protocol] = [
             "URLSession:didBecomeInvalidWithError:":
-                NSURLSessionDelegate.self,
+                URLSessionDelegate.self,
             "URLSession:didReceiveChallenge:completionHandler:":
-                NSURLSessionDelegate.self,
+                URLSessionDelegate.self,
             "URLSessionDidFinishEventsForBackgroundURLSession:":
-                NSURLSessionDelegate.self
+                URLSessionDelegate.self
         ]
         
         let mismatchedPairs: [String: Protocol] = [
-            "fileManager:shouldMoveItemAtURL:toURL:": NSXMLParserDelegate.self,
-            "parserDidStartDocument:": NSFileManagerDelegate.self
+            "fileManager:shouldMoveItemAtURL:toURL:": XMLParserDelegate.self,
+            "parserDidStartDocument:": FileManagerDelegate.self
         ]
         
         for (aSelector, aProtocol) in matchedPairs {

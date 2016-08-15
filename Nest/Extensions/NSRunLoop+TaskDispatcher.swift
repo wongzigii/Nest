@@ -23,15 +23,15 @@ private var taskAmendQueueKey =
 This enum shall not be a nested type, or, in Xcode Test, it's symbols would not
 be found.
 */
-public enum NSRunLoopTaskInvokeTiming: Int {
-    case NextLoopBegan
-    case CurrentLoopEnded
-    case Idle
+public enum RunLoopTaskInvokeTiming: Int {
+    case nextLoopBegan
+    case currentLoopEnded
+    case idle
 }
 
 private struct DeallocSwizzleRecipe: ObjCSelfAwareSwizzleRecipeType {
     private typealias FunctionPointer =
-        @convention(c) (Unmanaged<NSRunLoop>, Selector) -> Void
+        @convention(c) (Unmanaged<RunLoop>, Selector) -> Void
     private static var original: FunctionPointer!
     private static let swizzled: FunctionPointer =  {
         (aSelf, aSelector) -> Void in
@@ -47,8 +47,8 @@ private struct DeallocSwizzleRecipe: ObjCSelfAwareSwizzleRecipeType {
     }
 }
 
-extension NSRunLoop {
-    public func perform(closure: ()->Void) -> Task {
+extension RunLoop {
+    public func perform(_ closure: ()->Void) -> Task {
         objc_sync_enter(self)
         loadDispatchObserverIfNeeded()
         let task = Task(self, closure)
@@ -60,36 +60,35 @@ extension NSRunLoop {
     @objc private class func _ObjCSelfAwareSwizzle_dealloc()
         -> ObjCSelfAwareSwizzle
     {
-        return swizzleInstanceMethodSelector(
-            NSSelectorFromString("dealloc"),
+        return swizzle(
+            instanceSelector: NSSelectorFromString("dealloc"),
             on: self,
             recipe: DeallocSwizzleRecipe.self
         )
     }
     
     public final class Task {
+        private let weakRunLoop: Weak<RunLoop>
         
-        private let weakRunLoop: Weak<NSRunLoop>
-        
-        private var _invokeTiming: NSRunLoopTaskInvokeTiming
-        private var invokeTiming: NSRunLoopTaskInvokeTiming {
-            var theInvokeTiming: NSRunLoopTaskInvokeTiming = .NextLoopBegan
+        private var _invokeTiming: RunLoopTaskInvokeTiming
+        private var invokeTiming: RunLoopTaskInvokeTiming {
+            var theInvokeTiming: RunLoopTaskInvokeTiming = .nextLoopBegan
             guard let amendQueue = weakRunLoop.value?.taskAmendQueue else {
                 fatalError("Accessing a dealloced run loop")
             }
-            dispatch_sync(amendQueue) { () -> Void in
+            amendQueue.sync { () -> Void in
                 theInvokeTiming = self._invokeTiming
             }
             return theInvokeTiming
         }
         
-        private var _modes: NSRunLoopMode
-        private var modes: NSRunLoopMode {
-            var theModes: NSRunLoopMode = []
+        private var _modes: RunLoopMode
+        private var modes: RunLoopMode {
+            var theModes: RunLoopMode!
             guard let amendQueue = weakRunLoop.value?.taskAmendQueue else {
                 fatalError("Accessing a dealloced run loop")
             }
-            dispatch_sync(amendQueue) { () -> Void in
+            amendQueue.sync { () -> Void in
                 theModes = self._modes
             }
             return theModes
@@ -97,25 +96,25 @@ extension NSRunLoop {
         
         private let closure: () -> Void
         
-        private init(_ runLoop: NSRunLoop, _ aClosure: () -> Void) {
-            weakRunLoop = Weak<NSRunLoop>(runLoop)
-            _invokeTiming = .NextLoopBegan
-            _modes = .defaultMode
+        private init(_ runLoop: RunLoop, _ aClosure: () -> Void) {
+            weakRunLoop = Weak<RunLoop>(runLoop)
+            _invokeTiming = .nextLoopBegan
+            _modes = .defaultRunLoopMode
             closure = aClosure
         }
         
-        public func forModes(modes: NSRunLoopMode) -> Task {
+        public func forModes(_ modes: RunLoopMode) -> Task {
             if let amendQueue = weakRunLoop.value?.taskAmendQueue {
-                dispatch_async(amendQueue) { [weak self] () -> Void in
+                amendQueue.async { [weak self] () -> Void in
                     self?._modes = modes
                 }
             }
             return self
         }
         
-        public func when(invokeTiming: NSRunLoopTaskInvokeTiming) -> Task {
+        public func when(_ invokeTiming: RunLoopTaskInvokeTiming) -> Task {
             if let amendQueue = weakRunLoop.value?.taskAmendQueue {
-                dispatch_async(amendQueue) { [weak self] () -> Void in
+                amendQueue.async { [weak self] () -> Void in
                     self?._invokeTiming = invokeTiming
                 }
             }
@@ -129,8 +128,8 @@ extension NSRunLoop {
     
     private func loadDispatchObserverIfNeeded() {
         if !isDispatchObserverLoaded {
-            let invokeTimings: [NSRunLoopTaskInvokeTiming] =
-            [.CurrentLoopEnded, .NextLoopBegan, .Idle]
+            let invokeTimings: [RunLoopTaskInvokeTiming] =
+            [.currentLoopEnded, .nextLoopBegan, .idle]
             
             let activities =
             CFRunLoopActivity(invokeTimings.map{ CFRunLoopActivity($0) })
@@ -139,13 +138,16 @@ extension NSRunLoop {
                 kCFAllocatorDefault,
                 activities.rawValue,
                 true, 0,
-                handleRunLoopActivityWithObserver)
+                handleRunLoopActivityWithObserver
+            )
             
-            let modes = kCFRunLoopCommonModes
+            let modes = CFRunLoopMode.commonModes
             
             CFRunLoopAddObserver(CFRunLoopGetCurrent(), observer, modes)
             
-            let wrappedObserver = ObjCAssociated<CFRunLoopObserver>(observer)
+            let wrappedObserver = ObjCAssociated<CFRunLoopObserver>(
+                observer!
+            )
             
             objc_setAssociatedObject(self,
                 &dispatchObserverKey,
@@ -188,17 +190,16 @@ extension NSRunLoop {
         }
     }
     
-    private var taskAmendQueue: dispatch_queue_t {
+    private var taskAmendQueue: DispatchQueue {
         if let taskQueue = objc_getAssociatedObject(self,
             &taskAmendQueueKey)
-            as? dispatch_queue_t
+            as? DispatchQueue
         {
             return taskQueue
         } else {
-            let initialValue =
-            dispatch_queue_create(
-                "com.WeZZard.Nest.NSRunLoop.TaskDispatcher.TaskAmendQueue",
-                DISPATCH_QUEUE_SERIAL)
+            let initialValue = DispatchQueue(
+                label: "com.WeZZard.Nest.NSRunLoop.TaskDispatcher.TaskAmendQueue"
+            )
             
             objc_setAssociatedObject(self,
                 &taskAmendQueueKey,
@@ -209,41 +210,45 @@ extension NSRunLoop {
         }
     }
     
-    private func handleRunLoopActivityWithObserver(observer: CFRunLoopObserver!,
-        activity: CFRunLoopActivity)
+    private func handleRunLoopActivityWithObserver(
+        _ observer: CFRunLoopObserver?,
+        activity: CFRunLoopActivity
+        )
         -> Void
     {
         var removedIndices = [Int]()
         
-        let runLoopMode: NSRunLoopMode = currentRunLoopMode
+        let runLoopMode = currentMode
         
-        for (index, eachTask) in taskQueue.enumerate() {
+        for (index, eachTask) in taskQueue.enumerated() {
             let expectedRunLoopModes = eachTask.modes
-            let expectedRunLoopActivitiy =
+            let expectedActivitiy =
             CFRunLoopActivity(eachTask.invokeTiming)
             
-            let runLoopModesMatches = expectedRunLoopModes.contains(runLoopMode)
-                || expectedRunLoopModes.contains(.commonModes)
+            let inCommon = runLoopMode == .commonModes
+            let isCommon = expectedRunLoopModes == .commonModes
+            let inExpected = runLoopMode == expectedRunLoopModes
             
-            let runLoopActivityMatches =
-            activity.contains(expectedRunLoopActivitiy)
+            let modeMatches = isCommon || inCommon || inExpected
             
-            if runLoopModesMatches && runLoopActivityMatches {
+            let activityMatches = activity.contains(expectedActivitiy)
+            
+            if modeMatches && activityMatches {
                 eachTask.closure()
                 removedIndices.append(index)
             }
         }
         
-        taskQueue.removeIndicesInPlace(removedIndices)
+        taskQueue.remove(indices: removedIndices)
     }
 }
 
 extension CFRunLoopActivity {
-    private init(_ invokeTiming: NSRunLoopTaskInvokeTiming) {
+    private init(_ invokeTiming: RunLoopTaskInvokeTiming) {
         switch invokeTiming {
-        case .NextLoopBegan:        self = .AfterWaiting
-        case .CurrentLoopEnded:     self = .BeforeWaiting
-        case .Idle:                 self = .Exit
+        case .nextLoopBegan:        self = .afterWaiting
+        case .currentLoopEnded:     self = .beforeWaiting
+        case .idle:                 self = .exit
         }
     }
 }

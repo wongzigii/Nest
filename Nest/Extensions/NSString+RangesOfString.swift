@@ -14,10 +14,10 @@ extension NSString {
     within the given range, which subject to given options, and using the
     specified locale.
     */
-    public func rangesOfString(aString: String,
-        options mask: NSStringCompareOptions,
+    public func rangesOfString(_ aString: String,
+        options mask: NSString.CompareOptions,
         range: NSRange?,
-        locale: NSLocale?) -> [NSRange]
+        locale: Locale?) -> [NSRange]
     {
         var ranges = [NSRange]()
         
@@ -27,7 +27,7 @@ extension NSString {
         
         while (workingRange.length > 0) {
             // workingRange.endIndex = aString.endIndex - workingRange.startIndex
-            let aRange = self.rangeOfString(aString,
+            let aRange = self.range(of: aString,
                 options:mask,
                 range:workingRange,
                 locale: locale)

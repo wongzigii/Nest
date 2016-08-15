@@ -16,7 +16,7 @@ extension ObjCKeyValueAccessible where Self: NSObject,
     Self.Key.RawValue == String
 {
     public subscript (key: Key) -> AnyObject? {
-        get { return valueForKey(key.rawValue) }
+        get { return value(forKey: key.rawValue) }
         mutating set { setValue(newValue, forKey: key.rawValue) }
     }
     
@@ -36,5 +36,19 @@ extension ObjCKeyValueAccessible where Self: NSObject,
             return results
         }
         mutating set { for (key, value) in newValue { self[key] = value } }
+    }
+}
+
+import CoreData
+
+extension ObjCKeyValueAccessible where Self: NSManagedObject,
+    Self.Key.RawValue == String
+{
+    public func primitiveValueForKey<T>(_ key: Key) -> T? {
+        return primitiveValue(forKey: key.rawValue) as? T
+    }
+    
+    public func setPrimitiveValue(_ value: AnyObject?, forKey key: Key) {
+        setPrimitiveValue(value, forKey: key.rawValue)
     }
 }

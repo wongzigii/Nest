@@ -44,8 +44,8 @@ private class CustomView: View {
         super.init(coder: aDecoder)
     }
     
-    private override func encodeWithCoder(aCoder: NSCoder) {
-        super.encodeWithCoder(aCoder)
+    private override func encode(with aCoder: NSCoder) {
+        super.encode(with: aCoder)
         aCoder.encode(outletEntity, for: "outletEntity")
         aCoder.encode(outletCollectionEntity, for: "outletCollectionEntity")
         aCoder.encode(scalarEntity, for: "scalarEntity")
@@ -78,10 +78,10 @@ class NSCoderModernizationTest: XCTestCase {
         #endif
         
         let archivedCustomView = NSKeyedArchiver
-            .archivedDataWithRootObject(aCustomView)
+            .archivedData(withRootObject: aCustomView)
         
         let unarchivedCustomView = NSKeyedUnarchiver
-            .unarchiveObjectWithData(archivedCustomView) as! CustomView
+            .unarchiveObject(with: archivedCustomView) as! CustomView
         
         XCTAssert(
             unarchivedCustomView.scalarEntity == 0,

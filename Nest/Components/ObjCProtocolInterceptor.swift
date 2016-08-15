@@ -30,23 +30,27 @@ public final class ObjCProtocolInterceptor: NSObject {
         return _middleMen.flatMap {$0.value}
     }
     
-    public func addMiddleMan(middleMan: NSObject) {
+    public func append(middleMan: NSObject) {
         _middleMen.append(Weak(middleMan))
     }
     
-    public func removeMiddleMan(middleMan: NSObject) -> NSObject? {
-        if let index = _middleMen.indexOf(Weak(middleMan)) {
-            return _middleMen.removeAtIndex(index).value
+    public func remove(middleMan: NSObject) -> NSObject? {
+        if let index = _middleMen.index(of: Weak(middleMan)) {
+            return _middleMen.remove(at: index).value
         }
         return nil
     }
     
-    public func containsMiddleMan(middleMan: NSObject) -> Bool {
-        for each in _middleMen where each.value === middleMan { return true }
+    public func contains(middleMan: NSObject) -> Bool {
+        for each in _middleMen where each.value === middleMan {
+            return true
+        }
         return false
     }
     
-    private func doesSelectorBelongToAnyInterceptedProtocol(aSelector: Selector)
+    private func doesSelectorBelongToAnyInterceptedProtocol(
+        _ aSelector: Selector
+        )
         -> Bool
     {
         for aProtocol in _interceptedProtocols
@@ -59,17 +63,17 @@ public final class ObjCProtocolInterceptor: NSObject {
     
     /// Returns the object to which unrecognized messages should first be 
     /// directed.
-    public override func forwardingTargetForSelector(aSelector: Selector)
+    public override func forwardingTarget(for aSelector: Selector)
         -> AnyObject?
     {
         var emptyMiddleManWrappersIndices = [Int]()
         
         defer {
-            _middleMen.removeIndicesInPlace(emptyMiddleManWrappersIndices)
+            _middleMen.remove(indices: emptyMiddleManWrappersIndices)
         }
         
-        for (index, middleManWrapper) in _middleMen.reverse().enumerate() {
-            if middleManWrapper.value?.respondsToSelector(aSelector) == true &&
+        for (index, middleManWrapper) in _middleMen.reversed().enumerated() {
+            if middleManWrapper.value?.responds(to: aSelector) == true &&
                 doesSelectorBelongToAnyInterceptedProtocol(aSelector)
             {
                 return middleManWrapper.value
@@ -78,24 +82,24 @@ public final class ObjCProtocolInterceptor: NSObject {
             }
         }
         
-        if receiver?.respondsToSelector(aSelector) == true {
+        if receiver?.responds(to: aSelector) == true {
             return receiver
         }
         
-        return super.forwardingTargetForSelector(aSelector)
+        return super.forwardingTarget(for: aSelector)
     }
     
     /// Returns a Boolean value that indicates whether the receiver implements 
     /// or inherits a method that can respond to a specified message.
-    public override func respondsToSelector(aSelector: Selector) -> Bool {
+    public override func responds(to aSelector: Selector) -> Bool {
         var emptyMiddleManWrappersIndices = [Int]()
         
         defer {
-            _middleMen.removeIndicesInPlace(emptyMiddleManWrappersIndices)
+            _middleMen.remove(indices: emptyMiddleManWrappersIndices)
         }
         
-        for (index, eachMiddleMan) in _middleMen.reverse().enumerate() {
-            if eachMiddleMan.value?.respondsToSelector(aSelector) == true &&
+        for (index, eachMiddleMan) in _middleMen.reversed().enumerated() {
+            if eachMiddleMan.value?.responds(to: aSelector) == true &&
                 doesSelectorBelongToAnyInterceptedProtocol(aSelector)
             {
                 return true
@@ -104,11 +108,11 @@ public final class ObjCProtocolInterceptor: NSObject {
             }
         }
         
-        if receiver?.respondsToSelector(aSelector) == true {
+        if receiver?.responds(to: aSelector) == true {
             return true
         }
         
-        return super.respondsToSelector(aSelector)
+        return super.responds(to: aSelector)
     }
     
     /**
@@ -118,7 +122,7 @@ public final class ObjCProtocolInterceptor: NSObject {
      - Parameter     protocols:  A variable length sort of Objective-C protocol,
      such as UITableViewDelegate.self.
     */
-    public class func against(protocols: Protocol ...)
+    public class func against(_ protocols: Protocol ...)
         -> ObjCProtocolInterceptor
     {
         return against(protocols)
@@ -131,16 +135,16 @@ public final class ObjCProtocolInterceptor: NSObject {
      - Parameter     protocols:  An array of Objective-C protocols, such as
      [UITableViewDelegate.self].
     */
-    public class func against(protocols: [Protocol])
+    public class func against(_ protocols: [Protocol])
         -> ObjCProtocolInterceptor
     {
         let protocolNames = protocols.map { NSStringFromProtocol($0) }
-        let sortedProtocolNames = protocolNames.sort()
+        let sortedProtocolNames = protocolNames.sorted()
         let concatenatedProtocolsName = sortedProtocolNames
-            .joinWithSeparator(",")
+            .joined(separator: ",")
         
-        let concreteClass = concreteClassWithProtocols(
-            protocols,
+        let concreteClass = self.concreteClass(
+            with: protocols,
             concatenatedProtocolsName: concatenatedProtocolsName
         )
         
@@ -171,8 +175,8 @@ public final class ObjCProtocolInterceptor: NSObject {
      you can only init the returned class to be a `ObjCProtocolInterceptor` but
      not its subclass.
     */
-    private class func concreteClassWithProtocols(
-        protocols: [Protocol],
+    private class func concreteClass(
+        with protocols: [Protocol],
         concatenatedProtocolsName: String,
         salt: UInt? = nil
         )
@@ -209,15 +213,15 @@ public final class ObjCProtocolInterceptor: NSObject {
                 if isClassConformsToAllProtocols {
                     return anInterceptorClass
                 } else {
-                    return concreteClassWithProtocols(
-                        protocols,
+                    return concreteClass(
+                        with: protocols,
                         concatenatedProtocolsName: concatenatedProtocolsName,
                         salt: nextSalt
                     )
                 }
             default:
-                return concreteClassWithProtocols(
-                    protocols,
+                return concreteClass(
+                    with: protocols,
                     concatenatedProtocolsName: concatenatedProtocolsName,
                     salt: nextSalt
                 )

@@ -11,26 +11,26 @@ import CoreFoundation
 extension CFRunLoopActivity: CustomDebugStringConvertible {
     public var debugDescription: String {
         var activities = [String]()
-        if self.contains(.Entry) {
+        if self.contains(.entry) {
             activities.append("Entry")
         }
-        if self.contains(.BeforeTimers) {
+        if self.contains(.beforeTimers) {
             activities.append("Before Timers")
         }
-        if self.contains(.BeforeSources) {
+        if self.contains(.beforeSources) {
             activities.append("Before Sources")
         }
-        if self.contains(.BeforeWaiting) {
+        if self.contains(.beforeWaiting) {
             activities.append("Before Waiting")
         }
-        if self.contains(.AfterWaiting) {
+        if self.contains(.afterWaiting) {
             activities.append("After Waiting")
         }
-        if self.contains(.Exit) {
+        if self.contains(.exit) {
             activities.append("Exit")
         }
         return "<\(self.dynamicType): "
-            + activities.joinWithSeparator(",")
+            + activities.joined(separator: ",")
             + ">"
     }
 }

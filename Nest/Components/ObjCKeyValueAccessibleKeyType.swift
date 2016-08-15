@@ -7,8 +7,8 @@
 //
 
 public protocol ObjCKeyValueAccessibleKeyType:
-    OptionSetType,
-    StringLiteralConvertible,
+    RawRepresentable,
+    ExpressibleByStringLiteral,
     Hashable
 {
     associatedtype ExtendedGraphemeClusterLiteralType = String
