@@ -47,7 +47,7 @@ class ObjCProtocolInterceptorTest: XCTestCase, MessagePool {
     
     private var messagePool: [String] = []
     
-    private func pushMessage(_ message: String) {
+    fileprivate func pushMessage(_ message: String) {
         messagePool.append(message)
     }
     

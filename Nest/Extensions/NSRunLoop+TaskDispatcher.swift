@@ -30,10 +30,10 @@ public enum RunLoopTaskInvokeTiming: Int {
 }
 
 private struct DeallocSwizzleRecipe: ObjCSelfAwareSwizzleRecipeType {
-    private typealias FunctionPointer =
+    fileprivate typealias FunctionPointer =
         @convention(c) (Unmanaged<RunLoop>, Selector) -> Void
-    private static var original: FunctionPointer!
-    private static let swizzled: FunctionPointer =  {
+    fileprivate static var original: FunctionPointer!
+    fileprivate static let swizzled: FunctionPointer =  {
         (aSelf, aSelector) -> Void in
         
         let unretainedSelf = aSelf.takeUnretainedValue()
@@ -48,7 +48,8 @@ private struct DeallocSwizzleRecipe: ObjCSelfAwareSwizzleRecipeType {
 }
 
 extension RunLoop {
-    public func perform(_ closure: ()->Void) -> Task {
+    @discardableResult
+    public func perform(_ closure: @escaping ()->Void) -> Task {
         objc_sync_enter(self)
         loadDispatchObserverIfNeeded()
         let task = Task(self, closure)
@@ -71,7 +72,7 @@ extension RunLoop {
         private let weakRunLoop: Weak<RunLoop>
         
         private var _invokeTiming: RunLoopTaskInvokeTiming
-        private var invokeTiming: RunLoopTaskInvokeTiming {
+        fileprivate var invokeTiming: RunLoopTaskInvokeTiming {
             var theInvokeTiming: RunLoopTaskInvokeTiming = .nextLoopBegan
             guard let amendQueue = weakRunLoop.value?.taskAmendQueue else {
                 fatalError("Accessing a dealloced run loop")
@@ -83,7 +84,7 @@ extension RunLoop {
         }
         
         private var _modes: RunLoopMode
-        private var modes: RunLoopMode {
+        fileprivate var modes: RunLoopMode {
             var theModes: RunLoopMode!
             guard let amendQueue = weakRunLoop.value?.taskAmendQueue else {
                 fatalError("Accessing a dealloced run loop")
@@ -94,15 +95,16 @@ extension RunLoop {
             return theModes
         }
         
-        private let closure: () -> Void
+        fileprivate let closure: () -> Void
         
-        private init(_ runLoop: RunLoop, _ aClosure: () -> Void) {
+        fileprivate init(_ runLoop: RunLoop, _ aClosure: @escaping () -> Void) {
             weakRunLoop = Weak<RunLoop>(runLoop)
             _invokeTiming = .nextLoopBegan
             _modes = .defaultRunLoopMode
             closure = aClosure
         }
         
+        @discardableResult
         public func forModes(_ modes: RunLoopMode) -> Task {
             if let amendQueue = weakRunLoop.value?.taskAmendQueue {
                 amendQueue.async { [weak self] () -> Void in
@@ -112,6 +114,7 @@ extension RunLoop {
             return self
         }
         
+        @discardableResult
         public func when(_ invokeTiming: RunLoopTaskInvokeTiming) -> Task {
             if let amendQueue = weakRunLoop.value?.taskAmendQueue {
                 amendQueue.async { [weak self] () -> Void in
@@ -122,17 +125,17 @@ extension RunLoop {
         }
     }
     
-    private var isDispatchObserverLoaded: Bool {
-        return objc_getAssociatedObject(self, &dispatchObserverKey) !== nil
+    fileprivate var isDispatchObserverLoaded: Bool {
+        return objc_getAssociatedObject(self, &dispatchObserverKey) != nil
     }
     
     private func loadDispatchObserverIfNeeded() {
         if !isDispatchObserverLoaded {
             let invokeTimings: [RunLoopTaskInvokeTiming] =
             [.currentLoopEnded, .nextLoopBegan, .idle]
-            
-            let activities =
-            CFRunLoopActivity(invokeTimings.map{ CFRunLoopActivity($0) })
+            let activities = CFRunLoopActivity(
+                invokeTimings.map{ CFRunLoopActivity($0) }
+            )
             
             let observer = CFRunLoopObserverCreateWithHandler(
                 kCFAllocatorDefault,
@@ -156,7 +159,7 @@ extension RunLoop {
         }
     }
     
-    private var dispatchObserver: CFRunLoopObserver {
+    fileprivate var dispatchObserver: CFRunLoopObserver {
         loadDispatchObserverIfNeeded()
         return (objc_getAssociatedObject(self, &dispatchObserverKey)
             as! ObjCAssociated<CFRunLoopObserver>)
@@ -244,7 +247,7 @@ extension RunLoop {
 }
 
 extension CFRunLoopActivity {
-    private init(_ invokeTiming: RunLoopTaskInvokeTiming) {
+    fileprivate init(_ invokeTiming: RunLoopTaskInvokeTiming) {
         switch invokeTiming {
         case .nextLoopBegan:        self = .afterWaiting
         case .currentLoopEnded:     self = .beforeWaiting

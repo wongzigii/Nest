@@ -15,7 +15,7 @@ public protocol ObjCTypeEncoding {
 //MARK: General Extension
 extension ObjCTypeEncoding {
     public var ObjCTypeEncoding: String {
-        return self.dynamicType.ObjCTypeEncoding
+        return Self.ObjCTypeEncoding
     }
 }
 

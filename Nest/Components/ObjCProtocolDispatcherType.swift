@@ -41,7 +41,7 @@ extension ObjCProtocolDispatcherType {
     }
     
     /// Returns registered protocol dispatching destination
-    public var dispatchDestinations: [NSObjectProtocol] {
+    public var dispatchDestinations: [AnyObject] {
         return _dispatchDestinations.allObjects
     }
 }
@@ -61,7 +61,7 @@ extension ObjCProtocolDispatcherType {
     {
         let needsDispatch = doesSelectorBelongToAnyDispatchedProtocol(aSelector)
         
-        let selectorString = NSStringFromSelector(aSelector)
+        let selectorString = NSStringFromSelector(aSelector) as NSString
         
         if needsDispatch {
             invalidateDispatchTableIfNeeded()
@@ -70,19 +70,17 @@ extension ObjCProtocolDispatcherType {
                 return destination
             }
             
-            for eachDestination in
-                _dispatchDestinations.objectEnumerator()
-            {
+            for eachDestination in _dispatchDestinations.allObjects {
                 if eachDestination.responds(to: aSelector) == true {
                     dispatchTable.setObject(eachDestination,
-                        forKey: NSStringFromSelector(aSelector))
+                        forKey: selectorString)
                     return eachDestination
                 }
             }
         }
         
         
-        if class_respondsToSelector(self.dynamicType, aSelector) {
+        if class_respondsToSelector(type(of: self), aSelector) {
             if needsDispatch {
                 dispatchTable.setObject(self, forKey: selectorString)
             }
@@ -107,20 +105,16 @@ extension ObjCProtocolDispatcherType {
     public func nest_responds(to aSelector: Selector) -> Bool {
         let needsDispatch = doesSelectorBelongToAnyDispatchedProtocol(aSelector)
         
-        let selectorString = NSStringFromSelector(aSelector)
+        let selectorString = NSStringFromSelector(aSelector) as NSString
         
         if needsDispatch {
             invalidateDispatchTableIfNeeded()
-            
-            let selectorString = NSStringFromSelector(aSelector)
             
             if dispatchTable.object(forKey: selectorString) != nil {
                 return true
             }
             
-            for eachDestination in
-                _dispatchDestinations.objectEnumerator()
-            {
+            for eachDestination in _dispatchDestinations.allObjects {
                 if eachDestination.responds(to: aSelector) == true {
                     dispatchTable.setObject(
                         eachDestination,
@@ -131,7 +125,7 @@ extension ObjCProtocolDispatcherType {
             }
         }
         
-        if class_respondsToSelector(self.dynamicType, aSelector) {
+        if class_respondsToSelector(type(of: self), aSelector) {
             if needsDispatch {
                 dispatchTable.setObject(self, forKey: selectorString)
             }
@@ -151,8 +145,8 @@ extension ObjCProtocolDispatcherType {
         if !_dispatchedProtocols.contains(aProtocol) {
             _dispatchedProtocols.add(aProtocol)
         }
-        if !class_conformsToProtocol(self.dynamicType, aProtocol) {
-            class_addProtocol(self.dynamicType, aProtocol)
+        if !class_conformsToProtocol(type(of: self), aProtocol) {
+            class_addProtocol(type(of: self), aProtocol)
         }
     }
     
@@ -162,8 +156,8 @@ extension ObjCProtocolDispatcherType {
             if !_dispatchedProtocols.contains(eachProtocol) {
                 _dispatchedProtocols.add(eachProtocol)
             }
-            if !class_conformsToProtocol(self.dynamicType, eachProtocol) {
-                class_addProtocol(self.dynamicType, eachProtocol)
+            if !class_conformsToProtocol(type(of: self), eachProtocol) {
+                class_addProtocol(type(of: self), eachProtocol)
             }
         }
     }
@@ -174,8 +168,8 @@ extension ObjCProtocolDispatcherType {
             if !_dispatchedProtocols.contains(eachProtocol) {
                 _dispatchedProtocols.add(eachProtocol)
             }
-            if !class_conformsToProtocol(self.dynamicType, eachProtocol) {
-                class_addProtocol(self.dynamicType, eachProtocol)
+            if !class_conformsToProtocol(type(of: self), eachProtocol) {
+                class_addProtocol(type(of: self), eachProtocol)
             }
         }
     }
@@ -197,7 +191,7 @@ private var dispatchTableKey = "dispatchTable"
 private var needsInvalidateDispatchTableKey = "needsInvalidateDispatchTable"
 
 extension ObjCProtocolDispatcherType {
-    private var needsInvalidateDispatchTable: Bool {
+    fileprivate var needsInvalidateDispatchTable: Bool {
         get {
             if let value = objc_getAssociatedObject(
                 self,
@@ -232,7 +226,7 @@ extension ObjCProtocolDispatcherType {
         }
     }
     
-    private var dispatchTable: NSMapTable<NSString, AnyObject> {
+    fileprivate var dispatchTable: NSMapTable<NSString, AnyObject> {
         get {
             if let value = objc_getAssociatedObject(
                 self,
@@ -261,7 +255,7 @@ extension ObjCProtocolDispatcherType {
         }
     }
     
-    private func invalidateDispatchTableIfNeeded() {
+    fileprivate func invalidateDispatchTableIfNeeded() {
         if needsInvalidateDispatchTable {
             if dispatchTable.count > 0 {
                 dispatchTable.removeAllObjects()
@@ -270,7 +264,7 @@ extension ObjCProtocolDispatcherType {
         }
     }
     
-    private var _dispatchedProtocols: NSHashTable<Protocol> {
+    fileprivate var _dispatchedProtocols: NSHashTable<Protocol> {
         get {
             if let protocols = objc_getAssociatedObject(
                 self,
@@ -300,17 +294,17 @@ extension ObjCProtocolDispatcherType {
         }
     }
     
-    private var _dispatchDestinations: NSHashTable<NSObjectProtocol> {
+    fileprivate var _dispatchDestinations: NSHashTable<AnyObject> {
         get {
             if let destinations = objc_getAssociatedObject(
                 self,
                 &dispatchDestinationsKey
                 )
-                as? NSHashTable<NSObjectProtocol>
+                as? NSHashTable<AnyObject>
             {
                 return destinations
             } else {
-                let initialValue = NSHashTable<NSObjectProtocol>
+                let initialValue = NSHashTable<AnyObject>
                     .weakObjects()
                 objc_setAssociatedObject(
                     self,
@@ -331,7 +325,7 @@ extension ObjCProtocolDispatcherType {
         }
     }
     
-    private func doesSelectorBelongToAnyDispatchedProtocol(
+    fileprivate func doesSelectorBelongToAnyDispatchedProtocol(
         _ aSelector: Selector
         )
         -> Bool

@@ -102,7 +102,7 @@ public func swizzle<R: ObjCSelfAwareSwizzleRecipeType>(
     )
     -> ObjCSelfAwareSwizzle
 {
-    let originalPtr = withUnsafePointer(&recipe.original) {$0}
+    let originalPtr = withUnsafePointer(to: &recipe.original) {$0}
     return ObjCSelfAwareSwizzle(
         class: aClass,
         selector: aSelector,

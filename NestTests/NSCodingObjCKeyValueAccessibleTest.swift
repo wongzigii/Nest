@@ -9,6 +9,8 @@
 import XCTest
 import Nest
 
+// FIXME: An unkown compiler bug causes a segmentation fault in SIL emitting.
+
 #if os(iOS) || os(tvOS)
     private typealias View = UIView
     private typealias TextField = UITextField
@@ -22,7 +24,7 @@ import Nest
 #endif
 
 private class CustomView: View, ObjCKeyValueAccessible {
-    struct Key: ObjCKeyValueAccessibleKeyType {
+    fileprivate struct Key: ObjCKeyValueAccessibleKeyType {
         typealias RawValue = String
         var rawValue: RawValue
         init(rawValue: RawValue) { self.rawValue = rawValue }
@@ -35,14 +37,14 @@ private class CustomView: View, ObjCKeyValueAccessible {
         "implicitlyNSCodingConformedObject"
     }
     
-    var outletEntity: TextField!
-    var outletCollectionEntity: [TextField]!
-    var implicitlyNSCodingConformedObject: GestureRecognizer!
+    fileprivate var outletEntity: TextField!
+    fileprivate var outletCollectionEntity: [TextField]!
+    fileprivate var implicitlyNSCodingConformedObject: GestureRecognizer!
     
-    var scalarEntity: Int!
-    var scalarGroupEntity: [Int]!
+    fileprivate var scalarEntity: Int!
+    fileprivate var scalarGroupEntity: [Int]!
     
-    private override init(frame: CGRect) {
+    fileprivate override init(frame: CGRect) {
         outletEntity = TextField(frame: frame)
         outletCollectionEntity = [TextField(frame: frame),
             TextField(frame: frame),
@@ -55,26 +57,20 @@ private class CustomView: View, ObjCKeyValueAccessible {
         for each in outletCollectionEntity { addSubview(each) }
     }
     
-    private required init?(coder aDecoder: NSCoder) {
+    fileprivate required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         do {
-            outletEntity = try decodeOrThrow(aDecoder, for: .outletEntity)
-            outletCollectionEntity = try decodeOrThrow(
-                aDecoder,
-                for: .outletCollectionEntity)
-            scalarEntity = try decodeOrThrow(aDecoder, for: .scalarEntity)
-            scalarGroupEntity = try decodeOrThrow(
-                aDecoder,
-                for: .scalarGroupEntity)
-            implicitlyNSCodingConformedObject = try decodeOrThrow(
-                aDecoder,
-                for: .implicitlyNSCodingConformedObject)
+            outletEntity = try aDecoder.decodeOrThrowFor("outletEntity")
+            outletCollectionEntity = try aDecoder.decodeOrThrowFor("outletCollectionEntity")
+            scalarEntity = try aDecoder.decodeOrThrowFor("scalarEntity")
+            scalarGroupEntity = try aDecoder.decodeOrThrowFor("scalarGroupEntity")
+            implicitlyNSCodingConformedObject = try aDecoder.decodeOrThrowFor("implicitlyNSCodingConformedObject")
         } catch _ {
             return nil
         }
     }
     
-    private override func encode(with aCoder: NSCoder) {
+    fileprivate override func encode(with aCoder: NSCoder) {
         super.encode(with: aCoder)
         encode(outletEntity, to: aCoder, for: .outletEntity)
         encode(

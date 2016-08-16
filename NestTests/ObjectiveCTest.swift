@@ -27,12 +27,12 @@ class ObjectiveCTest: XCTestCase {
     
     func test_sel_belongsToProtocol() {
         
-        let matchedPairs: [String: Protocol] = [
-            "URLSession:didBecomeInvalidWithError:":
+        let matchedPairs: [Selector: Protocol] = [
+            #selector(URLSessionDelegate.urlSession(_:didBecomeInvalidWithError:)):
                 URLSessionDelegate.self,
-            "URLSession:didReceiveChallenge:completionHandler:":
+            #selector(URLSessionDelegate.urlSession(_:didReceive:completionHandler:)):
                 URLSessionDelegate.self,
-            "URLSessionDidFinishEventsForBackgroundURLSession:":
+            #selector(URLSessionDelegate.urlSessionDidFinishEvents(forBackgroundURLSession:)):
                 URLSessionDelegate.self
         ]
         
@@ -42,13 +42,13 @@ class ObjectiveCTest: XCTestCase {
         ]
         
         for (aSelector, aProtocol) in matchedPairs {
-            XCTAssert(sel_belongsToProtocol(Selector(aSelector), aProtocol),
-                "\(aSelector) shall be a member of \(NSStringFromProtocol(aProtocol))")
+            XCTAssert(sel_belongsToProtocol(aSelector, aProtocol),
+                "\(NSStringFromSelector(aSelector)) shall be a member of \(NSStringFromProtocol(aProtocol))")
         }
         
-        for (aSelector, aProtocol) in mismatchedPairs {
-            XCTAssert(!sel_belongsToProtocol(Selector(aSelector), aProtocol),
-                "\(aSelector) shall not be a member of \(NSStringFromProtocol(aProtocol))")
+        for (selString, aProtocol) in mismatchedPairs {
+            XCTAssert(!sel_belongsToProtocol(Selector(selString), aProtocol),
+                "\(selString) shall not be a member of \(NSStringFromProtocol(aProtocol))")
         }
         
         

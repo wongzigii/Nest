@@ -15,23 +15,23 @@ public protocol ObjCKeyValueAccessible {
 extension ObjCKeyValueAccessible where Self: NSObject,
     Self.Key.RawValue == String
 {
-    public subscript (key: Key) -> AnyObject? {
+    public subscript (key: Key) -> Any? {
         get { return value(forKey: key.rawValue) }
         mutating set { setValue(newValue, forKey: key.rawValue) }
     }
     
-    public subscript (keys: Key...) -> [Key: AnyObject] {
+    public subscript (keys: Key...) -> [Key: Any] {
         get {
-            var results = [Key: AnyObject]()
+            var results = [Key: Any]()
             for each in keys { results[each] = self[each] }
             return results
         }
         mutating set { for (key, value) in newValue { self[key] = value } }
     }
     
-    public subscript (keys: [Key]) -> [Key: AnyObject] {
+    public subscript (keys: [Key]) -> [Key: Any] {
         get {
-            var results = [Key: AnyObject]()
+            var results = [Key: Any]()
             for each in keys { results[each] = self[each] }
             return results
         }

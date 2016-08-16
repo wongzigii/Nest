@@ -37,17 +37,17 @@ public final class ObjCSelectorInterceptor: NSObject {
         interceptedSelectors = selectorLiterals.map { Selector($0) }
     }
     
-    public func addMiddleMan(_ middleMan: NSObject) {
+    public func add(middleMan: NSObject) {
         _middleMen.append(Weak(middleMan))
     }
     
-    public func removeMiddleMan(_ middleMan: NSObject) -> NSObject? {
+    public func remove(middleMan: NSObject) -> NSObject? {
         if let index = _middleMen.index(of: Weak(middleMan)) {
             return _middleMen.remove(at: index).value
         }
         return nil
     }
-    public func containsMiddleMan(_ middleMan: NSObject) -> Bool {
+    public func contains(middleMan: NSObject) -> Bool {
         for each in _middleMen where each.value === middleMan { return true }
         return false
     }
@@ -61,7 +61,7 @@ public final class ObjCSelectorInterceptor: NSObject {
     /// Returns the object to which unrecognized messages should first be
     /// directed.
     public override func forwardingTarget(for aSelector: Selector)
-        -> AnyObject?
+        -> Any?
     {
         var emptyMiddleManWrappersIndices = [Int]()
         

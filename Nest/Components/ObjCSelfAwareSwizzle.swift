@@ -215,8 +215,8 @@ final public class ObjCSelfAwareSwizzle: NSObject {
     }
     
     public override var description: String {
-        let objectAddress = unsafeAddress(of: self)
-        let prefix = "<\(self.dynamicType): \(objectAddress); "
+        let objectAddress = Int(bitPattern: ObjectIdentifier(self))
+        let prefix = "<\(type(of: self)): \(objectAddress); "
         let contextInfo: String = {
             if isMetaClass {
                 return "[\(targetClass) "
@@ -229,7 +229,7 @@ final public class ObjCSelfAwareSwizzle: NSObject {
         return prefix + contextInfo + ">"
     }
     
-    public override func isEqual(_ object: AnyObject?) -> Bool {
+    public override func isEqual(_ object: Any?) -> Bool {
         if let compared = object as? ObjCSelfAwareSwizzle {
             return targetClass === compared.targetClass
                 && targetSelector == compared.targetSelector

@@ -24,7 +24,7 @@ private class CustomView: View {
     var scalarEntity: Int
     var scalarGroupEntity: [Int]
     
-    private override init(frame: CGRect) {
+    fileprivate override init(frame: CGRect) {
         outletEntity = TextField(frame: frame)
         outletCollectionEntity = [TextField(frame: frame),
             TextField(frame: frame),

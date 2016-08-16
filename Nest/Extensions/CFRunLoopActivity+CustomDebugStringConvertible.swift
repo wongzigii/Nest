@@ -29,7 +29,7 @@ extension CFRunLoopActivity: CustomDebugStringConvertible {
         if self.contains(.exit) {
             activities.append("Exit")
         }
-        return "<\(self.dynamicType): "
+        return "<\(type(of: self)): "
             + activities.joined(separator: ",")
             + ">"
     }

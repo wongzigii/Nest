@@ -13,7 +13,7 @@ public protocol SubsequentSetupInitializable {
 }
 
 extension SubsequentSetupInitializable where Self: NSObject {
-    public init(subsequentSetup: @noescape (Self) -> Void) {
+    public init(subsequentSetup: (Self) -> Void) {
         self.init()
         subsequentSetup(self)
     }

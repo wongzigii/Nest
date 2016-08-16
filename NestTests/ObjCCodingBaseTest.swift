@@ -117,7 +117,7 @@ class ObjCCodingBaseTest: XCTestCase {
     
     func testObjectAccessor() {
         let anEnumCase: ArchivableEnum = .objectAccessor(
-            "String as object to test"
+            "String as object to test" as AnyObject
         )
         
         let anObject = ArchivableObject(anEnumCase)
@@ -289,7 +289,7 @@ class ObjCCodingBaseTest: XCTestCase {
                 XCTAssert(vectorOriginal == vectorUnarchived)
                 XCTAssert(sizeOriginal == sizeUnarchived)
                 XCTAssert(rectOriginal == rectUnarchived)
-                XCTAssert(trasnformOriginal.equalTo(trasnformUnarchived))
+                XCTAssert(trasnformOriginal == trasnformUnarchived)
                 
                 break
             default:
@@ -430,14 +430,14 @@ class ObjCCodingBaseTest: XCTestCase {
 }
 
 private class ArchivableObject: NSObject, NSCoding {
-    private var archivableEnum: ArchivableEnum
+    fileprivate var archivableEnum: ArchivableEnum
     
-    private init(_ archivableEnum: ArchivableEnum) {
+    fileprivate init(_ archivableEnum: ArchivableEnum) {
         self.archivableEnum = archivableEnum
         super.init()
     }
     
-    @objc private required init?(coder aDecoder: NSCoder) {
+    @objc fileprivate required init?(coder aDecoder: NSCoder) {
         do {
             archivableEnum = try aDecoder.decodeOrThrowFor("archivableEnum")
             super.init()
@@ -446,23 +446,23 @@ private class ArchivableObject: NSObject, NSCoding {
         }
     }
     
-    @objc private func encode(with aCoder: NSCoder) {
+    @objc fileprivate func encode(with aCoder: NSCoder) {
         aCoder.encode(archivableEnum, for: "archivableEnum")
     }
 }
 
 extension ArchivableEnum: _ObjectiveCBridgeable {
-    private typealias _ObjectiveCType = _ArchivableEnumObjCBridged
+    fileprivate typealias _ObjectiveCType = _ArchivableEnumObjCBridged
     
-    private static func _getObjectiveCType() -> Any.Type {
+    fileprivate static func _getObjectiveCType() -> Any.Type {
         return _ObjectiveCType.self
     }
     
-    private static func _isBridgedToObjectiveC() -> Bool {
+    fileprivate static func _isBridgedToObjectiveC() -> Bool {
         return true
     }
     
-    private func _bridgeToObjectiveC() -> _ObjectiveCType {
+    fileprivate func _bridgeToObjectiveC() -> _ObjectiveCType {
         if case let .objectAccessor(object) = self {
             let bridged = _ArchivableEnumObjectAccessorObjCBridged()
             bridged.objectValue = object
@@ -551,7 +551,7 @@ extension ArchivableEnum: _ObjectiveCBridgeable {
         fatalError("This function needs to be implemented!")
     }
     
-    private static func _forceBridgeFromObjectiveC(
+    fileprivate static func _forceBridgeFromObjectiveC(
         _ source: _ObjectiveCType,
         result: inout ArchivableEnum?
         )
@@ -643,7 +643,7 @@ extension ArchivableEnum: _ObjectiveCBridgeable {
         #endif
     }
     
-    private static func _conditionallyBridgeFromObjectiveC(
+    fileprivate static func _conditionallyBridgeFromObjectiveC(
         _ source: _ObjectiveCType,
         result: inout ArchivableEnum?
         )
@@ -653,7 +653,7 @@ extension ArchivableEnum: _ObjectiveCBridgeable {
         return result != nil
     }
     
-    private static func _unconditionallyBridgeFromObjectiveC(
+    fileprivate static func _unconditionallyBridgeFromObjectiveC(
         _ source: _ObjectiveCType?
         )
         -> ArchivableEnum
@@ -672,81 +672,81 @@ private final class _ArchivableEnumObjectAccessorObjCBridged:
     _ArchivableEnumObjCBridged
 {
     @NSManaged
-    private var objectValue: AnyObject
+    fileprivate var objectValue: AnyObject
 }
 
 private final class _ArchivableEnumIntegerAccessorObjCBridged:
     _ArchivableEnumObjCBridged
 {
     @NSManaged
-    private var Int8Value: Int8
+    fileprivate var Int8Value: Int8
     
     @NSManaged 
-    private var Int16Value: Int16
+    fileprivate var Int16Value: Int16
     
     @NSManaged
-    private var Int32Value: Int32
+    fileprivate var Int32Value: Int32
     
     @NSManaged 
-    private var Int64Value: Int64
+    fileprivate var Int64Value: Int64
     
     @NSManaged 
-    private var UInt8Value: UInt8
+    fileprivate var UInt8Value: UInt8
     
     @NSManaged
-    private var UInt16Value: UInt16
+    fileprivate var UInt16Value: UInt16
     
     @NSManaged
-    private var UInt32Value: UInt32
+    fileprivate var UInt32Value: UInt32
     
     @NSManaged 
-    private var UInt64Value: UInt64
+    fileprivate var UInt64Value: UInt64
     
     @NSManaged 
-    private var BoolValue: Bool
+    fileprivate var BoolValue: Bool
 }
 
 private final class _ArchivableEnumSelectorAccessorObjCBridged:
     _ArchivableEnumObjCBridged
 {
     @NSManaged 
-    private var selector: Selector
+    fileprivate var selector: Selector
 }
 
 private final class _ArchivableEnumFloatingPointAccessorObjCBridged:
     _ArchivableEnumObjCBridged
 {
     @NSManaged
-    private var doubleValue: Double
+    fileprivate var doubleValue: Double
     
     @NSManaged 
-    private var floatValue: Float
+    fileprivate var floatValue: Float
 }
 
 private final class _ArchivableEnumFoundationAccessorObjCBridged:
     _ArchivableEnumObjCBridged
 {
     @NSManaged
-    private var rangeValue: NSRange
+    fileprivate var rangeValue: NSRange
 }
 
 private final class _ArchivableEnumCGAccessorObjCBridged:
     _ArchivableEnumObjCBridged
 {
     @NSManaged
-    private var CGPointValue: CGPoint
+    fileprivate var CGPointValue: CGPoint
     
     @NSManaged
-    private var CGVectorValue: CGVector
+    fileprivate var CGVectorValue: CGVector
     
     @NSManaged
-    private var CGSizeValue: CGSize
+    fileprivate var CGSizeValue: CGSize
     
     @NSManaged
-    private var CGRectValue: CGRect
+    fileprivate var CGRectValue: CGRect
     
     @NSManaged
-    private var CGAffineTransformValue: CGAffineTransform
+    fileprivate var CGAffineTransformValue: CGAffineTransform
 }
 
 #if os(iOS) || os(watchOS) || os(tvOS)
@@ -754,10 +754,10 @@ private final class _ArchivableEnumCGAccessorObjCBridged:
         _ArchivableEnumObjCBridged
     {
         @NSManaged
-        private var offset: UIOffset
+        fileprivate var offset: UIOffset
         
         @NSManaged
-        private var edgeInsets: UIEdgeInsets
+        fileprivate var edgeInsets: UIEdgeInsets
     }
 #endif
 
@@ -766,20 +766,20 @@ private final class _ArchivableEnumCGAccessorObjCBridged:
         _ArchivableEnumObjCBridged
     {
         @NSManaged
-        private var CATransform3DValue: CATransform3D
+        fileprivate var CATransform3DValue: CATransform3D
     }
     
     private final class _ArchivableEnumAVFoundationAccessorObjCBridged:
         _ArchivableEnumObjCBridged
     {
         @NSManaged
-        private var CMTimeValue: CMTime
+        fileprivate var CMTimeValue: CMTime
         
         @NSManaged
-        private var CMTimeRangeValue: CMTimeRange
+        fileprivate var CMTimeRangeValue: CMTimeRange
         
         @NSManaged
-        private var CMTimeMappingValue: CMTimeMapping
+        fileprivate var CMTimeMappingValue: CMTimeMapping
     }
 #endif
 

@@ -64,7 +64,7 @@ public final class ObjCProtocolInterceptor: NSObject {
     /// Returns the object to which unrecognized messages should first be 
     /// directed.
     public override func forwardingTarget(for aSelector: Selector)
-        -> AnyObject?
+        -> Any?
     {
         var emptyMiddleManWrappersIndices = [Int]()
         

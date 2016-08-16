@@ -14,14 +14,14 @@ public final class ObjCAssociated<T>: NSObject, NSCopying {
     
     public init(_ value: AssociatedValue) { self.value = value }
     
-    public func copy(with zone: NSZone?) -> AnyObject {
-        return self.dynamicType.init(value)
+    public func copy(with zone: NSZone?) -> Any {
+        return type(of: self).init(value)
     }
 }
 
 extension ObjCAssociated where T: NSCopying {
     public func copyWithZone(_ zone: NSZone?) -> AnyObject {
-        return self.dynamicType.init(
+        return type(of: self).init(
             value.copy(with: zone) as! AssociatedValue
         )
     }

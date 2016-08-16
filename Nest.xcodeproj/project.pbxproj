@@ -15,13 +15,10 @@
 		633ECEA81C1542FD0082D870 /* NSRunLoop+TaskDispatcherTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 633ECE8E1C1542820082D870 /* NSRunLoop+TaskDispatcherTest.swift */; };
 		633ECEA91C1542FE0082D870 /* NSRunLoop+TaskDispatcherTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 633ECE8E1C1542820082D870 /* NSRunLoop+TaskDispatcherTest.swift */; };
 		633ECEAA1C1542FF0082D870 /* NSRunLoop+TaskDispatcherTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 633ECE8E1C1542820082D870 /* NSRunLoop+TaskDispatcherTest.swift */; };
-		633ECEAC1C15430E0082D870 /* NSCodingObjCKeyValueAccessibleTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 633ECE8B1C1542820082D870 /* NSCodingObjCKeyValueAccessibleTest.swift */; };
 		633ECEAD1C15430E0082D870 /* NSProtocolInterceptorTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 633ECE8C1C1542820082D870 /* NSProtocolInterceptorTest.swift */; };
 		633ECEAF1C15430E0082D870 /* ObjectiveCTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 633ECE8F1C1542820082D870 /* ObjectiveCTest.swift */; };
-		633ECEB31C1543120082D870 /* NSCodingObjCKeyValueAccessibleTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 633ECE8B1C1542820082D870 /* NSCodingObjCKeyValueAccessibleTest.swift */; };
 		633ECEB41C1543120082D870 /* NSProtocolInterceptorTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 633ECE8C1C1542820082D870 /* NSProtocolInterceptorTest.swift */; };
 		633ECEB61C1543120082D870 /* ObjectiveCTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 633ECE8F1C1542820082D870 /* ObjectiveCTest.swift */; };
-		633ECEB91C1543130082D870 /* NSCodingObjCKeyValueAccessibleTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 633ECE8B1C1542820082D870 /* NSCodingObjCKeyValueAccessibleTest.swift */; };
 		633ECEBA1C1543130082D870 /* NSProtocolInterceptorTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 633ECE8C1C1542820082D870 /* NSProtocolInterceptorTest.swift */; };
 		633ECEBC1C1543130082D870 /* ObjectiveCTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 633ECE8F1C1542820082D870 /* ObjectiveCTest.swift */; };
 		633ECED11C157BD10082D870 /* NSCoderInterfaceNormalizationTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 633ECED01C157BD10082D870 /* NSCoderInterfaceNormalizationTest.swift */; };
@@ -1121,7 +1118,6 @@
 				63DCC6A41C64E3CC001949C9 /* ObjCCodingBaseTest.swift in Sources */,
 				633ECEBC1C1543130082D870 /* ObjectiveCTest.swift in Sources */,
 				633ECED11C157BD10082D870 /* NSCoderInterfaceNormalizationTest.swift in Sources */,
-				633ECEB91C1543130082D870 /* NSCodingObjCKeyValueAccessibleTest.swift in Sources */,
 				633ECEAA1C1542FF0082D870 /* NSRunLoop+TaskDispatcherTest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1183,7 +1179,6 @@
 				63DCC6A51C64E3CC001949C9 /* ObjCCodingBaseTest.swift in Sources */,
 				633ECEB61C1543120082D870 /* ObjectiveCTest.swift in Sources */,
 				633ECED21C157BD10082D870 /* NSCoderInterfaceNormalizationTest.swift in Sources */,
-				633ECEB31C1543120082D870 /* NSCodingObjCKeyValueAccessibleTest.swift in Sources */,
 				633ECEA91C1542FE0082D870 /* NSRunLoop+TaskDispatcherTest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1247,7 +1242,6 @@
 				63DCC6A61C64E3CC001949C9 /* ObjCCodingBaseTest.swift in Sources */,
 				633ECEAF1C15430E0082D870 /* ObjectiveCTest.swift in Sources */,
 				633ECED31C157BD10082D870 /* NSCoderInterfaceNormalizationTest.swift in Sources */,
-				633ECEAC1C15430E0082D870 /* NSCodingObjCKeyValueAccessibleTest.swift in Sources */,
 				633ECEA81C1542FD0082D870 /* NSRunLoop+TaskDispatcherTest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

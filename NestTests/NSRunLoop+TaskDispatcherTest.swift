@@ -19,23 +19,23 @@ class NSRunLoop_TaskDispatcherTest: XCTestCase {
         
         let expectation = self.expectation(description: "testDispatchInvokeTiming")
         
-        _ = RunLoop.current.perform {
+        RunLoop.current.perform {
             self.timingSymbols.append(.currentLoopEnded)
             }.forModes(.commonModes)
             .when(.currentLoopEnded)
         
-        _ = RunLoop.current.perform {
+        RunLoop.current.perform {
             self.timingSymbols.append(.nextLoopBegan)
             }.forModes(.commonModes)
             .when(.nextLoopBegan)
         
-        _ = RunLoop.current.perform {
+        RunLoop.current.perform {
             self.timingSymbols.append(.idle)
             
             }.forModes(.commonModes)
             .when(.idle)
         
-        _ = RunLoop.current.perform {
+        RunLoop.current.perform {
             if self.timingSymbols
                 == [.currentLoopEnded, .nextLoopBegan, .idle]
             {

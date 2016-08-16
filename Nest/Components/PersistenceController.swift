@@ -107,8 +107,8 @@ public class PersistenceController {
             object: savingContext)
     }
     
-    private func saveWithCompletionHandler(
-        _ comletionHandler: ((success: Bool) -> Void)?)
+    fileprivate func saveWithCompletionHandler(
+        _ comletionHandler: ((_ success: Bool) -> Void)?)
     {
         perform { (managedObjectContext) -> Void in
             switch self.saving {
@@ -123,7 +123,7 @@ public class PersistenceController {
                         try self.savingContext.save()
                         
                     } catch let error {
-                        comletionHandler?(success: false)
+                        comletionHandler?(false)
                         fatalError("\(error)")
                     }
                     
@@ -136,14 +136,14 @@ public class PersistenceController {
     }
     
     public typealias DatabaseTransaction =
-        (context: NSManagedObjectContext) -> Void
+        (_ context: NSManagedObjectContext) -> Void
     
     public func perform(_ transaction: DatabaseTransaction) {
         switch state {
         case .ready:
             let context = fetchingContext
             fetchingContext.perform({ () -> Void in
-                transaction(context: context)
+                transaction(context)
             })
         case .notPrepared:
             preparationQueue.async(execute: { () -> Void in ()
@@ -163,7 +163,7 @@ public class PersistenceController {
         case .ready:
             let context = fetchingContext
             fetchingContext.performAndWait({ () -> Void in
-                transaction(context: context)
+                transaction(context)
             })
         case .notPrepared:
             while state == .preparing || state == .notPrepared {}
@@ -176,7 +176,7 @@ public class PersistenceController {
         }
     }
     
-    private func launch() { /* Do nothing here */ }
+    fileprivate func launch() { /* Do nothing here */ }
     
     dynamic private func handleManagedObjectContextDidSaveNotification(
         _ notification: Notification)
@@ -203,7 +203,8 @@ extension SingletonPersistenceControllerType where Self: PersistenceController {
     }
     
     public static func saveWithCompletionHandler(
-        _ comletionHandler: ((success: Bool) -> Void)?)
+        _ comletionHandler: ((_ success: Bool) -> Void)?
+        )
     {
         shared.saveWithCompletionHandler(comletionHandler)
     }
