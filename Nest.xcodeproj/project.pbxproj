@@ -31,6 +31,10 @@
 		635F11341BFAFD00004982B4 /* Nest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 635F112A1BFAFCFF004982B4 /* Nest.framework */; };
 		635F11811BFAFD83004982B4 /* NSPersistentStoreType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F10AC1BFAFABB004982B4 /* NSPersistentStoreType.swift */; };
 		635F12DA1BFB229E004982B4 /* SwiftExt.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 635F12D91BFB229E004982B4 /* SwiftExt.framework */; };
+		6366D0CB1D69817400A4D01C /* NSManagedObject+InitWithContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6366D0CA1D69817400A4D01C /* NSManagedObject+InitWithContext.swift */; };
+		6366D0CC1D69817400A4D01C /* NSManagedObject+InitWithContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6366D0CA1D69817400A4D01C /* NSManagedObject+InitWithContext.swift */; };
+		6366D0CD1D69817400A4D01C /* NSManagedObject+InitWithContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6366D0CA1D69817400A4D01C /* NSManagedObject+InitWithContext.swift */; };
+		6366D0CE1D69817400A4D01C /* NSManagedObject+InitWithContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6366D0CA1D69817400A4D01C /* NSManagedObject+InitWithContext.swift */; };
 		6371F2051C7F57FC00837BB7 /* ObjCCodingBase-CoreGraphics.m in Sources */ = {isa = PBXBuildFile; fileRef = 6371F2031C7F57FC00837BB7 /* ObjCCodingBase-CoreGraphics.m */; };
 		6371F2061C7F57FC00837BB7 /* ObjCCodingBase-CoreGraphics.m in Sources */ = {isa = PBXBuildFile; fileRef = 6371F2031C7F57FC00837BB7 /* ObjCCodingBase-CoreGraphics.m */; };
 		6371F2071C7F57FC00837BB7 /* ObjCCodingBase-CoreGraphics.m in Sources */ = {isa = PBXBuildFile; fileRef = 6371F2031C7F57FC00837BB7 /* ObjCCodingBase-CoreGraphics.m */; };
@@ -45,22 +49,18 @@
 		6373770C1D617A6700C735C7 /* NSObjectProtocol+Collections.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F10A21BFAFABB004982B4 /* NSObjectProtocol+Collections.swift */; };
 		6373770D1D617A6700C735C7 /* NSRange+Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635C250C1C2015CB00B0263F /* NSRange+Utilities.swift */; };
 		6373770E1D617A6700C735C7 /* NSRange+CollectionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 637A560B1C8830E8001A178A /* NSRange+CollectionType.swift */; };
-		637377101D617A6700C735C7 /* NSString+RangesOfString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F10A61BFAFABB004982B4 /* NSString+RangesOfString.swift */; };
 		637377131D617A6800C735C7 /* CFRunLoopActivity+CustomDebugStringConvertible.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F109B1BFAFABB004982B4 /* CFRunLoopActivity+CustomDebugStringConvertible.swift */; };
 		637377191D617A6800C735C7 /* NSObjectProtocol+Collections.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F10A21BFAFABB004982B4 /* NSObjectProtocol+Collections.swift */; };
 		6373771A1D617A6800C735C7 /* NSRange+Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635C250C1C2015CB00B0263F /* NSRange+Utilities.swift */; };
 		6373771B1D617A6800C735C7 /* NSRange+CollectionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 637A560B1C8830E8001A178A /* NSRange+CollectionType.swift */; };
-		6373771D1D617A6800C735C7 /* NSString+RangesOfString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F10A61BFAFABB004982B4 /* NSString+RangesOfString.swift */; };
 		637377201D617A6900C735C7 /* CFRunLoopActivity+CustomDebugStringConvertible.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F109B1BFAFABB004982B4 /* CFRunLoopActivity+CustomDebugStringConvertible.swift */; };
 		637377261D617A6900C735C7 /* NSObjectProtocol+Collections.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F10A21BFAFABB004982B4 /* NSObjectProtocol+Collections.swift */; };
 		637377271D617A6900C735C7 /* NSRange+Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635C250C1C2015CB00B0263F /* NSRange+Utilities.swift */; };
 		637377281D617A6900C735C7 /* NSRange+CollectionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 637A560B1C8830E8001A178A /* NSRange+CollectionType.swift */; };
-		6373772A1D617A6900C735C7 /* NSString+RangesOfString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F10A61BFAFABB004982B4 /* NSString+RangesOfString.swift */; };
 		6373772D1D617A6900C735C7 /* CFRunLoopActivity+CustomDebugStringConvertible.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F109B1BFAFABB004982B4 /* CFRunLoopActivity+CustomDebugStringConvertible.swift */; };
 		637377331D617A6900C735C7 /* NSObjectProtocol+Collections.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F10A21BFAFABB004982B4 /* NSObjectProtocol+Collections.swift */; };
 		637377341D617A6900C735C7 /* NSRange+Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635C250C1C2015CB00B0263F /* NSRange+Utilities.swift */; };
 		637377351D617A6900C735C7 /* NSRange+CollectionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 637A560B1C8830E8001A178A /* NSRange+CollectionType.swift */; };
-		637377371D617A6900C735C7 /* NSString+RangesOfString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F10A61BFAFABB004982B4 /* NSString+RangesOfString.swift */; };
 		6373773A1D617CCD00C735C7 /* LaunchTask.h in Headers */ = {isa = PBXBuildFile; fileRef = 63F0B5221C11D6DB00710C41 /* LaunchTask.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6373773B1D617CCD00C735C7 /* LaunchTask.m in Sources */ = {isa = PBXBuildFile; fileRef = 63F0B5231C11D6DB00710C41 /* LaunchTask.m */; };
 		6373773C1D617CCE00C735C7 /* LaunchTask.h in Headers */ = {isa = PBXBuildFile; fileRef = 63F0B5221C11D6DB00710C41 /* LaunchTask.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -169,10 +169,10 @@
 		637377A31D61842B00C735C7 /* ObjCTypeEncoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 633ECDA31C14487A0082D870 /* ObjCTypeEncoding.swift */; };
 		637377A41D61842B00C735C7 /* ObjCCodingPrimitiveType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F10911BFAFABB004982B4 /* ObjCCodingPrimitiveType.swift */; };
 		637377A51D61842B00C735C7 /* ObjCTypeEncoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 633ECDA31C14487A0082D870 /* ObjCTypeEncoding.swift */; };
-		637377AA1D61854600C735C7 /* NSRunLoop+TaskDispatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F10A51BFAFABB004982B4 /* NSRunLoop+TaskDispatcher.swift */; };
-		637377AB1D61854600C735C7 /* NSRunLoop+TaskDispatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F10A51BFAFABB004982B4 /* NSRunLoop+TaskDispatcher.swift */; };
-		637377AC1D61854700C735C7 /* NSRunLoop+TaskDispatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F10A51BFAFABB004982B4 /* NSRunLoop+TaskDispatcher.swift */; };
-		637377AD1D61854700C735C7 /* NSRunLoop+TaskDispatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F10A51BFAFABB004982B4 /* NSRunLoop+TaskDispatcher.swift */; };
+		637377AA1D61854600C735C7 /* RunLoop+TaskDispatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F10A51BFAFABB004982B4 /* RunLoop+TaskDispatcher.swift */; };
+		637377AB1D61854600C735C7 /* RunLoop+TaskDispatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F10A51BFAFABB004982B4 /* RunLoop+TaskDispatcher.swift */; };
+		637377AC1D61854700C735C7 /* RunLoop+TaskDispatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F10A51BFAFABB004982B4 /* RunLoop+TaskDispatcher.swift */; };
+		637377AD1D61854700C735C7 /* RunLoop+TaskDispatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F10A51BFAFABB004982B4 /* RunLoop+TaskDispatcher.swift */; };
 		637377AE1D61880A00C735C7 /* NSCoder+InterfaceNormalization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 633ECEBE1C1547900082D870 /* NSCoder+InterfaceNormalization.swift */; };
 		637377AF1D61880A00C735C7 /* NSCoder+InterfaceNormalization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 633ECEBE1C1547900082D870 /* NSCoder+InterfaceNormalization.swift */; };
 		637377B01D61880B00C735C7 /* NSCoder+InterfaceNormalization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 633ECEBE1C1547900082D870 /* NSCoder+InterfaceNormalization.swift */; };
@@ -296,8 +296,7 @@
 		635F10971BFAFABB004982B4 /* PersistenceController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PersistenceController.swift; sourceTree = "<group>"; };
 		635F109B1BFAFABB004982B4 /* CFRunLoopActivity+CustomDebugStringConvertible.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CFRunLoopActivity+CustomDebugStringConvertible.swift"; sourceTree = "<group>"; };
 		635F10A21BFAFABB004982B4 /* NSObjectProtocol+Collections.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSObjectProtocol+Collections.swift"; sourceTree = "<group>"; };
-		635F10A51BFAFABB004982B4 /* NSRunLoop+TaskDispatcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSRunLoop+TaskDispatcher.swift"; sourceTree = "<group>"; };
-		635F10A61BFAFABB004982B4 /* NSString+RangesOfString.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSString+RangesOfString.swift"; sourceTree = "<group>"; };
+		635F10A51BFAFABB004982B4 /* RunLoop+TaskDispatcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "RunLoop+TaskDispatcher.swift"; sourceTree = "<group>"; };
 		635F10AC1BFAFABB004982B4 /* NSPersistentStoreType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSPersistentStoreType.swift; sourceTree = "<group>"; };
 		635F11031BFAFB4D004982B4 /* ObjectiveC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObjectiveC.swift; sourceTree = "<group>"; };
 		635F11071BFAFBA5004982B4 /* SubsequentSetupInitializable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubsequentSetupInitializable.swift; sourceTree = "<group>"; };
@@ -312,6 +311,7 @@
 		635F11501BFAFD71004982B4 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		635F12D91BFB229E004982B4 /* SwiftExt.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftExt.framework; path = "Frameworks/SwiftExt/build/Debug-appletvos/SwiftExt.framework"; sourceTree = "<group>"; };
 		6360D33E1C73688900D64CE8 /* ObjCPrimitiveCodingType-CoreGraphics.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ObjCPrimitiveCodingType-CoreGraphics.swift"; sourceTree = "<group>"; };
+		6366D0CA1D69817400A4D01C /* NSManagedObject+InitWithContext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSManagedObject+InitWithContext.swift"; sourceTree = "<group>"; };
 		6371F1F91C7F35FC00837BB7 /* ObjCCodingBase+Internal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ObjCCodingBase+Internal.h"; sourceTree = "<group>"; };
 		6371F1FA1C7F35FC00837BB7 /* ObjCCodingBase+Internal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ObjCCodingBase+Internal.m"; sourceTree = "<group>"; };
 		6371F2031C7F57FC00837BB7 /* ObjCCodingBase-CoreGraphics.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ObjCCodingBase-CoreGraphics.m"; sourceTree = "<group>"; };
@@ -575,11 +575,11 @@
 				635F10A21BFAFABB004982B4 /* NSObjectProtocol+Collections.swift */,
 				635C250C1C2015CB00B0263F /* NSRange+Utilities.swift */,
 				637A560B1C8830E8001A178A /* NSRange+CollectionType.swift */,
-				635F10A51BFAFABB004982B4 /* NSRunLoop+TaskDispatcher.swift */,
-				635F10A61BFAFABB004982B4 /* NSString+RangesOfString.swift */,
+				635F10A51BFAFABB004982B4 /* RunLoop+TaskDispatcher.swift */,
 				633ECEBE1C1547900082D870 /* NSCoder+InterfaceNormalization.swift */,
 				6315CC591BFE550E003A5840 /* NSCoding+ObjCKeyValueAccessible.swift */,
 				635F11031BFAFB4D004982B4 /* ObjectiveC.swift */,
+				6366D0CA1D69817400A4D01C /* NSManagedObject+InitWithContext.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -1021,6 +1021,7 @@
 				637377B41D61881400C735C7 /* NSCoding+ObjCKeyValueAccessible.swift in Sources */,
 				637A56571C885191001A178A /* ObjCKeyValueStore-UIKit.m in Sources */,
 				635F10FB1BFAFABB004982B4 /* NSPersistentStoreType.swift in Sources */,
+				6366D0CD1D69817400A4D01C /* NSManagedObject+InitWithContext.swift in Sources */,
 				637377131D617A6800C735C7 /* CFRunLoopActivity+CustomDebugStringConvertible.swift in Sources */,
 				6373776F1D617D6200C735C7 /* ObjCSelfAwareSwizzle.swift in Sources */,
 				6373771A1D617A6800C735C7 /* NSRange+Utilities.swift in Sources */,
@@ -1031,8 +1032,7 @@
 				6371F2071C7F57FC00837BB7 /* ObjCCodingBase-CoreGraphics.m in Sources */,
 				63F0B5391C11D8F000710C41 /* LaunchTask-WatchKit.m in Sources */,
 				637377A01D61842A00C735C7 /* ObjCCodingPrimitiveType.swift in Sources */,
-				637377AB1D61854600C735C7 /* NSRunLoop+TaskDispatcher.swift in Sources */,
-				6373771D1D617A6800C735C7 /* NSString+RangesOfString.swift in Sources */,
+				637377AB1D61854600C735C7 /* RunLoop+TaskDispatcher.swift in Sources */,
 				637377611D617D0B00C735C7 /* ObjCCodingBase+Internal.m in Sources */,
 				6373773D1D617CCE00C735C7 /* LaunchTask.m in Sources */,
 				637377881D61815200C735C7 /* ObjCSelectorInterceptor.swift in Sources */,
@@ -1064,6 +1064,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				637377671D617D0C00C735C7 /* ObjCCodingBase.m in Sources */,
+				6366D0CB1D69817400A4D01C /* NSManagedObject+InitWithContext.swift in Sources */,
 				635F10F91BFAFABB004982B4 /* NSPersistentStoreType.swift in Sources */,
 				637377581D617CFA00C735C7 /* ObjCKeyValueStore+Internal.m in Sources */,
 				637377851D61805F00C735C7 /* ObjCProtocolInterceptor.swift in Sources */,
@@ -1091,7 +1092,6 @@
 				637377341D617A6900C735C7 /* NSRange+Utilities.swift in Sources */,
 				6373777C1D617D6300C735C7 /* ObjCSelfAwareSwizzleRecipeType.swift in Sources */,
 				637377051D617A5D00C735C7 /* ObjectiveC.swift in Sources */,
-				637377371D617A6900C735C7 /* NSString+RangesOfString.swift in Sources */,
 				637377691D617D0C00C735C7 /* ObjCCodingBase+Internal.m in Sources */,
 				6373779C1D61842000C735C7 /* ObjCKeyValueAccessible.swift in Sources */,
 				637377C21D61894500C735C7 /* ObjCPrimitiveCodingType-AVFoundation.swift in Sources */,
@@ -1103,7 +1103,7 @@
 				6371F2051C7F57FC00837BB7 /* ObjCCodingBase-CoreGraphics.m in Sources */,
 				6373779D1D61842000C735C7 /* ObjCKeyValueAccessibleKeyType.swift in Sources */,
 				637377591D617CFA00C735C7 /* ObjCKeyValueStore+DefaultAccessors.m in Sources */,
-				637377AD1D61854700C735C7 /* NSRunLoop+TaskDispatcher.swift in Sources */,
+				637377AD1D61854700C735C7 /* RunLoop+TaskDispatcher.swift in Sources */,
 				637377C71D6189B200C735C7 /* ObjCPrimitiveCodingType-UIKit.swift in Sources */,
 				637377B21D61881300C735C7 /* NSCoding+ObjCKeyValueAccessible.swift in Sources */,
 				637377351D617A6900C735C7 /* NSRange+CollectionType.swift in Sources */,
@@ -1141,13 +1141,12 @@
 				637377941D61837400C735C7 /* ObjCAssociated.swift in Sources */,
 				637377751D617D6300C735C7 /* ObjCSelfAwareSwizzle+Utilities.swift in Sources */,
 				633ECEDE1C158F470082D870 /* ObjCPrimitiveCodingType-AppKit.swift in Sources */,
-				637377AC1D61854700C735C7 /* NSRunLoop+TaskDispatcher.swift in Sources */,
+				637377AC1D61854700C735C7 /* RunLoop+TaskDispatcher.swift in Sources */,
 				637377041D617A5D00C735C7 /* ObjectiveC.swift in Sources */,
 				63F0B5351C11D8E200710C41 /* LaunchTask-AppKit.m in Sources */,
 				637377A21D61842B00C735C7 /* ObjCCodingPrimitiveType.swift in Sources */,
 				6373779A1D61841F00C735C7 /* ObjCKeyValueAccessible.swift in Sources */,
 				637377B31D61881300C735C7 /* NSCoding+ObjCKeyValueAccessible.swift in Sources */,
-				6373772A1D617A6900C735C7 /* NSString+RangesOfString.swift in Sources */,
 				637377261D617A6900C735C7 /* NSObjectProtocol+Collections.swift in Sources */,
 				637377841D61805F00C735C7 /* ObjCProtocolInterceptor.swift in Sources */,
 				637377BF1D61890E00C735C7 /* ObjCPrimitiveCodingType-CoreGraphics.swift in Sources */,
@@ -1158,6 +1157,7 @@
 				637377871D61815100C735C7 /* ObjCSelectorInterceptor.swift in Sources */,
 				637377651D617D0B00C735C7 /* ObjCCodingBase+Internal.m in Sources */,
 				637377531D617CF900C735C7 /* ObjCKeyValueStore+Internal.m in Sources */,
+				6366D0CC1D69817400A4D01C /* NSManagedObject+InitWithContext.swift in Sources */,
 				637377631D617D0B00C735C7 /* ObjCCodingBase.m in Sources */,
 				63C5BD821C82CCE200A22F27 /* ObjCCodingBase-AVFoundation.m in Sources */,
 				6371F2061C7F57FC00837BB7 /* ObjCCodingBase-CoreGraphics.m in Sources */,
@@ -1188,6 +1188,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6373775B1D617D0A00C735C7 /* ObjCCodingBase.m in Sources */,
+				6366D0CE1D69817400A4D01C /* NSManagedObject+InitWithContext.swift in Sources */,
 				635F11811BFAFD83004982B4 /* NSPersistentStoreType.swift in Sources */,
 				637377491D617CF800C735C7 /* ObjCKeyValueStore+Internal.m in Sources */,
 				637377821D61805E00C735C7 /* ObjCProtocolInterceptor.swift in Sources */,
@@ -1216,7 +1217,6 @@
 				6373776D1D617D6200C735C7 /* ObjCSelfAwareSwizzleRecipeType.swift in Sources */,
 				6373770D1D617A6700C735C7 /* NSRange+Utilities.swift in Sources */,
 				637377021D617A5C00C735C7 /* ObjectiveC.swift in Sources */,
-				637377101D617A6700C735C7 /* NSString+RangesOfString.swift in Sources */,
 				6373775D1D617D0A00C735C7 /* ObjCCodingBase+Internal.m in Sources */,
 				637377961D61841E00C735C7 /* ObjCKeyValueAccessible.swift in Sources */,
 				637377C41D61894700C735C7 /* ObjCPrimitiveCodingType-AVFoundation.swift in Sources */,
@@ -1227,7 +1227,7 @@
 				637A56561C885183001A178A /* ObjCKeyValueStore-UIKit.m in Sources */,
 				637377971D61841E00C735C7 /* ObjCKeyValueAccessibleKeyType.swift in Sources */,
 				6373774A1D617CF800C735C7 /* ObjCKeyValueStore+DefaultAccessors.m in Sources */,
-				637377AA1D61854600C735C7 /* NSRunLoop+TaskDispatcher.swift in Sources */,
+				637377AA1D61854600C735C7 /* RunLoop+TaskDispatcher.swift in Sources */,
 				637377C61D6189AF00C735C7 /* ObjCPrimitiveCodingType-UIKit.swift in Sources */,
 				637377B51D61881400C735C7 /* NSCoding+ObjCKeyValueAccessible.swift in Sources */,
 				6373770E1D617A6700C735C7 /* NSRange+CollectionType.swift in Sources */,

@@ -10,7 +10,7 @@ import Foundation
 import CoreData
 
 @available(iOS 3.0, *)
-public class PersistenceController {
+open class PersistenceController {
     
     public enum State: Int {
         case notPrepared, preparing, ready, failed
@@ -50,47 +50,53 @@ public class PersistenceController {
         fetchingContext.parent = savingContext
         
         preparationQueue.async { () -> Void in
-            guard let modelURL = Bundle.main
-                .url(forResource: modelName, withExtension:modelExtension) else
+            guard let modelURL = Bundle.main.url(
+                forResource: modelName,
+                withExtension:modelExtension
+                ) else
             {
                 self.state = .failed
                 fatalError("Error loading model from bundle")
             }
             
-            guard let managedObjectModel
-                = NSManagedObjectModel(contentsOf: modelURL) else
+            guard let managedObjectModel = NSManagedObjectModel(
+                contentsOf: modelURL
+                ) else
             {
                 self.state = .failed
                 fatalError("Error initializing model from: \(modelURL)")
             }
             
             let persistenStoreCoordinator = NSPersistentStoreCoordinator(
-                managedObjectModel: managedObjectModel)
+                managedObjectModel: managedObjectModel
+            )
             
             do {
                 let containingDir = storeURL.deletingLastPathComponent()
                 
-                try FileManager.default
-                    .createDirectory(at: containingDir,
-                        withIntermediateDirectories: true,
-                        attributes: nil)
+                try FileManager.default.createDirectory(
+                    at: containingDir,
+                    withIntermediateDirectories: true,
+                    attributes: nil
+                )
                 
-                try persistenStoreCoordinator
-                    .addPersistentStore(ofType: type.primitiveValue,
-                        configurationName: nil,
-                        at: storeURL,
-                        options: nil)
+                try persistenStoreCoordinator.addPersistentStore(
+                    ofType: type.primitiveValue,
+                    configurationName: nil,
+                    at: storeURL,
+                    options: nil
+                )
             } catch {
                 self.state = .failed
                 fatalError("Error migrating store: \(error)")
             }
             
-            Foundation.NotificationCenter.default.addObserver(
+            NotificationCenter.default.addObserver(
                 self,
                 selector: #selector(
-                    self.handleManagedObjectContextDidSaveNotification(_:)
+                    self.handleManagedObjectContextDidSave(_:)
                 ),
-                name: NSNotification.Name.NSManagedObjectContextDidSave,
+                name: .NSManagedObjectContextDidSave,
                 object: self.savingContext
             )
             
@@ -102,9 +108,11 @@ public class PersistenceController {
     }
     
     deinit {
-        Foundation.NotificationCenter.default.removeObserver(self,
-            name: NSNotification.Name.NSManagedObjectContextDidSave,
-            object: savingContext)
+        NotificationCenter.default.removeObserver(
+            self,
+            name: .NSManagedObjectContextDidSave,
+            object: savingContext
+        )
     }
     
     fileprivate func saveWithCompletionHandler(
@@ -178,8 +186,10 @@ public class PersistenceController {
     
     fileprivate func launch() { /* Do nothing here */ }
     
-    dynamic private func handleManagedObjectContextDidSaveNotification(
-        _ notification: Notification)
+    dynamic
+    private func handleManagedObjectContextDidSave(
+        _ notification: Notification
+        )
     {
         saving = false
         if hasPendingSavingRequest {
@@ -195,7 +205,9 @@ public protocol SingletonPersistenceControllerType: class {
     static var shared: Self { get }
 }
 
-extension SingletonPersistenceControllerType where Self: PersistenceController {
+extension SingletonPersistenceControllerType where
+    Self: PersistenceController
+{
     public static func launch() { shared.launch() }
     
     public static func save() {

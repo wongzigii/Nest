@@ -28,7 +28,6 @@ extension Sequence where Iterator.Element: NSObjectProtocol {
 }
 
 extension Collection where Iterator.Element: NSObjectProtocol {
-    
     /// Returns the first index where `value` appears in `self` or `nil` if
     /// `value` is not found.
     ///
@@ -36,21 +35,7 @@ extension Collection where Iterator.Element: NSObjectProtocol {
     public func index(ofNSObjectProtocol value: Iterator.Element)
         -> Index?
     {
-        if count > 0 {
-            var index = startIndex
-            for each in self {
-                if each === value {
-                    return index
-                } else {
-                    if each.isEqual(value) {
-                        return index
-                    }
-                }
-                index = self.index(after: index)
-            }
-        }
-        
-        return nil
+        return index(where: {value.isEqual($0)})
     }
 }
 
@@ -58,7 +43,8 @@ extension RangeReplaceableCollection where
     Iterator.Element : NSObjectProtocol
 {
     /// Return all the intersected elements
-    public func intersected(withNSObjectProtocols collection: Self) -> Self
+    public func intersected(withNSObjectProtocols collection: Self)
+        -> Self
     {
         var newCollection = Self()
         
@@ -76,10 +62,12 @@ extension RangeReplaceableCollection where
 
 extension RangeReplaceableCollection where
     Iterator.Element : NSObjectProtocol,
-    Index: Comparable & Comparable
+    Index: Comparable
 {
     /// Remove an `NSObjectProtocol` element
-    public mutating func removeNSObjectProtocols(_ elements: Self) -> Self {
+    public mutating func remove(nsObjectProtocols elements: Self)
+        -> Self
+    {
         var indices: [Index] = []
         
         for eachElement in elements {

@@ -24,25 +24,23 @@ extension NSCoding where Self: ObjCKeyValueAccessible,
     
     //MARK: Overload for ObjCCodingPrimitiveType and _ObjectiveCBridgeable
     public func encode<
-        T: ObjCCodingPrimitiveType>(
+        T: ObjCCodingPrimitiveType & _ObjectiveCBridgeable
+        >(
         _ value: T?,
         to encoder: NSCoder,
         for key: Key
-        ) where
-        T: _ObjectiveCBridgeable
+        )
     {
         encoder.encode(value, for: key.rawValue)
     }
     
     //MARK: - RawRepresentable with Objective-C Primitive Coding Raw Type
-    public func encode<
-        T: RawRepresentable>(
+    public func encode<T: RawRepresentable>(
         _ value: T?,
         to encoder: NSCoder,
         for key: Key
         ) where
         T.RawValue: ObjCCodingPrimitiveType
-        
     {
         encoder.encode(value, for: key.rawValue)
     }
@@ -57,16 +55,13 @@ extension NSCoding where Self: ObjCKeyValueAccessible,
         encoder.encode(value, for: key.rawValue)
     }
     
-    //MARK: - NSCoding Conformed Objective-C Bridgable Pure Swift Objects
-    public func encode<
-        T: AnyObject>(
+    //MARK: - NSCoding Conformed Objective-C Bridgable Swift Objects
+    public func encode<T: AnyObject & _ObjectiveCBridgeable>(
         _ value: T?,
         to encoder: NSCoder,
         for key: Key
         ) where
-        T: _ObjectiveCBridgeable,
         T._ObjectiveCType: NSCoding
-        
     {
         encoder.encode(value, for: key.rawValue)
     }
@@ -83,21 +78,13 @@ extension NSCoding where Self: ObjCKeyValueAccessible,
 }
 
 //MARK: Throwing Decoding
-/** Throwing Decoding Accessors Design Notes:
- 
- - Because of a compiler bug existed from Swift 1.1 to Swift 2.1, Swift object is
- not able to deinit partial initialized object, and you must declare all
- encoddeable properties in a class to be type of `ImplicitUnwrappedOptional<T>`.
- 
- - Because Swift doesn't support coupling initialization(such as class A has a
- property of instance of class B and class B has a property of instance of class
- A), you must set the property at least after the first phase of initialization.
- That mean the property must to be defined as ImplicitUnwrappedOptional value.
- 
- - To make the accessors to be compatible with both implicit unwrapped optional
- values and non-null values, the return value is wrapped with an
- `ImplicitUnwrappedOptional` container.
- */
+/// Throwing Decoding Design Notes
+/// ==============================
+///
+/// `ImplicitlyUnwrappedOptional` wrapped value is ambivalent for
+/// the non-optional's and the optional's. So all these function returns
+/// an `ImplicitlyUnwrappedOptional` wrapped value so we don't need to
+/// overload the `Optional` wrapped version.
 extension NSCoding where
     Self: ObjCKeyValueAccessible,
     Self.Key.RawValue == String
@@ -180,8 +167,7 @@ extension NSCoding where
 }
 
 //MARK: Maybe Decoding
-extension NSCoding where
-    Self: ObjCKeyValueAccessible,
+extension NSCoding where Self: ObjCKeyValueAccessible,
     Self.Key.RawValue == String
 {
     public func decode<T: ObjCCodingPrimitiveType>(
@@ -256,8 +242,7 @@ extension NSCoding where
 }
 
 //MARK: Fallback Decoding
-extension NSCoding where
-    Self: ObjCKeyValueAccessible,
+extension NSCoding where Self: ObjCKeyValueAccessible,
     Self.Key.RawValue == String
 {
     public func decode<T: ObjCCodingPrimitiveType>(

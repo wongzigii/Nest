@@ -43,46 +43,36 @@ extension NSCoder {
     
     //MARK: Overload for ObjCCodingPrimitiveType and _ObjectiveCBridgeable
     public func encode<
-        T: ObjCCodingPrimitiveType>(
-        _ value: T?,
-        for key: String
-        ) where
-        T: _ObjectiveCBridgeable
-        
+        T: ObjCCodingPrimitiveType & _ObjectiveCBridgeable
+        >(
+        _ value: T?, for key: String
+        )
     {
         value?.encode(to: self, for: key)
     }
     
     //MARK: - RawRepresentable with Objective-C Primitive Coding Raw Type
-    public func encode<
-        T: RawRepresentable>(
+    public func encode<T: RawRepresentable>(
         _ value: T?,
         for key: String
         ) where
         T.RawValue: ObjCCodingPrimitiveType
-        
     {
         value?.rawValue.encode(to: self, for: key)
     }
     
     //MARK: - Objective-C Bridgeable Swift Value Types
-    public func encode<
-        T: _ObjectiveCBridgeable
-        >(
-        _ value: T?,
-        for key: String
+    public func encode<T: _ObjectiveCBridgeable>(
+        _ value: T?, for key: String
         )
     {
         self.encode(value?._bridgeToObjectiveC(), forKey: key)
     }
     
     //MARK: - NSCoding Conformed Objective-C Bridgable Pure Swift Objects
-    public func encode<
-        T: AnyObject>(
-        _ value: T?,
-        for key: String
+    public func encode<T: AnyObject & _ObjectiveCBridgeable>(
+        _ value: T?, for key: String
         ) where
-        T: _ObjectiveCBridgeable,
         T._ObjectiveCType: NSCoding
         
     {
@@ -96,21 +86,13 @@ extension NSCoder {
 }
 
 //MARK: Throwing Decoding
-/** Throwing Decoding Accessors Design Notes:
-
-- Because of a compiler bug existed from Swift 1.1 to Swift 2.1, Swift object 
- was unable to deinit partially initialized object, and you have to declare a
- class' encoddeable member property be of type `T` as `T!`.
-
- - Because Swift doesn't support coupling initialization(such as class A has a
- property of instance of class B and class B has a property of instance of class
- A), you must set the property at least after the first phase of initialization.
- That means the property be type of T have to be defined as `T!`.
-
- - To make the accessors to be compatible with both implicit unwrapped optional
- values and non-null values, the return value is wrapped with an
- `ImplicitUnwrappedOptional` container.
-*/
+/// Throwing Decoding Design Notes
+/// ==============================
+///
+/// `ImplicitlyUnwrappedOptional` wrapped value is ambivalent for 
+/// the non-optional's and the optional's. So all these function returns
+/// an `ImplicitlyUnwrappedOptional` wrapped value so we don't need to
+/// overload the `Optional` wrapped version.
 extension NSCoder {
     public func decodeOrThrow<T: ObjCCodingPrimitiveType>(for key: String)
         throws
@@ -124,12 +106,10 @@ extension NSCoder {
     }
     
     public func decodeOrThrow<
-        T: ObjCCodingPrimitiveType>(
-        for key: String
-        )
+        T: ObjCCodingPrimitiveType & _ObjectiveCBridgeable
+        >(for key: String)
         throws
-        -> T! where
-        T: _ObjectiveCBridgeable
+        -> T!
         
     {
         guard containsValue(forKey: key) else {
@@ -139,10 +119,7 @@ extension NSCoder {
         return T.decode(from: self, for: key)
     }
     
-    public func decodeOrThrow<
-        T: RawRepresentable>(
-        for key: String
-        )
+    public func decodeOrThrow<T: RawRepresentable>(for key: String)
         throws
         -> T! where
         T.RawValue: ObjCCodingPrimitiveType
@@ -197,15 +174,12 @@ extension NSCoder {
         return bridgedValue
     }
     
-    public func decodeOrThrow<
-        T: AnyObject>(
+    public func decodeOrThrow<T: AnyObject & _ObjectiveCBridgeable>(
         for key: String
         )
         throws
         -> T! where
-        T: _ObjectiveCBridgeable,
         T._ObjectiveCType: NSCoding
-        
     {
         guard containsValue(forKey: key) else {
             throw NSCoderDecodingError.noValueForKey(key: key)
@@ -236,7 +210,10 @@ extension NSCoder {
         return bridgedValue
     }
     
-    public func decodeOrThrow<T: AnyObject>(for key: String) throws -> T! {
+    public func decodeOrThrow<T: AnyObject>(for key: String)
+        throws
+        -> T!
+    {
         guard containsValue(forKey: key) else {
             throw NSCoderDecodingError.noValueForKey(key: key)
         }
@@ -268,13 +245,13 @@ extension NSCoder {
         }
         
         guard let object = decodeObject(of: T.self, forKey: key) else {
-            // We don't need to check decoder's `requiresSecureCoding` property
-            // because system throws exception on behalf of ourselves when
-            // `requiresSecureCoding` responds to true but `NSSecureCoding` was
-            // not implemented.
-            // Once the program went to here, that meant it can only be a type
-            // casting failure where decoder's `requiresSecureCoding` responded
-            // to false.
+            // We don't need to check the decoder's `requiresSecureCoding`
+            // property because system throws exception on behalf of 
+            // ourselves when `requiresSecureCoding` responds to true but 
+            // `NSSecureCoding` was not implemented.
+            // Once the program went to be here, it only means a type 
+            // casting failure where decoder's `requiresSecureCoding`
+            // responded to false.
             guard let object = decodeObject(forKey: key) else {
                 throw NSCoderDecodingError.internalInconsistency(
                     key: key,
@@ -295,28 +272,23 @@ extension NSCoder {
 
 //MARK: Maybe Decoding
 extension NSCoder {
-    public func decode<T: ObjCCodingPrimitiveType>(for key: String) -> T? {
-        return try? decodeOrThrow(for: key)
-    }
-    
-    public func decode<
-        T: ObjCCodingPrimitiveType>(
-        for key: String
-        )
-        -> T? where
-        T: _ObjectiveCBridgeable
-        
+    public func decode<T: ObjCCodingPrimitiveType>(for key: String)
+        -> T?
     {
         return try? decodeOrThrow(for: key)
     }
     
     public func decode<
-        T: RawRepresentable>(
-        for key: String
-        )
+        T: ObjCCodingPrimitiveType & _ObjectiveCBridgeable
+        >(for key: String)
+        -> T?
+    {
+        return try? decodeOrThrow(for: key)
+    }
+    
+    public func decode<T: RawRepresentable>(for key: String)
         -> T? where
         T.RawValue: ObjCCodingPrimitiveType
-        
     {
         return try? decodeOrThrow(for: key)
     }
@@ -341,7 +313,10 @@ extension NSCoder {
         return try? decodeOrThrow(for: key)
     }
     
-    public func decode<T: NSObject>(for key: String) -> T? where T: NSCoding {
+    public func decode<T: NSObject>(for key: String)
+        -> T? where
+        T: NSCoding
+    {
         return try? decodeOrThrow(for: key)
     }
 }
@@ -362,13 +337,11 @@ extension NSCoder {
     }
     
     public func decode<
-        T: ObjCCodingPrimitiveType>(
-        for key: String,
-        fallback: T
+        T: ObjCCodingPrimitiveType & _ObjectiveCBridgeable
+        >(
+        for key: String, fallback: T
         )
-        -> T where
-        T: _ObjectiveCBridgeable
-        
+        -> T
     {
         do {
             return try decodeOrThrow(for: key)
@@ -377,14 +350,12 @@ extension NSCoder {
         }
     }
     
-    public func decode<
-        T: RawRepresentable>(
+    public func decode<T: RawRepresentable>(
         for key: String,
         fallback: T
         )
         -> T where
         T.RawValue: ObjCCodingPrimitiveType
-        
     {
         do {
             return try decodeOrThrow(for: key)
@@ -407,14 +378,12 @@ extension NSCoder {
     }
     
     public func decode<
-        T: AnyObject>(
-        for key: String,
-        fallback: T
+        T: AnyObject & _ObjectiveCBridgeable
+        >(
+        for key: String, fallback: T
         )
         -> T where
-        T: _ObjectiveCBridgeable,
         T._ObjectiveCType: NSCoding
-        
     {
         do {
             return try decodeOrThrow(for: key)
@@ -423,10 +392,7 @@ extension NSCoder {
         }
     }
     
-    public func decode<T: AnyObject>(
-        for key: String,
-        fallback: T
-        )
+    public func decode<T: AnyObject>(for key: String, fallback: T)
         -> T
     {
         do {
@@ -436,10 +402,7 @@ extension NSCoder {
         }
     }
     
-    public func decode<T: NSObject>(
-        for key: String,
-        fallback: T
-        )
+    public func decode<T: NSObject>(for key: String, fallback: T)
         -> T where T: NSCoding
     {
         do {
