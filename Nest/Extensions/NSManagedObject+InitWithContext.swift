@@ -17,7 +17,7 @@ extension NSManagedObject {
     @available(watchOSApplicationExtension, introduced: 2.0, obsoleted: 3.0)
     @available(OSXApplicationExtension, introduced: 10.10, obsoleted: 10.12)
     public static var nest_entityName: String {
-        return NSStringFromClass(self)
+        return String(describing: self)
     }
     
     /// Initialize with an `NSManagedObjectContext`.
@@ -44,8 +44,9 @@ extension NSManagedObject {
         {
             self.init(context: managedObjectContext)
         } else {
+            let entityName = type(of: self).nest_entityName
             let entity = NSEntityDescription.entity(
-                forEntityName: type(of: self).nest_entityName,
+                forEntityName: entityName,
                 in: managedObjectContext
                 )!
             self.init(

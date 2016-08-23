@@ -11,19 +11,19 @@ import CoreData
 
 @available(iOS 3.0, *)
 open class PersistenceController {
-    
-    public enum State: Int {
+    public enum State {
         case notPrepared, preparing, ready, failed
     }
     
-    // Managed object context used for fetching and update
+    // Managed object context used for fetching and update. Not fully
+    // initialized simultaneously with the object
     private let fetchingContext: NSManagedObjectContext
     
-    // Managed object context used for saving
+    // Managed object context used for saving. Corresponds to the
+    // persistent store. Not fully initialized simultaneously with the
+    // object.
     private let savingContext: NSManagedObjectContext
     
-    private var hasPendingSavingRequest: Bool = false
-    private var pendingSavingCompletions: [(Bool) -> Void] = []
     public private(set) var saving: Bool = false
     
     private var state: State = .notPrepared
@@ -33,6 +33,7 @@ open class PersistenceController {
     )
     
     public init(
+        bundle: Bundle,
         storeURL: URL,
         type: NSPersistentStoreType,
         modelName: String,
@@ -42,21 +43,22 @@ open class PersistenceController {
         state = .preparing
         
         fetchingContext = NSManagedObjectContext(
-            concurrencyType: .mainQueueConcurrencyType)
+            concurrencyType: .mainQueueConcurrencyType
+        )
         
         savingContext = NSManagedObjectContext(
-            concurrencyType: .privateQueueConcurrencyType)
+            concurrencyType: .privateQueueConcurrencyType
+        )
         
         fetchingContext.parent = savingContext
         
-        preparationQueue.async { () -> Void in
-            guard let modelURL = Bundle.main.url(
-                forResource: modelName,
-                withExtension:modelExtension
+        preparationQueue.async {
+            guard let modelURL = bundle.url(
+                forResource: modelName, withExtension:modelExtension
                 ) else
             {
                 self.state = .failed
-                fatalError("Error loading model from bundle")
+                fatalError("Error loading model from bundle: \(bundle)")
             }
             
             guard let managedObjectModel = NSManagedObjectModel(
@@ -84,95 +86,129 @@ open class PersistenceController {
                     ofType: type.primitiveValue,
                     configurationName: nil,
                     at: storeURL,
-                    options: nil
+                    options: [
+                        NSMigratePersistentStoresAutomaticallyOption: true,
+                        NSInferMappingModelAutomaticallyOption: true,
+                        NSSQLitePragmasOption: ["journal_mode":"DELETE"]
+                    ]
                 )
             } catch {
                 self.state = .failed
                 fatalError("Error migrating store: \(error)")
             }
             
-            NotificationCenter.default.addObserver(
-                self,
-                selector: #selector(
-                    self.handleManagedObjectContextDidSave(_:)
-                ),
-                name: .NSManagedObjectContextDidSave,
-                object: self.savingContext
-            )
-            
             self.savingContext.persistentStoreCoordinator
                 = persistenStoreCoordinator
             
             self.state = .ready
         }
+        
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(
+                _handleFetchingContextObjectDidChange(_:)
+            ),
+            name: .NSManagedObjectContextObjectsDidChange,
+            object: fetchingContext
+        )
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(_handleSavingContextWillSave(_:)),
+            name: .NSManagedObjectContextWillSave,
+            object: fetchingContext
+        )
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(_handleSavingContextDidSave(_:)),
+            name: .NSManagedObjectContextDidSave,
+            object: fetchingContext
+        )
     }
     
     deinit {
         NotificationCenter.default.removeObserver(
             self,
+            name: .NSManagedObjectContextObjectsDidChange,
+            object: fetchingContext
+        )
+        NotificationCenter.default.removeObserver(
+            self,
+            name: .NSManagedObjectContextWillSave,
+            object: fetchingContext
+        )
+        NotificationCenter.default.removeObserver(
+            self,
             name: .NSManagedObjectContextDidSave,
-            object: savingContext
+            object: fetchingContext
         )
     }
     
-    fileprivate func saveWithCompletionHandler(
-        _ comletionHandler: ((_ success: Bool) -> Void)?)
+    public func save(
+        with comletionHandler: ((_ success: Bool) -> Void)? = nil
+        )
     {
-        perform { (managedObjectContext) -> Void in
-            switch self.saving {
-            case true:
-                self.hasPendingSavingRequest = true
-            case false:
-                self.saving = true
-                
-                self.savingContext.perform { _ in
+        guard fetchingContext.hasChanges || savingContext.hasChanges
+            else
+        {
+            comletionHandler?(true)
+            return
+        }
+        
+        performAndWait { (fetchingContext) -> Void in
+            self.saving = true
+            
+            do {
+                try fetchingContext.save()
+            } catch let error {
+                fatalError("\(error)")
+            }
+            
+            self.savingContext.perform { _ in
+                do {
+                    try self.savingContext.save()
+                    self.saving = false
                     
-                    do {
-                        try self.savingContext.save()
-                        
-                    } catch let error {
-                        comletionHandler?(false)
-                        fatalError("\(error)")
-                    }
+                    comletionHandler?(true)
+                } catch let error {
+                    self.saving = false
                     
-                    if let completion = comletionHandler {
-                        self.pendingSavingCompletions.append(completion)
-                    }
+                    comletionHandler?(false)
+                    assertionFailure("\(error)")
                 }
             }
         }
     }
     
-    public typealias DatabaseTransaction =
+    public typealias Transaction =
         (_ context: NSManagedObjectContext) -> Void
     
-    public func perform(_ transaction: DatabaseTransaction) {
+    public func perform(_ transaction: Transaction) {
         switch state {
         case .ready:
             let context = fetchingContext
-            fetchingContext.perform({ () -> Void in
+            fetchingContext.perform {
                 transaction(context)
-            })
+            }
         case .notPrepared:
-            preparationQueue.async(execute: { () -> Void in ()
+            preparationQueue.async {
                 self.perform(transaction)
-            })
+            }
         case .preparing:
-            preparationQueue.async(execute: { () -> Void in ()
+            preparationQueue.async {
                 self.perform(transaction)
-            })
+            }
         case .failed:
             assertionFailure("Persistence controller initialization failed")
         }
     }
     
-    public func performAndWait(_ transaction: DatabaseTransaction) {
+    public func performAndWait(_ transaction: Transaction) {
         switch state {
         case .ready:
             let context = fetchingContext
-            fetchingContext.performAndWait({ () -> Void in
+            fetchingContext.performAndWait {
                 transaction(context)
-            })
+            }
         case .notPrepared:
             while state == .preparing || state == .notPrepared {}
             performAndWait(transaction)
@@ -186,18 +222,43 @@ open class PersistenceController {
     
     fileprivate func launch() { /* Do nothing here */ }
     
-    dynamic
-    private func handleManagedObjectContextDidSave(
+    @objc
+    private func _handleFetchingContextObjectDidChange(
         _ notification: Notification
         )
     {
-        saving = false
-        if hasPendingSavingRequest {
-            hasPendingSavingRequest = false
-            saveWithCompletionHandler(nil)
-        } else {
-            pendingSavingCompletions.forEach {$0(true)}
-        }
+        assert((notification.object as? NSManagedObjectContext) === fetchingContext)
+        objectsDidChange(notification: notification)
+    }
+    
+    @objc
+    private func _handleSavingContextWillSave(
+        _ notification: Notification
+        )
+    {
+        assert((notification.object as? NSManagedObjectContext) === fetchingContext)
+        willSave(notification: notification)
+    }
+    
+    @objc
+    private func _handleSavingContextDidSave(
+        _ notification: Notification
+        )
+    {
+        assert((notification.object as? NSManagedObjectContext) === fetchingContext)
+        didSave(notification: notification)
+    }
+    
+    open func objectsDidChange(notification: Notification) {
+        
+    }
+    
+    open func willSave(notification: Notification) {
+        
+    }
+    
+    open func didSave(notification: Notification) {
+        
     }
 }
 
@@ -210,22 +271,18 @@ extension SingletonPersistenceControllerType where
 {
     public static func launch() { shared.launch() }
     
-    public static func save() {
-        shared.saveWithCompletionHandler(nil)
-    }
-    
-    public static func saveWithCompletionHandler(
-        _ comletionHandler: ((_ success: Bool) -> Void)?
+    public static func save(
+        with comletionHandler: ((_ success: Bool) -> Void)? = nil
         )
     {
-        shared.saveWithCompletionHandler(comletionHandler)
+        shared.save(with: comletionHandler)
     }
     
-    public static func perform(_ transaction: DatabaseTransaction) {
+    public static func perform(_ transaction: Transaction) {
         shared.perform(transaction)
     }
     
-    public static func performAndWait(_ transaction: DatabaseTransaction) {
+    public static func performAndWait(_ transaction: Transaction) {
         shared.performAndWait(transaction)
     }
 }
