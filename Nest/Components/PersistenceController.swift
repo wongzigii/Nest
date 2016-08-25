@@ -8,9 +8,19 @@
 
 import Foundation
 import CoreData
+import SwiftExt
 
 @available(iOS 3.0, *)
 open class PersistenceController {
+    
+    public enum Context {
+        case forFetching(NSManagedObjectContext)
+        case forSaving(NSManagedObjectContext)
+    }
+    
+    public typealias ManagedObjectChanges
+        = [NSManagedObjectChangeKey: Set<NSManagedObject>]
+    
     public enum State {
         case notPrepared, preparing, ready, failed
     }
@@ -51,6 +61,11 @@ open class PersistenceController {
         )
         
         fetchingContext.parent = savingContext
+        
+        if #available(iOSApplicationExtension 9.0, *) {
+            fetchingContext.shouldDeleteInaccessibleFaults = false
+            savingContext.shouldDeleteInaccessibleFaults = false
+        }
         
         preparationQueue.async {
             guard let modelURL = bundle.url(
@@ -102,26 +117,46 @@ open class PersistenceController {
             
             self.state = .ready
         }
-        
+    
         NotificationCenter.default.addObserver(
             self,
             selector: #selector(
-                _handleFetchingContextObjectDidChange(_:)
+                _handleFetchingContextObjectsDidChange(_:)
             ),
             name: .NSManagedObjectContextObjectsDidChange,
             object: fetchingContext
         )
         NotificationCenter.default.addObserver(
             self,
-            selector: #selector(_handleSavingContextWillSave(_:)),
+            selector: #selector(_handleFetchingContextWillSave(_:)),
             name: .NSManagedObjectContextWillSave,
             object: fetchingContext
         )
         NotificationCenter.default.addObserver(
             self,
-            selector: #selector(_handleSavingContextDidSave(_:)),
+            selector: #selector(_handleFetchingContextDidSave(_:)),
             name: .NSManagedObjectContextDidSave,
             object: fetchingContext
+        )
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(
+                _handleSavingContextObjectsDidChange(_:)
+            ),
+            name: .NSManagedObjectContextObjectsDidChange,
+            object: savingContext
+        )
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(_handleSavingContextWillSave(_:)),
+            name: .NSManagedObjectContextWillSave,
+            object: savingContext
+        )
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(_handleSavingContextDidSave(_:)),
+            name: .NSManagedObjectContextDidSave,
+            object: savingContext
         )
     }
     
@@ -140,6 +175,21 @@ open class PersistenceController {
             self,
             name: .NSManagedObjectContextDidSave,
             object: fetchingContext
+        )
+        NotificationCenter.default.removeObserver(
+            self,
+            name: .NSManagedObjectContextObjectsDidChange,
+            object: savingContext
+        )
+        NotificationCenter.default.removeObserver(
+            self,
+            name: .NSManagedObjectContextWillSave,
+            object: savingContext
+        )
+        NotificationCenter.default.removeObserver(
+            self,
+            name: .NSManagedObjectContextDidSave,
+            object: savingContext
         )
     }
     
@@ -223,12 +273,55 @@ open class PersistenceController {
     fileprivate func launch() { /* Do nothing here */ }
     
     @objc
-    private func _handleFetchingContextObjectDidChange(
+    private func _handleFetchingContextObjectsDidChange(
         _ notification: Notification
         )
     {
-        assert((notification.object as? NSManagedObjectContext) === fetchingContext)
-        objectsDidChange(notification: notification)
+        let sender = (notification.object as? NSManagedObjectContext)
+        assert(sender === fetchingContext)
+        context(
+            .forFetching(fetchingContext),
+            objectsDidChange: notification.extractManagedObjectChanges()
+        )
+    }
+    
+    @objc
+    private func _handleFetchingContextWillSave(
+        _ notification: Notification
+        )
+    {
+        let sender = (notification.object as? NSManagedObjectContext)
+        assert(sender === fetchingContext)
+        context(
+            .forFetching(fetchingContext),
+            willSave: notification.extractManagedObjectChanges()
+        )
+    }
+    
+    @objc
+    private func _handleFetchingContextDidSave(
+        _ notification: Notification
+        )
+    {
+        let sender = (notification.object as? NSManagedObjectContext)
+        assert(sender === fetchingContext)
+        context(
+            .forFetching(fetchingContext),
+            didSave: notification.extractManagedObjectChanges()
+        )
+    }
+    
+    @objc
+    private func _handleSavingContextObjectsDidChange(
+        _ notification: Notification
+        )
+    {
+        let sender = (notification.object as? NSManagedObjectContext)
+        assert(sender === savingContext)
+        context(
+            .forSaving(savingContext),
+            objectsDidChange: notification.extractManagedObjectChanges()
+        )
     }
     
     @objc
@@ -236,8 +329,12 @@ open class PersistenceController {
         _ notification: Notification
         )
     {
-        assert((notification.object as? NSManagedObjectContext) === fetchingContext)
-        willSave(notification: notification)
+        let sender = (notification.object as? NSManagedObjectContext)
+        assert(sender === savingContext)
+        context(
+            .forSaving(savingContext),
+            willSave: notification.extractManagedObjectChanges()
+        )
     }
     
     @objc
@@ -245,20 +342,67 @@ open class PersistenceController {
         _ notification: Notification
         )
     {
-        assert((notification.object as? NSManagedObjectContext) === fetchingContext)
-        didSave(notification: notification)
+        let sender = (notification.object as? NSManagedObjectContext)
+        assert(sender === savingContext)
+        context(
+            .forSaving(savingContext),
+            didSave: notification.extractManagedObjectChanges()
+        )
     }
     
-    open func objectsDidChange(notification: Notification) {
+    open func context(
+        _ context: Context,
+        objectsDidChange changes: ManagedObjectChanges
+        )
+    {
         
     }
     
-    open func willSave(notification: Notification) {
+    open func context(
+        _ context: Context,
+        willSave changes: ManagedObjectChanges
+        )
+    {
         
     }
     
-    open func didSave(notification: Notification) {
+    open func context(
+        _ context: Context,
+        didSave changes: ManagedObjectChanges
+        )
+    {
         
+    }
+}
+
+extension Notification {
+    fileprivate typealias ManagedObjectChanges
+        = PersistenceController.ManagedObjectChanges
+    fileprivate typealias ManagedObjectChangeKey
+        = NSManagedObjectChangeKey
+    
+    fileprivate func extractManagedObjectChanges()
+        -> ManagedObjectChanges
+    {
+        assert(name == .NSManagedObjectContextDidSave
+            || name == .NSManagedObjectContextWillSave
+            || name == .NSManagedObjectContextObjectsDidChange
+        )
+        
+        var changes = ManagedObjectChanges()
+        
+        for (k, v) in userInfo ?? [:] {
+            guard let managedObjects = v as? Set<NSManagedObject> else {
+                continue
+            }
+            
+            let changeKey = NSManagedObjectChangeKey(
+                rawValue: k.base as! String
+            )
+            changes[changeKey] = managedObjects
+        }
+        
+        return changes
     }
 }
 

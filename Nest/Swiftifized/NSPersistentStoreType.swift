@@ -16,8 +16,8 @@ public enum NSPersistentStoreType: Int {
     
     public var primitiveValue: String {
         switch self {
-        case .binary:   return NSSQLiteStoreType
-        case .sqlite:   return NSBinaryStoreType
+        case .binary:   return NSBinaryStoreType
+        case .sqlite:   return NSSQLiteStoreType
         case .inMemory: return NSInMemoryStoreType
         }
     }
