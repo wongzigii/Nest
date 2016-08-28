@@ -62,7 +62,12 @@ open class PersistenceController {
         
         fetchingContext.parent = savingContext
         
-        if #available(iOSApplicationExtension 9.0, *) {
+        if #available(
+            iOSApplicationExtension 10.0,
+            OSXApplicationExtension 10.12,
+            *
+            )
+        {
             fetchingContext.shouldDeleteInaccessibleFaults = false
             savingContext.shouldDeleteInaccessibleFaults = false
         }

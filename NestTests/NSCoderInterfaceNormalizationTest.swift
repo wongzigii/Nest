@@ -37,10 +37,10 @@ private class CustomView: View {
     }
     
     private required init?(coder aDecoder: NSCoder) {
-        outletEntity = aDecoder.decodeFor("outletEntity")!
-        outletCollectionEntity = aDecoder.decodeFor("outletCollectionEntity")!
-        scalarEntity = aDecoder.decodeFor("scalarEntity")!
-        scalarGroupEntity = aDecoder.decodeFor("scalarGroupEntity")!
+        outletEntity = aDecoder.decode(for: "outletEntity")!
+        outletCollectionEntity = aDecoder.decode(for: "outletCollectionEntity")!
+        scalarEntity = aDecoder.decode(for: "scalarEntity")!
+        scalarGroupEntity = aDecoder.decode(for: "scalarGroupEntity")!
         super.init(coder: aDecoder)
     }
     

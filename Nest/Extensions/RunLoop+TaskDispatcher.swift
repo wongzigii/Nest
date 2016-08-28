@@ -50,14 +50,35 @@ extension RunLoop {
     
     @discardableResult
     public func schedule(
-        in modes: [RunLoopMode] = [.commonModes],
+        in mode: RunLoopMode = .defaultRunLoopMode,
         when timing: ScheduleTiming = .nextLoopBegan,
         do closure: @escaping ()->Void
         )
     {
+        schedule(in: [mode], when: timing, do: closure)
+    }
+    
+    @discardableResult
+    public func schedule(
+        in modes: RunLoopMode...,
+        when timing: ScheduleTiming = .nextLoopBegan,
+        do closure: @escaping ()->Void
+        )
+    {
+        schedule(in: modes, when: timing, do: closure)
+    }
+    
+    @discardableResult
+    public func schedule<R: Sequence>(
+        in modes: R,
+        when timing: ScheduleTiming = .nextLoopBegan,
+        do closure: @escaping ()->Void
+        ) where
+        R.Iterator.Element == RunLoopMode
+    {
         objc_sync_enter(self)
         _loadDispatchObserverIfNeeded()
-        let task = ScheduledTask(self, modes, timing, closure)
+        let task = ScheduledTask(self, Array(modes), timing, closure)
         _taskQueue.append(task)
         objc_sync_exit(self)
     }

@@ -9,7 +9,7 @@
 import XCTest
 import Nest
 
-private typealias TimingSymbols = RunLoopTaskInvokeTiming
+private typealias TimingSymbols = RunLoop.ScheduleTiming
 
 class NSRunLoop_TaskDispatcherTest: XCTestCase {
     private var timingSymbols: [TimingSymbols] = []
@@ -17,33 +17,29 @@ class NSRunLoop_TaskDispatcherTest: XCTestCase {
     /// Malfunctioned
     func testDispatchInvokeTiming() {
         
-        let expectation = self.expectation(description: "testDispatchInvokeTiming")
+        let expectation = self.expectation(
+            description: "testDispatchInvokeTiming"
+        )
         
-        RunLoop.current.perform {
+        RunLoop.current.schedule(in: .commonModes, when: .currentLoopEnded) {
             self.timingSymbols.append(.currentLoopEnded)
-            }.forModes(.commonModes)
-            .when(.currentLoopEnded)
+        }
         
-        RunLoop.current.perform {
+        RunLoop.current.schedule(in: .commonModes, when: .nextLoopBegan) {
             self.timingSymbols.append(.nextLoopBegan)
-            }.forModes(.commonModes)
-            .when(.nextLoopBegan)
+        }
         
-        RunLoop.current.perform {
+        RunLoop.current.schedule(in: .commonModes, when: .idle) {
             self.timingSymbols.append(.idle)
-            
-            }.forModes(.commonModes)
-            .when(.idle)
+        }
         
-        RunLoop.current.perform {
+        RunLoop.current.schedule(in: .commonModes, when: .idle) {
             if self.timingSymbols
                 == [.currentLoopEnded, .nextLoopBegan, .idle]
             {
                 expectation.fulfill()
             }
-            
-            }.forModes(.commonModes)
-            .when(.idle)
+        }
         
         RunLoop.current.run(until: Date(timeIntervalSinceNow: 1))
         

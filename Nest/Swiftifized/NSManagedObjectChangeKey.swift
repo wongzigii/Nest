@@ -26,7 +26,12 @@ public enum NSManagedObjectChangeKey: Hashable {
         case .refreshed: return NSRefreshedObjectsKey
         case .invalidated: return NSInvalidatedObjectsKey
         case .managedObjectContextQueryGeneration:
-            if #available(iOSApplicationExtension 10.0, *) {
+            if #available(
+                iOSApplicationExtension 10.0,
+                OSXApplicationExtension 10.12,
+                *
+                )
+            {
                 return NSManagedObjectContextQueryGenerationKey
             } else {
                 fatalError("OS version lower than the minimum available version for using .managedObjectContextQueryGeneration.")
@@ -38,7 +43,12 @@ public enum NSManagedObjectChangeKey: Hashable {
     }
     
     internal init(rawValue: String) {
-        if #available(iOSApplicationExtension 10.0, *) {
+        if #available(
+            iOSApplicationExtension 10.0,
+            OSXApplicationExtension 10.12,
+            *
+            )
+        {
             switch (rawValue) {
             case NSInsertedObjectsKey: self = .inserted
             case NSDeletedObjectsKey: self = .deleted

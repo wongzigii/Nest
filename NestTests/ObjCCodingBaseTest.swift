@@ -439,7 +439,7 @@ private class ArchivableObject: NSObject, NSCoding {
     
     @objc fileprivate required init?(coder aDecoder: NSCoder) {
         do {
-            archivableEnum = try aDecoder.decodeOrThrowFor("archivableEnum")
+            archivableEnum = try aDecoder.decodeOrThrow(for: "archivableEnum")
             super.init()
         } catch _ {
             return nil

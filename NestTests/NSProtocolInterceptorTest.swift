@@ -1,5 +1,5 @@
 //
-//  ObjCProtocolInterceptorTest.swift
+//  ObjCProtocolMessageInterceptorTest.swift
 //  Nest
 //
 //  Created by Manfred Lau on 6/6/15.
@@ -35,7 +35,7 @@ private class RealDelegate: NSObject, OperatorDelegate {
 }
 
 //MARK: - Test Cases
-class ObjCProtocolInterceptorTest: XCTestCase, MessagePool {
+class ObjCProtocolMessageInterceptorTest: XCTestCase, MessagePool {
     private lazy var __once: () = {
             self.delegate?.operatorDidSendMessageToMiddleMan?()
             self.delegate?.operatorDidSendMessageToReceiver?()
@@ -43,7 +43,7 @@ class ObjCProtocolInterceptorTest: XCTestCase, MessagePool {
     
     private weak var delegate: OperatorDelegate?
     private var realDelegate: RealDelegate!
-    private var protocolInterceptor: ObjCProtocolInterceptor!
+    private var protocolInterceptor: ObjCProtocolMessageInterceptor!
     
     private var messagePool: [String] = []
     
@@ -62,8 +62,8 @@ class ObjCProtocolInterceptorTest: XCTestCase, MessagePool {
         aRealDelegate.messagePool = self
         realDelegate = aRealDelegate
         
-        let aProtocolInterceptor = ObjCProtocolInterceptor
-            .against(OperatorDelegate.self)
+        let aProtocolInterceptor = ObjCProtocolMessageInterceptor
+            .make(with: OperatorDelegate.self)
         aProtocolInterceptor.receiver = aRealDelegate
         _ = aProtocolInterceptor.contains(middleMan: self)
         protocolInterceptor = aProtocolInterceptor
@@ -76,8 +76,7 @@ class ObjCProtocolInterceptorTest: XCTestCase, MessagePool {
     }
     
     func testProtocolInterceptorAssignment() {
-        NSLog("delegate: \(delegate)")
-        XCTAssert(delegate is ObjCProtocolInterceptor, "Protocol interceptor assignment not pass")
+        XCTAssert(delegate is ObjCProtocolMessageInterceptor, "Protocol interceptor assignment not pass")
     }
     
     func testReceiverMessageForwarding() {
@@ -99,7 +98,7 @@ class ObjCProtocolInterceptorTest: XCTestCase, MessagePool {
 }
 
 //MARK: - OperatorDelegate
-extension ObjCProtocolInterceptorTest: OperatorDelegate {
+extension ObjCProtocolMessageInterceptorTest: OperatorDelegate {
     @objc func operatorDidSendMessageToMiddleMan() {
         pushMessage(MiddleManToken)
     }

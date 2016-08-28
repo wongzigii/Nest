@@ -31,8 +31,6 @@ class ObjectiveCTest: XCTestCase {
             #selector(URLSessionDelegate.urlSession(_:didBecomeInvalidWithError:)):
                 URLSessionDelegate.self,
             #selector(URLSessionDelegate.urlSession(_:didReceive:completionHandler:)):
-                URLSessionDelegate.self,
-            #selector(URLSessionDelegate.urlSessionDidFinishEvents(forBackgroundURLSession:)):
                 URLSessionDelegate.self
         ]
         
