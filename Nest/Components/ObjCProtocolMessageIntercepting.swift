@@ -194,6 +194,7 @@ extension ObjCProtocolMessageIntercepting {
         _setNeedsInvalidateDispatchTable()
     }
     
+    @discardableResult
     public func remove(dispatchDestination: NSObjectProtocol)
         -> NSObjectProtocol?
     {
@@ -201,6 +202,7 @@ extension ObjCProtocolMessageIntercepting {
         return _destinations.remove(Weak(dispatchDestination))?.value
     }
     
+    @discardableResult
     public func remove(dispatchDestinationAt index: Int)
         -> NSObjectProtocol?
     {

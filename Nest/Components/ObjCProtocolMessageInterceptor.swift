@@ -92,6 +92,7 @@ public final class ObjCProtocolMessageInterceptor: NSObject {
     }
     
     /// Remove a middle man intercepts the intercepted protocols
+    @discardableResult
     public func remove(middleMan: NSObjectProtocol) -> NSObjectProtocol? {
         if let index = _middleMen.index(of: Weak(middleMan)) {
             _setNeedsInvalidateDispatchTable()
@@ -101,6 +102,7 @@ public final class ObjCProtocolMessageInterceptor: NSObject {
     }
     
     /// Remove a middle man intercepts the intercepted protocols
+    @discardableResult
     public func remove(middleManAt index: Int) -> NSObjectProtocol? {
         _setNeedsInvalidateDispatchTable()
         return _middleMen.remove(at: index).value

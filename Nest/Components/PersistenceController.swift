@@ -202,33 +202,35 @@ open class PersistenceController {
         with comletionHandler: ((_ success: Bool) -> Void)? = nil
         )
     {
-        guard fetchingContext.hasChanges || savingContext.hasChanges
-            else
-        {
-            comletionHandler?(true)
-            return
-        }
         
         performAndWait { (fetchingContext) -> Void in
             self.saving = true
             
-            do {
-                try fetchingContext.save()
-            } catch let error {
-                fatalError("\(error)")
+            if fetchingContext.hasChanges {
+                do {
+                    try fetchingContext.save()
+                } catch let error {
+                    fatalError("\(error)")
+                }
             }
             
             self.savingContext.perform { _ in
-                do {
-                    try self.savingContext.save()
+                if self.savingContext.hasChanges {
+                    do {
+                        try self.savingContext.save()
+                        self.saving = false
+                        
+                        comletionHandler?(true)
+                    } catch let error {
+                        self.saving = false
+                        
+                        comletionHandler?(false)
+                        assertionFailure("\(error)")
+                    }
+                } else {
                     self.saving = false
                     
                     comletionHandler?(true)
-                } catch let error {
-                    self.saving = false
-                    
-                    comletionHandler?(false)
-                    assertionFailure("\(error)")
                 }
             }
         }
