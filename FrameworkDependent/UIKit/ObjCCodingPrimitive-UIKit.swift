@@ -1,5 +1,5 @@
 //
-//  ObjCCodingPrimitiveType+UIKit.swift
+//  ObjCCodingPrimitive+UIKit.swift
 //  Nest
 //
 //  Created by Manfred on 12/7/15.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-extension UIEdgeInsets: ObjCCodingPrimitiveType {
+extension UIEdgeInsets: ObjCCodingPrimitive {
     public func encode(to encoder: NSCoder, for key: String) {
         encoder.encode(self, forKey: key)
     }
@@ -20,7 +20,7 @@ extension UIEdgeInsets: ObjCCodingPrimitiveType {
     }
 }
 
-extension UIOffset: ObjCCodingPrimitiveType {
+extension UIOffset: ObjCCodingPrimitive {
     public func encode(to encoder: NSCoder, for key: String) {
         encoder.encode(self, forKey: key)
     }
@@ -33,7 +33,7 @@ extension UIOffset: ObjCCodingPrimitiveType {
 }
 
 //MARK: CoreGraphics Primitive
-extension CGVector: ObjCCodingPrimitiveType {
+extension CGVector: ObjCCodingPrimitive {
     public func encode(to encoder: NSCoder, for key: String) {
         encoder.encode(self, forKey: key)
     }
@@ -45,7 +45,7 @@ extension CGVector: ObjCCodingPrimitiveType {
     }
 }
 
-extension CGPoint: ObjCCodingPrimitiveType {
+extension CGPoint: ObjCCodingPrimitive {
     public func encode(to encoder: NSCoder, for key: String) {
         encoder.encode(self, forKey: key)
     }
@@ -57,7 +57,7 @@ extension CGPoint: ObjCCodingPrimitiveType {
     }
 }
 
-extension CGSize: ObjCCodingPrimitiveType {
+extension CGSize: ObjCCodingPrimitive {
     public func encode(to encoder: NSCoder, for key: String) {
         encoder.encode(self, forKey: key)
     }
@@ -69,7 +69,7 @@ extension CGSize: ObjCCodingPrimitiveType {
     }
 }
 
-extension CGRect: ObjCCodingPrimitiveType {
+extension CGRect: ObjCCodingPrimitive {
     public func encode(to encoder: NSCoder, for key: String) {
         encoder.encode(self, forKey: key)
     }
@@ -81,7 +81,7 @@ extension CGRect: ObjCCodingPrimitiveType {
     }
 }
 
-extension CGAffineTransform: ObjCCodingPrimitiveType {
+extension CGAffineTransform: ObjCCodingPrimitive {
     public func encode(to encoder: NSCoder, for key: String) {
         encoder.encode(self, forKey: key)
     }

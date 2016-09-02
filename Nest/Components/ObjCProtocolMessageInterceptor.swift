@@ -109,15 +109,26 @@ public final class ObjCProtocolMessageInterceptor: NSObject {
     }
     
     //MARK: Create an `ObjCProtocolMessageInterceptor`.
+    /// Creates a protocol interceptor which intercepts an Objective-C 
+    /// protocol.
+    ///
+    /// - Parameter     protocol:  An Objective-C protocol, such as 
+    /// `UITableViewDelegate.self`.
+    public class func makeInterceptor(protocol: Protocol)
+        -> ObjCProtocolMessageInterceptor
+    {
+        return makeInterceptor(protocols: [`protocol`])
+    }
+    
     /// Creates a protocol interceptor which intercepts a series of 
     /// Objective-C protocols in variable length.
     ///
     /// - Parameter     protocols:  A variable length sort of Objective-C 
     /// protocol, such as `UITableViewDelegate.self`.
-    public class func make(with protocols: Protocol ...)
+    public class func makeInterceptor(protocols: Protocol ...)
         -> ObjCProtocolMessageInterceptor
     {
-        return make(with: protocols)
+        return makeInterceptor(protocols: protocols)
     }
     
     /// Creates a protocol interceptor which intercepts a sequence of
@@ -125,7 +136,7 @@ public final class ObjCProtocolMessageInterceptor: NSObject {
     ///
     /// - Parameter     protocols:  A sequence of Objective-C protocols,
     /// such as [UITableViewDelegate.self].
-    public class func make<S: Sequence>(with protocols: S)
+    public class func makeInterceptor<S: Sequence>(protocols: S)
         -> ObjCProtocolMessageInterceptor where
         S.Iterator.Element == Protocol
     {

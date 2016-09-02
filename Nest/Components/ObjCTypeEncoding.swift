@@ -1,5 +1,5 @@
 //
-//  ObjCTypeEncoding.swift
+//  objCTypeEncoding.swift
 //  Nest
 //
 //  Created by Manfred on 12/6/15.
@@ -8,20 +8,20 @@
 
 import Foundation
 
-public protocol ObjCTypeEncoding {
-    static var ObjCTypeEncoding: String { get }
+public protocol objCTypeEncoding {
+    static var objCTypeEncoding: String { get }
 }
 
 //MARK: General Extension
-extension ObjCTypeEncoding {
-    public var ObjCTypeEncoding: String {
-        return Self.ObjCTypeEncoding
+extension objCTypeEncoding {
+    public var objCTypeEncoding: String {
+        return Self.objCTypeEncoding
     }
 }
 
 //MARK: - Specializaiton for Scalar Values
-extension Int: ObjCTypeEncoding {
-    public static var ObjCTypeEncoding: String {
+extension Int: objCTypeEncoding {
+    public static var objCTypeEncoding: String {
         #if arch(x86_64) || arch(arm64)
             return "q"
         #else
@@ -30,25 +30,25 @@ extension Int: ObjCTypeEncoding {
     }
 }
 
-extension Int8: ObjCTypeEncoding {
-    public static var ObjCTypeEncoding: String { return "c" }
+extension Int8: objCTypeEncoding {
+    public static var objCTypeEncoding: String { return "c" }
 }
 
-extension Int16: ObjCTypeEncoding {
-    public static var ObjCTypeEncoding: String { return "s" }
+extension Int16: objCTypeEncoding {
+    public static var objCTypeEncoding: String { return "s" }
 }
 
-extension Int32: ObjCTypeEncoding {
-    public static var ObjCTypeEncoding: String { return "i" }
+extension Int32: objCTypeEncoding {
+    public static var objCTypeEncoding: String { return "i" }
 }
 
-extension Int64: ObjCTypeEncoding {
-    public static var ObjCTypeEncoding: String { return "q" }
+extension Int64: objCTypeEncoding {
+    public static var objCTypeEncoding: String { return "q" }
 }
 
 // Specialization for unsigned integer types
-extension UInt: ObjCTypeEncoding {
-    public static var ObjCTypeEncoding: String {
+extension UInt: objCTypeEncoding {
+    public static var objCTypeEncoding: String {
         #if arch(x86_64) || arch(arm64)
             return "Q"
         #else
@@ -57,51 +57,51 @@ extension UInt: ObjCTypeEncoding {
     }
 }
 
-extension UInt8: ObjCTypeEncoding {
-    public static var ObjCTypeEncoding: String { return "C" }
+extension UInt8: objCTypeEncoding {
+    public static var objCTypeEncoding: String { return "C" }
 }
 
-extension UInt16: ObjCTypeEncoding {
-    public static var ObjCTypeEncoding: String { return "S" }
+extension UInt16: objCTypeEncoding {
+    public static var objCTypeEncoding: String { return "S" }
 }
 
-extension UInt32: ObjCTypeEncoding {
-    public static var ObjCTypeEncoding: String { return "I" }
+extension UInt32: objCTypeEncoding {
+    public static var objCTypeEncoding: String { return "I" }
 }
 
-extension UInt64: ObjCTypeEncoding {
-    public static var ObjCTypeEncoding: String { return "Q" }
+extension UInt64: objCTypeEncoding {
+    public static var objCTypeEncoding: String { return "Q" }
 }
 
 // Specialization for floating point types
-extension Float: ObjCTypeEncoding {
-    public static var ObjCTypeEncoding: String { return "f" }
+extension Float: objCTypeEncoding {
+    public static var objCTypeEncoding: String { return "f" }
 }
 
-extension Double: ObjCTypeEncoding {
-    public static var ObjCTypeEncoding: String { return "d" }
+extension Double: objCTypeEncoding {
+    public static var objCTypeEncoding: String { return "d" }
 }
 
 // Specialization for boolean types
-extension Bool: ObjCTypeEncoding {
-    public static var ObjCTypeEncoding: String { return "B" }
+extension Bool: objCTypeEncoding {
+    public static var objCTypeEncoding: String { return "B" }
 }
 
-extension ObjCBool: ObjCTypeEncoding {
-    public static var ObjCTypeEncoding: String { return "B" }
+extension ObjCBool: objCTypeEncoding {
+    public static var objCTypeEncoding: String { return "B" }
 }
 
-extension NSObject: ObjCTypeEncoding {
-    public static var ObjCTypeEncoding: String { return "@" }
+extension NSObject: objCTypeEncoding {
+    public static var objCTypeEncoding: String { return "@" }
 }
 
-extension Selector: ObjCTypeEncoding {
-    public static var ObjCTypeEncoding: String { return ":" }
+extension Selector: objCTypeEncoding {
+    public static var objCTypeEncoding: String { return ":" }
 }
 
 // Specialization for Foundation structs
-extension NSRange: ObjCTypeEncoding {
-    public static var ObjCTypeEncoding: String {
+extension NSRange: objCTypeEncoding {
+    public static var objCTypeEncoding: String {
         return "{name=_NSRange}"
     }
 }

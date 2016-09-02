@@ -24,7 +24,7 @@ import Nest
 #endif
 
 private class CustomView: View, ObjCKeyValueAccessible {
-    fileprivate struct Key: ObjCKeyValueAccessibleKeyType {
+    fileprivate struct Key: ObjCKeyValueAccessibleKeying {
         typealias RawValue = String
         var rawValue: RawValue
         init(rawValue: RawValue) { self.rawValue = rawValue }

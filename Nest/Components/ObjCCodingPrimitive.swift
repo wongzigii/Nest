@@ -1,5 +1,5 @@
 //
-//  ObjCCodingPrimitiveType.swift
+//  ObjCCodingPrimitive.swift
 //  Nest
 //
 //  Created by Manfred on 11/9/15.
@@ -8,13 +8,13 @@
 
 import Foundation
 
-public protocol ObjCCodingPrimitiveType {
+public protocol ObjCCodingPrimitive {
     func encode(to encoder: NSCoder, for key: String)
     static func decode(from decoder: NSCoder, for key: String) -> Self
 }
 
 // Specialization for signed integer types
-extension Int: ObjCCodingPrimitiveType {
+extension Int: ObjCCodingPrimitive {
     public func encode(to encoder: NSCoder, for key: String) {
         encoder.encode(self, forKey: key)
     }
@@ -26,7 +26,7 @@ extension Int: ObjCCodingPrimitiveType {
     }
 }
 
-extension Int8: ObjCCodingPrimitiveType {
+extension Int8: ObjCCodingPrimitive {
     public func encode(to encoder: NSCoder, for key: String) {
         encoder.encode(Int32(self), forKey: key)
     }
@@ -38,7 +38,7 @@ extension Int8: ObjCCodingPrimitiveType {
     }
 }
 
-extension Int16: ObjCCodingPrimitiveType {
+extension Int16: ObjCCodingPrimitive {
     public func encode(to encoder: NSCoder, for key: String) {
         encoder.encode(Int32(self), forKey: key)
     }
@@ -50,7 +50,7 @@ extension Int16: ObjCCodingPrimitiveType {
     }
 }
 
-extension Int32: ObjCCodingPrimitiveType {
+extension Int32: ObjCCodingPrimitive {
     public func encode(to encoder: NSCoder, for key: String) {
         encoder.encode(self, forKey: key)
     }
@@ -62,7 +62,7 @@ extension Int32: ObjCCodingPrimitiveType {
     }
 }
 
-extension Int64: ObjCCodingPrimitiveType {
+extension Int64: ObjCCodingPrimitive {
     public func encode(to encoder: NSCoder, for key: String) {
         encoder.encode(self, forKey: key)
     }
@@ -75,7 +75,7 @@ extension Int64: ObjCCodingPrimitiveType {
 }
 
 // Specialization for unsigned integer types
-extension UInt: ObjCCodingPrimitiveType {
+extension UInt: ObjCCodingPrimitive {
     public func encode(to encoder: NSCoder, for key: String) {
         encoder.encode(Int(self), forKey: key)
     }
@@ -87,7 +87,7 @@ extension UInt: ObjCCodingPrimitiveType {
     }
 }
 
-extension UInt8: ObjCCodingPrimitiveType {
+extension UInt8: ObjCCodingPrimitive {
     public func encode(to encoder: NSCoder, for key: String) {
         encoder.encode(Int32(self), forKey: key)
     }
@@ -99,7 +99,7 @@ extension UInt8: ObjCCodingPrimitiveType {
     }
 }
 
-extension UInt16: ObjCCodingPrimitiveType {
+extension UInt16: ObjCCodingPrimitive {
     public func encode(to encoder: NSCoder, for key: String) {
         encoder.encode(Int32(self), forKey: key)
     }
@@ -111,7 +111,7 @@ extension UInt16: ObjCCodingPrimitiveType {
     }
 }
 
-extension UInt32: ObjCCodingPrimitiveType {
+extension UInt32: ObjCCodingPrimitive {
     public func encode(to encoder: NSCoder, for key: String) {
         encoder.encode(Int32(self), forKey: key)
     }
@@ -123,7 +123,7 @@ extension UInt32: ObjCCodingPrimitiveType {
     }
 }
 
-extension UInt64: ObjCCodingPrimitiveType {
+extension UInt64: ObjCCodingPrimitive {
     public func encode(to encoder: NSCoder, for key: String) {
         encoder.encode(Int64(self), forKey: key)
     }
@@ -136,7 +136,7 @@ extension UInt64: ObjCCodingPrimitiveType {
 }
 
 // Specialization for float point types
-extension Float: ObjCCodingPrimitiveType {
+extension Float: ObjCCodingPrimitive {
     public func encode(to encoder: NSCoder, for key: String) {
         encoder.encode(self, forKey: key)
     }
@@ -148,7 +148,7 @@ extension Float: ObjCCodingPrimitiveType {
     }
 }
 
-extension Double: ObjCCodingPrimitiveType {
+extension Double: ObjCCodingPrimitive {
     public func encode(to encoder: NSCoder, for key: String) {
         encoder.encode(self, forKey: key)
     }

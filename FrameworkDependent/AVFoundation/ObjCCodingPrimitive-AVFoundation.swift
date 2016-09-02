@@ -1,45 +1,47 @@
 //
-//  ObjCCodingPrimitiveType-AppKit.swift
+//  ObjCCodingPrimitive+AVFoundation.swift
 //  Nest
 //
 //  Created by Manfred on 12/7/15.
 //
 //
 
-import AppKit
+import AVFoundation
+import Foundation
 
-extension CGPoint: ObjCCodingPrimitiveType {
+// Specialization for CoreMedia types
+extension CMTime: ObjCCodingPrimitive {
     public func encode(to encoder: NSCoder, for key: String) {
         encoder.encode(self, forKey: key)
     }
     
     public static func decode(from decoder: NSCoder, for key: String)
-        -> CGPoint
+        -> CMTime
     {
-        return decoder.decodePoint(forKey: key)
+        return decoder.decodeTime(forKey: key)
     }
 }
 
-extension CGSize: ObjCCodingPrimitiveType {
+extension CMTimeRange: ObjCCodingPrimitive {
     public func encode(to encoder: NSCoder, for key: String) {
         encoder.encode(self, forKey: key)
     }
     
     public static func decode(from decoder: NSCoder, for key: String)
-        -> CGSize
+        -> CMTimeRange
     {
-        return decoder.decodeSize(forKey: key)
+        return decoder.decodeTimeRange(forKey: key)
     }
 }
 
-extension CGRect: ObjCCodingPrimitiveType {
+extension CMTimeMapping: ObjCCodingPrimitive {
     public func encode(to encoder: NSCoder, for key: String) {
         encoder.encode(self, forKey: key)
     }
     
     public static func decode(from decoder: NSCoder, for key: String)
-        -> CGRect
+        -> CMTimeMapping
     {
-        return decoder.decodeRect(forKey: key)
+        return decoder.decodeTimeMapping(forKey: key)
     }
 }

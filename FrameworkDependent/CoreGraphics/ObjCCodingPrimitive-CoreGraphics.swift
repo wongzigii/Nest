@@ -9,7 +9,7 @@
 import Foundation
 import CoreGraphics
 
-extension CGFloat: ObjCCodingPrimitiveType {
+extension CGFloat: ObjCCodingPrimitive {
     public func encode(to encoder: NSCoder, for key: String) {
         #if arch(x86_64) || arch(arm64)
             encoder.encode(Double(self), forKey: key)
