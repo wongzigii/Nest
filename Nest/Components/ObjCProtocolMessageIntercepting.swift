@@ -9,13 +9,15 @@
 import SwiftExt
 import Foundation
 
-/// By conforming `ObjCProtocolMessageIntercepting`, an object gained the 
-/// ability of turning to be a proxy which intercepts specified protocols'
-/// messages which originally intended to send to the object itself to the
-/// latest appended dispatching destination. If all the dispatching 
-/// destinations are not able to respond to the message, it will finally 
-/// be dispatched back to the object itself. You are able to add 
-/// dispatched protocols during the object's lifetime.
+/// By conforming `ObjCProtocolMessageIntercepting`, an object gains the
+/// ability of turning to be a proxy which intercepts messages of 
+/// specified protocols, which originally intended to send to the object
+/// itself, to the latest appended dispatching destination. If all the 
+/// dispatching destinations are not able to respond to the message, it 
+/// will finally be dispatched back to the object itself. You are able to 
+/// add dispatched protocols during the object's lifetime. But since 
+/// Objective-C have no mechanism to remove the conformance to a protocol
+/// of a class at runtime, you're not able to remove it after added.
 ///
 /// - Discussion: Where the `ObjCProtocolMessageIntercepting` is different 
 /// from `ObjCProtocolMessageInterceptor` are:
@@ -23,9 +25,11 @@ import Foundation
 /// 1. `ObjCProtocolMessageIntercepting` is a pre-implemented protocol but
 /// `ObjCProtocolMessageInterceptor` is a class;
 ///
-/// 2. The role of `ObjCProtocolMessageInterceptor`'s receiver is just the 
-/// receiver itself but `ObjCProtocolMessageIntercepting` owns a fallback-
-/// able receiver chain which is the `dispatchDestinations` array.
+/// 2. `ObjCProtocolMessageInterceptor` employs the middle-men to be a 
+/// fallback-able message responder chain, and the `receiver` property of 
+/// it is the last stop. `ObjCProtocolMessageIntercepting` employs the 
+/// `dispatchDestinations` property to be a fallback-able message 
+/// responder chain and the conformed object itself is the last stop.
 ///
 /// 3. You are allowed to add dispatched protocols to any object conforms 
 /// to `ObjCProtocolMessageIntercepting` at runtime which
@@ -33,27 +37,25 @@ import Foundation
 ///
 /// 4. You should manually override the conformee's `responds(to:)` and
 /// `forwardTarget(for:)` function and call `nest_responds(to:)` and 
-/// `nest_forwardTarget(for:)` inside it due to the principles of coding
-/// protocol extensions.
+/// `nest_forwardTarget(for:)` inside it due to the principles of protocol
+/// extensions.
 public protocol ObjCProtocolMessageIntercepting: NSObjectProtocol {
     
 }
 
 extension ObjCProtocolMessageIntercepting {
-    /// Returns interceptred protocols
+    /// Returns registered intercepted protocols
     public var interceptedProtocols: [Protocol] {
-        return _interceptredProtocols.allObjects
+        return _interceptedProtocols.allObjects
     }
     
     /// Returns registered protocol dispatching destination
     public var dispatchDestinations: [NSObjectProtocol] {
         return _destinations.flatMap { $0.value }
     }
-}
-
-extension ObjCProtocolMessageIntercepting {
-    /// Returns the object to which unrecognized messages should first be
-    /// directed.
+    
+    /// Returns the object to which unrecognized messages should firstly 
+    /// be directed.
     
     /// - Descusstion: Your should call this method in your class'
     /// `forwardingTarget(for:)`'s implementation. The reasons why you
@@ -63,8 +65,12 @@ extension ObjCProtocolMessageIntercepting {
     public func nest_forwardingTarget(for aSelector: Selector)
         -> AnyObject?
     {
-        if let target = _dispatchAndCache(message: aSelector) {
+        if let target = _dispatchAndCacheMessage(aSelector) {
             return target
+        }
+        
+        if class_respondsToSelector(type(of: self), aSelector) {
+            return self
         }
         
         return nil
@@ -80,14 +86,104 @@ extension ObjCProtocolMessageIntercepting {
     /// implementation in any conformed type; 2) Extension shall always 
     /// extend new members and never override existed members.
     public func nest_responds(to aSelector: Selector) -> Bool {
-        if _dispatchAndCache(message: aSelector) != nil {
+        if _dispatchAndCacheMessage(aSelector) != nil {
             return true
         }
         
-        return false
+        return class_respondsToSelector(type(of: self), aSelector)
     }
     
-    private func _dispatchAndCache(message: Selector)
+    /// Add an intercepted protocol.
+    public func addInterceptedProtocol(_ interceptedProtocol: Protocol) {
+        if !_interceptedProtocols.contains(interceptedProtocol) {
+            _interceptedProtocols.add(interceptedProtocol)
+        }
+        if !class_conformsToProtocol(
+            type(of: self), interceptedProtocol
+            )
+        {
+            class_addProtocol(type(of: self), interceptedProtocol)
+        }
+    }
+    
+    /// Add a series of intercepted protocols in varaible length.
+    public func addInterceptedProtocols(
+        _ interceptedProtocols: Protocol...
+        )
+    {
+        for eachProtocol in interceptedProtocols {
+            if !_interceptedProtocols.contains(eachProtocol) {
+                _interceptedProtocols.add(eachProtocol)
+            }
+            if !class_conformsToProtocol(type(of: self), eachProtocol) {
+                class_addProtocol(type(of: self), eachProtocol)
+            }
+        }
+    }
+    
+    /// Add a sequence of intercepted protocols.
+    public func addInterceptedProtocols<S: Sequence>(
+        _ interceptedProtocols: S
+        ) where S.Iterator.Element == Protocol
+    {
+        for eachProtocol in interceptedProtocols {
+            if !_interceptedProtocols.contains(eachProtocol) {
+                _interceptedProtocols.add(eachProtocol)
+            }
+            if !class_conformsToProtocol(type(of: self), eachProtocol) {
+                class_addProtocol(type(of: self), eachProtocol)
+            }
+        }
+    }
+    
+    /// Append a protocol dispatch destination.
+    public func appendDispatchDestination(
+        _ dispatchDestination: NSObjectProtocol
+        )
+    {
+        _destinations.append(Weak(dispatchDestination))
+        _setNeedsInvalidateDispatchTable()
+    }
+    
+    /// Append a protocol dispatch destination.
+    public func appendDispatchDestinations<S: Sequence>(
+        _ dispatchDestinations: S
+        ) where S.Iterator.Element == NSObjectProtocol
+    {
+        _destinations.append(
+            contentsOf: dispatchDestinations.map {Weak($0)}
+        )
+        _setNeedsInvalidateDispatchTable()
+    }
+    
+    @discardableResult
+    public func removeDispatchDestination(
+        _ dispatchDestination: NSObjectProtocol
+        )
+        -> NSObjectProtocol?
+    {
+        _setNeedsInvalidateDispatchTable()
+        return _destinations.remove(Weak(dispatchDestination))?.value
+    }
+    
+    @discardableResult
+    public func removeDispatchDestination(at index: Int)
+        -> NSObjectProtocol?
+    {
+        _setNeedsInvalidateDispatchTable()
+        return _destinations.remove(at: index).value
+    }
+    
+    public func insertDispatchDestination(
+        _ dispatchDestination: NSObjectProtocol, at index: Int
+        )
+    {
+        _destinations.insert(Weak(dispatchDestination), at: index)
+        _setNeedsInvalidateDispatchTable()
+    }
+    
+    // MARK: Dispatch the Message
+    private func _dispatchAndCacheMessage(_ message: Selector)
         -> NSObjectProtocol?
     {
         let needsDispatch = _doesSelectorBelongToAnyDispatchedProtocol(
@@ -134,99 +230,10 @@ extension ObjCProtocolMessageIntercepting {
         
         return nil
     }
-}
-
-extension ObjCProtocolMessageIntercepting {
-    /// Add an intercepted protocol.
-    public func add(interceptedProtocol: Protocol) {
-        if !_interceptredProtocols.contains(interceptedProtocol) {
-            _interceptredProtocols.add(interceptedProtocol)
-        }
-        if !class_conformsToProtocol(
-            type(of: self), interceptedProtocol
-            )
-        {
-            class_addProtocol(type(of: self), interceptedProtocol)
-        }
-    }
     
-    /// Add a series of intercepted protocols in varaible length.
-    public func add(interceptedProtocols: Protocol...) {
-        for eachProtocol in interceptedProtocols {
-            if !_interceptredProtocols.contains(eachProtocol) {
-                _interceptredProtocols.add(eachProtocol)
-            }
-            if !class_conformsToProtocol(type(of: self), eachProtocol) {
-                class_addProtocol(type(of: self), eachProtocol)
-            }
-        }
-    }
-    
-    /// Add a sequence of intercepted protocols.
-    public func add<S: Sequence>(interceptedProtocols: S) where
-        S.Iterator.Element == Protocol
-    {
-        for eachProtocol in interceptedProtocols {
-            if !_interceptredProtocols.contains(eachProtocol) {
-                _interceptredProtocols.add(eachProtocol)
-            }
-            if !class_conformsToProtocol(type(of: self), eachProtocol) {
-                class_addProtocol(type(of: self), eachProtocol)
-            }
-        }
-    }
-}
-
-extension ObjCProtocolMessageIntercepting {
-    /// Append a protocol dispatch destination.
-    public func append(dispatchDestination: NSObjectProtocol) {
-        _destinations.append(Weak(dispatchDestination))
-        _setNeedsInvalidateDispatchTable()
-    }
-    
-    /// Append a protocol dispatch destination.
-    public func append<S: Sequence>(dispatchDestinations: S) where
-        S.Iterator.Element == NSObjectProtocol
-    {
-        _destinations.append(
-            contentsOf: dispatchDestinations.map {Weak($0)}
-        )
-        _setNeedsInvalidateDispatchTable()
-    }
-    
-    @discardableResult
-    public func remove(dispatchDestination: NSObjectProtocol)
-        -> NSObjectProtocol?
-    {
-        _setNeedsInvalidateDispatchTable()
-        return _destinations.remove(Weak(dispatchDestination))?.value
-    }
-    
-    @discardableResult
-    public func remove(dispatchDestinationAt index: Int)
-        -> NSObjectProtocol?
-    {
-        _setNeedsInvalidateDispatchTable()
-        return _destinations.remove(at: index).value
-    }
-    
-    public func insert(
-        dispatchDestination: NSObjectProtocol, at index: Int
-        )
-    {
-        _destinations.insert(Weak(dispatchDestination), at: index)
-        _setNeedsInvalidateDispatchTable()
-    }
-}
-
-private var interceptredProtocolsKey = "dispatchedProtocols"
-private var destinationsKey = "destinations"
-private var dispatchTableKey = "dispatchTable"
-private var needsInvalidateDispatchTableKey = "needsInvalidateDispatchTable"
-
-extension ObjCProtocolMessageIntercepting {
-    fileprivate func _setNeedsInvalidateDispatchTable() {
+    private func _setNeedsInvalidateDispatchTable() {
         if !_needsInvalidateDispatchTable {
+            _needsInvalidateDispatchTable = true
             RunLoop.main.schedule { [weak self] in
                 self?._invalidateDispatchTableIfNeeded()
             }
@@ -260,8 +267,77 @@ extension ObjCProtocolMessageIntercepting {
         }
     }
     
-    fileprivate var _dispatchTable
-        : NSMapTable<NSString, NSObjectProtocol> {
+    private func _invalidateDispatchTableIfNeeded() {
+        if _needsInvalidateDispatchTable {
+            if _dispatchTable.count > 0 {
+                _dispatchTable.removeAllObjects()
+            }
+            _needsInvalidateDispatchTable = false
+        }
+    }
+    
+    // MARK: Stored Properties
+    private var _interceptedProtocols: NSHashTable<Protocol> {
+        get {
+            if let protocols = objc_getAssociatedObject(
+                self,
+                &interceptedProtocolsKey
+                )
+                as? NSHashTable<Protocol>
+            {
+                return protocols
+            } else {
+                let initVal = NSHashTable<Protocol>()
+                objc_setAssociatedObject(
+                    self,
+                    &interceptedProtocolsKey,
+                    initVal,
+                    .OBJC_ASSOCIATION_RETAIN_NONATOMIC
+                )
+                return initVal
+            }
+        }
+        set {
+            objc_setAssociatedObject(
+                self,
+                &interceptedProtocolsKey,
+                newValue,
+                .OBJC_ASSOCIATION_RETAIN_NONATOMIC
+            )
+        }
+    }
+    
+    private var _destinations: [Weak<NSObjectProtocol>] {
+        get {
+            if let destinations = objc_getAssociatedObject(
+                self,
+                &destinationsKey
+                )
+                as? [Weak<NSObjectProtocol>]
+            {
+                return destinations
+            } else {
+                let initVal = [Weak<NSObjectProtocol>]()
+                objc_setAssociatedObject(
+                    self,
+                    &destinationsKey,
+                    initVal,
+                    .OBJC_ASSOCIATION_RETAIN_NONATOMIC
+                )
+                return initVal
+            }
+        }
+        set {
+            objc_setAssociatedObject(
+                self,
+                &destinationsKey,
+                newValue,
+                .OBJC_ASSOCIATION_RETAIN_NONATOMIC
+            )
+        }
+    }
+    
+    private var _dispatchTable: NSMapTable<NSString, NSObjectProtocol> {
         get {
             if let value = objc_getAssociatedObject(
                 self,
@@ -292,76 +368,8 @@ extension ObjCProtocolMessageIntercepting {
         }
     }
     
-    fileprivate func _invalidateDispatchTableIfNeeded() {
-        if _needsInvalidateDispatchTable {
-            if _dispatchTable.count > 0 {
-                _dispatchTable.removeAllObjects()
-            }
-            _needsInvalidateDispatchTable = false
-        }
-    }
-    
-    fileprivate var _interceptredProtocols: NSHashTable<Protocol> {
-        get {
-            if let protocols = objc_getAssociatedObject(
-                self,
-                &interceptredProtocolsKey
-                )
-                as? NSHashTable<Protocol>
-            {
-                return protocols
-            } else {
-                let initVal = NSHashTable<Protocol>()
-                objc_setAssociatedObject(
-                    self,
-                    &interceptredProtocolsKey,
-                    initVal,
-                    .OBJC_ASSOCIATION_RETAIN_NONATOMIC
-                )
-                return initVal
-            }
-        }
-        set {
-            objc_setAssociatedObject(
-                self,
-                &interceptredProtocolsKey,
-                newValue,
-                .OBJC_ASSOCIATION_RETAIN_NONATOMIC
-            )
-        }
-    }
-    
-    fileprivate var _destinations: [Weak<NSObjectProtocol>] {
-        get {
-            if let destinations = objc_getAssociatedObject(
-                self,
-                &destinationsKey
-                )
-                as? [Weak<NSObjectProtocol>]
-            {
-                return destinations
-            } else {
-                let initVal = [Weak<NSObjectProtocol>]()
-                objc_setAssociatedObject(
-                    self,
-                    &destinationsKey,
-                    initVal,
-                    .OBJC_ASSOCIATION_RETAIN_NONATOMIC
-                )
-                return initVal
-            }
-        }
-        set {
-            objc_setAssociatedObject(
-                self,
-                &destinationsKey,
-                newValue,
-                .OBJC_ASSOCIATION_RETAIN_NONATOMIC
-            )
-        }
-    }
-    
-    fileprivate func _doesSelectorBelongToAnyDispatchedProtocol(
+    // MARK: Utilities
+    private func _doesSelectorBelongToAnyDispatchedProtocol(
         _ aSelector: Selector
         )
         -> Bool
@@ -374,3 +382,8 @@ extension ObjCProtocolMessageIntercepting {
         return false
     }
 }
+
+private var interceptedProtocolsKey = "dispatchedProtocols"
+private var destinationsKey = "destinations"
+private var dispatchTableKey = "dispatchTable"
+private var needsInvalidateDispatchTableKey = "needsInvalidateDispatchTable"

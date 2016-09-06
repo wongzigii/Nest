@@ -16,108 +16,36 @@ import SwiftExt
 /// - Notes: `ObjCProtocolMessageInterceptor` is a class cluster which 
 /// dynamically subclasses itself to conform to the intercepted protocols 
 /// at the runtime.
+///
+/// - See Also: ObjCProtocolMessageIntercepting
 public final class ObjCProtocolMessageInterceptor: NSObject {
-    /// The middle men intercept messages. The first middle man receives 
-    /// messages firstly.
-    public var middleMen: [NSObjectProtocol] {
-        return _middleMen.flatMap {$0.value}
-    }
-    
-    public func contains(middleMan: NSObject) -> Bool {
-        for each in _middleMen where each.value === middleMan {
-            return true
-        }
-        return false
-    }
-    
     @objc
     private init(interceptedProtocols: [Protocol]) {
         self.interceptedProtocols = interceptedProtocols
         _dispatchTable = NSMapTable.strongToWeakObjects()
     }
     
-    //MARK: Stored Properties
-    /// Returns the intercepted protocols.
-    public let interceptedProtocols: [Protocol]
-    
-    /// The receiver receives messages.
-    public weak var receiver: NSObjectProtocol?
-    
-    private var _middleMen: [Weak<NSObjectProtocol>] = []
-    
-    private var _needsInvalidateDispatchTable: Bool = false
-    
-    private var _dispatchTable: NSMapTable<NSString, NSObjectProtocol>
-    
-    //MARK: Invalidate Disaptch Table
-    private func _setNeedsInvalidateDispatchTable() {
-        if !_needsInvalidateDispatchTable {
-            _needsInvalidateDispatchTable = true
-            RunLoop.main.schedule { [weak self] in
-                self?._invaldiateDispatchTableIfNeeded()
-            }
-        }
-    }
-    
-    private func _invaldiateDispatchTableIfNeeded() {
-        if _needsInvalidateDispatchTable {
-            invaldiateDispatchTableIfNeeded()
-        }
-    }
-    
-    private func invaldiateDispatchTableIfNeeded() {
-        _dispatchTable.removeAllObjects()
-        _needsInvalidateDispatchTable = false
-    }
-    
-    //MARK: Edit Middle Men
-    /// Append a middle man intercepts the intercepted protocols
-    public func append(middleMan: NSObject) {
-        _middleMen.append(Weak(middleMan))
-        _setNeedsInvalidateDispatchTable()
-    }
-    
-    /// Append middle men intercept the intercepted protocols
-    public func append<S: Sequence>(middleMen: S) where
-        S.Iterator.Element == NSObjectProtocol
+    //MARK: Create ObjCProtocolMessageInterceptor
+    /// Creates a protocol interceptor which intercepts an Objective-C 
+    /// protocol.
+    ///
+    /// - Parameter     protocol:  An Objective-C protocol, such as 
+    /// `UITableViewDelegate.self`.
+    public class func make(protocol: Protocol ...)
+        -> ObjCProtocolMessageInterceptor
     {
-        _middleMen.append(contentsOf: middleMen.map {Weak($0)})
-        _setNeedsInvalidateDispatchTable()
+        return make(protocols: `protocol`)
     }
     
-    /// Insert a middle man intercepts the intercepted protocols
-    public func insert(middleMan: NSObjectProtocol, at index: Int) {
-        _middleMen.insert(Weak(middleMan), at: index)
-        _setNeedsInvalidateDispatchTable()
-    }
-    
-    /// Remove a middle man intercepts the intercepted protocols
-    @discardableResult
-    public func remove(middleMan: NSObjectProtocol) -> NSObjectProtocol? {
-        if let index = _middleMen.index(of: Weak(middleMan)) {
-            _setNeedsInvalidateDispatchTable()
-            return _middleMen.remove(at: index).value
-        }
-        return nil
-    }
-    
-    /// Remove a middle man intercepts the intercepted protocols
-    @discardableResult
-    public func remove(middleManAt index: Int) -> NSObjectProtocol? {
-        _setNeedsInvalidateDispatchTable()
-        return _middleMen.remove(at: index).value
-    }
-    
-    //MARK: Create an `ObjCProtocolMessageInterceptor`.
     /// Creates a protocol interceptor which intercepts a series of 
     /// Objective-C protocols in variable length.
     ///
     /// - Parameter     protocols:  A variable length sort of Objective-C 
     /// protocol, such as `UITableViewDelegate.self`.
-    public class func make(with protocols: Protocol ...)
+    public class func make(protocols: Protocol ...)
         -> ObjCProtocolMessageInterceptor
     {
-        return make(with: protocols)
+        return make(protocols: protocols)
     }
     
     /// Creates a protocol interceptor which intercepts a sequence of
@@ -125,7 +53,7 @@ public final class ObjCProtocolMessageInterceptor: NSObject {
     ///
     /// - Parameter     protocols:  A sequence of Objective-C protocols,
     /// such as [UITableViewDelegate.self].
-    public class func make<S: Sequence>(with protocols: S)
+    public class func make<S: Sequence>(protocols: S)
         -> ObjCProtocolMessageInterceptor where
         S.Iterator.Element == Protocol
     {
@@ -150,7 +78,6 @@ public final class ObjCProtocolMessageInterceptor: NSObject {
         return protocolInterceptor!.takeUnretainedValue()
             as! ObjCProtocolMessageInterceptor
     }
-    
     
     /// Returns a subclass of `ObjCProtocolMessageInterceptor` which 
     /// conforms to specified protocols.
@@ -260,6 +187,98 @@ public final class ObjCProtocolMessageInterceptor: NSObject {
         return super.responds(to: aSelector)
     }
     
+    //MARK: Manage Middle Men
+    public func containsMiddleMan(_ middleMan: NSObject) -> Bool {
+        for each in _middleMen where each.value === middleMan {
+            return true
+        }
+        return false
+    }
+    
+    /// Append a middle man which intercepts the intercepted protocols.
+    public func appendMiddleMan(_ middleMan: NSObject) {
+        _middleMen.append(Weak(middleMan))
+        _setNeedsInvalidateDispatchTable()
+    }
+    
+    /// Append middle men which intercept the intercepted protocols.
+    public func appendMiddleMen<S: Sequence>(_ middleMen: S) where
+        S.Iterator.Element == NSObjectProtocol
+    {
+        _middleMen.append(contentsOf: middleMen.map {Weak($0)})
+        _setNeedsInvalidateDispatchTable()
+    }
+    
+    /// Insert a middle man which intercepts the intercepted protocols.
+    public func insertMiddleMan(
+        _ middleMan: NSObjectProtocol, at index: Int
+        )
+    {
+        _middleMen.insert(Weak(middleMan), at: index)
+        _setNeedsInvalidateDispatchTable()
+    }
+    
+    /// Insert middle men which intercept the intercepted protocols.
+    public func insertMiddleMen<S: Sequence>(
+        _ middleMen: S, at index: Int
+        ) where S.Iterator.Element == NSObjectProtocol
+    {
+        _middleMen.insert(contentsOf: middleMen.map{Weak($0)}, at: index)
+        _setNeedsInvalidateDispatchTable()
+    }
+    
+    /// Remove a middle man which intercepts the intercepted protocols.
+    @discardableResult
+    public func removeMiddleMan(
+        _ middleMan: NSObjectProtocol
+        ) -> NSObjectProtocol?
+    {
+        if let index = _middleMen.index(of: Weak(middleMan)) {
+            _setNeedsInvalidateDispatchTable()
+            return _middleMen.remove(at: index).value
+        }
+        return nil
+    }
+    
+    /// Remove middle men which intercepts the intercepted protocols.
+    public func removeMiddleMan<S: Sequence>(
+        _ middleMen: S
+        ) where S.Iterator.Element == NSObjectProtocol
+    {
+        middleMen.forEach { removeMiddleMan($0) }
+    }
+    
+    /// Remove a middle man which intercepts the intercepted protocols.
+    @discardableResult
+    public func removeMiddleMan(
+        at index: Int
+        ) -> NSObjectProtocol?
+    {
+        _setNeedsInvalidateDispatchTable()
+        return _middleMen.remove(at: index).value
+    }
+    
+    //MARK: Invalidate Disaptch Table
+    private func _setNeedsInvalidateDispatchTable() {
+        if !_needsInvalidateDispatchTable {
+            _needsInvalidateDispatchTable = true
+            RunLoop.main.schedule { [weak self] in
+                self?._invaldiateDispatchTableIfNeeded()
+            }
+        }
+    }
+    
+    private func _invaldiateDispatchTableIfNeeded() {
+        if _needsInvalidateDispatchTable {
+            invaldiateDispatchTableIfNeeded()
+        }
+    }
+    
+    private func invaldiateDispatchTableIfNeeded() {
+        _dispatchTable.removeAllObjects()
+        _needsInvalidateDispatchTable = false
+    }
+    
     //MARK: Utilities
     private func _doesSelectorBelongToAnyInterceptedProtocol(
         _ aSelector: Selector
@@ -319,4 +338,25 @@ public final class ObjCProtocolMessageInterceptor: NSObject {
         
         return nil
     }
+    
+    //MARK: Computed Properties
+    /// The middle men intercept messages. The first middle man receives
+    /// messages firstly.
+    public var middleMen: [NSObjectProtocol] {
+        return _middleMen.flatMap {$0.value}
+    }
+    
+    //MARK: Stored Properties
+    /// Returns the intercepted protocols.
+    public let interceptedProtocols: [Protocol]
+    
+    /// The receiver receives messages.
+    public weak var receiver: NSObjectProtocol?
+    
+    private var _middleMen: [Weak<NSObjectProtocol>] = []
+    
+    private var _needsInvalidateDispatchTable: Bool = false
+    
+    private var _dispatchTable: NSMapTable<NSString, NSObjectProtocol>
+    
 }
