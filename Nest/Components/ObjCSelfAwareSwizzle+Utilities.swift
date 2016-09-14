@@ -77,9 +77,8 @@ public func swizzle<F>(
     )
 }
 
-
 //MARK: Recipe Swizzle
-public func swizzle<R: ObjCSelfAwareSwizzleRecipeType>(
+public func swizzle<R: ObjCSelfAwareSwizzleRecipe>(
     classSelector aSelector: Selector,
     on aClass: AnyClass,
     recipe: R.Type
@@ -95,7 +94,7 @@ public func swizzle<R: ObjCSelfAwareSwizzleRecipeType>(
     )
 }
 
-public func swizzle<R: ObjCSelfAwareSwizzleRecipeType>(
+public func swizzle<R: ObjCSelfAwareSwizzleRecipe>(
     instanceSelector aSelector: Selector,
     on aClass: AnyClass,
     recipe: R.Type

@@ -8,7 +8,9 @@
 
 #import "LegacyUtilities.h"
 
-NSString * NSStringFromBOOL(BOOL booleanValue) {
-    return booleanValue ? @"YES" : @"NO";
-}
+static NSString * stringYes = @"YES";
+static NSString * stringNo = @"NO";
 
+NSString * NSStringFromBOOL(BOOL booleanValue) {
+    return booleanValue ? stringYes : stringNo;
+}

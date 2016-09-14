@@ -10,8 +10,8 @@ import Foundation
 
 extension NSRange: Collection {
     public typealias Element = Int
+    public typealias Index = Int
     public typealias IndexDistance = Int
-    
     public typealias Iterator = IndexingIterator<CountableRange<Int>>
     
     public func makeIterator() -> Iterator {
@@ -20,10 +20,6 @@ extension NSRange: Collection {
     }
     
     public var count: IndexDistance { return length }
-}
-
-extension NSRange: Indexable {
-    public typealias Index = Int
     
     public var startIndex: Index { return location }
     

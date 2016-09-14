@@ -116,22 +116,22 @@
 		6373776A1D617D6200C735C7 /* ObjCSelfAwareSwizzle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63BEA8731C79875D002171C2 /* ObjCSelfAwareSwizzle.swift */; };
 		6373776B1D617D6200C735C7 /* ObjCSelfAwareSwizzle+Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63050CA51C018C9300EDFEAD /* ObjCSelfAwareSwizzle+Utilities.swift */; };
 		6373776C1D617D6200C735C7 /* ObjCSelfAwareSwizzleImplSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63BEA8751C79904A002171C2 /* ObjCSelfAwareSwizzleImplSource.swift */; };
-		6373776D1D617D6200C735C7 /* ObjCSelfAwareSwizzleRecipeType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63BEA8771C799951002171C2 /* ObjCSelfAwareSwizzleRecipeType.swift */; };
+		6373776D1D617D6200C735C7 /* ObjCSelfAwareSwizzleRecipe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63BEA8771C799951002171C2 /* ObjCSelfAwareSwizzleRecipe.swift */; };
 		6373776E1D617D6200C735C7 /* ObjCSelfAwareSwizzle.m in Sources */ = {isa = PBXBuildFile; fileRef = 6315CB4A1BFD8745003A5840 /* ObjCSelfAwareSwizzle.m */; };
 		6373776F1D617D6200C735C7 /* ObjCSelfAwareSwizzle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63BEA8731C79875D002171C2 /* ObjCSelfAwareSwizzle.swift */; };
 		637377701D617D6200C735C7 /* ObjCSelfAwareSwizzle+Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63050CA51C018C9300EDFEAD /* ObjCSelfAwareSwizzle+Utilities.swift */; };
 		637377711D617D6200C735C7 /* ObjCSelfAwareSwizzleImplSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63BEA8751C79904A002171C2 /* ObjCSelfAwareSwizzleImplSource.swift */; };
-		637377721D617D6200C735C7 /* ObjCSelfAwareSwizzleRecipeType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63BEA8771C799951002171C2 /* ObjCSelfAwareSwizzleRecipeType.swift */; };
+		637377721D617D6200C735C7 /* ObjCSelfAwareSwizzleRecipe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63BEA8771C799951002171C2 /* ObjCSelfAwareSwizzleRecipe.swift */; };
 		637377731D617D6200C735C7 /* ObjCSelfAwareSwizzle.m in Sources */ = {isa = PBXBuildFile; fileRef = 6315CB4A1BFD8745003A5840 /* ObjCSelfAwareSwizzle.m */; };
 		637377741D617D6300C735C7 /* ObjCSelfAwareSwizzle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63BEA8731C79875D002171C2 /* ObjCSelfAwareSwizzle.swift */; };
 		637377751D617D6300C735C7 /* ObjCSelfAwareSwizzle+Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63050CA51C018C9300EDFEAD /* ObjCSelfAwareSwizzle+Utilities.swift */; };
 		637377761D617D6300C735C7 /* ObjCSelfAwareSwizzleImplSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63BEA8751C79904A002171C2 /* ObjCSelfAwareSwizzleImplSource.swift */; };
-		637377771D617D6300C735C7 /* ObjCSelfAwareSwizzleRecipeType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63BEA8771C799951002171C2 /* ObjCSelfAwareSwizzleRecipeType.swift */; };
+		637377771D617D6300C735C7 /* ObjCSelfAwareSwizzleRecipe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63BEA8771C799951002171C2 /* ObjCSelfAwareSwizzleRecipe.swift */; };
 		637377781D617D6300C735C7 /* ObjCSelfAwareSwizzle.m in Sources */ = {isa = PBXBuildFile; fileRef = 6315CB4A1BFD8745003A5840 /* ObjCSelfAwareSwizzle.m */; };
 		637377791D617D6300C735C7 /* ObjCSelfAwareSwizzle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63BEA8731C79875D002171C2 /* ObjCSelfAwareSwizzle.swift */; };
 		6373777A1D617D6300C735C7 /* ObjCSelfAwareSwizzle+Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63050CA51C018C9300EDFEAD /* ObjCSelfAwareSwizzle+Utilities.swift */; };
 		6373777B1D617D6300C735C7 /* ObjCSelfAwareSwizzleImplSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63BEA8751C79904A002171C2 /* ObjCSelfAwareSwizzleImplSource.swift */; };
-		6373777C1D617D6300C735C7 /* ObjCSelfAwareSwizzleRecipeType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63BEA8771C799951002171C2 /* ObjCSelfAwareSwizzleRecipeType.swift */; };
+		6373777C1D617D6300C735C7 /* ObjCSelfAwareSwizzleRecipe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63BEA8771C799951002171C2 /* ObjCSelfAwareSwizzleRecipe.swift */; };
 		6373777D1D617D6300C735C7 /* ObjCSelfAwareSwizzle.m in Sources */ = {isa = PBXBuildFile; fileRef = 6315CB4A1BFD8745003A5840 /* ObjCSelfAwareSwizzle.m */; };
 		6373777E1D617F7D00C735C7 /* PersistenceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F10971BFAFABB004982B4 /* PersistenceController.swift */; };
 		6373777F1D617F7E00C735C7 /* PersistenceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F10971BFAFABB004982B4 /* PersistenceController.swift */; };
@@ -330,7 +330,7 @@
 		63B98A241D78456800753FE5 /* QuartzCore+ObjCBridgeable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "QuartzCore+ObjCBridgeable.swift"; sourceTree = "<group>"; };
 		63BEA8731C79875D002171C2 /* ObjCSelfAwareSwizzle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObjCSelfAwareSwizzle.swift; sourceTree = "<group>"; };
 		63BEA8751C79904A002171C2 /* ObjCSelfAwareSwizzleImplSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObjCSelfAwareSwizzleImplSource.swift; sourceTree = "<group>"; };
-		63BEA8771C799951002171C2 /* ObjCSelfAwareSwizzleRecipeType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObjCSelfAwareSwizzleRecipeType.swift; sourceTree = "<group>"; };
+		63BEA8771C799951002171C2 /* ObjCSelfAwareSwizzleRecipe.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObjCSelfAwareSwizzleRecipe.swift; sourceTree = "<group>"; };
 		63C1D9FA1C3164E700D0F548 /* ObjCSelectorMessageInterceptor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObjCSelectorMessageInterceptor.swift; sourceTree = "<group>"; };
 		63C5BD801C82CCE200A22F27 /* ObjCCodingBase-AVFoundation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ObjCCodingBase-AVFoundation.m"; sourceTree = "<group>"; };
 		63C8862F1C7F146400F5677F /* Nest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Nest.h; sourceTree = "<group>"; };
@@ -554,7 +554,7 @@
 				63BEA8731C79875D002171C2 /* ObjCSelfAwareSwizzle.swift */,
 				63050CA51C018C9300EDFEAD /* ObjCSelfAwareSwizzle+Utilities.swift */,
 				63BEA8751C79904A002171C2 /* ObjCSelfAwareSwizzleImplSource.swift */,
-				63BEA8771C799951002171C2 /* ObjCSelfAwareSwizzleRecipeType.swift */,
+				63BEA8771C799951002171C2 /* ObjCSelfAwareSwizzleRecipe.swift */,
 				6315CB4A1BFD8745003A5840 /* ObjCSelfAwareSwizzle.m */,
 				63B98A1F1D78417100753FE5 /* ObjCBridgeable.swift */,
 				63F0B5221C11D6DB00710C41 /* LaunchTask.h */,
@@ -1049,7 +1049,7 @@
 				6373774F1D617CF900C735C7 /* ObjCKeyValueStore+DefaultAccessors.m in Sources */,
 				6373778C1D61819200C735C7 /* ObjCProtocolMessageIntercepting.swift in Sources */,
 				63C8863D1C7F15F300F5677F /* LegacyUtilities.m in Sources */,
-				637377721D617D6200C735C7 /* ObjCSelfAwareSwizzleRecipeType.swift in Sources */,
+				637377721D617D6200C735C7 /* ObjCSelfAwareSwizzleRecipe.swift in Sources */,
 				6373775F1D617D0B00C735C7 /* ObjCCodingBase.m in Sources */,
 				637377B01D61880B00C735C7 /* NSCoder+InterfaceNormalization.swift in Sources */,
 				637377711D617D6200C735C7 /* ObjCSelfAwareSwizzleImplSource.swift in Sources */,
@@ -1089,7 +1089,7 @@
 				637377791D617D6300C735C7 /* ObjCSelfAwareSwizzle.swift in Sources */,
 				637377411D617CCF00C735C7 /* LaunchTask.m in Sources */,
 				637377341D617A6900C735C7 /* NSRange+Utilities.swift in Sources */,
-				6373777C1D617D6300C735C7 /* ObjCSelfAwareSwizzleRecipeType.swift in Sources */,
+				6373777C1D617D6300C735C7 /* ObjCSelfAwareSwizzleRecipe.swift in Sources */,
 				632681171D6BA1E1005E2F5C /* Bundle.swift in Sources */,
 				637377051D617A5D00C735C7 /* ObjectiveC.swift in Sources */,
 				63B98A201D78417100753FE5 /* ObjCBridgeable.swift in Sources */,
@@ -1150,7 +1150,7 @@
 				637377741D617D6300C735C7 /* ObjCSelfAwareSwizzle.swift in Sources */,
 				637377901D61836900C735C7 /* ObjCMultiCastDelegatable.swift in Sources */,
 				632681181D6BA1E1005E2F5C /* Bundle.swift in Sources */,
-				637377771D617D6300C735C7 /* ObjCSelfAwareSwizzleRecipeType.swift in Sources */,
+				637377771D617D6300C735C7 /* ObjCSelfAwareSwizzleRecipe.swift in Sources */,
 				637377871D61815100C735C7 /* ObjCSelectorMessageInterceptor.swift in Sources */,
 				637377651D617D0B00C735C7 /* ObjCCodingBase+Internal.m in Sources */,
 				637377531D617CF900C735C7 /* ObjCKeyValueStore+Internal.m in Sources */,
@@ -1213,7 +1213,7 @@
 				6373776B1D617D6200C735C7 /* ObjCSelfAwareSwizzle+Utilities.swift in Sources */,
 				6373776A1D617D6200C735C7 /* ObjCSelfAwareSwizzle.swift in Sources */,
 				6373773B1D617CCD00C735C7 /* LaunchTask.m in Sources */,
-				6373776D1D617D6200C735C7 /* ObjCSelfAwareSwizzleRecipeType.swift in Sources */,
+				6373776D1D617D6200C735C7 /* ObjCSelfAwareSwizzleRecipe.swift in Sources */,
 				6326811A1D6BA1E1005E2F5C /* Bundle.swift in Sources */,
 				6373770D1D617A6700C735C7 /* NSRange+Utilities.swift in Sources */,
 				63B98A231D78417100753FE5 /* ObjCBridgeable.swift in Sources */,

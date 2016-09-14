@@ -6,13 +6,12 @@
 //
 //
 
-/// Nest members convert non-Objective-C objects into Objective-C objects
-/// with `ObjCBridgeable`.
+/// Nest members convert some non-Objective-C objects into Objective-C 
+/// objects with `ObjCBridgeable`.
 ///
-/// - Notes:
-/// Since Swift 3 forbids implementing `_ObjectiveCBridgeable` outside the
-/// module defined the conforming type and Apple really forgot to make 
-/// some types as `_ObjectiveCBridgeable`. Nest use this protocol to 
+/// - Notes: Since Swift 3 forbids implementing `_ObjectiveCBridgeable` 
+/// outside the module defined the conforming type and Apple did forgot to
+/// make some types as `_ObjectiveCBridgeable`, Nest uses this protocol to 
 /// convert those forgot types.
 public protocol ObjCBridgeable {
     associatedtype _ObjectiveCType: AnyObject

@@ -39,31 +39,31 @@ typedef NS_ENUM(NSInteger) {
 
 /** Asserts the accessor and returning the property name and type.
 
- @param     self    The instance owns the accessor
+ @param     self                The instance owns the accessor
 
- @param     _cmd    The accessor's selector.
+ @param     _cmd                The accessor's selector.
 
- @param     kind    The accessor's kind(getter/setter).
+ @param     kind                The accessor's kind(getter/setter).
 
- @param     r_propertyName      Accessor's relative property name. Cannot be
- nil.
+ @param     r_propertyName      Accessor's relative property name. Cannot
+ be nil.
 
- @param     r_propertyType      Accessor's relative property type. Could be nil.
+ @param     r_propertyType      Accessor's relative property type. Could 
+ be nil.
 
- @param     description     The accessor's description. Use nil value to make
- the function to deduce the description from allowed type encodings.
+ @param     description     The accessor's description. Use nil value to 
+ make the function to deduce the description from allowed type encodings.
 
- @param     firstAllowedTypeEncodings, ...      Allowed type encodings for the
- accessor implementation. At leat 1 allowed type encoding is required.
-
+ @param     firstAllowedTypeEncodings, ...      Allowed type encodings for
+ the accessor implementation. At leat 1 allowed type encoding is required.
  */
 FOUNDATION_EXTERN void ObjCKeyValueStoreAssertAccessor(
-	id                  self,
-	SEL                 _cmd,
-	ObjCKeyValueStoreAccessorKind        kind,
-	NSString * *        r_propertyName,
-	const char * *      r_propertyType,
-	const char *        description,
-	const char *        firstAllowedTypeEncoding,
+	id                                  self,
+	SEL                                 _cmd,
+	ObjCKeyValueStoreAccessorKind       kind,
+	NSString * *                        r_propertyName,
+	const char * *                      r_propertyType,
+	const char *                        description,
+	const char *                        firstAllowedTypeEncoding,
 	...
 );

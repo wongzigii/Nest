@@ -19,7 +19,7 @@ private var taskQueueKey =
 private var taskAmendQueueKey =
 "com.WeZZard.Nest.RunLoop.TaskDispatcher.TaskAmendQueue"
 
-private struct DeallocSwizzleRecipe: ObjCSelfAwareSwizzleRecipeType {
+private struct DeallocSwizzleRecipe: ObjCSelfAwareSwizzleRecipe {
     fileprivate typealias FunctionPointer =
         @convention(c) (Unmanaged<RunLoop>, Selector) -> Void
     fileprivate static var original: FunctionPointer!
@@ -48,7 +48,16 @@ extension RunLoop {
         case idle
     }
     
-    @discardableResult
+    /// Schedule a task on the run-loop in the specified mode at the 
+    /// specified time.
+    ///
+    /// - Parameter mode: The run-loop mode that the run-loop is in which
+    /// can excute this task. `.defaultRunLoopMode` by default.
+    ///
+    /// - Parameter timing: The timing to dispatch the task. 
+    /// `.nextLoopBegan` by default.
+    ///
+    /// - Parameter closure: The task
     public func schedule(
         in mode: RunLoopMode = .defaultRunLoopMode,
         when timing: ScheduleTiming = .nextLoopBegan,
@@ -58,7 +67,16 @@ extension RunLoop {
         schedule(in: [mode], when: timing, do: closure)
     }
     
-    @discardableResult
+    /// Schedule a task on the run-loop in the specified modes at the
+    /// specified time.
+    ///
+    /// - Parameter mode: The run-loop modes that the run-loop is in which
+    /// can excute this task.
+    ///
+    /// - Parameter timing: The timing to dispatch the task.
+    /// `.nextLoopBegan` by default.
+    ///
+    /// - Parameter closure: The task
     public func schedule(
         in modes: RunLoopMode...,
         when timing: ScheduleTiming = .nextLoopBegan,
@@ -68,13 +86,22 @@ extension RunLoop {
         schedule(in: modes, when: timing, do: closure)
     }
     
-    @discardableResult
-    public func schedule<R: Sequence>(
-        in modes: R,
+    /// Schedule a task on the run-loop in the specified modes at the
+    /// specified time.
+    ///
+    /// - Parameter mode: The run-loop modes that the run-loop is in which
+    /// can excute this task.
+    ///
+    /// - Parameter timing: The timing to dispatch the task.
+    /// `.nextLoopBegan` by default.
+    ///
+    /// - Parameter closure: The task
+    public func schedule<Modes: Sequence>(
+        in modes: Modes,
         when timing: ScheduleTiming = .nextLoopBegan,
         do closure: @escaping ()->Void
         ) where
-        R.Iterator.Element == RunLoopMode
+        Modes.Iterator.Element == RunLoopMode
     {
         objc_sync_enter(self)
         _loadDispatchObserverIfNeeded()

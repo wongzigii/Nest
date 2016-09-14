@@ -13,7 +13,8 @@ import ObjectiveC
 final public class ObjCSelfAwareSwizzle: NSObject {
     internal private(set) var implSource: ObjCSelfAwareSwizzleImplSource
     
-    @objc public var targetClass: AnyClass {
+    @objc
+    public var targetClass: AnyClass {
         switch implSource {
         case let .impl(targetClass, _, _, _):
             return targetClass
@@ -22,7 +23,8 @@ final public class ObjCSelfAwareSwizzle: NSObject {
         }
     }
     
-    @objc public var targetSelector: Selector {
+    @objc
+    public var targetSelector: Selector {
         switch implSource {
         case let .impl(_, targetSelector, _, _):
             return targetSelector
@@ -33,7 +35,8 @@ final public class ObjCSelfAwareSwizzle: NSObject {
     
     public let isMetaClass: Bool
     
-    @nonobjc internal init(
+    @nonobjc
+    internal init(
         class: AnyClass,
         selector: Selector,
         originalPtr: UnsafeMutablePointer<IMP>,
@@ -50,7 +53,8 @@ final public class ObjCSelfAwareSwizzle: NSObject {
         super.init()
     }
     
-    @nonobjc internal init(
+    @nonobjc
+    internal init(
         class: AnyClass,
         originalSelector: Selector,
         swizzledSelector: Selector
@@ -72,15 +76,6 @@ final public class ObjCSelfAwareSwizzle: NSObject {
     
     public func perform(_ error: NSErrorPointer) -> Bool {
         var succeeded = false
-        
-        error?.pointee = NSError(
-            domain: "com.WeZZard.Nest.ObjCSelfAwareSwizzle",
-            code: -1,
-            userInfo: [
-                NSLocalizedDescriptionKey
-                    : "Duplicate performing of the same swizzle object: \(self.description)."
-            ]
-        )
         
         error?.pointee = nil
         
@@ -122,7 +117,7 @@ final public class ObjCSelfAwareSwizzle: NSObject {
                     code: -2,
                     userInfo: [
                         NSLocalizedDescriptionKey
-                            : "The target class(\(targetClass)) or its superclasses do not contain an instance method with the specified selector: \(self.descriptionForSelector(targetSelector))."
+                            : "The target class(\(targetClass)) or its superclasses do not contain an instance method with the specified selector: \(self.description(forSelector: targetSelector))."
                     ]
                 )
                 break
@@ -136,7 +131,7 @@ final public class ObjCSelfAwareSwizzle: NSObject {
                     code: -2,
                     userInfo: [
                         NSLocalizedDescriptionKey
-                            : "Not type encoding for target method of selector: \(self.descriptionForSelector(targetSelector))."
+                            : "Not type encoding for target method of selector: \(self.description(forSelector: targetSelector))."
                     ]
                 )
                 break
@@ -175,7 +170,7 @@ final public class ObjCSelfAwareSwizzle: NSObject {
                     code: -2,
                     userInfo: [
                         NSLocalizedDescriptionKey
-                            : "The target class(\(targetClass)) or its superclasses do not contain an instance method with the specified selector: \(self.descriptionForSelector(originalSelector))."
+                            : "The target class(\(targetClass)) or its superclasses do not contain an instance method with the specified selector: \(self.description(forSelector: originalSelector))."
                     ]
                 )
                 break
@@ -192,7 +187,7 @@ final public class ObjCSelfAwareSwizzle: NSObject {
                     code: -2,
                     userInfo: [
                         NSLocalizedDescriptionKey
-                            : "The target class(\(targetClass)) or its superclasses do not contain an instance method with the specified selector: \(self.descriptionForSelector(swizzledSelector))."
+                            : "The target class(\(targetClass)) or its superclasses do not contain an instance method with the specified selector: \(self.description(forSelector: swizzledSelector))."
                     ]
                 )
                 break
@@ -206,7 +201,7 @@ final public class ObjCSelfAwareSwizzle: NSObject {
         return succeeded
     }
     
-    private func descriptionForSelector(_ selector: Selector) -> String {
+    private func description(forSelector selector: Selector) -> String {
         if isMetaClass {
             return "+\(selector)]"
         } else {

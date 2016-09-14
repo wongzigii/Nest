@@ -239,7 +239,7 @@ open class PersistenceController {
     public typealias Transaction =
         (_ context: NSManagedObjectContext) -> Void
     
-    public func perform(_ transaction: Transaction) {
+    public func perform(_ transaction: @escaping Transaction) {
         switch state {
         case .ready:
             let context = fetchingContext
@@ -259,7 +259,7 @@ open class PersistenceController {
         }
     }
     
-    public func performAndWait(_ transaction: Transaction) {
+    public func performAndWait(_ transaction: @escaping Transaction) {
         switch state {
         case .ready:
             let context = fetchingContext
@@ -429,11 +429,14 @@ extension SingletonPersistenceControllerType where
         shared.save(with: comletionHandler)
     }
     
-    public static func perform(_ transaction: Transaction) {
+    public static func perform(_ transaction: @escaping Transaction) {
         shared.perform(transaction)
     }
     
-    public static func performAndWait(_ transaction: Transaction) {
+    public static func performAndWait(
+        _ transaction: @escaping Transaction
+        )
+    {
         shared.performAndWait(transaction)
     }
 }
