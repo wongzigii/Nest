@@ -9,6 +9,7 @@
 @import ObjectiveC;
 
 #import <Nest/ObjCCodingBase.h>
+#import "ObjCKeyValueStore+Subclass.h"
 #import "ObjCCodingBase+Internal.h"
 
 typedef void (* EncodeObjectForKeyToCoder) (id, SEL, id, NSString *, NSCoder *);
@@ -16,10 +17,6 @@ typedef id (* DecodeObjectForKeyFromCoder) (id, SEL, NSString *, NSCoder *);
 
 static NSString *  kObjCCodingBaseVersionKey
 = @"com.WeZZard.Nest.ObjCCodingBase.version";
-
-@interface ObjCCodingBase()
-@property (nonatomic, readonly, strong) NSMutableDictionary * internalStorage;
-@end
 
 @implementation ObjCCodingBase
 + (NSInteger)version {
@@ -41,19 +38,11 @@ static NSString *  kObjCCodingBaseVersionKey
     return nil;
 }
 
-- (id)primitiveValueForKey:(NSString *)key {
-    return _internalStorage[key];
-}
-
-- (void)setPrimitiveValue:(id __nullable)value forKey:(NSString *)key {
-    _internalStorage[key] = value;
-}
-
 - (instancetype)init {
     self = [super init];
 
     if (self) {
-        _internalStorage = [[NSMutableDictionary alloc] init];
+        
     }
 
     return self;
@@ -71,9 +60,7 @@ static NSString *  kObjCCodingBaseVersionKey
         BOOL shouldMigrate = classVersion != binaryVersion;
 
         BOOL isWholeMigrationSucceeded = YES;
-
-        _internalStorage = [[NSMutableDictionary alloc] init];
-
+        
         Class inspectedClass = [self class];
 
         Class searchingTerminateClass = [ObjCCodingBase class];
@@ -144,8 +131,8 @@ static NSString *  kObjCCodingBaseVersionKey
     [coder encodeInteger:[[self class] version]
                   forKey:kObjCCodingBaseVersionKey];
 
-    for (NSString * key in _internalStorage) {
-        id value = _internalStorage[key];
+    for (NSString * key in self.internalStorage) {
+        id value = self.internalStorage[key];
 
         ObjCCodingBaseEncodeCallBack encode
         = ObjCCodingBaseEncodeCallBackForProperty(

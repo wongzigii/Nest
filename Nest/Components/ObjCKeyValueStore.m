@@ -49,9 +49,9 @@
 }
 
 + (BOOL)resolveInstanceMethod:(SEL)selector {
-    if (ObjCKeyValueStoreSynthesizeGetter(self, selector)) {
+    if (ObjCKeyValueStoreSynthesizeGetterForClassHierarchy(self, selector)) {
         return YES;
-    } else if (ObjCKeyValueStoreSynthesizeSetter(self, selector)) {
+    } else if (ObjCKeyValueStoreSynthesizeSetterForClassHierarchy(self, selector)) {
         return YES;
     } else {
         return [super resolveInstanceMethod:selector];

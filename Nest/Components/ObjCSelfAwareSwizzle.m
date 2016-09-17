@@ -12,6 +12,11 @@
 
 #import "LaunchTask.h"
 
+/*
+ Objective-C Self-Aware Swizzle is indeed a launch task.(See LaunchTask.h
+ for more)
+ */
+
 #pragma mark - Types
 typedef struct OCSASSelfAwareSwizzleTaskContext {
     CFMutableDictionaryRef swizzledRecords;

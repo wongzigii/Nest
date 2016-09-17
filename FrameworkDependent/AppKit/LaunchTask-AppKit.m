@@ -7,7 +7,7 @@
 //
 
 #import "LaunchTask-AppKit.h"
-#import "LaunchTaskInternal.h"
+#import "LaunchTask+Internal.h"
 
 void LTSwizzledLaunchTasksPerformer(id<NSApplicationDelegate> self,
     SEL _cmd,
@@ -37,7 +37,7 @@ void LTInjectedLaunchTasksPerformer(id<NSApplicationDelegate> self,
     LTPerformLaunchTasksOnLoadedClasses(notification, nil);
 }
 
-void LTLaunchTaskSelectorHandlerDefault(SEL taskSelector,
+void LTLaunchTaskHandlerDefault(SEL taskSelector,
     id taskOwner,
     void * context)
 {

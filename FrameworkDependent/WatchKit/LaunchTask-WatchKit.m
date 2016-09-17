@@ -7,7 +7,7 @@
 //
 
 #import "LaunchTask-WatchKit.h"
-#import "LaunchTaskInternal.h"
+#import "LaunchTask+Internal.h"
 
 void LTSwizzledLaunchTasksPerformer(id<WKExtensionDelegate> self, SEL _cmd) {
     LTPerformLaunchTasksOnLoadedClasses(nil);
@@ -31,7 +31,7 @@ void LTInjectedLaunchTasksPerformer(id<WKExtensionDelegate> self, SEL _cmd) {
     LTPerformLaunchTasksOnLoadedClasses(nil);
 }
 
-void LTLaunchTaskSelectorHandlerDefault(SEL taskSelector,
+void LTLaunchTaskHandlerDefault(SEL taskSelector,
     id taskOwner,
     void * context)
 {

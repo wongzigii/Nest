@@ -9,7 +9,7 @@
 import CoreData
 
 extension NSManagedObject {
-    /// Offers the fallback entity name for init(managedObjectContext:)
+    /// Offers the fallback entity name for `init(managedObjectContext:)`
     /// when work on iOS prior to 10.0, tvOS prior to 10.0, watchOS prior 
     /// to 3.0 and macOS prior to 10.12.
     @available(iOSApplicationExtension, introduced: 8.0, obsoleted: 10.0)

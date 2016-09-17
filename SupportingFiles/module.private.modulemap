@@ -1,0 +1,3 @@
+explicit module Nest.ObjCKeyValueStoreSubclass {
+    header "ObjCKeyValueStore+Subclass.h"
+}

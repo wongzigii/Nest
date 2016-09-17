@@ -22,12 +22,12 @@ FOUNDATION_EXTERN BOOL ObjCKeyValueStoreIsPropertyName(
     NSString * propertyName
 );
 
-FOUNDATION_EXTERN BOOL ObjCKeyValueStoreSynthesizeSetter(
+FOUNDATION_EXTERN BOOL ObjCKeyValueStoreSynthesizeSetterForClassHierarchy(
 	Class aClass,
 	SEL selector
 );
 
-FOUNDATION_EXTERN BOOL ObjCKeyValueStoreSynthesizeGetter(
+FOUNDATION_EXTERN BOOL ObjCKeyValueStoreSynthesizeGetterForClassHierarchy(
     Class aClass,
     SEL selector
 );

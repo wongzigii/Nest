@@ -21,23 +21,23 @@ typedef struct _ObjCKeyValueStoreAccessor {
 
 #pragma mark - Function Prototype
 #pragma mark Synthesize Property
-static BOOL _ObjCKeyValueStoreSynthesizeSetter(Class, SEL);
-static BOOL _ObjCKeyValueStoreSynthesizeGetter(Class, SEL);
+static BOOL ObjCKeyValueStoreSynthesizeSetterForClass(Class, SEL);
+static BOOL ObjCKeyValueStoreSynthesizeGetterForClass(Class, SEL);
 
 static void ObjCKeyValueStoreCacheSetter(Class, SEL, NSString *);
 static void ObjCKeyValueStoreCacheGetter(Class, SEL, NSString *);
 
-NSString * ObjCKeyValueStorePropertyNameForGetter(Class, SEL);
-NSString * ObjCKeyValueStorePropertyNameForSetter(Class, SEL);
+static NSString * ObjCKeyValueStorePropertyNameForGetterForClassHierarchy(Class, SEL);
+static NSString * ObjCKeyValueStorePropertyNameForSetterForClassHierarchy(Class, SEL);
 
-NSString * _ObjCKeyValueStorePropertyNameForGetter(Class, SEL);
-NSString * _ObjCKeyValueStorePropertyNameForSetter(Class, SEL);
+static NSString * ObjCKeyValueStorePropertyNameForGetterForClass(Class, SEL);
+static NSString * ObjCKeyValueStorePropertyNameForSetterForClass(Class, SEL);
 
 static const IMP ObjCKeyValueStoreGetterImplForType(const char *);
 static const IMP ObjCKeyValueStoreSetterImplForType(const char *);
 
 #pragma mark Accessor Utilities
-/// Returns true when their `typeIdentifier` is same.
+/// Returns true when their `typeIdentifier`s are same.
 static const ObjCKeyValueStoreAccessor * ObjCKeyValueStoreAccessorCreate(
     const char * typeIdentifier,
     const IMP getterImpl,
@@ -51,8 +51,8 @@ static void ObjCKeyValueStoreAccessorRelease(
 static Boolean ObjCKeyValueStoreAccessorEqual(const void *, const void *);
 
 #pragma mark Internal Utilities
-NSString * ObjCKeyValueStoreAccessorCapitalizedPropertyName(const char *);
-ObjCKeyValueStoreAccessor * ObjCKeyValueStoreAccessorForType(const char *);
+static NSString * ObjCKeyValueStoreAccessorCapitalizedPropertyName(const char *);
+static ObjCKeyValueStoreAccessor * ObjCKeyValueStoreAccessorForType(const char *);
 
 #pragma mark - Variables
 static CFArrayCallBacks ObjCKeyValueStoreAccessorArrayCallBacks = {
@@ -70,9 +70,9 @@ static CFMutableDictionaryRef kPropertyNameForSetterForClass = NULL;
 
 #pragma mark - Function Implmentation
 #pragma mark Synthesize
-BOOL ObjCKeyValueStoreSynthesizeSetter(Class class, SEL selector) {
+BOOL ObjCKeyValueStoreSynthesizeSetterForClassHierarchy(Class class, SEL selector) {
     while (class != [ObjCKeyValueStore class]) {
-        if (_ObjCKeyValueStoreSynthesizeSetter(class, selector)) {
+        if (ObjCKeyValueStoreSynthesizeSetterForClass(class, selector)) {
             return YES;
         }
 
@@ -82,7 +82,7 @@ BOOL ObjCKeyValueStoreSynthesizeSetter(Class class, SEL selector) {
     return NO;
 }
 
-BOOL _ObjCKeyValueStoreSynthesizeSetter(Class class, SEL selector) {
+BOOL ObjCKeyValueStoreSynthesizeSetterForClass(Class class, SEL selector) {
     unsigned int propertyCount = 0;
 
     objc_property_t * propertyList =
@@ -157,9 +157,9 @@ BOOL _ObjCKeyValueStoreSynthesizeSetter(Class class, SEL selector) {
     return targeted && synthesized;
 }
 
-BOOL ObjCKeyValueStoreSynthesizeGetter(Class class, SEL selector) {
+BOOL ObjCKeyValueStoreSynthesizeGetterForClassHierarchy(Class class, SEL selector) {
     while (class != [ObjCKeyValueStore class]) {
-        if (_ObjCKeyValueStoreSynthesizeGetter(class, selector)) {
+        if (ObjCKeyValueStoreSynthesizeGetterForClass(class, selector)) {
             return YES;
         }
 
@@ -169,7 +169,7 @@ BOOL ObjCKeyValueStoreSynthesizeGetter(Class class, SEL selector) {
     return NO;
 }
 
-BOOL _ObjCKeyValueStoreSynthesizeGetter(Class class, SEL selector) {
+BOOL ObjCKeyValueStoreSynthesizeGetterForClass(Class class, SEL selector) {
     unsigned int propertyCount = 0;
 
     objc_property_t * propertyList =
@@ -340,10 +340,10 @@ void ObjCKeyValueStoreCacheGetter(
 }
 
 #pragma mark Query Property Name
-NSString * ObjCKeyValueStorePropertyNameForSetter(Class class, SEL selector) {
+NSString * ObjCKeyValueStorePropertyNameForSetterForClassHierarchy(Class class, SEL selector) {
     while (class != [ObjCKeyValueStore class]) {
         NSString * propertyName
-        = _ObjCKeyValueStorePropertyNameForSetter(class, selector);
+        = ObjCKeyValueStorePropertyNameForSetterForClass(class, selector);
 
         if (propertyName) {
             return propertyName;
@@ -355,7 +355,7 @@ NSString * ObjCKeyValueStorePropertyNameForSetter(Class class, SEL selector) {
     return nil;
 }
 
-NSString * _ObjCKeyValueStorePropertyNameForSetter(Class class, SEL selector) {
+NSString * ObjCKeyValueStorePropertyNameForSetterForClass(Class class, SEL selector) {
     CFMutableDictionaryRef classDict = (CFMutableDictionaryRef)
     CFDictionaryGetValue(
         kPropertyNameForSetterForClass,
@@ -369,10 +369,10 @@ NSString * _ObjCKeyValueStorePropertyNameForSetter(Class class, SEL selector) {
     }
 }
 
-NSString * ObjCKeyValueStorePropertyNameForGetter(Class class, SEL selector) {
+NSString * ObjCKeyValueStorePropertyNameForGetterForClassHierarchy(Class class, SEL selector) {
     while (class != [ObjCKeyValueStore class]) {
         NSString * propertyName
-        = _ObjCKeyValueStorePropertyNameForGetter(class, selector);
+        = ObjCKeyValueStorePropertyNameForGetterForClass(class, selector);
 
         if (propertyName) {
             return propertyName;
@@ -384,7 +384,7 @@ NSString * ObjCKeyValueStorePropertyNameForGetter(Class class, SEL selector) {
     return nil;
 }
 
-NSString * _ObjCKeyValueStorePropertyNameForGetter(Class class, SEL selector) {
+NSString * ObjCKeyValueStorePropertyNameForGetterForClass(Class class, SEL selector) {
     CFMutableDictionaryRef classDict = (CFMutableDictionaryRef)
     CFDictionaryGetValue(
         kPropertyNameForGetterForClass,
@@ -534,11 +534,11 @@ void ObjCKeyValueStoreAssertAccessor(
     switch (kind) {
     case ObjCKeyValueStoreAccessorKindGetter:
         propertyName
-            = ObjCKeyValueStorePropertyNameForGetter([self class], _cmd);
+            = ObjCKeyValueStorePropertyNameForGetterForClassHierarchy([self class], _cmd);
         break;
     case ObjCKeyValueStoreAccessorKindSetter:
         propertyName
-            = ObjCKeyValueStorePropertyNameForSetter([self class], _cmd);
+            = ObjCKeyValueStorePropertyNameForSetterForClassHierarchy([self class], _cmd);
         break;
     }
 

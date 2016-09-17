@@ -7,7 +7,7 @@
 //
 
 #import "LaunchTask.h"
-#import "LaunchTaskInternal.h"
+#import "LaunchTask+Internal.h"
 
 #if TARGET_OS_IOS || TARGET_OS_TV
 #import "LaunchTask-UIKit.h"
@@ -21,7 +21,7 @@
 typedef struct LTLaunchTaskInfo {
     const char * selectorPrefix;
     size_t selectorPrefixLength;
-    LTLaunchTaskSelectorHandler selectorHandler;
+    LTLaunchTaskHandler selectorHandler;
     const void * context;
     LTLaunchTaskContextCleanupHandler contextCleanupHandler;
     int priority; // 0 by default
@@ -36,7 +36,7 @@ typedef NS_OPTIONS(NSUInteger, LTLaunchTaskSelectorMatchResult) {
 #pragma mark - Function Prototypes
 static LTLaunchTaskInfo * LTLaunchTaskInfoCreate(
     const char *,
-    const LTLaunchTaskSelectorHandler,
+    const LTLaunchTaskHandler,
     const void *,
     const LTLaunchTaskContextCleanupHandler,
     int
@@ -73,7 +73,7 @@ static BOOL LTLaunchTaskInfoEqualToInfo(
 
 static void LTLaunchTaskInfoRelease(LTLaunchTaskInfo *);
 
-static void LTLaunchTaskSelectorHandlerDefault(
+static void LTLaunchTaskHandlerDefault(
     SEL,
     id,
     Method,
@@ -88,7 +88,7 @@ static CFMutableDictionaryRef       kLTLaunchTasksPerformerReplacingMap = NULL;
 #pragma mark - Function Implementations
 BOOL LTRegisterLaunchTask(
     const char * selectorPrefix,
-    LTLaunchTaskSelectorHandler selectorHandler,
+    LTLaunchTaskHandler selectorHandler,
     const void * context,
     LTLaunchTaskContextCleanupHandler contextCleanupHandler,
     int priority
@@ -114,7 +114,7 @@ BOOL LTRegisterLaunchTask(
 
 LTLaunchTaskInfo * LTLaunchTaskInfoCreate(
     const char * selectorPrefix,
-    LTLaunchTaskSelectorHandler launchTaskSelectorHandler,
+    LTLaunchTaskHandler launchTaskSelectorHandler,
     const void * context,
     LTLaunchTaskContextCleanupHandler contextCleanupHandler,
     int priotity
@@ -355,7 +355,7 @@ LTLaunchTaskSelectorMatchResult LTMatchLaunchTaskSelector(
 #endif
 }
 
-void LTLaunchTaskSelectorHandlerDefault(
+void LTLaunchTaskHandlerDefault(
     SEL selector,
     id owner,
     Method method,
@@ -563,7 +563,7 @@ id LTLaunchTaskAppExtensionPerformer(id self, SEL _cmd) {
     
     LTRegisterLaunchTask(
         "_LaunchTask_",
-        &LTLaunchTaskSelectorHandlerDefault,
+        &LTLaunchTaskHandlerDefault,
         NULL,
         NULL,
         0

@@ -63,9 +63,9 @@ class ObjCProtocolMessageInterceptorTest: XCTestCase, MessagePool {
         realDelegate = aRealDelegate
         
         let aProtocolInterceptor = ObjCProtocolMessageInterceptor
-            .make(with: OperatorDelegate.self)
+            .make(protocol: OperatorDelegate.self)
         aProtocolInterceptor.receiver = aRealDelegate
-        _ = aProtocolInterceptor.contains(middleMan: self)
+        _ = aProtocolInterceptor.containsMiddleMan(self)
         protocolInterceptor = aProtocolInterceptor
         
         delegate = aProtocolInterceptor as? OperatorDelegate

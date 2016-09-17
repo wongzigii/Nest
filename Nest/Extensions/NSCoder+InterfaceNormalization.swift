@@ -30,9 +30,9 @@ public enum NSCoderDecodingError: Error {
     }
 }
 
-//MARK: Encoding
+//MARK: - Encoding
 extension NSCoder {
-    //MARK: - Objective-CCodingPrimitive
+    //MARK: ObjCCodingPrimitive
     public func encode<T: ObjCCodingPrimitive>(
         _ value: T?,
         for key: String
@@ -41,7 +41,7 @@ extension NSCoder {
         value?.encode(to: self, for: key)
     }
     
-    //MARK: Overload for ObjCCodingPrimitive and _ObjectiveCBridgeable
+    //MARK: ObjCCodingPrimitive and _ObjectiveCBridgeable
     public func encode<
         T: ObjCCodingPrimitive & _ObjectiveCBridgeable
         >(
@@ -51,7 +51,7 @@ extension NSCoder {
         value?.encode(to: self, for: key)
     }
     
-    //MARK: - RawRepresentable with Objective-C Primitive Coding Raw Type
+    //MARK: RawRepresentable with ObjCCodingPrimitive conformed RawValue
     public func encode<T: RawRepresentable>(
         _ value: T?,
         for key: String
@@ -61,7 +61,7 @@ extension NSCoder {
         value?.rawValue.encode(to: self, for: key)
     }
     
-    //MARK: - Objective-C Bridgeable Swift Value Types
+    //MARK: _ObjectiveCBridgeable Swift Value Types
     public func encode<T: _ObjectiveCBridgeable>(
         _ value: T?, for key: String
         )
@@ -69,7 +69,7 @@ extension NSCoder {
         self.encode(value?._bridgeToObjectiveC(), forKey: key)
     }
     
-    //MARK: - NSCoding Conformed Objective-C Bridgable Pure Swift Objects
+    //MARK: NSCoding Conformed _ObjectiveCBridgeable Dedicated Swift Objects
     public func encode<T: AnyObject & _ObjectiveCBridgeable>(
         _ value: T?, for key: String
         ) where
@@ -79,7 +79,7 @@ extension NSCoder {
         self.encode(value?._bridgeToObjectiveC(), forKey: key)
     }
     
-    //MARK: - Objective-C Bridgeable Swift Value Types
+    //MARK: ObjCBridgeable Swift Value Types
     public func encode<T: ObjCBridgeable>(
         _ value: T?, for key: String
         )
@@ -87,7 +87,7 @@ extension NSCoder {
         self.encode(value?._bridgeToObjectiveC(), forKey: key)
     }
     
-    //MARK: - NSCoding Conformed Objective-C Bridgable Pure Swift Objects
+    //MARK: NSCoding Conformed ObjCBridgeable Dedicated Swift Objects
     public func encode<T: AnyObject & ObjCBridgeable>(
         _ value: T?, for key: String
         ) where
@@ -97,20 +97,20 @@ extension NSCoder {
         self.encode(value?._bridgeToObjectiveC(), forKey: key)
     }
     
-    //MARK: - NSObject and Its Descendants
+    //MARK: NSObject and Its Descendants
     public func encode<T: NSObject>(_ value: T?, for key: String) {
         self.encode(value, forKey: key)
     }
 }
 
-//MARK: Throwing Decoding
+//MARK: - Throwing Decoding
 /// Throwing Decoding Design Notes
 /// ==============================
 ///
 /// `ImplicitlyUnwrappedOptional` wrapped value is ambivalent for 
-/// the non-optional's and the optional's. So all these function returns
-/// an `ImplicitlyUnwrappedOptional` wrapped value so we don't need to
-/// overload the `Optional` wrapped version.
+/// the non-optional's and the optional's. So all these functions return
+/// an `ImplicitlyUnwrappedOptional` wrapped value so that we don't have
+/// to overload them for the `Optional` wrapped version.
 extension NSCoder {
     public func decodeOrThrow<T: ObjCCodingPrimitive>(for key: String)
         throws
@@ -357,7 +357,7 @@ extension NSCoder {
     }
 }
 
-//MARK: Maybe Decoding
+//MARK: - Maybe Decoding
 extension NSCoder {
     public func decode<T: ObjCCodingPrimitive>(for key: String)
         -> T?
@@ -412,7 +412,7 @@ extension NSCoder {
     }
 }
 
-//MARK: Fallback Decoding
+//MARK: - Fallback-Able Decoding
 extension NSCoder {
     public func decode<T: ObjCCodingPrimitive>(
         for key: String,

@@ -10,44 +10,8 @@ import Foundation
 import ObjectiveC
 import SwiftExt
 
-private var dispatchObserverKey =
-"com.WeZZard.Nest.RunLoop.TaskDispatcher.DispatchObserver"
-
-private var taskQueueKey =
-"com.WeZZard.Nest.RunLoop.TaskDispatcher.TaskQueue"
-
-private var taskAmendQueueKey =
-"com.WeZZard.Nest.RunLoop.TaskDispatcher.TaskAmendQueue"
-
-private struct DeallocSwizzleRecipe: ObjCSelfAwareSwizzleRecipe {
-    fileprivate typealias FunctionPointer =
-        @convention(c) (Unmanaged<RunLoop>, Selector) -> Void
-    fileprivate static var original: FunctionPointer!
-    fileprivate static let swizzled: FunctionPointer =  {
-        (aSelf, aSelector) -> Void in
-        
-        let unretainedSelf = aSelf.takeUnretainedValue()
-        
-        if unretainedSelf.isDispatchObserverLoaded {
-            let observer = unretainedSelf._dispatchObserver
-            CFRunLoopObserverInvalidate(observer)
-        }
-        
-        DeallocSwizzleRecipe.original(aSelf, aSelector)
-    }
-}
-
 extension RunLoop {
-    /*
-     This enum shall not be a nested type, or, in Xcode Test, it's symbols would not
-     be found.
-     */
-    public enum ScheduleTiming: Int {
-        case nextLoopBegan
-        case currentLoopEnded
-        case idle
-    }
-    
+    // MARK: Task Schedulers
     /// Schedule a task on the run-loop in the specified mode at the 
     /// specified time.
     ///
@@ -105,48 +69,18 @@ extension RunLoop {
     {
         objc_sync_enter(self)
         _loadDispatchObserverIfNeeded()
-        let task = ScheduledTask(self, Array(modes), timing, closure)
+        let task = _Task(self, Array(modes), timing, closure)
         _taskQueue.append(task)
         objc_sync_exit(self)
     }
     
-    @objc
-    private class func _ObjCSelfAwareSwizzle_dealloc()
-        -> ObjCSelfAwareSwizzle
-    {
-        return swizzle(
-            instanceSelector: NSSelectorFromString("dealloc"),
-            on: self,
-            recipe: DeallocSwizzleRecipe.self
-        )
-    }
-    
-    private struct ScheduledTask {
-        fileprivate var timing: ScheduleTiming
-        
-        fileprivate var modes: [RunLoopMode]
-        
-        fileprivate let closure: () -> Void
-        
-        fileprivate init(
-            _ runLoop: RunLoop,
-            _ modes: [RunLoopMode],
-            _ timing: ScheduleTiming,
-            _ aClosure: @escaping () -> Void
-            )
-        {
-            self.timing = timing
-            self.modes = modes
-            closure = aClosure
-        }
-    }
-    
-    fileprivate var isDispatchObserverLoaded: Bool {
+    // MARK: Utilities
+    private var _isDispatchObserverLoaded: Bool {
         return objc_getAssociatedObject(self, &dispatchObserverKey) != nil
     }
     
     private func _loadDispatchObserverIfNeeded() {
-        if !isDispatchObserverLoaded {
+        if !_isDispatchObserverLoaded {
             let invokeTimings: [ScheduleTiming] = [
                 .currentLoopEnded, .nextLoopBegan, .idle
             ]
@@ -172,7 +106,8 @@ extension RunLoop {
             objc_setAssociatedObject(self,
                 &dispatchObserverKey,
                 wrappedObserver,
-                .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+                .OBJC_ASSOCIATION_RETAIN_NONATOMIC
+            )
         }
     }
     
@@ -184,16 +119,16 @@ extension RunLoop {
         return associatedObserver.value
     }
     
-    private var _taskQueue: [ScheduledTask] {
+    private var _taskQueue: [_Task] {
         get {
             if let taskQueue = objc_getAssociatedObject(
                 self,
                 &taskQueueKey
-                ) as? [ScheduledTask]
+                ) as? [_Task]
             {
                 return taskQueue
             } else {
-                let initialValue = [ScheduledTask]()
+                let initialValue = [_Task]()
                 
                 objc_setAssociatedObject(
                     self,
@@ -248,6 +183,67 @@ extension RunLoop {
         
         _taskQueue.remove(indices: removedIndices)
     }
+    
+    // MARK: Method Swizzling
+    @objc
+    private class func _ObjCSelfAwareSwizzle_dealloc()
+        -> ObjCSelfAwareSwizzle
+    {
+        return swizzle(
+            instanceSelector: NSSelectorFromString("dealloc"),
+            on: self,
+            recipe: _DeallocSwizzleRecipe.self
+        )
+    }
+    
+    // MARK: Nested Types
+    /*
+     This enum shall not be a nested type, or, in Xcode Test, it's symbols would not
+     be found.
+     */
+    public enum ScheduleTiming: Int {
+        case nextLoopBegan
+        case currentLoopEnded
+        case idle
+    }
+    
+    private struct _Task {
+        fileprivate var timing: ScheduleTiming
+        
+        fileprivate var modes: [RunLoopMode]
+        
+        fileprivate let closure: () -> Void
+        
+        fileprivate init(
+            _ runLoop: RunLoop,
+            _ modes: [RunLoopMode],
+            _ timing: ScheduleTiming,
+            _ aClosure: @escaping () -> Void
+            )
+        {
+            self.timing = timing
+            self.modes = modes
+            closure = aClosure
+        }
+    }
+    
+    private struct _DeallocSwizzleRecipe: ObjCSelfAwareSwizzleRecipe {
+        fileprivate typealias FunctionPointer =
+            @convention(c) (Unmanaged<RunLoop>, Selector) -> Void
+        fileprivate static var original: FunctionPointer!
+        fileprivate static let swizzled: FunctionPointer =  {
+            (aSelf, aSelector) -> Void in
+            
+            let unretainedSelf = aSelf.takeUnretainedValue()
+            
+            if unretainedSelf._isDispatchObserverLoaded {
+                let observer = unretainedSelf._dispatchObserver
+                CFRunLoopObserverInvalidate(observer)
+            }
+            
+            original(aSelf, aSelector)
+        }
+    }
 }
 
 extension CFRunLoopActivity {
@@ -259,3 +255,14 @@ extension CFRunLoopActivity {
         }
     }
 }
+
+
+// MARK: - Constants
+private var dispatchObserverKey =
+"com.WeZZard.Nest.RunLoop.TaskDispatcher.DispatchObserver"
+
+private var taskQueueKey =
+"com.WeZZard.Nest.RunLoop.TaskDispatcher.TaskQueue"
+
+private var taskAmendQueueKey =
+"com.WeZZard.Nest.RunLoop.TaskDispatcher.TaskAmendQueue"

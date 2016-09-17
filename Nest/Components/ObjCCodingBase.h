@@ -14,12 +14,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface ObjCCodingBase : ObjCKeyValueStore<NSCoding>
 
-/** Returns the version of `ObjCCodingBase` subclass. The default implementaiton
- always returns 0.
+/** Returns the version of `ObjCCodingBase` subclass. The default 
+ implementaiton always returns 0.
  
- - Discussion: With the default implementation, the decoding would be failed if
- the decoded version is different from the value got in this method and any 
- value migration was failed.
+ - Discussion: With the default implementation, the decoding would be 
+ failed if the decoded version is different from the value got in this 
+ method and any value migration was failed.
  */
 + (NSInteger)version;
 
@@ -27,8 +27,8 @@ NS_ASSUME_NONNULL_BEGIN
  
  @param     value           The value to migrate.
  
- @param     key             The key of the value to migrate. Set to nil to make
-    the decoding ommitted this value.
+ @param     key             The key of the value to migrate. Set to nil to
+ make the decoding ommitted this value.
  
  @param     fromVersion     The old archived binary version.
  
@@ -41,11 +41,16 @@ NS_ASSUME_NONNULL_BEGIN
                 from:(NSInteger)fromVersion
                   to:(NSInteger)toVersion;
 
-- (instancetype)init;
-
 /** Returns a fallback value for a non-migration decoding a property named
  `key`. */
 + (id __nullable)defaultValueForKey:(NSString *)key;
+
+- (instancetype)init;
+
+- (instancetype)initWithCoder:(NSCoder *)aDecoder;
+
+- (void)encodeWithCoder:(NSCoder *)aCoder;
+
 @end
 
 NS_ASSUME_NONNULL_END
