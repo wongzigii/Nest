@@ -165,17 +165,18 @@ extension RunLoop {
                 eachTask.timing
             )
             
-            let inCommon = runLoopMode == .commonModes
-            let isCommon = expectedRunLoopModes.contains(.commonModes)
-            let inExpected = runLoopMode.map{
+            let isInCommonModes = runLoopMode == .commonModes
+            let isCommonMode = expectedRunLoopModes.contains(.commonModes)
+            let isInExpectedMode = runLoopMode.map{
                 expectedRunLoopModes.contains($0)
             } ?? false
             
-            let inMode = isCommon || inCommon || inExpected
+            let isInMode = isCommonMode || isInCommonModes
+                || isInExpectedMode
             
             let inActivity = activity.contains(expectedActivitiy)
             
-            if inMode && inActivity {
+            if isInMode && inActivity {
                 eachTask.closure()
                 removedIndices.append(index)
             }
@@ -197,10 +198,6 @@ extension RunLoop {
     }
     
     // MARK: Nested Types
-    /*
-     This enum shall not be a nested type, or, in Xcode Test, it's symbols would not
-     be found.
-     */
     public enum ScheduleTiming: Int {
         case nextLoopBegan
         case currentLoopEnded
@@ -263,6 +260,3 @@ private var dispatchObserverKey =
 
 private var taskQueueKey =
 "com.WeZZard.Nest.RunLoop.TaskDispatcher.TaskQueue"
-
-private var taskAmendQueueKey =
-"com.WeZZard.Nest.RunLoop.TaskDispatcher.TaskAmendQueue"

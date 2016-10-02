@@ -10,5 +10,4 @@
 
 FOUNDATION_EXPORT void  LTPerformLaunchTasksOnLoadedClasses(id, ...);
 
-FOUNDATION_EXPORT IMP   LTLaunchTaskPerformerReplacedImpForClass(Class);
-
+FOUNDATION_EXPORT IMP   LTGetLaunchTaskPerformerOriginalImpForClass(Class);

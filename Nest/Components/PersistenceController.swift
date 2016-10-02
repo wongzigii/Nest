@@ -1,5 +1,5 @@
 //
-//  PersistenceController.swift
+//  PersistentController.swift
 //  Nest
 //
 //  Created by Manfred on 11/9/15.
@@ -11,7 +11,7 @@ import CoreData
 import SwiftExt
 
 @available(iOS 3.0, *)
-open class PersistenceController {
+open class PersistentController {
     
     public enum Context {
         case forFetching(NSManagedObjectContext)
@@ -39,8 +39,10 @@ open class PersistenceController {
     private var _state: State = .notPrepared
     
     private var _preparationQueue: DispatchQueue = DispatchQueue(
-        label: "com.WeZZard.Nest.PersistenceController.PreparationQueue"
+        label: "com.WeZZard.Nest.PersistentController.PreparationQueue"
     )
+    
+    private let _managedObjectModel: NSManagedObjectModel
     
     public init(
         bundle: Bundle,
@@ -74,23 +76,25 @@ open class PersistenceController {
             }
         #endif
         
+        guard let modelURL = bundle.url(
+            forResource: modelName, withExtension:modelExtension
+            ) else
+        {
+            _state = .failed
+            fatalError("Error loading model from bundle: \(bundle)")
+        }
+        
+        guard let managedObjectModel = NSManagedObjectModel(
+            contentsOf: modelURL
+            ) else
+        {
+            _state = .failed
+            fatalError("Error initializing model from: \(modelURL)")
+        }
+        
+        _managedObjectModel = managedObjectModel
+        
         _preparationQueue.async {
-            guard let modelURL = bundle.url(
-                forResource: modelName, withExtension:modelExtension
-                ) else
-            {
-                self._state = .failed
-                fatalError("Error loading model from bundle: \(bundle)")
-            }
-            
-            guard let managedObjectModel = NSManagedObjectModel(
-                contentsOf: modelURL
-                ) else
-            {
-                self._state = .failed
-                fatalError("Error initializing model from: \(modelURL)")
-            }
-            
             let persistenStoreCoordinator = NSPersistentStoreCoordinator(
                 managedObjectModel: managedObjectModel
             )
@@ -364,11 +368,20 @@ open class PersistenceController {
     {
         
     }
+    
+    public func fetchRequestFromTemplate(
+        named name: String, substitutionVariables: [String: Any]
+        ) -> NSFetchRequest<NSFetchRequestResult>?
+    {
+        return _managedObjectModel.fetchRequestFromTemplate(
+            withName: name, substitutionVariables: substitutionVariables
+        )
+    }
 }
 
 extension Notification {
     fileprivate typealias ManagedObjectChanges
-        = PersistenceController.ManagedObjectChanges
+        = PersistentController.ManagedObjectChanges
     fileprivate typealias ManagedObjectChangeKey
         = NSManagedObjectChangeKey
     
@@ -397,12 +410,27 @@ extension Notification {
     }
 }
 
-public protocol SingletonPersistenceControllerType: class {
+public protocol PersistentControllerFetchRequestTemplate {
+    associatedtype Name
+    associatedtype Variable: Hashable
+    
+    func toPrimitives() -> (
+        templateName: Name,
+        substitutionVariables: [Variable : Any]
+    )
+}
+
+public protocol SingletonPersistentController: class {
     static var shared: Self { get }
 }
 
-extension SingletonPersistenceControllerType where
-    Self: PersistenceController
+public protocol FechRequestTemplatedPersistentController: class {
+    associatedtype FetchRequestTemplate:
+    PersistentControllerFetchRequestTemplate
+}
+
+extension SingletonPersistentController where
+    Self: PersistentController
 {
     public static func launch() { shared._launch() }
     
@@ -422,5 +450,60 @@ extension SingletonPersistenceControllerType where
         )
     {
         shared.performAndWait(transaction)
+    }
+    
+    public static func fetchRequestFromTemplate(
+        named name: String, substitutionVariables: [String: Any]
+        ) -> NSFetchRequest<NSFetchRequestResult>?
+    {
+        return shared.fetchRequestFromTemplate(
+            named: name, substitutionVariables: substitutionVariables
+        )
+    }
+}
+
+extension FechRequestTemplatedPersistentController where
+    Self: PersistentController,
+    Self.FetchRequestTemplate.Name: RawRepresentable,
+    Self.FetchRequestTemplate.Name.RawValue == String,
+    Self.FetchRequestTemplate.Variable: RawRepresentable,
+    Self.FetchRequestTemplate.Variable.RawValue == String
+{
+    public func fetchRequestFromTemplate(
+        _ template: FetchRequestTemplate
+        ) -> NSFetchRequest<NSFetchRequestResult>
+    {
+        let (name, vars) = template.toPrimitives()
+        var primitiveVars = [String : Any]()
+        for (name, value) in vars {
+            primitiveVars[name.rawValue] = value
+        }
+        return fetchRequestFromTemplate(
+            named: name.rawValue, substitutionVariables: primitiveVars
+            )!
+    }
+}
+
+
+extension FechRequestTemplatedPersistentController where
+    Self: PersistentController,
+    Self: SingletonPersistentController,
+    Self.FetchRequestTemplate.Name: RawRepresentable,
+    Self.FetchRequestTemplate.Name.RawValue == String,
+    Self.FetchRequestTemplate.Variable: RawRepresentable,
+    Self.FetchRequestTemplate.Variable.RawValue == String
+{
+    public static func fetchRequestFromTemplate(
+        _ template: FetchRequestTemplate
+        ) -> NSFetchRequest<NSFetchRequestResult>
+    {
+        let (name, vars) = template.toPrimitives()
+        var primitiveVars = [String : Any]()
+        for (name, value) in vars {
+            primitiveVars[name.rawValue] = value
+        }
+        return fetchRequestFromTemplate(
+            named: name.rawValue, substitutionVariables: primitiveVars
+            )!
     }
 }

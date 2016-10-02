@@ -18,11 +18,11 @@ BOOL LTSwizzledLaunchTasksPerformer(id<UIApplicationDelegate> self,
     
     Class class = [self class];
     
-    LTLaunchTaskPerformer * original_imp = (LTLaunchTaskPerformer *)
-    LTLaunchTaskPerformerReplacedImpForClass(class);
+    LTLaunchTaskPerformer * originalImp = (LTLaunchTaskPerformer *)
+    LTGetLaunchTaskPerformerOriginalImpForClass(class);
     
-    if (original_imp != NULL) {
-        return original_imp(self, _cmd, application, options);
+    if (originalImp != NULL) {
+        return originalImp(self, _cmd, application, options);
     } else {
         [NSException raise:NSInternalInconsistencyException
                     format:@"Cannot find original implementation for %@ on %@",

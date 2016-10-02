@@ -28,9 +28,9 @@ typedef struct LTLaunchTaskInfo {
 } LTLaunchTaskInfo;
 
 typedef NS_OPTIONS(NSUInteger, LTLaunchTaskSelectorMatchResult) {
-    LTLaunchTaskSelectorMatchResultUnmatched            = 0,
-    LTLaunchTaskSelectorMatchResultMatched              = 1 << 0,
-    LTLaunchTaskSelectorMatchResultMatchedIgnoreCase    = 1 << 1,
+    LTLaunchTaskSelectorUnmatched           = 0,
+    LTLaunchTaskSelectorMatched             = 1 << 0,
+    LTLaunchTaskSelectorMatchedIgnoreCase   = 1 << 1,
 };
 
 #pragma mark - Function Prototypes
@@ -44,11 +44,11 @@ static LTLaunchTaskInfo * LTLaunchTaskInfoCreate(
 
 static BOOL LTRegisterLaunchTaskInfo(const LTLaunchTaskInfo *);
 
-static BOOL LTFindInjectPointAndInject();
+static BOOL LTFindUserCodeEntryPointAndInjectLaunchTaskPerformer();
 
-static BOOL LTSwizzleAllPossibleAppDelegates();
+static BOOL LTInjectsAsApplication();
 
-static BOOL LTSwizzleExtensionPrincipalClassOrExtensionInitialViewController() ;
+static BOOL LTInjectsAsAppExtension();
 
 static id LTLaunchTaskAppExtensionPerformer(id self, SEL _cmd);
 
@@ -57,13 +57,13 @@ static LTLaunchTaskSelectorMatchResult LTMatchLaunchTaskSelector(
     const LTLaunchTaskInfo *
 );
 
-static void LTScanAndActivateLaunchTaskSelectorsOnClass(
+static void LTScanAndPerformLaunchTaskSelectorsOnClass(
     Class,
     const LTLaunchTaskInfo *,
     NSArray *
 );
 
-void LTSaveLaunchTaskPerformerReplacedImpForClass(Class, IMP);
+static void LTSetLaunchTaskPerformerOriginalImpForClass(Class, IMP);
 
 // All the compare operation shall be gauranteed in a same thread.
 static BOOL LTLaunchTaskInfoEqualToInfo(
@@ -81,7 +81,7 @@ static void LTLaunchTaskHandlerDefault(
     const void *
 );
 
-#pragma mark - Values
+#pragma mark - Variables
 static CFMutableArrayRef            kLTRegisteredLaunchTaskInfo = NULL;
 static CFMutableDictionaryRef       kLTLaunchTasksPerformerReplacingMap = NULL;
 
@@ -122,13 +122,13 @@ LTLaunchTaskInfo * LTLaunchTaskInfoCreate(
 {
     size_t prefixLength = strlen(selectorPrefix);
     
-    char * managedSelectorPrefix = malloc(prefixLength * sizeof(char));
-    memcpy(managedSelectorPrefix, selectorPrefix, prefixLength * sizeof(char));
+    char * copiedSelectorPrefix = malloc(prefixLength * sizeof(char));
+    memcpy(copiedSelectorPrefix, selectorPrefix, prefixLength * sizeof(char));
     
     LTLaunchTaskInfo * info = malloc(sizeof(LTLaunchTaskInfo));
     
     * info = (LTLaunchTaskInfo) {
-        managedSelectorPrefix,
+        copiedSelectorPrefix,
         prefixLength,
         launchTaskSelectorHandler,
         context, 
@@ -208,10 +208,9 @@ void LTPerformLaunchTasksOnLoadedClasses(id firstArg, ...) {
         unsigned int classCount = 0;
         
         if (kLTRegisteredLaunchTaskInfo != NULL) {
-            CFIndex registeredInfoCount =
-            CFArrayGetCount(kLTRegisteredLaunchTaskInfo);
+            CFIndex infoCount = CFArrayGetCount(kLTRegisteredLaunchTaskInfo);
             
-            CFRange registeredInfoRange = CFRangeMake(0, registeredInfoCount);
+            CFRange registeredInfoRange = CFRangeMake(0, infoCount);
             
             CFArraySortValues(
                 kLTRegisteredLaunchTaskInfo,
@@ -222,24 +221,16 @@ void LTPerformLaunchTasksOnLoadedClasses(id firstArg, ...) {
             
             Class * classList = objc_copyClassList(&classCount);
             
-            for (
-                CFIndex infoIndex = 0;
-                infoIndex < registeredInfoCount;
-                infoIndex ++
-                )
-            {
-                for (unsigned int classIndex = 0;
-                     classIndex < classCount;
-                     classIndex ++)
-                {
-                    Class class = classList[classIndex];
+            for (CFIndex infoIdx = 0; infoIdx < infoCount; infoIdx ++) {
+                for (unsigned int idx = 0; idx < classCount; idx ++) {
+                    Class class = classList[idx];
                     LTLaunchTaskInfo * info = (LTLaunchTaskInfo *)
                     CFArrayGetValueAtIndex(
                         kLTRegisteredLaunchTaskInfo,
-                        infoIndex
+                        infoIdx
                     );
                     
-                    LTScanAndActivateLaunchTaskSelectorsOnClass(
+                    LTScanAndPerformLaunchTaskSelectorsOnClass(
                         class,
                         info,
                         args
@@ -250,18 +241,17 @@ void LTPerformLaunchTasksOnLoadedClasses(id firstArg, ...) {
             
             free(classList);
             
-            for (CFIndex index = 0; index < registeredInfoCount; index ++) {
+            for (CFIndex idx = 0; idx < infoCount; idx ++) {
                 LTLaunchTaskInfo * registeredInfo = (LTLaunchTaskInfo *)
-                CFArrayGetValueAtIndex(kLTRegisteredLaunchTaskInfo, index);
+                CFArrayGetValueAtIndex(kLTRegisteredLaunchTaskInfo, idx);
                 
                 if (registeredInfo->contextCleanupHandler != NULL) {
                     const void * context = registeredInfo->context;
-                    NSCAssert(context != NULL,
-                              @"Context shall not be NULL here");
+                    NSCAssert(context != NULL, @"Context shall not be NULL here");
                     LTLaunchTaskContextCleanupHandler cleanupHandler =
-                    registeredInfo->contextCleanupHandler;
+                        registeredInfo->contextCleanupHandler;
                     
-                    (*cleanupHandler)((void *)context);
+                    (* cleanupHandler)((void *)context);
                 }
                 
                 LTLaunchTaskInfoRelease(registeredInfo);
@@ -279,7 +269,7 @@ void LTPerformLaunchTasksOnLoadedClasses(id firstArg, ...) {
     
 }
 
-void LTScanAndActivateLaunchTaskSelectorsOnClass(
+void LTScanAndPerformLaunchTaskSelectorsOnClass(
     Class aClass,
     const LTLaunchTaskInfo * info,
     NSArray * args
@@ -292,24 +282,22 @@ void LTScanAndActivateLaunchTaskSelectorsOnClass(
     
     Method * methods = class_copyMethodList(metaClass, &methodCount);
     
-    // Scane class methods to check self swizzle selectors
+    // Scan class methods to check launch task selectors
     for (unsigned int index = 0; index < methodCount; index ++) {
         Method method = methods[index];
         
         SEL selector = method_getName(method);
         
-        LTLaunchTaskSelectorMatchResult selectorMatchResult =
+        LTLaunchTaskSelectorMatchResult selMatchResult =
         LTMatchLaunchTaskSelector(selector, info);
         
-        if (selectorMatchResult & LTLaunchTaskSelectorMatchResultMatched) {
+        if (selMatchResult & LTLaunchTaskSelectorMatched) {
             const void * context = info -> context;
             info -> selectorHandler(selector, aClass, method, args, context);
         }
 #if DEBUG
-        else if (selectorMatchResult
-                 & LTLaunchTaskSelectorMatchResultMatchedIgnoreCase)
-        {
-            NSLog(@"Found a pseudo launch task Selector, you might ignored some cases when spelling it: %@",
+        else if (selMatchResult & LTLaunchTaskSelectorMatchedIgnoreCase) {
+            NSLog(@"Found a pseudo launch task Selector, you might ignored the case of some letters when spelling it: %@",
                   NSStringFromSelector(selector));
         }
 #endif
@@ -323,32 +311,32 @@ LTLaunchTaskSelectorMatchResult LTMatchLaunchTaskSelector(
     const LTLaunchTaskInfo * info
     )
 {
-    const char * expectedSelectorPrefix = info -> selectorPrefix;
-    size_t expectedSelectorPrefixLength = info -> selectorPrefixLength;
+    const char * expectedSelPrefix = info -> selectorPrefix;
+    size_t expectedSelPrefixLength = info -> selectorPrefixLength;
     
-    const char * selectorName = sel_getName(selector);
+    const char * selName = sel_getName(selector);
     
     if (strncmp(
-            expectedSelectorPrefix,
-            selectorName,
-            expectedSelectorPrefixLength
+            expectedSelPrefix,
+            selName,
+            expectedSelPrefixLength
         ) == 0
         )
     {
-        return LTLaunchTaskSelectorMatchResultMatched;
+        return LTLaunchTaskSelectorMatched;
     }
 #if DEBUG
     else if (strncasecmp(
-                expectedSelectorPrefix,
-                selectorName,
-                expectedSelectorPrefixLength
+                expectedSelPrefix,
+                selName,
+                expectedSelPrefixLength
              ) == 0
              )
     {
-        return LTLaunchTaskSelectorMatchResultUnmatched
-        | LTLaunchTaskSelectorMatchResultMatchedIgnoreCase;
+        return LTLaunchTaskSelectorUnmatched
+        | LTLaunchTaskSelectorMatchedIgnoreCase;
     } else {
-        return LTLaunchTaskSelectorMatchResultUnmatched;
+        return LTLaunchTaskSelectorUnmatched;
     }
 #else
     return LTLaunchTaskSelectorMatchResultUnmatched;
@@ -399,22 +387,22 @@ BOOL LTLaunchTaskInfoEqualToInfo(
     )
 {
     return (strcmp(info1 -> selectorPrefix, info2 -> selectorPrefix) == 0)
-    && info1 -> selectorPrefixLength    == info2 -> selectorPrefixLength
-    && info1 -> selectorHandler         == info2 -> selectorHandler
-    && info1 -> contextCleanupHandler   == info2 -> contextCleanupHandler;
+        && info1 -> selectorPrefixLength    == info2 -> selectorPrefixLength
+        && info1 -> selectorHandler         == info2 -> selectorHandler
+        && info1 -> contextCleanupHandler   == info2 -> contextCleanupHandler;
 }
 
-#pragma mark - Launch Task Preprocess
-BOOL LTFindInjectPointAndInject() {
-    if (LTSwizzleAllPossibleAppDelegates()) {
+#pragma mark - Find User Code Entry Point and Inject Launch Tasks Performer
+BOOL LTFindUserCodeEntryPointAndInjectLaunchTaskPerformer() {
+    if (LTInjectsAsApplication()) {
         return YES;
-    } else if (LTSwizzleExtensionPrincipalClassOrExtensionInitialViewController()) {
+    } else if (LTInjectsAsAppExtension()) {
         return YES;
     }
     return NO;
 }
 
-BOOL LTSwizzleAllPossibleAppDelegates() {
+BOOL LTInjectsAsApplication() {
     __block BOOL success = NO;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
@@ -424,48 +412,47 @@ BOOL LTSwizzleAllPossibleAppDelegates() {
         }
         
         // Inject implementation in to all classes conforms to process delegate
-        Protocol * protocol_appDelegate =
-        @protocol(LTAppDelegate);
+        Protocol * AppDelegateProtocol = @protocol(LTAppDelegate);
         
-        SEL selector_launchTasksPerform =
-        @selector(LTLaunchTasksPerformSelector);
+        SEL performerSel = @selector(LTLaunchTasksPerformSelector);
         
         unsigned int classCount = 0;
         
+        // We don't use `objc_copyClassNamesForImage` to get classes only
+        // in the main bundle here because some users can specify their
+        // app delegate to be a class in a third party framework.
         Class * classes = objc_copyClassList(&classCount);
         
-        for (unsigned int index = 0; index < classCount; index ++) {
-            Class eachClass = classes[index];
+        for (unsigned int idx = 0; idx < classCount; idx ++) {
+            Class cls = classes[idx];
             
-            if (class_conformsToProtocol(eachClass, protocol_appDelegate)) {
+            if (class_conformsToProtocol(cls, AppDelegateProtocol)) {
                 
-                if (class_respondsToSelector(eachClass,
-                    selector_launchTasksPerform))
-                {
-                    // Swizzle
+                if (class_respondsToSelector(cls, performerSel)) {
+                    /* Swizzle */
                     
                     // Keep original
-                    IMP original_imp =
-                    class_getMethodImplementation(
-                        eachClass,
-                        selector_launchTasksPerform
+                    IMP originalImp = class_getMethodImplementation(
+                        cls,
+                        performerSel
                     );
                     
-                    LTSaveLaunchTaskPerformerReplacedImpForClass(eachClass, original_imp);
+                    LTSetLaunchTaskPerformerOriginalImpForClass(cls, originalImp);
                     
-                    // Set new
+                    // Replace
                     class_replaceMethod(
-                        eachClass,
-                        selector_launchTasksPerform,
+                        cls,
+                        performerSel,
                         (IMP)&LTSwizzledLaunchTasksPerformer,
                         LTLaunchTasksPerformSelectorEncode
                     );
                     success = success || YES;
                 } else {
-                    // Inject
+                    /* Inject */
+                    
                     class_addMethod(
-                        eachClass,
-                        selector_launchTasksPerform,
+                        cls,
+                        performerSel,
                         (IMP)&LTInjectedLaunchTasksPerformer,
                         LTLaunchTasksPerformSelectorEncode
                     );
@@ -481,7 +468,7 @@ BOOL LTSwizzleAllPossibleAppDelegates() {
     return success;
 }
 
-BOOL LTSwizzleExtensionPrincipalClassOrExtensionInitialViewController() {
+BOOL LTInjectsAsAppExtension() {
     __block BOOL success = NO;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
@@ -499,19 +486,20 @@ BOOL LTSwizzleExtensionPrincipalClassOrExtensionInitialViewController() {
                 SEL methodName = method_getName(eachMethod);
                 NSString * methodString = NSStringFromSelector(methodName);
                 if ([methodString isEqualToString:@"init"]) {
-                    IMP original_imp = class_replaceMethod(extensionPricipalClass, methodName, (IMP)&LTLaunchTaskAppExtensionPerformer, "@:");
-                    LTSaveLaunchTaskPerformerReplacedImpForClass(extensionPricipalClass, original_imp);
+                    IMP originalImp = class_replaceMethod(extensionPricipalClass, methodName, (IMP)&LTLaunchTaskAppExtensionPerformer, "@:");
+                    LTSetLaunchTaskPerformerOriginalImpForClass(extensionPricipalClass, originalImp);
                     success = YES;
                     break;
                 }
             }
+            // FIXME: Storyboard wasn't under consideration here.
             free(methods);
         }
     });
     return success;
 }
 
-IMP LTLaunchTaskPerformerReplacedImpForClass(Class aClass) {
+IMP LTGetLaunchTaskPerformerOriginalImpForClass(Class aClass) {
     if (kLTLaunchTasksPerformerReplacingMap == NULL) {
         kLTLaunchTasksPerformerReplacingMap =
         CFDictionaryCreateMutable(kCFAllocatorDefault, 0, NULL, NULL);
@@ -520,7 +508,7 @@ IMP LTLaunchTaskPerformerReplacedImpForClass(Class aClass) {
         (__bridge const void *)(aClass));
 }
 
-void LTSaveLaunchTaskPerformerReplacedImpForClass(Class aClass, IMP impl) {
+void LTSetLaunchTaskPerformerOriginalImpForClass(Class aClass, IMP impl) {
     if (kLTLaunchTasksPerformerReplacingMap == NULL) {
         kLTLaunchTasksPerformerReplacingMap =
         CFDictionaryCreateMutable(kCFAllocatorDefault, 0, NULL, NULL);
@@ -536,11 +524,11 @@ id LTLaunchTaskAppExtensionPerformer(id self, SEL _cmd) {
     LTPerformLaunchTasksOnLoadedClasses(nil);
     Class class = [self class];
     
-    id (*original_imp)(id, SEL) = (id (*)(id, SEL))
-    LTLaunchTaskPerformerReplacedImpForClass(class);
+    id (*originalImp)(id, SEL) = (id (*)(id, SEL))
+    LTGetLaunchTaskPerformerOriginalImpForClass(class);
     
-    if (original_imp != NULL) {
-        return original_imp(self, _cmd);
+    if (originalImp != NULL) {
+        return originalImp(self, _cmd);
     } else {
         [NSException raise:NSInternalInconsistencyException
                     format:@"Cannot find original implementation for %@ on %@",
@@ -555,7 +543,7 @@ id LTLaunchTaskAppExtensionPerformer(id self, SEL _cmd) {
 
 @implementation NSObject(LaunchTask)
 + (void)load {
-    if (!LTFindInjectPointAndInject()) {
+    if (!LTFindUserCodeEntryPointAndInjectLaunchTaskPerformer()) {
 #if DEBUG
         NSLog(@"Inject point not found for main bundle: %@", [NSBundle mainBundle]);
 #endif

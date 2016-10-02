@@ -341,7 +341,7 @@
 		63C8862F1C7F146400F5677F /* Nest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Nest.h; sourceTree = "<group>"; };
 		63C886351C7F15F300F5677F /* LegacyUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LegacyUtilities.h; sourceTree = "<group>"; };
 		63C886361C7F15F300F5677F /* LegacyUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LegacyUtilities.m; sourceTree = "<group>"; };
-		63CB59D41D8D1C490043E16F /* module.private.modulemap */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.module-map"; path = module.private.modulemap; sourceTree = "<group>"; };
+		63CB5A131D8DBA1C0043E16F /* module.private.modulemap */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.module-map"; path = module.private.modulemap; sourceTree = "<group>"; };
 		63DCC6991C64D753001949C9 /* ObjCCodingBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ObjCCodingBase.h; sourceTree = "<group>"; };
 		63DCC69A1C64D753001949C9 /* ObjCCodingBase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ObjCCodingBase.m; sourceTree = "<group>"; };
 		63DCC6A31C64E3CC001949C9 /* ObjCCodingBaseTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObjCCodingBaseTest.swift; sourceTree = "<group>"; };
@@ -706,7 +706,7 @@
 			children = (
 				63C8862F1C7F146400F5677F /* Nest.h */,
 				634A45A41D8AE3C4000989F0 /* module.modulemap */,
-				63CB59D41D8D1C490043E16F /* module.private.modulemap */,
+				63CB5A131D8DBA1C0043E16F /* module.private.modulemap */,
 			);
 			path = SupportingFiles;
 			sourceTree = "<group>";

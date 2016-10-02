@@ -14,11 +14,11 @@ void LTSwizzledLaunchTasksPerformer(id<WKExtensionDelegate> self, SEL _cmd) {
     
     Class class = [self class];
     
-    LTLaunchTaskPerformer * original_imp = (LTLaunchTaskPerformer *)
-    LTLaunchTaskPerformerReplacedImpForClass(class);
+    LTLaunchTaskPerformer * originalImp = (LTLaunchTaskPerformer *)
+    LTGetLaunchTaskPerformerOriginalImpForClass(class);
     
-    if (original_imp != NULL) {
-        original_imp(self, _cmd);
+    if (originalImp != NULL) {
+        originalImp(self, _cmd);
     } else {
         [NSException raise:NSInternalInconsistencyException
                     format:@"Cannot find original implementation for %@ on %@",
