@@ -9,13 +9,13 @@
 #import "LaunchTask-WatchKit.h"
 #import "LaunchTask+Internal.h"
 
-void LTSwizzledLaunchTasksPerformer(id<WKExtensionDelegate> self, SEL _cmd) {
+void LTLaunchTasksPerformerAppDelegateSwizzled(id<WKExtensionDelegate> self, SEL _cmd) {
     LTPerformLaunchTasksOnLoadedClasses(nil);
     
     Class class = [self class];
     
-    LTLaunchTaskPerformer * originalImp = (LTLaunchTaskPerformer *)
-    LTGetLaunchTaskPerformerOriginalImpForClass(class);
+    LTLaunchTasksPerformerAppDelegate * originalImp =
+        LTGetAppDelegateLaunchTasksPerformerOriginalImpForClass(class);
     
     if (originalImp != NULL) {
         originalImp(self, _cmd);
@@ -27,13 +27,6 @@ void LTSwizzledLaunchTasksPerformer(id<WKExtensionDelegate> self, SEL _cmd) {
     }
 }
 
-void LTInjectedLaunchTasksPerformer(id<WKExtensionDelegate> self, SEL _cmd) {
+void LTLaunchTasksPerformerAppDelegateInjected(id<WKExtensionDelegate> self, SEL _cmd) {
     LTPerformLaunchTasksOnLoadedClasses(nil);
-}
-
-void LTLaunchTaskHandlerDefault(SEL taskSelector,
-    id taskOwner,
-    void * context)
-{
-    
 }

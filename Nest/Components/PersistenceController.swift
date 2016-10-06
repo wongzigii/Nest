@@ -11,7 +11,8 @@ import CoreData
 import SwiftExt
 
 @available(iOS 3.0, *)
-open class PersistentController {
+@objc
+open class PersistentController: NSObject {
     
     public enum Context {
         case forFetching(NSManagedObjectContext)
@@ -21,8 +22,27 @@ open class PersistentController {
     public typealias ManagedObjectChanges
         = [NSManagedObjectChangeKey: Set<NSManagedObject>]
     
-    public enum State {
-        case notPrepared, preparing, ready, failed
+    @objc(PersistentControllerState)
+    public enum State: Int {
+        @objc(PersistentControllerStateNotPrepared)
+        case notPrepared
+        @objc(PersistentControllerStatePreparing)
+        case preparing
+        @objc(PersistentControllerStateReady)
+        case ready
+        @objc(PersistentControllerStateFailed)
+        case failed
+    }
+    
+    @objc(state)
+    private var _swift3CopmilerCrashWorkaround_state: State {
+        return _state
+    }
+    
+    @objc(fetchingContext)
+    private var _swift3CopmilerCrashWorkaround_fetchingContext
+        : NSManagedObjectContext {
+        return _fetchingContext
     }
     
     // Managed object context used for fetching and update. Not fully
@@ -94,6 +114,8 @@ open class PersistentController {
         
         _managedObjectModel = managedObjectModel
         
+        super.init()
+        
         _preparationQueue.async {
             let persistenStoreCoordinator = NSPersistentStoreCoordinator(
                 managedObjectModel: managedObjectModel
@@ -128,7 +150,7 @@ open class PersistentController {
             
             self._state = .ready
         }
-    
+        
         NotificationCenter.default.addObserver(
             self,
             selector:
@@ -265,22 +287,11 @@ open class PersistentController {
         }
     }
     
+    @objc(performBlockAndWait:)
     public func performAndWait(_ transaction: @escaping Transaction) {
-        switch _state {
-        case .ready:
-            let context = _fetchingContext
-            _fetchingContext.performAndWait {
-                transaction(context)
-            }
-        case .notPrepared:
-            while _state == .preparing || _state == .notPrepared {}
-            performAndWait(transaction)
-        case .preparing:
-            while _state == .preparing {}
-            performAndWait(transaction)
-        case .failed:
-            assertionFailure("Persistence controller initialization failed")
-        }
+        // Swift 3 compiler crash in production configuration workaround.
+        // Use method swizzle to replace this function with an Objective-C
+        // implementation.
     }
     
     fileprivate func _launch() { /* Do nothing here */ }

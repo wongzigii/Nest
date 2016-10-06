@@ -32,11 +32,11 @@ static void ObjCCodingBaseCodingCallBackRelease(ObjCCodingBaseCodingCallBack *);
 static Boolean ObjCCodingBaseCodingCallBackEqual(const void *, const void *);
 
 #pragma mark Coding
-id ObjCCodingBaseDefaultDecodeCallBack (Class, NSCoder *, NSString *);
-void ObjCCodingBaseDefaultEncodeCallBack (Class, NSCoder *, NSString *, id);
+static id ObjCCodingBaseDefaultDecodeCallBack (Class, NSCoder *, NSString *);
+static void ObjCCodingBaseDefaultEncodeCallBack (Class, NSCoder *, NSString *, id);
 
 #pragma mark Internal Utilities
-ObjCCodingBaseCodingCallBack * ObjCCodingBaseCodingCallBackForType(
+static ObjCCodingBaseCodingCallBack * ObjCCodingBaseCodingCallBackForType(
     const char *
 );
 
@@ -290,8 +290,8 @@ void ObjCCodingBaseDefaultEncodeCallBack (
 }
 
 ObjCCodingBaseEncodeCallBack ObjCCodingBaseEncodeCallBackForProperty(
-    Class aClass,
-    NSString * propertyName
+    const Class aClass,
+    const NSString * propertyName
     )
 {
     objc_property_t property = class_getProperty(
@@ -315,8 +315,8 @@ ObjCCodingBaseEncodeCallBack ObjCCodingBaseEncodeCallBackForProperty(
 }
 
 ObjCCodingBaseDecodeCallBack ObjCCodingBaseDecodeCallBackForProperty(
-    Class aClass,
-    NSString * propertyName
+    const Class aClass,
+    const NSString * propertyName
     )
 {
     objc_property_t property = class_getProperty(

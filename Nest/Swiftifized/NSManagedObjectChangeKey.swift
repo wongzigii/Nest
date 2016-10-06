@@ -28,6 +28,7 @@ public enum NSManagedObjectChangeKey: Hashable {
         case .managedObjectContextQueryGeneration:
             if #available(
                 iOSApplicationExtension 10.0,
+                tvOSApplicationExtension 10.0,
                 OSXApplicationExtension 10.12,
                 *
                 )
@@ -45,6 +46,7 @@ public enum NSManagedObjectChangeKey: Hashable {
     internal init(rawValue: String) {
         if #available(
             iOSApplicationExtension 10.0,
+            tvOSApplicationExtension 10.0,
             OSXApplicationExtension 10.12,
             *
             )

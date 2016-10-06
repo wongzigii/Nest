@@ -170,10 +170,21 @@ public final class ObjCProtocolMessageInterceptor: NSObject {
         -> Any?
     {
         if let target = _dispatchAndCache(message: aSelector) {
+            #if DEBUG
+                if shouldLogMessageForwarding {
+                    print(#function, aSelector, "->", target)
+                }
+            #endif
             return target
         }
         
-        return super.forwardingTarget(for: aSelector)
+        let target = super.forwardingTarget(for: aSelector)
+        #if DEBUG
+            if shouldLogMessageForwarding {
+                print(#function, aSelector, "->", target)
+            }
+        #endif
+        return target
     }
     
     /// Returns a Boolean value that indicates whether the receiver
@@ -181,10 +192,21 @@ public final class ObjCProtocolMessageInterceptor: NSObject {
     /// message.
     public override func responds(to aSelector: Selector) -> Bool {
         if _dispatchAndCache(message: aSelector) != nil {
+            #if DEBUG
+                if shouldLogMessageResponding {
+                    print(#function, aSelector, "->", true)
+                }
+            #endif
             return true
         }
         
-        return super.responds(to: aSelector)
+        let isRespond = super.responds(to: aSelector)
+        #if DEBUG
+            if shouldLogMessageResponding {
+                print(#function, aSelector, "->", isRespond)
+            }
+        #endif
+        return isRespond
     }
     
     //MARK: Manage Middle Men
@@ -319,19 +341,40 @@ public final class ObjCProtocolMessageInterceptor: NSObject {
             
             for (idx, middleManWrapper) in _middleMen.enumerated() {
                 if let middleMan = middleManWrapper.value {
-                    _dispatchTable.setObject(middleMan, forKey: msgKey)
-                    return middleMan
+                    if middleMan.responds(to: message) {
+                        _dispatchTable.setObject(
+                            middleMan, forKey: msgKey
+                        )
+                        #if DEBUG
+                            if shouldLogMessageDispatching {
+                                print("\(self) dispatched \"\(NSStringFromSelector(message))\" to middle man: \(middleMan).")
+                            }
+                        #endif
+                        return middleMan
+                    }
                 } else {
                     emptyMiddleManWrappersIndices.append(idx)
                 }
             }
             
-            if receiver?.responds(to: message) == true {
+            if let receiver = receiver,
+                receiver.responds(to: message) == true
+            {
                 _dispatchTable.setObject(receiver, forKey: msgKey)
+                #if DEBUG
+                    if shouldLogMessageDispatching {
+                        print("\(self) dispatched \"\(NSStringFromSelector(message))\" to receiver: \(receiver).")
+                    }
+                #endif
                 return receiver
             }
             
             _dispatchTable.setObject(NSNull(), forKey: msgKey)
+            #if DEBUG
+                if shouldLogMessageDispatching {
+                    print("\(self) dispatched \"\(NSStringFromSelector(message))\" to nil.")
+                }
+            #endif
             return nil
         }
         
@@ -352,6 +395,12 @@ public final class ObjCProtocolMessageInterceptor: NSObject {
     
     /// The receiver receives messages.
     public weak var receiver: NSObjectProtocol?
+    
+    #if DEBUG
+    public var shouldLogMessageDispatching: Bool = false
+    public var shouldLogMessageForwarding: Bool = false
+    public var shouldLogMessageResponding: Bool = false
+    #endif
     
     private var _middleMen: [Weak<NSObjectProtocol>] = []
     

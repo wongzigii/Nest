@@ -18,131 +18,109 @@
  */
 
 #pragma mark - Types
-typedef struct OCSASSelfAwareSwizzleTaskContext {
+typedef struct _ObjCSelfAwareSwizzleContext {
     CFMutableDictionaryRef swizzledRecords;
-} OCSASSelfAwareSwizzleTaskContext;
+} ObjCSelfAwareSwizzleContext;
 
-typedef NS_OPTIONS(NSUInteger, OCSASSelfAwareSwizzleSelectorMatchResult) {
-    OCSASSelfAwareSwizzleSelectorMatchResultUnmatched           = 0,
-    OCSASSelfAwareSwizzleSelectorMatchResultMatched             = 1 << 0,
-    OCSASSelfAwareSwizzleSelectorMatchResultMatchedIgnoreCase   = 1 << 1,
+typedef NS_OPTIONS(NSUInteger, ObjCSelfAwareSwizzleSelectorMatchResult) {
+    ObjCSelfAwareSwizzleSelectorMatchResultUnmatched           = 0,
+    ObjCSelfAwareSwizzleSelectorMatchResultMatched             = 1 << 0,
+    ObjCSelfAwareSwizzleSelectorMatchResultMatchedIgnoreCase   = 1 << 1,
 };
 
-typedef id (* OCSASSelfAwareSwizzleGetter)(id, SEL);
+typedef id (* ObjCSelfAwareSwizzleCombinationGetter)(id, SEL);
 
 #pragma mark - Functions Prototypes
 
-static void OCSASSelfAwareSwizzleTaskContextCleanupHandler(void *);
+static void ObjCSelfAwareSwizzleContextCleanupHandler(void *);
 
-void OCSASSelfAwareSwizzleTaskSelectorHandler(
-    SEL,
-    id,
-    Method,
-    NSArray *,
+static void ObjCSelfAwareSwizzleSelectorHandler(
+    const SEL,
+    const id,
+    const Method,
+    const NSArray *,
     const void *
 );
 
-static void OCSASPerformSelfAwareSwizzle(
+static void ObjCSelfAwareSwizzlePerformSwizzleCombination(
+    const id,
+    const SEL,
+    const Class,
+    const ObjCSelfAwareSwizzleContext *
+);
+
+static void ObjCSelfAwareSwizzlePerformSwizzle(
     ObjCSelfAwareSwizzle *,
     Class,
-    const OCSASSelfAwareSwizzleTaskContext *
+    const ObjCSelfAwareSwizzleContext *
+);
+
+static void ObjCSelfAwareSwizzlePerformSwizzles(
+    const id <NSFastEnumeration>,
+    const SEL,
+    const Class,
+    const ObjCSelfAwareSwizzleContext *
 );
 
 #if DEBUG
-static BOOL OCSASDoesClassHostSelfAwareSelectorOnClass(Class, Class);
+static BOOL ObjCSelfAwareSwizzleDoesClassHostSelfAwareSelectorOnClass(
+    const Class, const Class
+);
 
-static NSString * OCSASSelfAwareSwizzleDescription(ObjCSelfAwareSwizzle *);
+static NSString * ObjCSelfAwareSwizzleDescription(
+    const ObjCSelfAwareSwizzle *
+);
 #endif
 
 #pragma mark - Functions Implementations
-void OCSASSelfAwareSwizzleTaskContextCleanupHandler(void * taskContext) {
-    OCSASSelfAwareSwizzleTaskContext * selfAwareSwizzleTaskContext =
-        (OCSASSelfAwareSwizzleTaskContext *)taskContext;
+void ObjCSelfAwareSwizzleContextCleanupHandler(void * context) {
+    ObjCSelfAwareSwizzleContext * selfAwareContext =
+        (ObjCSelfAwareSwizzleContext *)context;
     
-    if (selfAwareSwizzleTaskContext -> swizzledRecords) {
-        CFRelease(selfAwareSwizzleTaskContext -> swizzledRecords);
+    if (selfAwareContext -> swizzledRecords) {
+        CFRelease(selfAwareContext -> swizzledRecords);
     }
     
-    free(selfAwareSwizzleTaskContext);
+    free(selfAwareContext);
 }
 
-void OCSASSelfAwareSwizzleTaskSelectorHandler(
-    SEL taskSelector,
-    id taskOwner,
-    Method taskMethod,
-    NSArray * taskArgs,
-    const void * taskContext
+void ObjCSelfAwareSwizzleSelectorHandler(
+    SEL selector,
+    id owner,
+    Method method,
+    NSArray * args,
+    const void * context
     )
 {
-    OCSASSelfAwareSwizzleTaskContext * selfAwareSwizzleTaskContext =
-    (OCSASSelfAwareSwizzleTaskContext *)taskContext;
+    // Get self-aware swizzle combination
+    ObjCSelfAwareSwizzleCombinationGetter swizzleCombinationGetter =
+        (ObjCSelfAwareSwizzleCombinationGetter)
+        method_getImplementation(method);
     
-    // Get self-aware swizzle context
-    OCSASSelfAwareSwizzleGetter SelfAwareSwizzleGetter =
-    (OCSASSelfAwareSwizzleGetter)method_getImplementation(taskMethod);
-    
-    id potentialSwizzle = (* SelfAwareSwizzleGetter)(
-        taskOwner,
-        taskSelector
+    id swizzleCombination = (* swizzleCombinationGetter)(
+        owner,
+        selector
     );
     
-    if (potentialSwizzle == nil) {
+    if (swizzleCombination == nil) {
 #if DEBUG
         NSLog(@"Unexpected Self-Aware Swizzle selector: %@ on %@ returns nil.",
-              NSStringFromSelector(taskSelector),
-              NSStringFromClass(taskOwner));
+              NSStringFromSelector(selector),
+              NSStringFromClass(owner));
 #endif
         return;
     }
     
-    if ([potentialSwizzle isKindOfClass:[ObjCSelfAwareSwizzle class]]) {
-        ObjCSelfAwareSwizzle * swizzle =
-        (ObjCSelfAwareSwizzle *)potentialSwizzle;
-        OCSASPerformSelfAwareSwizzle(
-            swizzle,
-            taskOwner,
-            selfAwareSwizzleTaskContext
-        );
-    } else if ([potentialSwizzle isKindOfClass:[NSArray class]]) {
-        NSArray * potentialSwizzles = (NSArray *)potentialSwizzle;
-        
-        [potentialSwizzles enumerateObjectsUsingBlock:
-         ^(id eachPotentialSwizzle, NSUInteger idx, BOOL * stop) {
-             if ([eachPotentialSwizzle
-                  isKindOfClass:[ObjCSelfAwareSwizzle class]])
-             {
-                 ObjCSelfAwareSwizzle * swizzle =
-                 (ObjCSelfAwareSwizzle *)eachPotentialSwizzle;
-                 OCSASPerformSelfAwareSwizzle(
-                    swizzle,
-                    taskOwner,
-                    selfAwareSwizzleTaskContext
-                );
-             }
-#if DEBUG
-             else {
-                 NSLog(@"Unexpected Self-Aware Swizzle selector: %@ on %@ doesn't return with a value of type of %@ but %@.",
-                       NSStringFromSelector(taskSelector),
-                       NSStringFromClass(taskOwner),
-                       NSStringFromClass([ObjCSelfAwareSwizzle class]),
-                       NSStringFromClass([potentialSwizzle class]));
-             }
-#endif
-         }];
-    }
-#if DEBUG
-    else {
-        NSLog(@"Unexpected Self-Aware Swizzle selector: %@ on %@ doesn't return with a value of type of %@ but %@.",
-              NSStringFromSelector(taskSelector),
-              NSStringFromClass(taskOwner),
-              NSStringFromClass([ObjCSelfAwareSwizzle class]),
-              NSStringFromClass([potentialSwizzle class]));
-    }
-#endif
+    ObjCSelfAwareSwizzleContext * selfAwareSwizzleContext =
+        (ObjCSelfAwareSwizzleContext *)context;
+    
+    ObjCSelfAwareSwizzlePerformSwizzleCombination(
+        swizzleCombination, selector, owner, selfAwareSwizzleContext
+    );
 }
 
 #if DEBUG
-BOOL OCSASDoesClassHostSelfAwareSelectorOnClass(
+BOOL ObjCSelfAwareSwizzleDoesClassHostSelfAwareSelectorOnClass(
     Class hostClass,
     Class targetClass
     )
@@ -161,10 +139,43 @@ BOOL OCSASDoesClassHostSelfAwareSelectorOnClass(
 }
 #endif
 
-void OCSASPerformSelfAwareSwizzle(
+void ObjCSelfAwareSwizzlePerformSwizzleCombination(
+    const id swizzleCombination,
+    const SEL sel,
+    const Class cls,
+    const ObjCSelfAwareSwizzleContext * ctx
+    )
+{
+    if ([swizzleCombination isKindOfClass:[ObjCSelfAwareSwizzle class]]) {
+        ObjCSelfAwareSwizzle * swizzle =
+            (ObjCSelfAwareSwizzle *)swizzleCombination;
+        
+        ObjCSelfAwareSwizzlePerformSwizzle(
+            swizzle,
+            cls,
+            ctx
+        );
+    } else if ([swizzleCombination conformsToProtocol:@protocol(NSFastEnumeration)]) {
+        NSObject <NSFastEnumeration> * swizzles
+            = (NSObject <NSFastEnumeration> *)swizzleCombination;
+        
+        ObjCSelfAwareSwizzlePerformSwizzles(swizzles, sel, cls, ctx);
+    }
+#if DEBUG
+    else {
+        NSLog(@"Unexpected Self-Aware Swizzle selector: %@ on %@ doesn't return with a value of type of %@ but %@.",
+              NSStringFromSelector(sel),
+              NSStringFromClass(cls),
+              NSStringFromClass([ObjCSelfAwareSwizzle class]),
+              NSStringFromClass([swizzleCombination class]));
+    }
+#endif
+}
+
+void ObjCSelfAwareSwizzlePerformSwizzle(
     ObjCSelfAwareSwizzle * swizzle,
     Class aClass,
-    const OCSASSelfAwareSwizzleTaskContext * taskContext
+    const ObjCSelfAwareSwizzleContext * taskContext
     )
 {
     Class targetClass = swizzle.targetClass;
@@ -172,22 +183,18 @@ void OCSASPerformSelfAwareSwizzle(
     SEL targetSelector = swizzle.targetSelector;
     
 #if DEBUG
-    if (!OCSASDoesClassHostSelfAwareSelectorOnClass(aClass, targetClass)) {
-        NSLog(@"Class to be swizzled %@ is not the Self-Aware Swizzle selector's host class %@.",
+    if (!ObjCSelfAwareSwizzleDoesClassHostSelfAwareSelectorOnClass(aClass, targetClass)) {
+        NSLog(@"Class to be swizzled %@ is not the Self-Aware Swizzle selector's containing class %@.",
               NSStringFromClass(targetClass),
               NSStringFromClass(aClass));
     }
-    if (targetSelector == NSSelectorFromString(@"dealloc")) {
-        NSLog(@"Swizzling againsts -dealloc is discouraged!");
-    }
-    if (targetSelector == NSSelectorFromString(@"retain")) {
-        NSLog(@"Swizzling againsts -reatain is discouraged!");
-    }
-    if (targetSelector == NSSelectorFromString(@"release")) {
-        NSLog(@"Swizzling againsts -release is discouraged!");
-    }
-    if (targetSelector == NSSelectorFromString(@"retainCount")) {
-        NSLog(@"Swizzling againsts -retainCount is discouraged!");
+    if (targetSelector == NSSelectorFromString(@"dealloc")
+        || targetSelector == NSSelectorFromString(@"retain")
+        || targetSelector == NSSelectorFromString(@"release")
+        || targetSelector == NSSelectorFromString(@"retainCount")
+        )
+    {
+        NSLog(@"Swizzling againsts -%@ is discouraged!", NSStringFromSelector(targetSelector));
     }
 #endif
     
@@ -260,7 +267,7 @@ void OCSASPerformSelfAwareSwizzle(
         if (targetMethodDescription == NULL) {
 #if DEBUG
             NSLog(@"Swizzling FAILED: Selector wasn't implemented: %@",
-                  OCSASSelfAwareSwizzleDescription(swizzle));
+                  ObjCSelfAwareSwizzleDescription(swizzle));
 #endif
         } else {
             NSError * error = nil;
@@ -271,12 +278,12 @@ void OCSASPerformSelfAwareSwizzle(
                     (__bridge const void *)(swizzle)
                 );
 #if DEBUG
-                NSLog(@"Swizzling succeeded %@",
-                      OCSASSelfAwareSwizzleDescription(swizzle));
+                NSLog(@"Swizzle succeeded %@",
+                      ObjCSelfAwareSwizzleDescription(swizzle));
 #endif
             } else {
 #if DEBUG
-                NSLog(@"Swizzling FAILED due to error: %@", error.description);
+                NSLog(@"Swizzle FAILED due to error: %@", error.description);
 #endif
             }
         }
@@ -284,15 +291,68 @@ void OCSASPerformSelfAwareSwizzle(
 #if DEBUG
     else {
         NSLog(@"Swizzling FAILED: Duplicate swizzling: %@",
-              OCSASSelfAwareSwizzleDescription(swizzle));
+              ObjCSelfAwareSwizzleDescription(swizzle));
     }
 #endif
+}
+
+void ObjCSelfAwareSwizzlePerformSwizzles(
+    NSObject <NSFastEnumeration> * swizzles,
+    SEL sel,
+    Class cls,
+    const ObjCSelfAwareSwizzleContext * ctx
+    )
+{
+    BOOL isSwizzlesADictionary
+        = [swizzles isKindOfClass:[NSDictionary class]];
     
+    BOOL isSwizzlesAMapTable
+        = [swizzles isKindOfClass:[NSMapTable class]];
     
+    for (id each in swizzles) {
+        if (isSwizzlesADictionary) {
+            NSDictionary * dict = (NSDictionary *) swizzles;
+            id potentialSwizzle = dict[each];
+            if (potentialSwizzle) {
+                ObjCSelfAwareSwizzlePerformSwizzleCombination(
+                    potentialSwizzle, sel, cls, ctx
+                );
+            }
+        } else if (isSwizzlesAMapTable) {
+            NSMapTable * mapTable = (NSMapTable *) swizzles;
+            id potentialSwizzle = [mapTable objectForKey:each];
+            if (potentialSwizzle) {
+                ObjCSelfAwareSwizzlePerformSwizzleCombination(
+                    potentialSwizzle, sel, cls, ctx
+                );
+            }
+        } else {
+            if ([each isKindOfClass:[ObjCSelfAwareSwizzle class]]) {
+                ObjCSelfAwareSwizzle * swizzle
+                    = (ObjCSelfAwareSwizzle *) each;
+                ObjCSelfAwareSwizzlePerformSwizzle(swizzle, cls, ctx);
+            } else if ([each conformsToProtocol:@protocol(NSFastEnumeration)]) {
+                NSObject <NSFastEnumeration> * swizzles
+                    = (NSObject <NSFastEnumeration> *)each;
+                ObjCSelfAwareSwizzlePerformSwizzles(
+                    swizzles, sel, cls, ctx
+                );
+            }
+#if DEBUG
+            else {
+                NSLog(@"Unexpected Self-Aware Swizzle selector: %@ on %@ doesn't return with a value of type of %@ but %@.",
+                      NSStringFromSelector(sel),
+                      NSStringFromClass(cls),
+                      NSStringFromClass([ObjCSelfAwareSwizzle class]),
+                      NSStringFromClass([each class]));
+            }
+#endif
+        }
+    }
 }
 
 #if DEBUG
-NSString * OCSASSelfAwareSwizzleDescription(ObjCSelfAwareSwizzle * swizzle) {
+NSString * ObjCSelfAwareSwizzleDescription(ObjCSelfAwareSwizzle * swizzle) {
     if (swizzle.isMetaClass) {
         return [NSString stringWithFormat:@"[%@ +%@]",
                 NSStringFromClass(swizzle.targetClass),
@@ -306,18 +366,14 @@ NSString * OCSASSelfAwareSwizzleDescription(ObjCSelfAwareSwizzle * swizzle) {
 #endif
 
 #pragma mark - Register Self-Aware Swizzle as A Launch Task
-@interface NSObject(SelfAwareSwizzle)
-@end
-
 @implementation NSObject(SelfAwareSwizzle)
 + (void)load {
     // Create a clean task cotnext
-    OCSASSelfAwareSwizzleTaskContext * taskContextRef =
-    malloc(sizeof(OCSASSelfAwareSwizzleTaskContext));
-    memset(taskContextRef, 0, sizeof(OCSASSelfAwareSwizzleTaskContext));
+    ObjCSelfAwareSwizzleContext * contextRef =
+        calloc(1, sizeof(ObjCSelfAwareSwizzleContext));
     
     // Initialize task context
-    taskContextRef -> swizzledRecords = CFDictionaryCreateMutable(
+    contextRef -> swizzledRecords = CFDictionaryCreateMutable(
         kCFAllocatorDefault,
         0,
         NULL,
@@ -327,9 +383,9 @@ NSString * OCSASSelfAwareSwizzleDescription(ObjCSelfAwareSwizzle * swizzle) {
     // Register launch task info
     LTRegisterLaunchTask(
         "_ObjCSelfAwareSwizzle_",
-        &OCSASSelfAwareSwizzleTaskSelectorHandler,
-        taskContextRef,
-        &OCSASSelfAwareSwizzleTaskContextCleanupHandler,
+        &ObjCSelfAwareSwizzleSelectorHandler,
+        contextRef,
+        &ObjCSelfAwareSwizzleContextCleanupHandler,
         -100
     );
 }

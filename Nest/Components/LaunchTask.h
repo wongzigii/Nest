@@ -116,8 +116,7 @@ NS_ASSUME_NONNULL_BEGIN
 // ````
 //
 // Of course, with a function, you can have arguments and return value.
-//
-// But since the user code entry points not always come with arguments(
+// But since the user code entry point not always comes with arguments(
 // like app extension, no arguments), and if your launch tasks are put in
 // frameworks for both app and app extension, you shall not count on
 // receiving them all the time -- which means you shall keep those
@@ -162,10 +161,10 @@ NS_ASSUME_NONNULL_BEGIN
 /// - Parameter context: The user defined context used for the launch task
 /// working.
 typedef void (* LTLaunchTaskHandler)(
-    SEL selector,
-    id owner,
-    Method method,
-    NSArray * arguments,
+    const SEL selector,
+    const id owner,
+    const Method method,
+    const NSArray * arguments,
     const void * __nullable  context
 ) NS_SWIFT_UNAVAILABLE("Define launch task handler in Objective-C.");
 
@@ -209,5 +208,30 @@ FOUNDATION_EXPORT BOOL LTRegisterLaunchTask(
     const LTLaunchTaskContextCleanupHandler __nullable contextCleanupHandler,
     int priority
 ) NS_SWIFT_UNAVAILABLE("You shall call this function in +load method with Objective-C code.");
+
+typedef NS_ENUM(NSInteger, NSMainBundleCategory) {
+    NSMainBundleCategoryNotMainBundle,
+    NSMainBundleCategoryApplication,
+    NSMainBundleCategoryExtension,
+#if DEBUG
+    NSMainBundleCategoryXcodeAgents,
+    NSMainBundleCategoryPlaygroundPage,
+#endif
+} NS_SWIFT_NAME(MainBundleCategory);
+
+@interface NSBundle (Category)
+@property (nonatomic, readonly) NSMainBundleCategory category;
+@end
+
+/// Perform all the registered launch tasks if it is needed.
+///
+/// - Notes: Launch Task doesn't support Xcode Playground currently. Call
+/// this function in the very begining of your code to perform all the
+/// registered launch tasks.
+///
+/// - Warning: This function shall be removed when Xcode Playground get
+/// supported.
+FOUNDATION_EXPORT void LTPerformLaunchTasksIfNeeded(void)
+NS_SWIFT_NAME(performLaunchTasksIfNeeded());
 
 NS_ASSUME_NONNULL_END
