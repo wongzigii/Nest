@@ -11,39 +11,8 @@ import CoreData
 import SwiftExt
 
 @available(iOS 3.0, *)
-open class PersistentController {
-    
-    public enum Context {
-        case forFetching(NSManagedObjectContext)
-        case forSaving(NSManagedObjectContext)
-    }
-    
-    public typealias ManagedObjectChanges
-        = [NSManagedObjectChangeKey: Set<NSManagedObject>]
-    
-    public enum State {
-        case notPrepared, preparing, ready, failed
-    }
-    
-    // Managed object context used for fetching and update. Not fully
-    // initialized simultaneously with the object
-    private let _fetchingContext: NSManagedObjectContext
-    
-    // Managed object context used for saving. Corresponds to the
-    // persistent store. Not fully initialized simultaneously with the
-    // object.
-    private let _savingContext: NSManagedObjectContext
-    
-    public private(set) var saving: Bool = false
-    
-    private var _state: State = .notPrepared
-    
-    private var _preparationQueue: DispatchQueue = DispatchQueue(
-        label: "com.WeZZard.Nest.PersistentController.PreparationQueue"
-    )
-    
-    private let _managedObjectModel: NSManagedObjectModel
-    
+@objc
+open class PersistentController: NSObject {
     public init(
         bundle: Bundle,
         storeURL: URL,
@@ -94,6 +63,8 @@ open class PersistentController {
         
         _managedObjectModel = managedObjectModel
         
+        super.init()
+        
         _preparationQueue.async {
             let persistenStoreCoordinator = NSPersistentStoreCoordinator(
                 managedObjectModel: managedObjectModel
@@ -128,7 +99,7 @@ open class PersistentController {
             
             self._state = .ready
         }
-    
+        
         NotificationCenter.default.addObserver(
             self,
             selector:
@@ -242,9 +213,6 @@ open class PersistentController {
         }
     }
     
-    public typealias Transaction =
-        (_ context: NSManagedObjectContext) -> Void
-    
     public func perform(_ transaction: @escaping Transaction) {
         switch _state {
         case .ready:
@@ -265,6 +233,14 @@ open class PersistentController {
         }
     }
     
+    #if SWIFT_FONTEND_CRASHES_WITH_OPTIMIZATION_AND_EMITTING_DEBUG_INFO
+    @objc(performBlockAndWait:)
+    public func performAndWait(_ transaction: @escaping Transaction) {
+        // Swift 3 compiler crash in production configuration workaround.
+        // Use method swizzle to replace this function with an Objective-C
+        // implementation.
+    }
+    #else
     public func performAndWait(_ transaction: @escaping Transaction) {
         switch _state {
         case .ready:
@@ -282,6 +258,7 @@ open class PersistentController {
             assertionFailure("Persistence controller initialization failed")
         }
     }
+    #endif
     
     fileprivate func _launch() { /* Do nothing here */ }
     
@@ -377,6 +354,74 @@ open class PersistentController {
             withName: name, substitutionVariables: substitutionVariables
         )
     }
+    
+    // MARK: Computed Properties
+    #if SWIFT_FONTEND_CRASHES_WITH_OPTIMIZATION_AND_EMITTING_DEBUG_INFO
+    @objc(state)
+    private var _swift3CopmilerCrashWorkaround_state: State {
+        return _state
+    }
+    
+    @objc(fetchingContext)
+    private var _swift3CopmilerCrashWorkaround_fetchingContext
+        : NSManagedObjectContext {
+        return _fetchingContext
+    }
+    #endif
+    
+    // MARK: Stored Properties
+    
+    // Managed object context used for fetching and update. Not fully
+    // initialized simultaneously with the object
+    private let _fetchingContext: NSManagedObjectContext
+    
+    // Managed object context used for saving. Corresponds to the
+    // persistent store. Not fully initialized simultaneously with the
+    // object.
+    private let _savingContext: NSManagedObjectContext
+    
+    public private(set) var saving: Bool = false
+    
+    private var _state: State = .notPrepared
+    
+    private var _preparationQueue: DispatchQueue = DispatchQueue(
+        label: "com.WeZZard.Nest.PersistentController.PreparationQueue"
+    )
+    
+    private let _managedObjectModel: NSManagedObjectModel
+    
+    // MARK: Nested Type
+    public enum Context {
+        case forFetching(NSManagedObjectContext)
+        case forSaving(NSManagedObjectContext)
+    }
+    
+    public typealias ManagedObjectChanges
+        = [NSManagedObjectChangeKey: Set<NSManagedObject>]
+    
+    public typealias Transaction =
+        (_ context: NSManagedObjectContext) -> Void
+    
+    #if SWIFT_FONTEND_CRASHES_WITH_OPTIMIZATION_AND_EMITTING_DEBUG_INFO
+    @objc(PersistentControllerState)
+    public enum State: Int {
+        @objc(PersistentControllerStateNotPrepared)
+        case notPrepared
+        @objc(PersistentControllerStatePreparing)
+        case preparing
+        @objc(PersistentControllerStateReady)
+        case ready
+        @objc(PersistentControllerStateFailed)
+        case failed
+    }
+    #else
+    public enum State: Int {
+        case notPrepared
+        case preparing
+        case ready
+        case failed
+    }
+    #endif
 }
 
 extension Notification {

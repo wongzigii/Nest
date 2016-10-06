@@ -210,7 +210,7 @@ extension ObjCProtocolMessageIntercepting {
             
             for (idx, destWrapper) in _destinations.enumerated() {
                 if let dest = destWrapper.value {
-                    if dest.responds(to: message) == true {
+                    if dest.responds(to: message) {
                         _dispatchTable.setObject(dest, forKey: selString)
                         return dest
                     }

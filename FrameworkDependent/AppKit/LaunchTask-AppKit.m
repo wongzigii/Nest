@@ -9,16 +9,18 @@
 #import "LaunchTask-AppKit.h"
 #import "LaunchTask+Internal.h"
 
-void LTSwizzledLaunchTasksPerformer(id<NSApplicationDelegate> self,
+void LTLaunchTasksPerformerAppDelegateSwizzled(
+    id<NSApplicationDelegate> self,
     SEL _cmd,
-    NSNotification * notification)
+    NSNotification * notification
+    )
 {
     LTPerformLaunchTasksOnLoadedClasses(notification, nil);
     
     Class class = [self class];
     
-    LTLaunchTaskPerformer * originalImp = (LTLaunchTaskPerformer *)
-    LTGetLaunchTaskPerformerOriginalImpForClass(class);
+    LTLaunchTasksPerformerAppDelegate * originalImp =
+        LTGetAppDelegateLaunchTasksPerformerOriginalImpForClass(class);
     
     if (originalImp != NULL) {
         originalImp(self, _cmd, notification);
@@ -30,16 +32,11 @@ void LTSwizzledLaunchTasksPerformer(id<NSApplicationDelegate> self,
     }
 }
 
-void LTInjectedLaunchTasksPerformer(id<NSApplicationDelegate> self,
+void LTLaunchTasksPerformerAppDelegateInjected(
+    id<NSApplicationDelegate> self,
     SEL _cmd,
-    NSNotification * notification)
+    NSNotification * notification
+    )
 {
     LTPerformLaunchTasksOnLoadedClasses(notification, nil);
-}
-
-void LTLaunchTaskHandlerDefault(SEL taskSelector,
-    id taskOwner,
-    void * context)
-{
-    
 }

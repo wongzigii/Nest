@@ -8,9 +8,9 @@
 
 @import Foundation;
 
-typedef id (*ObjCCodingBaseDecodeCallBack) (Class, NSCoder *, NSString *);
+typedef id (*ObjCCodingBaseDecodeCallBack) (const Class, const NSCoder *, const NSString *);
 
-typedef void (*ObjCCodingBaseEncodeCallBack) (Class, NSCoder *, NSString *, id);
+typedef void (*ObjCCodingBaseEncodeCallBack) (const Class, const NSCoder *, const NSString *, const id);
 
 /** The default implementation of decode call-back.
 
@@ -44,7 +44,7 @@ FOUNDATION_EXTERN BOOL ObjCCodingBaseRegisterCodingCallBacks(
 );
 
 FOUNDATION_EXPORT ObjCCodingBaseEncodeCallBack
-ObjCCodingBaseEncodeCallBackForProperty(Class, NSString *);
+ObjCCodingBaseEncodeCallBackForProperty(const Class, const NSString *);
 
 FOUNDATION_EXPORT ObjCCodingBaseDecodeCallBack
-ObjCCodingBaseDecodeCallBackForProperty(Class, NSString *);
+ObjCCodingBaseDecodeCallBackForProperty(const Class, const NSString *);

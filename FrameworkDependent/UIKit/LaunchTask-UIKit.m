@@ -9,17 +9,19 @@
 #import "LaunchTask-UIKit.h"
 #import "LaunchTask+Internal.h"
 
-BOOL LTSwizzledLaunchTasksPerformer(id<UIApplicationDelegate> self,
+BOOL LTLaunchTasksPerformerAppDelegateSwizzled(
+    id<UIApplicationDelegate> self,
     SEL _cmd,
     UIApplication * application,
-    NSDictionary * options)
+    NSDictionary * options
+    )
 {
     LTPerformLaunchTasksOnLoadedClasses(application, options, nil);
     
     Class class = [self class];
     
-    LTLaunchTaskPerformer * originalImp = (LTLaunchTaskPerformer *)
-    LTGetLaunchTaskPerformerOriginalImpForClass(class);
+    LTLaunchTasksPerformerAppDelegate * originalImp =
+        LTGetAppDelegateLaunchTasksPerformerOriginalImpForClass(class);
     
     if (originalImp != NULL) {
         return originalImp(self, _cmd, application, options);
@@ -32,10 +34,12 @@ BOOL LTSwizzledLaunchTasksPerformer(id<UIApplicationDelegate> self,
     }
 }
 
-BOOL LTInjectedLaunchTasksPerformer(id<UIApplicationDelegate> self,
+BOOL LTLaunchTasksPerformerAppDelegateInjected(
+    id<UIApplicationDelegate> self,
     SEL _cmd,
     UIApplication * application,
-    NSDictionary * options)
+    NSDictionary * options
+    )
 {
     LTPerformLaunchTasksOnLoadedClasses(application, options, nil);
     

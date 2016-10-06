@@ -10,17 +10,20 @@
 
 #import "LaunchTask.h"
 
-typedef BOOL LTLaunchTaskPerformer(id<UIApplicationDelegate>,
-    SEL,
-    UIApplication *,
-    NSDictionary *);
+#define LTStoryboard UIStoryboard
+
+#define LTMainStoryboardFileKey @"UIMainStoryboardFile"
 
 #define LTAppDelegate UIApplicationDelegate
 
-#define LTLaunchTasksPerformSelector application:willFinishLaunchingWithOptions:
+#define LTAppDelegateUserCodeEntryPointSelector application:willFinishLaunchingWithOptions:
 
-#define LTLaunchTasksPerformSelectorEncode "@:@@"
+#define LTAppDelegateUserCodeEntryPointSelectorEncode "@:@@"
 
-FOUNDATION_EXPORT LTLaunchTaskPerformer LTSwizzledLaunchTasksPerformer;
+typedef BOOL LTLaunchTasksPerformerAppDelegate(
+    id<UIApplicationDelegate>, SEL, UIApplication *, NSDictionary *
+);
 
-FOUNDATION_EXPORT LTLaunchTaskPerformer LTInjectedLaunchTasksPerformer;
+FOUNDATION_EXPORT LTLaunchTasksPerformerAppDelegate LTLaunchTasksPerformerAppDelegateSwizzled;
+
+FOUNDATION_EXPORT LTLaunchTasksPerformerAppDelegate LTLaunchTasksPerformerAppDelegateInjected;

@@ -26,6 +26,177 @@
 		633ECED31C157BD10082D870 /* NSCoderInterfaceNormalizationTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 633ECED01C157BD10082D870 /* NSCoderInterfaceNormalizationTest.swift */; };
 		635F11341BFAFD00004982B4 /* Nest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 635F112A1BFAFCFF004982B4 /* Nest.framework */; };
 		635F12DA1BFB229E004982B4 /* SwiftExt.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 635F12D91BFB229E004982B4 /* SwiftExt.framework */; };
+<<<<<<< HEAD
+		6366D0CB1D69817400A4D01C /* NSManagedObject+InitWithContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6366D0CA1D69817400A4D01C /* NSManagedObject+InitWithContext.swift */; };
+		6366D0CC1D69817400A4D01C /* NSManagedObject+InitWithContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6366D0CA1D69817400A4D01C /* NSManagedObject+InitWithContext.swift */; };
+		6366D0CD1D69817400A4D01C /* NSManagedObject+InitWithContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6366D0CA1D69817400A4D01C /* NSManagedObject+InitWithContext.swift */; };
+		6366D0CE1D69817400A4D01C /* NSManagedObject+InitWithContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6366D0CA1D69817400A4D01C /* NSManagedObject+InitWithContext.swift */; };
+		6371F2051C7F57FC00837BB7 /* ObjCCodingBase-CoreGraphics.m in Sources */ = {isa = PBXBuildFile; fileRef = 6371F2031C7F57FC00837BB7 /* ObjCCodingBase-CoreGraphics.m */; };
+		6371F2061C7F57FC00837BB7 /* ObjCCodingBase-CoreGraphics.m in Sources */ = {isa = PBXBuildFile; fileRef = 6371F2031C7F57FC00837BB7 /* ObjCCodingBase-CoreGraphics.m */; };
+		6371F2071C7F57FC00837BB7 /* ObjCCodingBase-CoreGraphics.m in Sources */ = {isa = PBXBuildFile; fileRef = 6371F2031C7F57FC00837BB7 /* ObjCCodingBase-CoreGraphics.m */; };
+		6371F2081C7F57FC00837BB7 /* ObjCCodingBase-CoreGraphics.m in Sources */ = {isa = PBXBuildFile; fileRef = 6371F2031C7F57FC00837BB7 /* ObjCCodingBase-CoreGraphics.m */; };
+		6371F2141C7F829C00837BB7 /* ObjCCodingBase-UIKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 6371F2121C7F829C00837BB7 /* ObjCCodingBase-UIKit.m */; };
+		6371F2171C7F829C00837BB7 /* ObjCCodingBase-UIKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 6371F2121C7F829C00837BB7 /* ObjCCodingBase-UIKit.m */; };
+		637377021D617A5C00C735C7 /* ObjectiveC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F11031BFAFB4D004982B4 /* ObjectiveC.swift */; };
+		637377031D617A5C00C735C7 /* ObjectiveC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F11031BFAFB4D004982B4 /* ObjectiveC.swift */; };
+		637377041D617A5D00C735C7 /* ObjectiveC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F11031BFAFB4D004982B4 /* ObjectiveC.swift */; };
+		637377051D617A5D00C735C7 /* ObjectiveC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F11031BFAFB4D004982B4 /* ObjectiveC.swift */; };
+		637377061D617A6700C735C7 /* CFRunLoopActivity+CustomDebugStringConvertible.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F109B1BFAFABB004982B4 /* CFRunLoopActivity+CustomDebugStringConvertible.swift */; };
+		6373770D1D617A6700C735C7 /* NSRange+Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635C250C1C2015CB00B0263F /* NSRange+Utilities.swift */; };
+		6373770E1D617A6700C735C7 /* NSRange+CollectionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 637A560B1C8830E8001A178A /* NSRange+CollectionType.swift */; };
+		637377131D617A6800C735C7 /* CFRunLoopActivity+CustomDebugStringConvertible.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F109B1BFAFABB004982B4 /* CFRunLoopActivity+CustomDebugStringConvertible.swift */; };
+		6373771A1D617A6800C735C7 /* NSRange+Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635C250C1C2015CB00B0263F /* NSRange+Utilities.swift */; };
+		6373771B1D617A6800C735C7 /* NSRange+CollectionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 637A560B1C8830E8001A178A /* NSRange+CollectionType.swift */; };
+		637377201D617A6900C735C7 /* CFRunLoopActivity+CustomDebugStringConvertible.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F109B1BFAFABB004982B4 /* CFRunLoopActivity+CustomDebugStringConvertible.swift */; };
+		637377271D617A6900C735C7 /* NSRange+Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635C250C1C2015CB00B0263F /* NSRange+Utilities.swift */; };
+		637377281D617A6900C735C7 /* NSRange+CollectionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 637A560B1C8830E8001A178A /* NSRange+CollectionType.swift */; };
+		6373772D1D617A6900C735C7 /* CFRunLoopActivity+CustomDebugStringConvertible.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F109B1BFAFABB004982B4 /* CFRunLoopActivity+CustomDebugStringConvertible.swift */; };
+		637377341D617A6900C735C7 /* NSRange+Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635C250C1C2015CB00B0263F /* NSRange+Utilities.swift */; };
+		637377351D617A6900C735C7 /* NSRange+CollectionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 637A560B1C8830E8001A178A /* NSRange+CollectionType.swift */; };
+		6373773A1D617CCD00C735C7 /* LaunchTask.h in Headers */ = {isa = PBXBuildFile; fileRef = 63F0B5221C11D6DB00710C41 /* LaunchTask.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6373773B1D617CCD00C735C7 /* LaunchTask.m in Sources */ = {isa = PBXBuildFile; fileRef = 63F0B5231C11D6DB00710C41 /* LaunchTask.m */; };
+		6373773C1D617CCE00C735C7 /* LaunchTask.h in Headers */ = {isa = PBXBuildFile; fileRef = 63F0B5221C11D6DB00710C41 /* LaunchTask.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6373773D1D617CCE00C735C7 /* LaunchTask.m in Sources */ = {isa = PBXBuildFile; fileRef = 63F0B5231C11D6DB00710C41 /* LaunchTask.m */; };
+		6373773E1D617CCE00C735C7 /* LaunchTask.h in Headers */ = {isa = PBXBuildFile; fileRef = 63F0B5221C11D6DB00710C41 /* LaunchTask.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6373773F1D617CCE00C735C7 /* LaunchTask.m in Sources */ = {isa = PBXBuildFile; fileRef = 63F0B5231C11D6DB00710C41 /* LaunchTask.m */; };
+		637377401D617CCF00C735C7 /* LaunchTask.h in Headers */ = {isa = PBXBuildFile; fileRef = 63F0B5221C11D6DB00710C41 /* LaunchTask.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		637377411D617CCF00C735C7 /* LaunchTask.m in Sources */ = {isa = PBXBuildFile; fileRef = 63F0B5231C11D6DB00710C41 /* LaunchTask.m */; };
+		637377421D617CD300C735C7 /* LaunchTask+Internal.h in Headers */ = {isa = PBXBuildFile; fileRef = 63ED3B291C12056E008B8A5C /* LaunchTask+Internal.h */; };
+		637377431D617CD300C735C7 /* LaunchTask+Internal.h in Headers */ = {isa = PBXBuildFile; fileRef = 63ED3B291C12056E008B8A5C /* LaunchTask+Internal.h */; };
+		637377441D617CD400C735C7 /* LaunchTask+Internal.h in Headers */ = {isa = PBXBuildFile; fileRef = 63ED3B291C12056E008B8A5C /* LaunchTask+Internal.h */; };
+		637377451D617CD400C735C7 /* LaunchTask+Internal.h in Headers */ = {isa = PBXBuildFile; fileRef = 63ED3B291C12056E008B8A5C /* LaunchTask+Internal.h */; };
+		637377461D617CF800C735C7 /* ObjCKeyValueStore.h in Headers */ = {isa = PBXBuildFile; fileRef = 637A56101C88348F001A178A /* ObjCKeyValueStore.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		637377471D617CF800C735C7 /* ObjCKeyValueStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 637A56111C88348F001A178A /* ObjCKeyValueStore.m */; };
+		637377481D617CF800C735C7 /* ObjCKeyValueStore+Internal.h in Headers */ = {isa = PBXBuildFile; fileRef = 637A561A1C88358B001A178A /* ObjCKeyValueStore+Internal.h */; };
+		637377491D617CF800C735C7 /* ObjCKeyValueStore+Internal.m in Sources */ = {isa = PBXBuildFile; fileRef = 637A561B1C88358B001A178A /* ObjCKeyValueStore+Internal.m */; };
+		6373774A1D617CF800C735C7 /* ObjCKeyValueStore+DefaultAccessors.m in Sources */ = {isa = PBXBuildFile; fileRef = 637A56251C883AF0001A178A /* ObjCKeyValueStore+DefaultAccessors.m */; };
+		6373774B1D617CF900C735C7 /* ObjCKeyValueStore.h in Headers */ = {isa = PBXBuildFile; fileRef = 637A56101C88348F001A178A /* ObjCKeyValueStore.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6373774C1D617CF900C735C7 /* ObjCKeyValueStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 637A56111C88348F001A178A /* ObjCKeyValueStore.m */; };
+		6373774D1D617CF900C735C7 /* ObjCKeyValueStore+Internal.h in Headers */ = {isa = PBXBuildFile; fileRef = 637A561A1C88358B001A178A /* ObjCKeyValueStore+Internal.h */; };
+		6373774E1D617CF900C735C7 /* ObjCKeyValueStore+Internal.m in Sources */ = {isa = PBXBuildFile; fileRef = 637A561B1C88358B001A178A /* ObjCKeyValueStore+Internal.m */; };
+		6373774F1D617CF900C735C7 /* ObjCKeyValueStore+DefaultAccessors.m in Sources */ = {isa = PBXBuildFile; fileRef = 637A56251C883AF0001A178A /* ObjCKeyValueStore+DefaultAccessors.m */; };
+		637377501D617CF900C735C7 /* ObjCKeyValueStore.h in Headers */ = {isa = PBXBuildFile; fileRef = 637A56101C88348F001A178A /* ObjCKeyValueStore.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		637377511D617CF900C735C7 /* ObjCKeyValueStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 637A56111C88348F001A178A /* ObjCKeyValueStore.m */; };
+		637377521D617CF900C735C7 /* ObjCKeyValueStore+Internal.h in Headers */ = {isa = PBXBuildFile; fileRef = 637A561A1C88358B001A178A /* ObjCKeyValueStore+Internal.h */; };
+		637377531D617CF900C735C7 /* ObjCKeyValueStore+Internal.m in Sources */ = {isa = PBXBuildFile; fileRef = 637A561B1C88358B001A178A /* ObjCKeyValueStore+Internal.m */; };
+		637377541D617CF900C735C7 /* ObjCKeyValueStore+DefaultAccessors.m in Sources */ = {isa = PBXBuildFile; fileRef = 637A56251C883AF0001A178A /* ObjCKeyValueStore+DefaultAccessors.m */; };
+		637377551D617CFA00C735C7 /* ObjCKeyValueStore.h in Headers */ = {isa = PBXBuildFile; fileRef = 637A56101C88348F001A178A /* ObjCKeyValueStore.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		637377561D617CFA00C735C7 /* ObjCKeyValueStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 637A56111C88348F001A178A /* ObjCKeyValueStore.m */; };
+		637377571D617CFA00C735C7 /* ObjCKeyValueStore+Internal.h in Headers */ = {isa = PBXBuildFile; fileRef = 637A561A1C88358B001A178A /* ObjCKeyValueStore+Internal.h */; };
+		637377581D617CFA00C735C7 /* ObjCKeyValueStore+Internal.m in Sources */ = {isa = PBXBuildFile; fileRef = 637A561B1C88358B001A178A /* ObjCKeyValueStore+Internal.m */; };
+		637377591D617CFA00C735C7 /* ObjCKeyValueStore+DefaultAccessors.m in Sources */ = {isa = PBXBuildFile; fileRef = 637A56251C883AF0001A178A /* ObjCKeyValueStore+DefaultAccessors.m */; };
+		6373775A1D617D0A00C735C7 /* ObjCCodingBase.h in Headers */ = {isa = PBXBuildFile; fileRef = 63DCC6991C64D753001949C9 /* ObjCCodingBase.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6373775B1D617D0A00C735C7 /* ObjCCodingBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 63DCC69A1C64D753001949C9 /* ObjCCodingBase.m */; };
+		6373775C1D617D0A00C735C7 /* ObjCCodingBase+Internal.h in Headers */ = {isa = PBXBuildFile; fileRef = 6371F1F91C7F35FC00837BB7 /* ObjCCodingBase+Internal.h */; };
+		6373775D1D617D0A00C735C7 /* ObjCCodingBase+Internal.m in Sources */ = {isa = PBXBuildFile; fileRef = 6371F1FA1C7F35FC00837BB7 /* ObjCCodingBase+Internal.m */; };
+		6373775E1D617D0B00C735C7 /* ObjCCodingBase.h in Headers */ = {isa = PBXBuildFile; fileRef = 63DCC6991C64D753001949C9 /* ObjCCodingBase.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6373775F1D617D0B00C735C7 /* ObjCCodingBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 63DCC69A1C64D753001949C9 /* ObjCCodingBase.m */; };
+		637377601D617D0B00C735C7 /* ObjCCodingBase+Internal.h in Headers */ = {isa = PBXBuildFile; fileRef = 6371F1F91C7F35FC00837BB7 /* ObjCCodingBase+Internal.h */; };
+		637377611D617D0B00C735C7 /* ObjCCodingBase+Internal.m in Sources */ = {isa = PBXBuildFile; fileRef = 6371F1FA1C7F35FC00837BB7 /* ObjCCodingBase+Internal.m */; };
+		637377621D617D0B00C735C7 /* ObjCCodingBase.h in Headers */ = {isa = PBXBuildFile; fileRef = 63DCC6991C64D753001949C9 /* ObjCCodingBase.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		637377631D617D0B00C735C7 /* ObjCCodingBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 63DCC69A1C64D753001949C9 /* ObjCCodingBase.m */; };
+		637377641D617D0B00C735C7 /* ObjCCodingBase+Internal.h in Headers */ = {isa = PBXBuildFile; fileRef = 6371F1F91C7F35FC00837BB7 /* ObjCCodingBase+Internal.h */; };
+		637377651D617D0B00C735C7 /* ObjCCodingBase+Internal.m in Sources */ = {isa = PBXBuildFile; fileRef = 6371F1FA1C7F35FC00837BB7 /* ObjCCodingBase+Internal.m */; };
+		637377661D617D0C00C735C7 /* ObjCCodingBase.h in Headers */ = {isa = PBXBuildFile; fileRef = 63DCC6991C64D753001949C9 /* ObjCCodingBase.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		637377671D617D0C00C735C7 /* ObjCCodingBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 63DCC69A1C64D753001949C9 /* ObjCCodingBase.m */; };
+		637377681D617D0C00C735C7 /* ObjCCodingBase+Internal.h in Headers */ = {isa = PBXBuildFile; fileRef = 6371F1F91C7F35FC00837BB7 /* ObjCCodingBase+Internal.h */; };
+		637377691D617D0C00C735C7 /* ObjCCodingBase+Internal.m in Sources */ = {isa = PBXBuildFile; fileRef = 6371F1FA1C7F35FC00837BB7 /* ObjCCodingBase+Internal.m */; };
+		6373776A1D617D6200C735C7 /* ObjCSelfAwareSwizzle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63BEA8731C79875D002171C2 /* ObjCSelfAwareSwizzle.swift */; };
+		6373776B1D617D6200C735C7 /* ObjCSelfAwareSwizzle+Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63050CA51C018C9300EDFEAD /* ObjCSelfAwareSwizzle+Utilities.swift */; };
+		6373776C1D617D6200C735C7 /* ObjCSelfAwareSwizzleImplSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63BEA8751C79904A002171C2 /* ObjCSelfAwareSwizzleImplSource.swift */; };
+		6373776D1D617D6200C735C7 /* ObjCSelfAwareSwizzleRecipe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63BEA8771C799951002171C2 /* ObjCSelfAwareSwizzleRecipe.swift */; };
+		6373776E1D617D6200C735C7 /* ObjCSelfAwareSwizzle.m in Sources */ = {isa = PBXBuildFile; fileRef = 6315CB4A1BFD8745003A5840 /* ObjCSelfAwareSwizzle.m */; };
+		6373776F1D617D6200C735C7 /* ObjCSelfAwareSwizzle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63BEA8731C79875D002171C2 /* ObjCSelfAwareSwizzle.swift */; };
+		637377701D617D6200C735C7 /* ObjCSelfAwareSwizzle+Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63050CA51C018C9300EDFEAD /* ObjCSelfAwareSwizzle+Utilities.swift */; };
+		637377711D617D6200C735C7 /* ObjCSelfAwareSwizzleImplSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63BEA8751C79904A002171C2 /* ObjCSelfAwareSwizzleImplSource.swift */; };
+		637377721D617D6200C735C7 /* ObjCSelfAwareSwizzleRecipe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63BEA8771C799951002171C2 /* ObjCSelfAwareSwizzleRecipe.swift */; };
+		637377731D617D6200C735C7 /* ObjCSelfAwareSwizzle.m in Sources */ = {isa = PBXBuildFile; fileRef = 6315CB4A1BFD8745003A5840 /* ObjCSelfAwareSwizzle.m */; };
+		637377741D617D6300C735C7 /* ObjCSelfAwareSwizzle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63BEA8731C79875D002171C2 /* ObjCSelfAwareSwizzle.swift */; };
+		637377751D617D6300C735C7 /* ObjCSelfAwareSwizzle+Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63050CA51C018C9300EDFEAD /* ObjCSelfAwareSwizzle+Utilities.swift */; };
+		637377761D617D6300C735C7 /* ObjCSelfAwareSwizzleImplSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63BEA8751C79904A002171C2 /* ObjCSelfAwareSwizzleImplSource.swift */; };
+		637377771D617D6300C735C7 /* ObjCSelfAwareSwizzleRecipe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63BEA8771C799951002171C2 /* ObjCSelfAwareSwizzleRecipe.swift */; };
+		637377781D617D6300C735C7 /* ObjCSelfAwareSwizzle.m in Sources */ = {isa = PBXBuildFile; fileRef = 6315CB4A1BFD8745003A5840 /* ObjCSelfAwareSwizzle.m */; };
+		637377791D617D6300C735C7 /* ObjCSelfAwareSwizzle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63BEA8731C79875D002171C2 /* ObjCSelfAwareSwizzle.swift */; };
+		6373777A1D617D6300C735C7 /* ObjCSelfAwareSwizzle+Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63050CA51C018C9300EDFEAD /* ObjCSelfAwareSwizzle+Utilities.swift */; };
+		6373777B1D617D6300C735C7 /* ObjCSelfAwareSwizzleImplSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63BEA8751C79904A002171C2 /* ObjCSelfAwareSwizzleImplSource.swift */; };
+		6373777C1D617D6300C735C7 /* ObjCSelfAwareSwizzleRecipe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63BEA8771C799951002171C2 /* ObjCSelfAwareSwizzleRecipe.swift */; };
+		6373777D1D617D6300C735C7 /* ObjCSelfAwareSwizzle.m in Sources */ = {isa = PBXBuildFile; fileRef = 6315CB4A1BFD8745003A5840 /* ObjCSelfAwareSwizzle.m */; };
+		6373777E1D617F7D00C735C7 /* PersistentController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F10971BFAFABB004982B4 /* PersistentController.swift */; };
+		6373777F1D617F7E00C735C7 /* PersistentController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F10971BFAFABB004982B4 /* PersistentController.swift */; };
+		637377801D617F8400C735C7 /* PersistentController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F10971BFAFABB004982B4 /* PersistentController.swift */; };
+		637377811D617F8400C735C7 /* PersistentController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F10971BFAFABB004982B4 /* PersistentController.swift */; };
+		637377821D61805E00C735C7 /* ObjCProtocolMessageInterceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F10961BFAFABB004982B4 /* ObjCProtocolMessageInterceptor.swift */; };
+		637377831D61805E00C735C7 /* ObjCProtocolMessageInterceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F10961BFAFABB004982B4 /* ObjCProtocolMessageInterceptor.swift */; };
+		637377841D61805F00C735C7 /* ObjCProtocolMessageInterceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F10961BFAFABB004982B4 /* ObjCProtocolMessageInterceptor.swift */; };
+		637377851D61805F00C735C7 /* ObjCProtocolMessageInterceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F10961BFAFABB004982B4 /* ObjCProtocolMessageInterceptor.swift */; };
+		637377861D61815100C735C7 /* ObjCSelectorMessageInterceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C1D9FA1C3164E700D0F548 /* ObjCSelectorMessageInterceptor.swift */; };
+		637377871D61815100C735C7 /* ObjCSelectorMessageInterceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C1D9FA1C3164E700D0F548 /* ObjCSelectorMessageInterceptor.swift */; };
+		637377881D61815200C735C7 /* ObjCSelectorMessageInterceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C1D9FA1C3164E700D0F548 /* ObjCSelectorMessageInterceptor.swift */; };
+		637377891D61815200C735C7 /* ObjCSelectorMessageInterceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C1D9FA1C3164E700D0F548 /* ObjCSelectorMessageInterceptor.swift */; };
+		6373778A1D61819100C735C7 /* ObjCProtocolMessageIntercepting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F10951BFAFABB004982B4 /* ObjCProtocolMessageIntercepting.swift */; };
+		6373778B1D61819200C735C7 /* ObjCProtocolMessageIntercepting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F10951BFAFABB004982B4 /* ObjCProtocolMessageIntercepting.swift */; };
+		6373778C1D61819200C735C7 /* ObjCProtocolMessageIntercepting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F10951BFAFABB004982B4 /* ObjCProtocolMessageIntercepting.swift */; };
+		6373778D1D61819200C735C7 /* ObjCProtocolMessageIntercepting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F10951BFAFABB004982B4 /* ObjCProtocolMessageIntercepting.swift */; };
+		6373778E1D61836800C735C7 /* ObjCMultiCastDelegating.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F10941BFAFABB004982B4 /* ObjCMultiCastDelegating.swift */; };
+		6373778F1D61836800C735C7 /* ObjCMultiCastDelegating.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F10941BFAFABB004982B4 /* ObjCMultiCastDelegating.swift */; };
+		637377901D61836900C735C7 /* ObjCMultiCastDelegating.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F10941BFAFABB004982B4 /* ObjCMultiCastDelegating.swift */; };
+		637377911D61836900C735C7 /* ObjCMultiCastDelegating.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F10941BFAFABB004982B4 /* ObjCMultiCastDelegating.swift */; };
+		637377921D61837300C735C7 /* ObjCAssociated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F10931BFAFABB004982B4 /* ObjCAssociated.swift */; };
+		637377931D61837400C735C7 /* ObjCAssociated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F10931BFAFABB004982B4 /* ObjCAssociated.swift */; };
+		637377941D61837400C735C7 /* ObjCAssociated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F10931BFAFABB004982B4 /* ObjCAssociated.swift */; };
+		637377951D61837500C735C7 /* ObjCAssociated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F10931BFAFABB004982B4 /* ObjCAssociated.swift */; };
+		6373779E1D61842A00C735C7 /* ObjCCodingPrimitive.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F10911BFAFABB004982B4 /* ObjCCodingPrimitive.swift */; };
+		6373779F1D61842A00C735C7 /* ObjCTypeEncoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 633ECDA31C14487A0082D870 /* ObjCTypeEncoding.swift */; };
+		637377A01D61842A00C735C7 /* ObjCCodingPrimitive.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F10911BFAFABB004982B4 /* ObjCCodingPrimitive.swift */; };
+		637377A11D61842A00C735C7 /* ObjCTypeEncoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 633ECDA31C14487A0082D870 /* ObjCTypeEncoding.swift */; };
+		637377A21D61842B00C735C7 /* ObjCCodingPrimitive.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F10911BFAFABB004982B4 /* ObjCCodingPrimitive.swift */; };
+		637377A31D61842B00C735C7 /* ObjCTypeEncoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 633ECDA31C14487A0082D870 /* ObjCTypeEncoding.swift */; };
+		637377A41D61842B00C735C7 /* ObjCCodingPrimitive.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F10911BFAFABB004982B4 /* ObjCCodingPrimitive.swift */; };
+		637377A51D61842B00C735C7 /* ObjCTypeEncoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 633ECDA31C14487A0082D870 /* ObjCTypeEncoding.swift */; };
+		637377AA1D61854600C735C7 /* RunLoop+TaskDispatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F10A51BFAFABB004982B4 /* RunLoop+TaskDispatcher.swift */; };
+		637377AB1D61854600C735C7 /* RunLoop+TaskDispatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F10A51BFAFABB004982B4 /* RunLoop+TaskDispatcher.swift */; };
+		637377AC1D61854700C735C7 /* RunLoop+TaskDispatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F10A51BFAFABB004982B4 /* RunLoop+TaskDispatcher.swift */; };
+		637377AD1D61854700C735C7 /* RunLoop+TaskDispatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F10A51BFAFABB004982B4 /* RunLoop+TaskDispatcher.swift */; };
+		637377AE1D61880A00C735C7 /* NSCoder+InterfaceNormalization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 633ECEBE1C1547900082D870 /* NSCoder+InterfaceNormalization.swift */; };
+		637377AF1D61880A00C735C7 /* NSCoder+InterfaceNormalization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 633ECEBE1C1547900082D870 /* NSCoder+InterfaceNormalization.swift */; };
+		637377B01D61880B00C735C7 /* NSCoder+InterfaceNormalization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 633ECEBE1C1547900082D870 /* NSCoder+InterfaceNormalization.swift */; };
+		637377B11D61880B00C735C7 /* NSCoder+InterfaceNormalization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 633ECEBE1C1547900082D870 /* NSCoder+InterfaceNormalization.swift */; };
+		637377BE1D61890D00C735C7 /* ObjCCodingPrimitive-CoreGraphics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6360D33E1C73688900D64CE8 /* ObjCCodingPrimitive-CoreGraphics.swift */; };
+		637377BF1D61890E00C735C7 /* ObjCCodingPrimitive-CoreGraphics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6360D33E1C73688900D64CE8 /* ObjCCodingPrimitive-CoreGraphics.swift */; };
+		637377C01D61890E00C735C7 /* ObjCCodingPrimitive-CoreGraphics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6360D33E1C73688900D64CE8 /* ObjCCodingPrimitive-CoreGraphics.swift */; };
+		637377C11D61890F00C735C7 /* ObjCCodingPrimitive-CoreGraphics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6360D33E1C73688900D64CE8 /* ObjCCodingPrimitive-CoreGraphics.swift */; };
+		637377C21D61894500C735C7 /* ObjCCodingPrimitive-AVFoundation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 633ECE531C14B9290082D870 /* ObjCCodingPrimitive-AVFoundation.swift */; };
+		637377C31D61894500C735C7 /* ObjCCodingPrimitive-AVFoundation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 633ECE531C14B9290082D870 /* ObjCCodingPrimitive-AVFoundation.swift */; };
+		637377C41D61894700C735C7 /* ObjCCodingPrimitive-AVFoundation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 633ECE531C14B9290082D870 /* ObjCCodingPrimitive-AVFoundation.swift */; };
+		637377C61D6189AF00C735C7 /* ObjCCodingPrimitive-UIKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 633ECED91C158EF90082D870 /* ObjCCodingPrimitive-UIKit.swift */; };
+		637377C71D6189B200C735C7 /* ObjCCodingPrimitive-UIKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 633ECED91C158EF90082D870 /* ObjCCodingPrimitive-UIKit.swift */; };
+		637377C81D6189B300C735C7 /* ObjCCodingPrimitive-UIKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 633ECED91C158EF90082D870 /* ObjCCodingPrimitive-UIKit.swift */; };
+		637377C91D6189E500C735C7 /* ObjCCodingBase-UIKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 6371F2121C7F829C00837BB7 /* ObjCCodingBase-UIKit.m */; };
+		637A56341C883E63001A178A /* ObjCKeyValueStore-CoreGraphics.m in Sources */ = {isa = PBXBuildFile; fileRef = 637A562F1C883E63001A178A /* ObjCKeyValueStore-CoreGraphics.m */; };
+		637A56351C883E63001A178A /* ObjCKeyValueStore-CoreGraphics.m in Sources */ = {isa = PBXBuildFile; fileRef = 637A562F1C883E63001A178A /* ObjCKeyValueStore-CoreGraphics.m */; };
+		637A56361C883E63001A178A /* ObjCKeyValueStore-CoreGraphics.m in Sources */ = {isa = PBXBuildFile; fileRef = 637A562F1C883E63001A178A /* ObjCKeyValueStore-CoreGraphics.m */; };
+		637A56371C883E63001A178A /* ObjCKeyValueStore-CoreGraphics.m in Sources */ = {isa = PBXBuildFile; fileRef = 637A562F1C883E63001A178A /* ObjCKeyValueStore-CoreGraphics.m */; };
+		637A563E1C883F59001A178A /* ObjCKeyValueStore-QuartzCore.m in Sources */ = {isa = PBXBuildFile; fileRef = 637A56391C883F59001A178A /* ObjCKeyValueStore-QuartzCore.m */; };
+		637A563F1C883F59001A178A /* ObjCKeyValueStore-QuartzCore.m in Sources */ = {isa = PBXBuildFile; fileRef = 637A56391C883F59001A178A /* ObjCKeyValueStore-QuartzCore.m */; };
+		637A56411C883F59001A178A /* ObjCKeyValueStore-QuartzCore.m in Sources */ = {isa = PBXBuildFile; fileRef = 637A56391C883F59001A178A /* ObjCKeyValueStore-QuartzCore.m */; };
+		637A56481C88451E001A178A /* ObjCKeyValueStore-AVFoundation.m in Sources */ = {isa = PBXBuildFile; fileRef = 637A56431C88451E001A178A /* ObjCKeyValueStore-AVFoundation.m */; };
+		637A56491C88451E001A178A /* ObjCKeyValueStore-AVFoundation.m in Sources */ = {isa = PBXBuildFile; fileRef = 637A56431C88451E001A178A /* ObjCKeyValueStore-AVFoundation.m */; };
+		637A564B1C88451E001A178A /* ObjCKeyValueStore-AVFoundation.m in Sources */ = {isa = PBXBuildFile; fileRef = 637A56431C88451E001A178A /* ObjCKeyValueStore-AVFoundation.m */; };
+		637A56521C8845A6001A178A /* ObjCKeyValueStore-UIKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 637A564D1C8845A6001A178A /* ObjCKeyValueStore-UIKit.m */; };
+		637A56561C885183001A178A /* ObjCKeyValueStore-UIKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 637A564D1C8845A6001A178A /* ObjCKeyValueStore-UIKit.m */; };
+		637A56571C885191001A178A /* ObjCKeyValueStore-UIKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 637A564D1C8845A6001A178A /* ObjCKeyValueStore-UIKit.m */; };
+		63B98A201D78417100753FE5 /* ObjCBridgeable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63B98A1F1D78417100753FE5 /* ObjCBridgeable.swift */; };
+		63B98A211D78417100753FE5 /* ObjCBridgeable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63B98A1F1D78417100753FE5 /* ObjCBridgeable.swift */; };
+		63B98A221D78417100753FE5 /* ObjCBridgeable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63B98A1F1D78417100753FE5 /* ObjCBridgeable.swift */; };
+		63B98A231D78417100753FE5 /* ObjCBridgeable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63B98A1F1D78417100753FE5 /* ObjCBridgeable.swift */; };
+		63B98A251D78456800753FE5 /* QuartzCore+ObjCBridgeable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63B98A241D78456800753FE5 /* QuartzCore+ObjCBridgeable.swift */; };
+		63B98A261D78456800753FE5 /* QuartzCore+ObjCBridgeable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63B98A241D78456800753FE5 /* QuartzCore+ObjCBridgeable.swift */; };
+		63B98A281D78456800753FE5 /* QuartzCore+ObjCBridgeable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63B98A241D78456800753FE5 /* QuartzCore+ObjCBridgeable.swift */; };
+		63C5BD811C82CCE200A22F27 /* ObjCCodingBase-AVFoundation.m in Sources */ = {isa = PBXBuildFile; fileRef = 63C5BD801C82CCE200A22F27 /* ObjCCodingBase-AVFoundation.m */; };
+		63C5BD821C82CCE200A22F27 /* ObjCCodingBase-AVFoundation.m in Sources */ = {isa = PBXBuildFile; fileRef = 63C5BD801C82CCE200A22F27 /* ObjCCodingBase-AVFoundation.m */; };
+		63C5BD831C82CCE200A22F27 /* ObjCCodingBase-AVFoundation.m in Sources */ = {isa = PBXBuildFile; fileRef = 63C5BD801C82CCE200A22F27 /* ObjCCodingBase-AVFoundation.m */; };
+=======
+>>>>>>> df61ea6c709c8a9667d3cea7e28056983fa30353
 		63C886371C7F15F300F5677F /* LegacyUtilities.h in Headers */ = {isa = PBXBuildFile; fileRef = 63C886351C7F15F300F5677F /* LegacyUtilities.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		63C886381C7F15F300F5677F /* LegacyUtilities.h in Headers */ = {isa = PBXBuildFile; fileRef = 63C886351C7F15F300F5677F /* LegacyUtilities.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		63C886391C7F15F300F5677F /* LegacyUtilities.h in Headers */ = {isa = PBXBuildFile; fileRef = 63C886351C7F15F300F5677F /* LegacyUtilities.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -214,18 +385,18 @@
 		63E3ED141DA2537400AEA8C3 /* ObjCCodingPrimitive-CoreGraphics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6360D33E1C73688900D64CE8 /* ObjCCodingPrimitive-CoreGraphics.swift */; };
 		63E3ED151DA2537400AEA8C3 /* ObjCKeyValueStore-CoreGraphics.m in Sources */ = {isa = PBXBuildFile; fileRef = 637A562F1C883E63001A178A /* ObjCKeyValueStore-CoreGraphics.m */; };
 		63E3ED161DA2537400AEA8C3 /* ObjCCodingBase-CoreGraphics.m in Sources */ = {isa = PBXBuildFile; fileRef = 6371F2031C7F57FC00837BB7 /* ObjCCodingBase-CoreGraphics.m */; };
-		63E3ED171DA2538A00AEA8C3 /* PersistentController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F10971BFAFABB004982B4 /* PersistentController.swift */; };
-		63E3ED181DA2538A00AEA8C3 /* PersistentController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F10971BFAFABB004982B4 /* PersistentController.swift */; };
-		63E3ED191DA2538B00AEA8C3 /* PersistentController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F10971BFAFABB004982B4 /* PersistentController.swift */; };
-		63E3ED271DA254A700AEA8C3 /* PersistentController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F10971BFAFABB004982B4 /* PersistentController.swift */; };
+		63E3ED171DA2538A00AEA8C3 /* PersistenceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F10971BFAFABB004982B4 /* PersistenceController.swift */; };
+		63E3ED181DA2538A00AEA8C3 /* PersistenceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F10971BFAFABB004982B4 /* PersistenceController.swift */; };
+		63E3ED191DA2538B00AEA8C3 /* PersistenceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F10971BFAFABB004982B4 /* PersistenceController.swift */; };
+		63E3ED271DA254A700AEA8C3 /* PersistenceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F10971BFAFABB004982B4 /* PersistenceController.swift */; };
 		63F1FDFB1C80AA6C00A271B9 /* Nest.h in Headers */ = {isa = PBXBuildFile; fileRef = 63C8862F1C7F146400F5677F /* Nest.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		63F1FDFC1C80AA6C00A271B9 /* Nest.h in Headers */ = {isa = PBXBuildFile; fileRef = 63C8862F1C7F146400F5677F /* Nest.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		63F1FDFD1C80AA6D00A271B9 /* Nest.h in Headers */ = {isa = PBXBuildFile; fileRef = 63C8862F1C7F146400F5677F /* Nest.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		63F1FDFE1C80AA6D00A271B9 /* Nest.h in Headers */ = {isa = PBXBuildFile; fileRef = 63C8862F1C7F146400F5677F /* Nest.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		63FE42791DA25951002E45C8 /* PersistenceController+SwiftFrontendCrashesWithOptimizationAndEmittingDebugInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 63FE42741DA25951002E45C8 /* PersistenceController+SwiftFrontendCrashesWithOptimizationAndEmittingDebugInfo.m */; };
-		63FE427A1DA25951002E45C8 /* PersistenceController+SwiftFrontendCrashesWithOptimizationAndEmittingDebugInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 63FE42741DA25951002E45C8 /* PersistenceController+SwiftFrontendCrashesWithOptimizationAndEmittingDebugInfo.m */; };
-		63FE427B1DA25951002E45C8 /* PersistenceController+SwiftFrontendCrashesWithOptimizationAndEmittingDebugInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 63FE42741DA25951002E45C8 /* PersistenceController+SwiftFrontendCrashesWithOptimizationAndEmittingDebugInfo.m */; };
-		63FE427C1DA25951002E45C8 /* PersistenceController+SwiftFrontendCrashesWithOptimizationAndEmittingDebugInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 63FE42741DA25951002E45C8 /* PersistenceController+SwiftFrontendCrashesWithOptimizationAndEmittingDebugInfo.m */; };
+		63FE42791DA25951002E45C8 /* PersistenceController+Swift3CompilerBugWorkaround.m in Sources */ = {isa = PBXBuildFile; fileRef = 63FE42741DA25951002E45C8 /* PersistenceController+Swift3CompilerBugWorkaround.m */; };
+		63FE427A1DA25951002E45C8 /* PersistenceController+Swift3CompilerBugWorkaround.m in Sources */ = {isa = PBXBuildFile; fileRef = 63FE42741DA25951002E45C8 /* PersistenceController+Swift3CompilerBugWorkaround.m */; };
+		63FE427B1DA25951002E45C8 /* PersistenceController+Swift3CompilerBugWorkaround.m in Sources */ = {isa = PBXBuildFile; fileRef = 63FE42741DA25951002E45C8 /* PersistenceController+Swift3CompilerBugWorkaround.m */; };
+		63FE427C1DA25951002E45C8 /* PersistenceController+Swift3CompilerBugWorkaround.m in Sources */ = {isa = PBXBuildFile; fileRef = 63FE42741DA25951002E45C8 /* PersistenceController+Swift3CompilerBugWorkaround.m */; };
 		63FE427E1DA26576002E45C8 /* ObjCCodingPrimitive-UIKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 633ECED91C158EF90082D870 /* ObjCCodingPrimitive-UIKit.swift */; };
 		63FE427F1DA26576002E45C8 /* ObjCKeyValueStore-UIKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 637A564D1C8845A6001A178A /* ObjCKeyValueStore-UIKit.m */; };
 		63FE42801DA26576002E45C8 /* ObjCCodingBase-UIKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 6371F2121C7F829C00837BB7 /* ObjCCodingBase-UIKit.m */; };
@@ -357,7 +528,7 @@
 		63F0B5331C11D8E200710C41 /* LaunchTask-AppKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "LaunchTask-AppKit.m"; sourceTree = "<group>"; };
 		63F0B5361C11D8F000710C41 /* LaunchTask-WatchKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "LaunchTask-WatchKit.h"; sourceTree = "<group>"; };
 		63F0B5371C11D8F000710C41 /* LaunchTask-WatchKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "LaunchTask-WatchKit.m"; sourceTree = "<group>"; };
-		63FE42741DA25951002E45C8 /* PersistenceController+SwiftFrontendCrashesWithOptimizationAndEmittingDebugInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "PersistenceController+SwiftFrontendCrashesWithOptimizationAndEmittingDebugInfo.m"; sourceTree = "<group>"; };
+		63FE42741DA25951002E45C8 /* PersistenceController+Swift3CompilerBugWorkaround.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "PersistenceController+Swift3CompilerBugWorkaround.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -570,8 +741,12 @@
 				63F0B5221C11D6DB00710C41 /* LaunchTask.h */,
 				63F0B5231C11D6DB00710C41 /* LaunchTask.m */,
 				63ED3B291C12056E008B8A5C /* LaunchTask+Internal.h */,
+<<<<<<< HEAD
 				635F10971BFAFABB004982B4 /* PersistentController.swift */,
-				63FE42741DA25951002E45C8 /* PersistenceController+SwiftFrontendCrashesWithOptimizationAndEmittingDebugInfo.m */,
+=======
+				635F10971BFAFABB004982B4 /* PersistenceController.swift */,
+				63FE42741DA25951002E45C8 /* PersistenceController+Swift3CompilerBugWorkaround.m */,
+>>>>>>> df61ea6c709c8a9667d3cea7e28056983fa30353
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -1032,8 +1207,44 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+<<<<<<< HEAD
+				637A56361C883E63001A178A /* ObjCKeyValueStore-CoreGraphics.m in Sources */,
+				637A56571C885191001A178A /* ObjCKeyValueStore-UIKit.m in Sources */,
+				635F10FB1BFAFABB004982B4 /* NSPersistentStoreType.swift in Sources */,
+				6366D0CD1D69817400A4D01C /* NSManagedObject+InitWithContext.swift in Sources */,
+				637377131D617A6800C735C7 /* CFRunLoopActivity+CustomDebugStringConvertible.swift in Sources */,
+				6373776F1D617D6200C735C7 /* ObjCSelfAwareSwizzle.swift in Sources */,
+				6373771A1D617A6800C735C7 /* NSRange+Utilities.swift in Sources */,
+				637377C81D6189B300C735C7 /* ObjCCodingPrimitive-UIKit.swift in Sources */,
+				6373774C1D617CF900C735C7 /* ObjCKeyValueStore.m in Sources */,
+				637377031D617A5C00C735C7 /* ObjectiveC.swift in Sources */,
+				6371F2071C7F57FC00837BB7 /* ObjCCodingBase-CoreGraphics.m in Sources */,
+				63F0B5391C11D8F000710C41 /* LaunchTask-WatchKit.m in Sources */,
+				637377A01D61842A00C735C7 /* ObjCCodingPrimitive.swift in Sources */,
+				637377AB1D61854600C735C7 /* RunLoop+TaskDispatcher.swift in Sources */,
+				637377611D617D0B00C735C7 /* ObjCCodingBase+Internal.m in Sources */,
+				6373773D1D617CCE00C735C7 /* LaunchTask.m in Sources */,
+				637377881D61815200C735C7 /* ObjCSelectorMessageInterceptor.swift in Sources */,
+				637377701D617D6200C735C7 /* ObjCSelfAwareSwizzle+Utilities.swift in Sources */,
+				630457331D8A882A007EA6A3 /* NSObject+That.swift in Sources */,
+				633EE11F1D6D41F20014EB90 /* NSManagedObjectChangeKey.swift in Sources */,
+				63B98A221D78417100753FE5 /* ObjCBridgeable.swift in Sources */,
+				637377801D617F8400C735C7 /* PersistentController.swift in Sources */,
+				6373771B1D617A6800C735C7 /* NSRange+CollectionType.swift in Sources */,
+				637377731D617D6200C735C7 /* ObjCSelfAwareSwizzle.m in Sources */,
+				637377C01D61890E00C735C7 /* ObjCCodingPrimitive-CoreGraphics.swift in Sources */,
+				637377831D61805E00C735C7 /* ObjCProtocolMessageInterceptor.swift in Sources */,
+				6373774E1D617CF900C735C7 /* ObjCKeyValueStore+Internal.m in Sources */,
+				637377A11D61842A00C735C7 /* ObjCTypeEncoding.swift in Sources */,
+				6373778F1D61836800C735C7 /* ObjCMultiCastDelegating.swift in Sources */,
+				637377C91D6189E500C735C7 /* ObjCCodingBase-UIKit.m in Sources */,
+				637377931D61837400C735C7 /* ObjCAssociated.swift in Sources */,
+				6373774F1D617CF900C735C7 /* ObjCKeyValueStore+DefaultAccessors.m in Sources */,
+				6373778C1D61819200C735C7 /* ObjCProtocolMessageIntercepting.swift in Sources */,
+=======
 				63E3ED131DA2537300AEA8C3 /* ObjCCodingBase-CoreGraphics.m in Sources */,
 				63E3EC941DA251A900AEA8C3 /* ObjCTypeEncoding.swift in Sources */,
+>>>>>>> df61ea6c709c8a9667d3cea7e28056983fa30353
 				63C8863D1C7F15F300F5677F /* LegacyUtilities.m in Sources */,
 				63E3ECA11DA251A900AEA8C3 /* LaunchTask.m in Sources */,
 				63E3ECE71DA251FB00AEA8C3 /* NSManagedObjectChangeKey.swift in Sources */,
@@ -1061,7 +1272,7 @@
 				63E3EC5B1DA2519100AEA8C3 /* NSManagedObject+InitWithContext.swift in Sources */,
 				63E3EC9E1DA251A900AEA8C3 /* ObjCSelfAwareSwizzle.m in Sources */,
 				63E3EC551DA2519100AEA8C3 /* NSRange+CollectionType.swift in Sources */,
-				63FE427B1DA25951002E45C8 /* PersistenceController+SwiftFrontendCrashesWithOptimizationAndEmittingDebugInfo.m in Sources */,
+				63FE427B1DA25951002E45C8 /* PersistenceController+Swift3CompilerBugWorkaround.m in Sources */,
 				63E3EC541DA2519100AEA8C3 /* NSRange+Utilities.swift in Sources */,
 				63E3EC9D1DA251A900AEA8C3 /* ObjCSelfAwareSwizzleRecipe.swift in Sources */,
 				63E3EC9F1DA251A900AEA8C3 /* ObjCBridgeable.swift in Sources */,
@@ -1069,7 +1280,7 @@
 				63E3EC571DA2519100AEA8C3 /* NSCoder+InterfaceNormalization.swift in Sources */,
 				63E3EC951DA251A900AEA8C3 /* ObjCAssociated.swift in Sources */,
 				63E3ECE61DA251FB00AEA8C3 /* NSPersistentStoreType.swift in Sources */,
-				63E3ED181DA2538A00AEA8C3 /* PersistentController.swift in Sources */,
+				63E3ED181DA2538A00AEA8C3 /* PersistenceController.swift in Sources */,
 				63E3EC561DA2519100AEA8C3 /* RunLoop+TaskDispatcher.swift in Sources */,
 				63E3EC931DA251A900AEA8C3 /* ObjCCodingPrimitive.swift in Sources */,
 			);
@@ -1081,6 +1292,40 @@
 			files = (
 				63E3ECCA1DA251A900AEA8C3 /* ObjCTypeEncoding.swift in Sources */,
 				63C8863B1C7F15F300F5677F /* LegacyUtilities.m in Sources */,
+<<<<<<< HEAD
+				637A56481C88451E001A178A /* ObjCKeyValueStore-AVFoundation.m in Sources */,
+				637A56341C883E63001A178A /* ObjCKeyValueStore-CoreGraphics.m in Sources */,
+				6373777E1D617F7D00C735C7 /* PersistentController.swift in Sources */,
+				6371F2141C7F829C00837BB7 /* ObjCCodingBase-UIKit.m in Sources */,
+				6373778A1D61819100C735C7 /* ObjCProtocolMessageIntercepting.swift in Sources */,
+				6373777D1D617D6300C735C7 /* ObjCSelfAwareSwizzle.m in Sources */,
+				63F0B5301C11D8D500710C41 /* LaunchTask-UIKit.m in Sources */,
+				637377A51D61842B00C735C7 /* ObjCTypeEncoding.swift in Sources */,
+				6373777B1D617D6300C735C7 /* ObjCSelfAwareSwizzleImplSource.swift in Sources */,
+				637377A41D61842B00C735C7 /* ObjCCodingPrimitive.swift in Sources */,
+				637377911D61836900C735C7 /* ObjCMultiCastDelegating.swift in Sources */,
+				637377951D61837500C735C7 /* ObjCAssociated.swift in Sources */,
+				6373777A1D617D6300C735C7 /* ObjCSelfAwareSwizzle+Utilities.swift in Sources */,
+				637377791D617D6300C735C7 /* ObjCSelfAwareSwizzle.swift in Sources */,
+				637377411D617CCF00C735C7 /* LaunchTask.m in Sources */,
+				637377341D617A6900C735C7 /* NSRange+Utilities.swift in Sources */,
+				6373777C1D617D6300C735C7 /* ObjCSelfAwareSwizzleRecipe.swift in Sources */,
+				632681171D6BA1E1005E2F5C /* Bundle.swift in Sources */,
+				637377051D617A5D00C735C7 /* ObjectiveC.swift in Sources */,
+				63B98A201D78417100753FE5 /* ObjCBridgeable.swift in Sources */,
+				637377691D617D0C00C735C7 /* ObjCCodingBase+Internal.m in Sources */,
+				637377C21D61894500C735C7 /* ObjCCodingPrimitive-AVFoundation.swift in Sources */,
+				637A56521C8845A6001A178A /* ObjCKeyValueStore-UIKit.m in Sources */,
+				637377AE1D61880A00C735C7 /* NSCoder+InterfaceNormalization.swift in Sources */,
+				637A563E1C883F59001A178A /* ObjCKeyValueStore-QuartzCore.m in Sources */,
+				63C5BD811C82CCE200A22F27 /* ObjCCodingBase-AVFoundation.m in Sources */,
+				6371F2051C7F57FC00837BB7 /* ObjCCodingBase-CoreGraphics.m in Sources */,
+				637377591D617CFA00C735C7 /* ObjCKeyValueStore+DefaultAccessors.m in Sources */,
+				637377AD1D61854700C735C7 /* RunLoop+TaskDispatcher.swift in Sources */,
+				630457311D8A882A007EA6A3 /* NSObject+That.swift in Sources */,
+				637377C71D6189B200C735C7 /* ObjCCodingPrimitive-UIKit.swift in Sources */,
+				637377351D617A6900C735C7 /* NSRange+CollectionType.swift in Sources */,
+=======
 				63E3ECE31DA251FA00AEA8C3 /* NSManagedObjectChangeKey.swift in Sources */,
 				63FE42861DA26580002E45C8 /* ObjCCodingPrimitive-CoreGraphics.swift in Sources */,
 				63FE427F1DA26576002E45C8 /* ObjCKeyValueStore-UIKit.m in Sources */,
@@ -1094,7 +1339,7 @@
 				63FE42821DA2657A002E45C8 /* ObjCKeyValueStore-AVFoundation.m in Sources */,
 				63E3ECD21DA251A900AEA8C3 /* ObjCSelfAwareSwizzleImplSource.swift in Sources */,
 				63FE42881DA26580002E45C8 /* ObjCCodingBase-CoreGraphics.m in Sources */,
-				63E3ED271DA254A700AEA8C3 /* PersistentController.swift in Sources */,
+				63E3ED271DA254A700AEA8C3 /* PersistenceController.swift in Sources */,
 				63FE42831DA2657A002E45C8 /* ObjCCodingBase-AVFoundation.m in Sources */,
 				63E3EC6A1DA2519200AEA8C3 /* NSObject+That.swift in Sources */,
 				63E3ECCC1DA251A900AEA8C3 /* ObjCMultiCastDelegating.swift in Sources */,
@@ -1107,7 +1352,7 @@
 				63FE428A1DA265A0002E45C8 /* LaunchTask.m in Sources */,
 				63E3ECD11DA251A900AEA8C3 /* ObjCSelfAwareSwizzle+Utilities.swift in Sources */,
 				63FE42851DA2657D002E45C8 /* QuartzCore+ObjCBridgeable.swift in Sources */,
-				63FE42791DA25951002E45C8 /* PersistenceController+SwiftFrontendCrashesWithOptimizationAndEmittingDebugInfo.m in Sources */,
+				63FE42791DA25951002E45C8 /* PersistenceController+Swift3CompilerBugWorkaround.m in Sources */,
 				63E3ECC81DA251A900AEA8C3 /* ObjCCodingBase+Internal.m in Sources */,
 				63E3EC6D1DA2519200AEA8C3 /* NSManagedObject+InitWithContext.swift in Sources */,
 				63E3EC671DA2519200AEA8C3 /* NSRange+CollectionType.swift in Sources */,
@@ -1123,6 +1368,7 @@
 				63E3ECE21DA251FA00AEA8C3 /* NSPersistentStoreType.swift in Sources */,
 				63E3EC681DA2519200AEA8C3 /* RunLoop+TaskDispatcher.swift in Sources */,
 				63E3ECC91DA251A900AEA8C3 /* ObjCCodingPrimitive.swift in Sources */,
+>>>>>>> df61ea6c709c8a9667d3cea7e28056983fa30353
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1142,10 +1388,24 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+<<<<<<< HEAD
+				637377AF1D61880A00C735C7 /* NSCoder+InterfaceNormalization.swift in Sources */,
+				633EE11E1D6D41F20014EB90 /* NSManagedObjectChangeKey.swift in Sources */,
+				635F10FA1BFAFABB004982B4 /* NSPersistentStoreType.swift in Sources */,
+				637377201D617A6900C735C7 /* CFRunLoopActivity+CustomDebugStringConvertible.swift in Sources */,
+				637377A31D61842B00C735C7 /* ObjCTypeEncoding.swift in Sources */,
+				637377271D617A6900C735C7 /* NSRange+Utilities.swift in Sources */,
+				6373773F1D617CCE00C735C7 /* LaunchTask.m in Sources */,
+				637377761D617D6300C735C7 /* ObjCSelfAwareSwizzleImplSource.swift in Sources */,
+				637377541D617CF900C735C7 /* ObjCKeyValueStore+DefaultAccessors.m in Sources */,
+				63B98A211D78417100753FE5 /* ObjCBridgeable.swift in Sources */,
+				6373777F1D617F7E00C735C7 /* PersistentController.swift in Sources */,
+=======
 				63E3ECAF1DA251A900AEA8C3 /* ObjCTypeEncoding.swift in Sources */,
 				63E3ED101DA2537300AEA8C3 /* ObjCCodingBase-CoreGraphics.m in Sources */,
 				63E3ECFF1DA2536200AEA8C3 /* ObjCCodingPrimitive-AVFoundation.swift in Sources */,
 				63E3ED071DA2536D00AEA8C3 /* ObjCKeyValueStore-QuartzCore.m in Sources */,
+>>>>>>> df61ea6c709c8a9667d3cea7e28056983fa30353
 				63C8863C1C7F15F300F5677F /* LegacyUtilities.m in Sources */,
 				63E3ED001DA2536200AEA8C3 /* ObjCKeyValueStore-AVFoundation.m in Sources */,
 				63E3ECF21DA2534A00AEA8C3 /* ObjCCodingPrimitive-AppKit.swift in Sources */,
@@ -1157,7 +1417,7 @@
 				63E3ECB51DA251A900AEA8C3 /* ObjCSelfAwareSwizzle.swift in Sources */,
 				63E3ECB31DA251A900AEA8C3 /* ObjCProtocolMessageInterceptor.swift in Sources */,
 				63E3ECA91DA251A900AEA8C3 /* ObjCKeyValueStore+DefaultAccessors.m in Sources */,
-				63E3ED191DA2538B00AEA8C3 /* PersistentController.swift in Sources */,
+				63E3ED191DA2538B00AEA8C3 /* PersistenceController.swift in Sources */,
 				63E3ECB71DA251A900AEA8C3 /* ObjCSelfAwareSwizzleImplSource.swift in Sources */,
 				63E3EC611DA2519100AEA8C3 /* NSObject+That.swift in Sources */,
 				63E3ECB11DA251A900AEA8C3 /* ObjCMultiCastDelegating.swift in Sources */,
@@ -1174,7 +1434,7 @@
 				63E3EC641DA2519100AEA8C3 /* NSManagedObject+InitWithContext.swift in Sources */,
 				63E3ECB91DA251A900AEA8C3 /* ObjCSelfAwareSwizzle.m in Sources */,
 				63E3EC5E1DA2519100AEA8C3 /* NSRange+CollectionType.swift in Sources */,
-				63FE427A1DA25951002E45C8 /* PersistenceController+SwiftFrontendCrashesWithOptimizationAndEmittingDebugInfo.m in Sources */,
+				63FE427A1DA25951002E45C8 /* PersistenceController+Swift3CompilerBugWorkaround.m in Sources */,
 				63E3ED0F1DA2537300AEA8C3 /* ObjCKeyValueStore-CoreGraphics.m in Sources */,
 				63E3EC5D1DA2519100AEA8C3 /* NSRange+Utilities.swift in Sources */,
 				63E3ECB81DA251A900AEA8C3 /* ObjCSelfAwareSwizzleRecipe.swift in Sources */,
@@ -1206,6 +1466,40 @@
 			files = (
 				63E3EC791DA251A800AEA8C3 /* ObjCTypeEncoding.swift in Sources */,
 				63C8863E1C7F15F300F5677F /* LegacyUtilities.m in Sources */,
+<<<<<<< HEAD
+				637A564B1C88451E001A178A /* ObjCKeyValueStore-AVFoundation.m in Sources */,
+				637A56371C883E63001A178A /* ObjCKeyValueStore-CoreGraphics.m in Sources */,
+				637377811D617F8400C735C7 /* PersistentController.swift in Sources */,
+				6371F2171C7F829C00837BB7 /* ObjCCodingBase-UIKit.m in Sources */,
+				6373778D1D61819200C735C7 /* ObjCProtocolMessageIntercepting.swift in Sources */,
+				6373776E1D617D6200C735C7 /* ObjCSelfAwareSwizzle.m in Sources */,
+				63F0B5311C11D8D500710C41 /* LaunchTask-UIKit.m in Sources */,
+				6373779F1D61842A00C735C7 /* ObjCTypeEncoding.swift in Sources */,
+				6373776C1D617D6200C735C7 /* ObjCSelfAwareSwizzleImplSource.swift in Sources */,
+				6373779E1D61842A00C735C7 /* ObjCCodingPrimitive.swift in Sources */,
+				6373778E1D61836800C735C7 /* ObjCMultiCastDelegating.swift in Sources */,
+				637377921D61837300C735C7 /* ObjCAssociated.swift in Sources */,
+				637A56411C883F59001A178A /* ObjCKeyValueStore-QuartzCore.m in Sources */,
+				6373776B1D617D6200C735C7 /* ObjCSelfAwareSwizzle+Utilities.swift in Sources */,
+				6373776A1D617D6200C735C7 /* ObjCSelfAwareSwizzle.swift in Sources */,
+				6373773B1D617CCD00C735C7 /* LaunchTask.m in Sources */,
+				6373776D1D617D6200C735C7 /* ObjCSelfAwareSwizzleRecipe.swift in Sources */,
+				6326811A1D6BA1E1005E2F5C /* Bundle.swift in Sources */,
+				6373770D1D617A6700C735C7 /* NSRange+Utilities.swift in Sources */,
+				63B98A231D78417100753FE5 /* ObjCBridgeable.swift in Sources */,
+				637377021D617A5C00C735C7 /* ObjectiveC.swift in Sources */,
+				6373775D1D617D0A00C735C7 /* ObjCCodingBase+Internal.m in Sources */,
+				637377C41D61894700C735C7 /* ObjCCodingPrimitive-AVFoundation.swift in Sources */,
+				63C5BD831C82CCE200A22F27 /* ObjCCodingBase-AVFoundation.m in Sources */,
+				637377B11D61880B00C735C7 /* NSCoder+InterfaceNormalization.swift in Sources */,
+				6371F2081C7F57FC00837BB7 /* ObjCCodingBase-CoreGraphics.m in Sources */,
+				637A56561C885183001A178A /* ObjCKeyValueStore-UIKit.m in Sources */,
+				6373774A1D617CF800C735C7 /* ObjCKeyValueStore+DefaultAccessors.m in Sources */,
+				637377AA1D61854600C735C7 /* RunLoop+TaskDispatcher.swift in Sources */,
+				630457341D8A882A007EA6A3 /* NSObject+That.swift in Sources */,
+				637377C61D6189AF00C735C7 /* ObjCCodingPrimitive-UIKit.swift in Sources */,
+				6373770E1D617A6700C735C7 /* NSRange+CollectionType.swift in Sources */,
+=======
 				63E3EC861DA251A800AEA8C3 /* LaunchTask.m in Sources */,
 				63E3ECE91DA251FB00AEA8C3 /* NSManagedObjectChangeKey.swift in Sources */,
 				63E3EC511DA2519000AEA8C3 /* Bundle.swift in Sources */,
@@ -1219,11 +1513,11 @@
 				63E3ED141DA2537400AEA8C3 /* ObjCCodingPrimitive-CoreGraphics.swift in Sources */,
 				63E3EC7B1DA251A800AEA8C3 /* ObjCMultiCastDelegating.swift in Sources */,
 				63E3ECF41DA2535100AEA8C3 /* ObjCKeyValueStore-UIKit.m in Sources */,
-				63E3ED171DA2538A00AEA8C3 /* PersistentController.swift in Sources */,
+				63E3ED171DA2538A00AEA8C3 /* PersistenceController.swift in Sources */,
 				63E3EC721DA251A800AEA8C3 /* ObjCKeyValueStore+Internal.m in Sources */,
 				63E3ED151DA2537400AEA8C3 /* ObjCKeyValueStore-CoreGraphics.m in Sources */,
 				63E3EC751DA251A800AEA8C3 /* ObjCCodingBase.m in Sources */,
-				63FE427C1DA25951002E45C8 /* PersistenceController+SwiftFrontendCrashesWithOptimizationAndEmittingDebugInfo.m in Sources */,
+				63FE427C1DA25951002E45C8 /* PersistenceController+Swift3CompilerBugWorkaround.m in Sources */,
 				63E3ECED1DA252A000AEA8C3 /* LaunchTask-UIKit.m in Sources */,
 				63E3ECF31DA2535100AEA8C3 /* ObjCCodingPrimitive-UIKit.swift in Sources */,
 				63E3EC7C1DA251A800AEA8C3 /* ObjCProtocolMessageIntercepting.swift in Sources */,
@@ -1249,6 +1543,7 @@
 				63E3ED091DA2536F00AEA8C3 /* ObjCKeyValueStore-QuartzCore.m in Sources */,
 				63E3ED161DA2537400AEA8C3 /* ObjCCodingBase-CoreGraphics.m in Sources */,
 				63E3EC781DA251A800AEA8C3 /* ObjCCodingPrimitive.swift in Sources */,
+>>>>>>> df61ea6c709c8a9667d3cea7e28056983fa30353
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1416,7 +1711,7 @@
 				MODULEMAP_FILE = "$(PROJECT_DIR)/SupportingFiles/module.modulemap";
 				MODULEMAP_PRIVATE_FILE = "$(PROJECT_DIR)/SupportingFiles/module.private.modulemap";
 				ONLY_ACTIVE_ARCH = YES;
-				OTHER_SWIFT_FLAGS = "-D SWIFT_FONTEND_CRASHES_WITH_OPTIMIZATION_AND_EMITTING_DEBUG_INFO";
+				OTHER_SWIFT_FLAGS = "-D DEBUG";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
 			};
@@ -1450,7 +1745,6 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				MODULEMAP_FILE = "$(PROJECT_DIR)/SupportingFiles/module.modulemap";
 				MODULEMAP_PRIVATE_FILE = "$(PROJECT_DIR)/SupportingFiles/module.private.modulemap";
-				OTHER_SWIFT_FLAGS = "-D SWIFT_FONTEND_CRASHES_WITH_OPTIMIZATION_AND_EMITTING_DEBUG_INFO";
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				SWIFT_VERSION = 3.0;
 			};

@@ -9,16 +9,10 @@
 #import "LaunchTask.h"
 #import "LaunchTask+Internal.h"
 
-#if TARGET_OS_IOS || TARGET_OS_TV
-#import "LaunchTask-UIKit.h"
-#elif TARGET_OS_WATCH
-#import "LaunchTask-WatchKit.h"
-#elif TARGET_OS_MAC
-#import "LaunchTask-AppKit.h"
-#endif
+@import Darwin;
 
 #pragma mark - Types
-typedef struct LTLaunchTaskInfo {
+typedef struct _LTLaunchTaskInfo {
     const char * selectorPrefix;
     size_t selectorPrefixLength;
     LTLaunchTaskHandler selectorHandler;
@@ -27,11 +21,59 @@ typedef struct LTLaunchTaskInfo {
     int priority; // 0 by default
 } LTLaunchTaskInfo;
 
+typedef NS_ENUM(NSInteger, LTApplicationUserInterfaceCreationApproach) {
+    LTApplicationUserInterfaceCreationApproachNib,
+    LTApplicationUserInterfaceCreationApproachStoryboard,
+    LTApplicationUserInterfaceCreationApproachProgramatic,
+};
+
+typedef NS_ENUM(NSInteger, LTExtensionUserInterfaceCreationApproach) {
+    LTExtensionUserInterfaceCreationApproachStoryboard,
+    LTExtensionUserInterfaceCreationApproachExtensionPrincipalClass,
+};
+
 typedef NS_OPTIONS(NSUInteger, LTLaunchTaskSelectorMatchResult) {
     LTLaunchTaskSelectorUnmatched           = 0,
     LTLaunchTaskSelectorMatched             = 1 << 0,
+#if DEBUG
     LTLaunchTaskSelectorMatchedIgnoreCase   = 1 << 1,
+#endif
 };
+
+typedef struct _LTBufferedClassInvokeContext {
+    LTLaunchTaskInfo * taskInfo;
+    void * argumentsArray;
+} LTBufferedClassInvokeContext;
+
+typedef id (* LTLaunchTasksPerformerStoryboardRef)(
+    const id, const SEL, const NSString *, const NSBundle *
+);
+
+typedef id (* LTLaunchTasksPerformerExtensionPrincipalClassRef)(
+    const id, const SEL, const NSString *, const NSBundle *
+);
+
+#if DEBUG
+typedef id (* LTLaunchTasksPerformerXcodeAgentsRef)(const id, const SEL);
+#endif
+
+#pragma mark - Variables
+static CFMutableArrayRef kLTRegisteredLaunchTaskInfo = NULL;
+static CFMutableDictionaryRef
+kLTLaunchTasksPerformerAppDelegateImpSwizzleMap = NULL;
+static BOOL kHasLaunchTasksPerformerInjected = NO;
+static BOOL kIsLaunchTasksPerformerInjectionSucceeded = NO;
+
+#pragma mark - Constants
+#define ExtensionBundlePathSuffix       @"appex"
+#if DEBUG
+#define XcodeAgentsBundlePathSuffix     @"/Developer/Library/Xcode/Agents"
+#define PlaygroundBundleIDPrefix        @"com.apple.dt.playground"
+#endif
+#define ExtensionKey                    @"NSExtension"
+#define ExtensionPrincipalClassKey      @"NSExtensionPrincipalClass"
+#define ExtensionMainStoryboardKey      @"NSExtensionMainStoryboard"
+#define MainNibFileKey                  @"NSMainNibFile"
 
 #pragma mark - Function Prototypes
 static LTLaunchTaskInfo * LTLaunchTaskInfoCreate(
@@ -42,28 +84,72 @@ static LTLaunchTaskInfo * LTLaunchTaskInfoCreate(
     int
 );
 
+static LTApplicationUserInterfaceCreationApproach LTGetApplicationUserInterfaceCreationApproach();
+
+static LTExtensionUserInterfaceCreationApproach LTGetExtensionUserInterfaceCreationApproach();
+
 static BOOL LTRegisterLaunchTaskInfo(const LTLaunchTaskInfo *);
 
-static BOOL LTFindUserCodeEntryPointAndInjectLaunchTaskPerformer();
+static BOOL LTFindUserCodeEntryPointAndInjectLaunchTasksPerformer(void);
 
-static BOOL LTInjectsAsApplication();
+static BOOL LTInjectsAsApplication(void);
 
-static BOOL LTInjectsAsAppExtension();
+static BOOL LTInjectsAsExtension(void);
 
-static id LTLaunchTaskAppExtensionPerformer(id self, SEL _cmd);
+static BOOL LTInjectsToStoryboard(void);
+
+#if DEBUG
+static BOOL LTInjectsAsXcodeAgents(void);
+
+static BOOL LTInjectsAsPlaygroundPage(void);
+#endif
+
+static BOOL LTInjectsToNib(void);
+
+static BOOL LTInjectsToAppDelegate(void);
+
+static BOOL LTInjectsToExtensionPrincipalClass(void);
+
+static LTLaunchTasksPerformerExtensionPrincipalClassRef
+    LTLaunchTasksPerformerExtensionPrincipalClassReplaced;
+
+static id LTLaunchTasksPerformerExtensionPrincipalClass(
+    const id, const SEL, const NSString *, const NSBundle *
+);
+
+static LTLaunchTasksPerformerStoryboardRef
+    LTLaunchTasksPerformerStoryboardReplaced;
+
+static id LTLaunchTasksPerformerStoryboard(
+    const id, const SEL, const NSString *, const NSBundle *
+);
+
+#if DEBUG
+static LTLaunchTasksPerformerXcodeAgentsRef
+    LTLaunchTasksPerformerXcodeAgentsReplaced;
+
+static id LTLaunchTasksPerformerXcodeAgents(const id, const SEL);
+#endif
 
 static LTLaunchTaskSelectorMatchResult LTMatchLaunchTaskSelector(
-    SEL,
+    const SEL,
     const LTLaunchTaskInfo *
 );
 
-static void LTScanAndPerformLaunchTaskSelectorsOnClass(
-    Class,
+static Boolean LTBufferedClassEqual(const void *, const void *);
+
+static void LTBufferedClassScanAndPerformLaunchTask(const void *, void *);
+
+static void LTScanLaunchTaskSelectorsOnClassAndPerform(
+    const Class,
     const LTLaunchTaskInfo *,
-    NSArray *
+    const NSArray *
 );
 
-static void LTSetLaunchTaskPerformerOriginalImpForClass(Class, IMP);
+static void
+    LTSetAppDelegateLaunchTasksPerformerOriginalImpForClass(
+    const Class, const IMP
+);
 
 // All the compare operation shall be gauranteed in a same thread.
 static BOOL LTLaunchTaskInfoEqualToInfo(
@@ -74,26 +160,33 @@ static BOOL LTLaunchTaskInfoEqualToInfo(
 static void LTLaunchTaskInfoRelease(LTLaunchTaskInfo *);
 
 static void LTLaunchTaskHandlerDefault(
-    SEL,
-    id,
-    Method,
-    NSArray *,
+    const SEL,
+    const id,
+    const Method,
+    const NSArray *,
     const void *
 );
-
-#pragma mark - Variables
-static CFMutableArrayRef            kLTRegisteredLaunchTaskInfo = NULL;
-static CFMutableDictionaryRef       kLTLaunchTasksPerformerReplacingMap = NULL;
 
 #pragma mark - Function Implementations
 BOOL LTRegisterLaunchTask(
     const char * selectorPrefix,
-    LTLaunchTaskHandler selectorHandler,
+    const LTLaunchTaskHandler selectorHandler,
     const void * context,
-    LTLaunchTaskContextCleanupHandler contextCleanupHandler,
+    const LTLaunchTaskContextCleanupHandler contextCleanupHandler,
     int priority
     )
 {
+    if (!kHasLaunchTasksPerformerInjected) {
+        kIsLaunchTasksPerformerInjectionSucceeded
+            = LTFindUserCodeEntryPointAndInjectLaunchTasksPerformer();
+        if (!kIsLaunchTasksPerformerInjectionSucceeded) {
+#if DEBUG
+            NSLog(@"Inject point not found for main bundle: %@. Call LTPerformLaunchTasksIfNeeded() manually in the very begining of your code instead.", [NSBundle mainBundle]);
+#endif
+        }
+        kHasLaunchTasksPerformerInjected = YES;
+    }
+    
     // Create task info
     LTLaunchTaskInfo * launchTaskInfo = LTLaunchTaskInfoCreate(
         selectorPrefix,
@@ -112,11 +205,95 @@ BOOL LTRegisterLaunchTask(
     }
 }
 
+LTApplicationUserInterfaceCreationApproach
+    LTGetApplicationUserInterfaceCreationApproach()
+{
+    NSBundle * mainBundle = [NSBundle mainBundle];
+    
+    NSString * mainNibFileName
+        = [mainBundle objectForInfoDictionaryKey:MainNibFileKey];
+    
+    NSString * mainStoryboardFileName
+        = [mainBundle objectForInfoDictionaryKey:LTMainStoryboardFileKey];
+    
+    NSCAssert(
+        !(mainNibFileName && mainStoryboardFileName),
+        @"An application cannot have both %@ and %@ at the same time in its info.plist. Remove one of them.", MainNibFileKey, LTMainStoryboardFileKey
+    );
+    
+    if (mainNibFileName) {
+#if DEBUG
+        NSLog(@"Application was detected that it creates user interface via nib file.");
+#endif
+        return LTApplicationUserInterfaceCreationApproachNib;
+    }
+    
+    if (mainStoryboardFileName) {
+#if DEBUG
+        NSLog(@"Application was detected that it creates user interface via storyboard file.");
+#endif
+        return LTApplicationUserInterfaceCreationApproachStoryboard;
+    }
+    
+#if DEBUG
+    NSLog(@"Application was detected that it creates user interface programatically.");
+#endif
+    return LTApplicationUserInterfaceCreationApproachProgramatic;
+}
+
+LTExtensionUserInterfaceCreationApproach
+    LTGetExtensionUserInterfaceCreationApproach()
+{
+    NSBundle * mainBundle = [NSBundle mainBundle];
+    
+    NSDictionary * extensionInfo
+        = [mainBundle objectForInfoDictionaryKey:ExtensionKey];
+    
+    if (extensionInfo == nil) {
+        [NSException raise:NSInternalInconsistencyException
+                    format:@"Extension bundle has no \"%@\" key.", ExtensionKey];
+    }
+    
+#if DEBUG
+    NSString * extensionPricipalClassName
+        = extensionInfo[ExtensionPrincipalClassKey];
+#endif
+    
+    NSString * extensionMainStoryboardName
+        = extensionInfo[ExtensionMainStoryboardKey];
+    
+    NSCAssert(
+        !(extensionPricipalClassName && extensionMainStoryboardName),
+        @"An extension cannot have both %@ and %@ at the same time in its info.plist. Remove one of them.",
+        ExtensionPrincipalClassKey,
+        ExtensionMainStoryboardKey
+    );
+    
+    NSCAssert(
+        (extensionPricipalClassName || extensionMainStoryboardName),
+        @"An extension must have one of %@ and %@ in its info.plist. Add one of them.",
+        ExtensionPrincipalClassKey,
+        ExtensionMainStoryboardKey
+    );
+    
+    if (extensionMainStoryboardName != nil) {
+#if DEBUG
+        NSLog(@"Extension was detected that it creates user interface via storyboard file.");
+#endif
+        return LTExtensionUserInterfaceCreationApproachStoryboard;
+    }
+    
+#if DEBUG
+    NSLog(@"Extension was detected that it creates user interface via extension principal class.");
+#endif
+    return LTExtensionUserInterfaceCreationApproachExtensionPrincipalClass;
+}
+
 LTLaunchTaskInfo * LTLaunchTaskInfoCreate(
     const char * selectorPrefix,
-    LTLaunchTaskHandler launchTaskSelectorHandler,
+    const LTLaunchTaskHandler launchTaskSelectorHandler,
     const void * context,
-    LTLaunchTaskContextCleanupHandler contextCleanupHandler,
+    const LTLaunchTaskContextCleanupHandler contextCleanupHandler,
     int priotity
     )
 {
@@ -187,15 +364,21 @@ CFComparisonResult LTLaunchTaskInfoComparator(
     }
 }
 
-#pragma mark - Launch Task Process
-void LTPerformLaunchTasksOnLoadedClasses(id firstArg, ...) {
+#pragma mark Launch Task Process
+void LTPerformLaunchTasksIfNeeded() {
+    LTPerformLaunchTasksOnLoadedClasses(nil);
+}
+
+void LTPerformLaunchTasksOnLoadedClasses(const id firstArg, ...) {
     NSMutableArray * args = [[NSMutableArray alloc] init];
+    
+    id argToEnlist = firstArg;
     
     va_list argList;
     va_start(argList, firstArg);
-    while (firstArg != nil) {
-        [args addObject:firstArg];
-        firstArg = va_arg(argList, id);
+    while (argToEnlist != nil) {
+        [args addObject:argToEnlist];
+        argToEnlist = va_arg(argList, id);
     }
     va_end(argList);
     
@@ -204,11 +387,21 @@ void LTPerformLaunchTasksOnLoadedClasses(id firstArg, ...) {
 #if DEBUG
         NSTimeInterval start = [NSDate date].timeIntervalSinceReferenceDate;
 #endif
-        // Swizzle loaded bundles
-        unsigned int classCount = 0;
+        CFIndex scannedClassCount = 0;
         
         if (kLTRegisteredLaunchTaskInfo != NULL) {
-            CFIndex infoCount = CFArrayGetCount(kLTRegisteredLaunchTaskInfo);
+            CFArrayCallBacks classBufferCallBacks = {
+                0, NULL, NULL, NULL, &LTBufferedClassEqual
+            };
+            // We don't use a raw pointer here because we want to make
+            // use of CFMutableArray's capacity growth strategy.
+            CFMutableArrayRef classBuffer
+                = CFArrayCreateMutable(kCFAllocatorDefault, 0, &classBufferCallBacks);
+            
+            BOOL isClassBufferReady = NO;
+            
+            CFIndex infoCount =
+                CFArrayGetCount(kLTRegisteredLaunchTaskInfo);
             
             CFRange registeredInfoRange = CFRangeMake(0, infoCount);
             
@@ -219,27 +412,54 @@ void LTPerformLaunchTasksOnLoadedClasses(id firstArg, ...) {
                 NULL
             );
             
-            Class * classList = objc_copyClassList(&classCount);
-            
             for (CFIndex infoIdx = 0; infoIdx < infoCount; infoIdx ++) {
-                for (unsigned int idx = 0; idx < classCount; idx ++) {
-                    Class class = classList[idx];
-                    LTLaunchTaskInfo * info = (LTLaunchTaskInfo *)
-                    CFArrayGetValueAtIndex(
-                        kLTRegisteredLaunchTaskInfo,
-                        infoIdx
-                    );
-                    
-                    LTScanAndPerformLaunchTaskSelectorsOnClass(
-                        class,
-                        info,
-                        args
-                    );
-                }
+                LTLaunchTaskInfo * info = (LTLaunchTaskInfo *)
+                    CFArrayGetValueAtIndex(kLTRegisteredLaunchTaskInfo, infoIdx);
                 
+                if (!isClassBufferReady) {
+                    unsigned int imgCount = 0;
+                    
+                    const char * * imgs = objc_copyImageNames(&imgCount);
+                    
+                    for (unsigned int imgIdx = 0; imgIdx < imgCount; imgIdx ++) {
+                        const char * img = imgs[imgIdx];
+                        
+                        unsigned int clsCount = 0;
+                        
+                        const char * * clsNames
+                            = objc_copyClassNamesForImage(img, &clsCount);
+                        
+                        for (unsigned int clsIdx = 0; clsIdx < clsCount; clsIdx ++) {
+                            
+                            const char * clsName = clsNames[clsIdx];
+                            
+                            Class cls = objc_getClass(clsName);
+                            
+                            // Getting class this way avoids the weak linked.
+                            if (cls) {
+                                LTScanLaunchTaskSelectorsOnClassAndPerform(cls, info, args);
+                                CFArrayAppendValue(classBuffer,  (__bridge const void *)(cls));
+                                scannedClassCount += 1;
+                            }
+                        }
+                        
+                        free(clsNames);
+                    }
+                    
+                    free(imgs);
+                    
+                    isClassBufferReady = YES;
+                } else {
+                    CFRange totalRange = CFRangeMake(0, CFArrayGetCount(classBuffer));
+                    LTBufferedClassInvokeContext context = {
+                        info,
+                        (__bridge void *)(args)
+                    };
+                    CFArrayApplyFunction(classBuffer, totalRange, &LTBufferedClassScanAndPerformLaunchTask, &context);
+                }
             }
             
-            free(classList);
+            CFRelease(classBuffer);
             
             for (CFIndex idx = 0; idx < infoCount; idx ++) {
                 LTLaunchTaskInfo * registeredInfo = (LTLaunchTaskInfo *)
@@ -262,17 +482,32 @@ void LTPerformLaunchTasksOnLoadedClasses(id firstArg, ...) {
         
 #if DEBUG
         NSTimeInterval end = [NSDate date].timeIntervalSinceReferenceDate;
-        NSLog(@"%f seconds took to complete all launch tasks. %u classes were scanned.",
-              (end - start), classCount);
+        NSLog(@"%f seconds took to complete all launch tasks. %@ classes were scanned.",
+              (end - start), @(scannedClassCount));
 #endif
     });
-    
 }
 
-void LTScanAndPerformLaunchTaskSelectorsOnClass(
-    Class aClass,
+Boolean LTBufferedClassEqual(const void * value1, const void * value2) {
+    return value1 == value2;
+}
+
+void LTBufferedClassScanAndPerformLaunchTask(const void * value, void * context) {
+    
+    Class cls = (__bridge Class) value;
+    LTBufferedClassInvokeContext * ctx
+        = (LTBufferedClassInvokeContext *) context;
+    
+    LTLaunchTaskInfo * info = ctx -> taskInfo;
+    NSArray * args = (__bridge NSArray *)(ctx -> argumentsArray);
+    
+    LTScanLaunchTaskSelectorsOnClassAndPerform(cls, info, args);
+}
+
+void LTScanLaunchTaskSelectorsOnClassAndPerform(
+    const Class aClass,
     const LTLaunchTaskInfo * info,
-    NSArray * args
+    const NSArray * args
     )
 {
     char const * className = class_getName(aClass);
@@ -289,7 +524,7 @@ void LTScanAndPerformLaunchTaskSelectorsOnClass(
         SEL selector = method_getName(method);
         
         LTLaunchTaskSelectorMatchResult selMatchResult =
-        LTMatchLaunchTaskSelector(selector, info);
+            LTMatchLaunchTaskSelector(selector, info);
         
         if (selMatchResult & LTLaunchTaskSelectorMatched) {
             const void * context = info -> context;
@@ -307,7 +542,7 @@ void LTScanAndPerformLaunchTaskSelectorsOnClass(
 }
 
 LTLaunchTaskSelectorMatchResult LTMatchLaunchTaskSelector(
-    SEL selector,
+    const SEL selector,
     const LTLaunchTaskInfo * info
     )
 {
@@ -339,15 +574,15 @@ LTLaunchTaskSelectorMatchResult LTMatchLaunchTaskSelector(
         return LTLaunchTaskSelectorUnmatched;
     }
 #else
-    return LTLaunchTaskSelectorMatchResultUnmatched;
+    return LTLaunchTaskSelectorUnmatched;
 #endif
 }
 
 void LTLaunchTaskHandlerDefault(
-    SEL selector,
-    id owner,
-    Method method,
-    NSArray * args,
+    const SEL selector,
+    const id owner,
+    const Method method,
+    const NSArray * args,
     const void * context
     )
 {
@@ -392,163 +627,368 @@ BOOL LTLaunchTaskInfoEqualToInfo(
         && info1 -> contextCleanupHandler   == info2 -> contextCleanupHandler;
 }
 
-#pragma mark - Find User Code Entry Point and Inject Launch Tasks Performer
-BOOL LTFindUserCodeEntryPointAndInjectLaunchTaskPerformer() {
-    if (LTInjectsAsApplication()) {
-        return YES;
-    } else if (LTInjectsAsAppExtension()) {
-        return YES;
+#pragma mark Find User Code Entry Point and Inject Launch Tasks Performer
+BOOL LTFindUserCodeEntryPointAndInjectLaunchTasksPerformer() {
+    NSMainBundleCategory mainBundleCategory
+        = [[NSBundle mainBundle] category];
+    
+    switch (mainBundleCategory) {
+        case NSMainBundleCategoryApplication:
+            if (LTInjectsAsApplication()) {
+#if DEBUG
+                NSLog(@"Found user code entry point and injected launch task performer as application.");
+#endif
+                return YES;
+            }
+            break;
+        case NSMainBundleCategoryExtension:
+            if (LTInjectsAsExtension()) {
+#if DEBUG
+                NSLog(@"Found user code entry point and injected launch task performer as extension.");
+#endif
+                return YES;
+            }
+            break;
+#if DEBUG
+        case NSMainBundleCategoryPlaygroundPage:
+            if (LTInjectsAsPlaygroundPage()) {
+                NSLog(@"Found user code entry point and injected launch task performer as Xcode Playground page.");
+                return YES;
+            }
+            break;
+        case NSMainBundleCategoryXcodeAgents:
+            if (LTInjectsAsXcodeAgents()) {
+                NSLog(@"Found user code entry point and injected launch task performer as Xcode Agents.");
+                return YES;
+            }
+            break;
+#endif
+        default: break;
     }
+    
     return NO;
+}
+
+BOOL LTInjectsToStoryboard() {
+    SEL storyboardUserCodeEntryPointSelector
+    = @selector(storyboardWithName:bundle:);
+    
+    const char * storyboardClassName
+        = [NSStringFromClass([LTStoryboard class]) UTF8String];
+    Class storyboardMetaClass = objc_getMetaClass(storyboardClassName);
+    
+    LTLaunchTasksPerformerStoryboardReplaced
+    = (LTLaunchTasksPerformerStoryboardRef) class_replaceMethod(
+        storyboardMetaClass,
+        storyboardUserCodeEntryPointSelector,
+        (IMP)&LTLaunchTasksPerformerStoryboard,
+        "@:@@"
+    );
+    
+    NSCAssert(
+        LTLaunchTasksPerformerStoryboardReplaced,
+        @"Cannot inject launch tasks performer to %@'s selector: %@",
+        NSStringFromClass(storyboardMetaClass),
+        NSStringFromSelector(storyboardUserCodeEntryPointSelector)
+    );
+    
+    return LTLaunchTasksPerformerStoryboardReplaced != NULL;
+}
+
+BOOL LTInjectsToNib() {
+#if DEBUG
+    NSLog(@"LaunchTask cannot handle launching from nib currently. Ask for support if you need.");
+#endif
+    return NO;
+}
+
+BOOL LTInjectsToAppDelegate() {
+    BOOL success = NO;
+    
+    Protocol * AppDelegateProtocol = @protocol(LTAppDelegate);
+    
+    SEL userCodeEntryPointSelector
+        = @selector(LTAppDelegateUserCodeEntryPointSelector);
+    
+    const char * userCodeEntryPointEncode
+        = LTAppDelegateUserCodeEntryPointSelectorEncode;
+    
+    unsigned int classCount = 0;
+    
+    // We don't use `objc_copyClassNamesForImage` to get classes only
+    // in the main bundle here because some users can specify their
+    // app delegate to be a class in a third party framework.
+    
+    Class * classes = objc_copyClassList(&classCount);
+    
+    for (unsigned int idx = 0; idx < classCount; idx ++) {
+        Class cls = classes[idx];
+        
+        if (class_conformsToProtocol(cls, AppDelegateProtocol)) {
+            BOOL isPotentialUserCodeEntryPoint
+                = class_respondsToSelector(
+                    cls,
+                    userCodeEntryPointSelector
+                );
+            
+            if (isPotentialUserCodeEntryPoint) {
+                NSLog(@"Swizzle the user code entry point.");
+                /* Swizzle */
+                
+                IMP originalImp = class_replaceMethod(
+                    cls,
+                    userCodeEntryPointSelector,
+                    (IMP)&LTLaunchTasksPerformerAppDelegateSwizzled,
+                    userCodeEntryPointEncode
+                );
+                
+                LTSetAppDelegateLaunchTasksPerformerOriginalImpForClass(
+                    cls,
+                    originalImp
+                );
+                
+                NSLog(@"hehe");
+                
+                success = success || YES;
+            } else {
+                NSLog(@"Inject the user code entry point.");
+                /* Inject */
+                
+                class_addMethod(
+                    cls,
+                    userCodeEntryPointSelector,
+                    (IMP)&LTLaunchTasksPerformerAppDelegateInjected,
+                    userCodeEntryPointEncode
+                );
+                
+                success = success || YES;
+            }
+            
+        }
+    }
+    
+    free(classes);
+    
+    NSCAssert(
+        success,
+        @"No app delegate(class conforms to %@) found in all loaded bundles. Check your code that if you have added @NSApplicationMain above your app delegate class definition when your app delegate is written in Swift, or if you have set correct app delegate class in your main function when your app delegate is written in Objective-C.",
+        NSStringFromProtocol(AppDelegateProtocol)
+    );
+    
+    return success;
+}
+
+BOOL LTInjectsToExtensionPrincipalClass() {
+    NSDictionary * extensionInfo
+        = [[NSBundle mainBundle] objectForInfoDictionaryKey:ExtensionKey];
+    
+    NSCAssert(extensionInfo, @"No, it's impossible.");
+    
+    NSString * extensionPrincipalClassName
+        = extensionInfo[ExtensionPrincipalClassKey];
+    
+    NSCAssert(
+        extensionPrincipalClassName,
+        @"Extension's principal class name was not set. Or the extension principal class' key(%@) was changed.", ExtensionPrincipalClassKey
+    );
+    
+    Class extensionPrincipalClass
+        = NSClassFromString(extensionPrincipalClassName);
+    
+    SEL extensionPrincipalClassUserCodeEntryPointSelector
+        = @selector(initWithNibName:bundle:);
+    
+    LTLaunchTasksPerformerExtensionPrincipalClassReplaced
+        = (LTLaunchTasksPerformerExtensionPrincipalClassRef)
+        class_replaceMethod(
+            extensionPrincipalClass,
+            extensionPrincipalClassUserCodeEntryPointSelector,
+            (IMP)&LTLaunchTasksPerformerExtensionPrincipalClass,
+            "@:@@"
+        );
+    
+    NSCAssert(
+        LTLaunchTasksPerformerExtensionPrincipalClassReplaced,
+        @"Cannot inject launch tasks performer to %@'s selector: %@",
+        NSStringFromClass(extensionPrincipalClass),
+        NSStringFromSelector(extensionPrincipalClassUserCodeEntryPointSelector)
+    );
+    
+    return LTLaunchTasksPerformerExtensionPrincipalClassReplaced != NULL;
 }
 
 BOOL LTInjectsAsApplication() {
     __block BOOL success = NO;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        // Return early for app extensions. Because no app delegate here.
-        if ([[[NSBundle mainBundle] bundlePath] hasSuffix:@"appex"]) {
-            return;
+        LTApplicationUserInterfaceCreationApproach UserInterfaceCreationApproach
+            = LTGetApplicationUserInterfaceCreationApproach();
+        
+        switch (UserInterfaceCreationApproach) {
+            case LTApplicationUserInterfaceCreationApproachStoryboard:
+                success = LTInjectsToStoryboard();
+                break;
+            case LTApplicationUserInterfaceCreationApproachNib:
+                success = LTInjectsToNib();
+                break;
+            case LTApplicationUserInterfaceCreationApproachProgramatic:
+                success = LTInjectsToAppDelegate();
+                break;
         }
-        
-        // Inject implementation in to all classes conforms to process delegate
-        Protocol * AppDelegateProtocol = @protocol(LTAppDelegate);
-        
-        SEL performerSel = @selector(LTLaunchTasksPerformSelector);
-        
-        unsigned int classCount = 0;
-        
-        // We don't use `objc_copyClassNamesForImage` to get classes only
-        // in the main bundle here because some users can specify their
-        // app delegate to be a class in a third party framework.
-        Class * classes = objc_copyClassList(&classCount);
-        
-        for (unsigned int idx = 0; idx < classCount; idx ++) {
-            Class cls = classes[idx];
-            
-            if (class_conformsToProtocol(cls, AppDelegateProtocol)) {
-                
-                if (class_respondsToSelector(cls, performerSel)) {
-                    /* Swizzle */
-                    
-                    // Keep original
-                    IMP originalImp = class_getMethodImplementation(
-                        cls,
-                        performerSel
-                    );
-                    
-                    LTSetLaunchTaskPerformerOriginalImpForClass(cls, originalImp);
-                    
-                    // Replace
-                    class_replaceMethod(
-                        cls,
-                        performerSel,
-                        (IMP)&LTSwizzledLaunchTasksPerformer,
-                        LTLaunchTasksPerformSelectorEncode
-                    );
-                    success = success || YES;
-                } else {
-                    /* Inject */
-                    
-                    class_addMethod(
-                        cls,
-                        performerSel,
-                        (IMP)&LTInjectedLaunchTasksPerformer,
-                        LTLaunchTasksPerformSelectorEncode
-                    );
-                    success = success || YES;
-                }
-                
-            }
-        }
-        
-        free(classes);
         
     });
     return success;
 }
 
-BOOL LTInjectsAsAppExtension() {
+BOOL LTInjectsAsExtension() {
     __block BOOL success = NO;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        NSDictionary * extensionInfo = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"NSExtension"];
+        LTExtensionUserInterfaceCreationApproach UserInterfaceCreationApproach
+            = LTGetExtensionUserInterfaceCreationApproach();
         
-        NSString * extensionPricipalClassName = extensionInfo[@"NSExtensionPrincipalClass"];
-        
-        if (extensionPricipalClassName) {
-            // Investiage initializers
-            Class extensionPricipalClass = NSClassFromString(extensionPricipalClassName);
-            unsigned int methodCount = 0;
-            Method * methods = class_copyMethodList(extensionPricipalClass, &methodCount);
-            for (unsigned int idx = 0; idx < methodCount; idx ++) {
-                Method eachMethod = methods[idx];
-                SEL methodName = method_getName(eachMethod);
-                NSString * methodString = NSStringFromSelector(methodName);
-                if ([methodString isEqualToString:@"init"]) {
-                    IMP originalImp = class_replaceMethod(extensionPricipalClass, methodName, (IMP)&LTLaunchTaskAppExtensionPerformer, "@:");
-                    LTSetLaunchTaskPerformerOriginalImpForClass(extensionPricipalClass, originalImp);
-                    success = YES;
-                    break;
-                }
-            }
-            // FIXME: Storyboard wasn't under consideration here.
-            free(methods);
+        switch (UserInterfaceCreationApproach) {
+            case LTExtensionUserInterfaceCreationApproachStoryboard:
+                success = LTInjectsToStoryboard();
+                break;
+            case LTExtensionUserInterfaceCreationApproachExtensionPrincipalClass:
+                success = LTInjectsToExtensionPrincipalClass();
+                break;
         }
     });
     return success;
 }
 
-IMP LTGetLaunchTaskPerformerOriginalImpForClass(Class aClass) {
-    if (kLTLaunchTasksPerformerReplacingMap == NULL) {
-        kLTLaunchTasksPerformerReplacingMap =
-        CFDictionaryCreateMutable(kCFAllocatorDefault, 0, NULL, NULL);
-    }
-    return (IMP) CFDictionaryGetValue(kLTLaunchTasksPerformerReplacingMap,
-        (__bridge const void *)(aClass));
+#if DEBUG
+BOOL LTInjectsAsXcodeAgents() {
+    __block BOOL success = NO;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        /* We don't have to worry about the usage of private API here,
+         because the whole piece of code is guarded with the DEBUG flag, 
+         which means it would not be compiled in to the production.
+         */
+        Class userCodeEntryPointClass
+            = NSClassFromString(@"XCTestDriver");
+        if (userCodeEntryPointClass) {
+            SEL userCodeEntryPointSelector = @selector(init);
+            
+            LTLaunchTasksPerformerXcodeAgentsReplaced
+                = (LTLaunchTasksPerformerXcodeAgentsRef)
+                class_replaceMethod(
+                    userCodeEntryPointClass,
+                    userCodeEntryPointSelector,
+                    (IMP)&LTLaunchTasksPerformerXcodeAgents,
+                    "@:"
+                );
+            
+            NSCAssert(
+                LTLaunchTasksPerformerXcodeAgentsReplaced,
+                @"Cannot inject launch tasks performer to %@'s selector: %@",
+                NSStringFromClass(userCodeEntryPointClass),
+                NSStringFromSelector(userCodeEntryPointSelector)
+            );
+            
+            success = LTLaunchTasksPerformerXcodeAgentsReplaced != NULL;
+        }
+    });
+    return success;
 }
 
-void LTSetLaunchTaskPerformerOriginalImpForClass(Class aClass, IMP impl) {
-    if (kLTLaunchTasksPerformerReplacingMap == NULL) {
-        kLTLaunchTasksPerformerReplacingMap =
+BOOL LTInjectsAsPlaygroundPage() {
+    __block BOOL success = NO;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        NSLog(@"Launch Task currently doesn't support Xcode Playground pages.");
+    });
+    return success;
+}
+#endif
+
+LTLaunchTasksPerformerAppDelegate *
+    LTGetAppDelegateLaunchTasksPerformerOriginalImpForClass(
+        const Class aClass
+    )
+{
+    if (kLTLaunchTasksPerformerAppDelegateImpSwizzleMap == NULL) {
+        kLTLaunchTasksPerformerAppDelegateImpSwizzleMap =
+        CFDictionaryCreateMutable(kCFAllocatorDefault, 0, NULL, NULL);
+    }
+    return (LTLaunchTasksPerformerAppDelegate *) CFDictionaryGetValue(
+        kLTLaunchTasksPerformerAppDelegateImpSwizzleMap,
+        (__bridge const void *)(aClass)
+    );
+}
+
+void LTSetAppDelegateLaunchTasksPerformerOriginalImpForClass(
+    const Class aClass,
+    const IMP impl
+    )
+{
+    if (kLTLaunchTasksPerformerAppDelegateImpSwizzleMap == NULL) {
+        kLTLaunchTasksPerformerAppDelegateImpSwizzleMap =
         CFDictionaryCreateMutable(kCFAllocatorDefault, 0, NULL, NULL);
     }
     CFDictionarySetValue(
-        kLTLaunchTasksPerformerReplacingMap,
+        kLTLaunchTasksPerformerAppDelegateImpSwizzleMap,
         (__bridge const void *)(aClass),
         impl
     );
 }
 
-id LTLaunchTaskAppExtensionPerformer(id self, SEL _cmd) {
+id LTLaunchTasksPerformerStoryboard(
+    const id self,
+    const SEL _cmd,
+    const NSString * name,
+    const NSBundle * bundleOrNil
+    )
+{
     LTPerformLaunchTasksOnLoadedClasses(nil);
-    Class class = [self class];
     
-    id (*originalImp)(id, SEL) = (id (*)(id, SEL))
-    LTGetLaunchTaskPerformerOriginalImpForClass(class);
+    NSCAssert(
+        LTLaunchTasksPerformerStoryboardReplaced != NULL,
+        @"No original implementation found."
+    );
     
-    if (originalImp != NULL) {
-        return originalImp(self, _cmd);
-    } else {
-        [NSException raise:NSInternalInconsistencyException
-                    format:@"Cannot find original implementation for %@ on %@",
-         NSStringFromSelector(_cmd),
-         NSStringFromClass(class)];
-        return nil;
-    }
+    return (* LTLaunchTasksPerformerStoryboardReplaced)(
+        self, _cmd, name, bundleOrNil
+    );
 }
 
-@interface NSObject(LaunchTask)
-@end
+#if DEBUG
+id LTLaunchTasksPerformerXcodeAgents(const id self, const SEL _cmd) {
+    LTPerformLaunchTasksOnLoadedClasses(nil);
+    
+    NSCAssert(
+        LTLaunchTasksPerformerXcodeAgentsReplaced != NULL,
+        @"No original implementation found."
+    );
+    
+    return (* LTLaunchTasksPerformerXcodeAgentsReplaced)(self, _cmd);
+}
+#endif
+
+id LTLaunchTasksPerformerExtensionPrincipalClass(
+    const id self,
+    const SEL _cmd,
+    const NSString * nibNameOrNil,
+    const NSBundle * bundleOrNil
+    )
+{
+    LTPerformLaunchTasksOnLoadedClasses(nil);
+    
+    NSCAssert(
+        LTLaunchTasksPerformerExtensionPrincipalClassReplaced != NULL,
+        @"No original implementation found."
+    );
+    
+    return LTLaunchTasksPerformerExtensionPrincipalClassReplaced(
+        self, _cmd, nibNameOrNil, bundleOrNil
+    );
+}
 
 @implementation NSObject(LaunchTask)
 + (void)load {
-    if (!LTFindUserCodeEntryPointAndInjectLaunchTaskPerformer()) {
-#if DEBUG
-        NSLog(@"Inject point not found for main bundle: %@", [NSBundle mainBundle]);
-#endif
-    }
-    
     LTRegisterLaunchTask(
         "_LaunchTask_",
         &LTLaunchTaskHandlerDefault,
@@ -559,4 +999,24 @@ id LTLaunchTaskAppExtensionPerformer(id self, SEL _cmd) {
 }
 @end
 
+#pragma mark - NSBundle Utilities
+@implementation NSBundle (Category)
+- (NSMainBundleCategory)category {
+    if ([NSBundle mainBundle] == self) {
+        if ([[self bundlePath] hasSuffix:ExtensionBundlePathSuffix]) {
+            return NSMainBundleCategoryExtension;
+        }
+#if DEBUG
+        if ([[self bundlePath] hasSuffix:XcodeAgentsBundlePathSuffix]) {
+            return NSMainBundleCategoryXcodeAgents;
+        }
+        if ([[self bundleIdentifier] hasPrefix:PlaygroundBundleIDPrefix]) {
+            return NSMainBundleCategoryPlaygroundPage;
+        }
+#endif
+        return NSMainBundleCategoryApplication;
+    }
+    return NSMainBundleCategoryNotMainBundle;
+}
 
+@end

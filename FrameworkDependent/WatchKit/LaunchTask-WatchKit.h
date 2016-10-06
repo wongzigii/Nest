@@ -10,14 +10,18 @@
 
 #import "LaunchTask.h"
 
-typedef void LTLaunchTaskPerformer(id<WKExtensionDelegate>, SEL);
-
 #define LTAppDelegate WKExtensionDelegate
 
-#define LTLaunchTasksPerformSelector applicationDidFinishLaunching
+#define LTAppDelegateUserCodeEntryPointSelector applicationDidFinishLaunching
 
-#define LTLaunchTasksPerformSelectorEncode "@:"
+#define LTAppDelegateUserCodeEntryPointSelectorEncode "@:"
 
-FOUNDATION_EXPORT LTLaunchTaskPerformer LTSwizzledLaunchTasksPerformer;
+typedef void LTLaunchTasksPerformerAppDelegate(
+    id<WKExtensionDelegate>, SEL
+);
 
-FOUNDATION_EXPORT LTLaunchTaskPerformer LTInjectedLaunchTasksPerformer;
+FOUNDATION_EXPORT LTLaunchTasksPerformerAppDelegate
+    LTLaunchTasksPerformerAppDelegateSwizzled;
+
+FOUNDATION_EXPORT LTLaunchTasksPerformerAppDelegate
+    LTLaunchTasksPerformerAppDelegateInjected;
