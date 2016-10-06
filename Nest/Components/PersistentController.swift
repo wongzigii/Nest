@@ -410,7 +410,7 @@ extension Notification {
     }
 }
 
-public protocol PersistentControllerFetchRequestTemplate {
+public protocol FetchRequestTemplating {
     associatedtype Name
     associatedtype Variable: Hashable
     
@@ -424,9 +424,16 @@ public protocol SingletonPersistentController: class {
     static var shared: Self { get }
 }
 
-public protocol FechRequestTemplatedPersistentController: class {
-    associatedtype FetchRequestTemplate:
-    PersistentControllerFetchRequestTemplate
+public protocol TemplatedFetchRequestGenerating: class {
+    associatedtype FetchRequestTemplate: FetchRequestTemplating
+    
+    func fetchRequestFromTemplate(
+        _ template: FetchRequestTemplate
+        ) -> NSFetchRequest<NSFetchRequestResult>
+    
+    static func fetchRequestFromTemplate(
+        _ template: FetchRequestTemplate
+        ) -> NSFetchRequest<NSFetchRequestResult>
 }
 
 extension SingletonPersistentController where
@@ -462,7 +469,7 @@ extension SingletonPersistentController where
     }
 }
 
-extension FechRequestTemplatedPersistentController where
+extension TemplatedFetchRequestGenerating where
     Self: PersistentController,
     Self.FetchRequestTemplate.Name: RawRepresentable,
     Self.FetchRequestTemplate.Name.RawValue == String,
@@ -485,7 +492,7 @@ extension FechRequestTemplatedPersistentController where
 }
 
 
-extension FechRequestTemplatedPersistentController where
+extension TemplatedFetchRequestGenerating where
     Self: PersistentController,
     Self: SingletonPersistentController,
     Self.FetchRequestTemplate.Name: RawRepresentable,
