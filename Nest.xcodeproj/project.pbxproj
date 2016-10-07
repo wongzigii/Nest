@@ -222,10 +222,6 @@
 		63F1FDFC1C80AA6C00A271B9 /* Nest.h in Headers */ = {isa = PBXBuildFile; fileRef = 63C8862F1C7F146400F5677F /* Nest.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		63F1FDFD1C80AA6D00A271B9 /* Nest.h in Headers */ = {isa = PBXBuildFile; fileRef = 63C8862F1C7F146400F5677F /* Nest.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		63F1FDFE1C80AA6D00A271B9 /* Nest.h in Headers */ = {isa = PBXBuildFile; fileRef = 63C8862F1C7F146400F5677F /* Nest.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		63FE42791DA25951002E45C8 /* PersistenceController+SwiftFrontendCrashesWithOptimizationAndEmittingDebugInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 63FE42741DA25951002E45C8 /* PersistenceController+SwiftFrontendCrashesWithOptimizationAndEmittingDebugInfo.m */; };
-		63FE427A1DA25951002E45C8 /* PersistenceController+SwiftFrontendCrashesWithOptimizationAndEmittingDebugInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 63FE42741DA25951002E45C8 /* PersistenceController+SwiftFrontendCrashesWithOptimizationAndEmittingDebugInfo.m */; };
-		63FE427B1DA25951002E45C8 /* PersistenceController+SwiftFrontendCrashesWithOptimizationAndEmittingDebugInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 63FE42741DA25951002E45C8 /* PersistenceController+SwiftFrontendCrashesWithOptimizationAndEmittingDebugInfo.m */; };
-		63FE427C1DA25951002E45C8 /* PersistenceController+SwiftFrontendCrashesWithOptimizationAndEmittingDebugInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 63FE42741DA25951002E45C8 /* PersistenceController+SwiftFrontendCrashesWithOptimizationAndEmittingDebugInfo.m */; };
 		63FE427E1DA26576002E45C8 /* ObjCCodingPrimitive-UIKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 633ECED91C158EF90082D870 /* ObjCCodingPrimitive-UIKit.swift */; };
 		63FE427F1DA26576002E45C8 /* ObjCKeyValueStore-UIKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 637A564D1C8845A6001A178A /* ObjCKeyValueStore-UIKit.m */; };
 		63FE42801DA26576002E45C8 /* ObjCCodingBase-UIKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 6371F2121C7F829C00837BB7 /* ObjCCodingBase-UIKit.m */; };
@@ -357,7 +353,6 @@
 		63F0B5331C11D8E200710C41 /* LaunchTask-AppKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "LaunchTask-AppKit.m"; sourceTree = "<group>"; };
 		63F0B5361C11D8F000710C41 /* LaunchTask-WatchKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "LaunchTask-WatchKit.h"; sourceTree = "<group>"; };
 		63F0B5371C11D8F000710C41 /* LaunchTask-WatchKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "LaunchTask-WatchKit.m"; sourceTree = "<group>"; };
-		63FE42741DA25951002E45C8 /* PersistenceController+SwiftFrontendCrashesWithOptimizationAndEmittingDebugInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "PersistenceController+SwiftFrontendCrashesWithOptimizationAndEmittingDebugInfo.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -571,7 +566,6 @@
 				63F0B5231C11D6DB00710C41 /* LaunchTask.m */,
 				63ED3B291C12056E008B8A5C /* LaunchTask+Internal.h */,
 				635F10971BFAFABB004982B4 /* PersistentController.swift */,
-				63FE42741DA25951002E45C8 /* PersistenceController+SwiftFrontendCrashesWithOptimizationAndEmittingDebugInfo.m */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -1061,7 +1055,6 @@
 				63E3EC5B1DA2519100AEA8C3 /* NSManagedObject+InitWithContext.swift in Sources */,
 				63E3EC9E1DA251A900AEA8C3 /* ObjCSelfAwareSwizzle.m in Sources */,
 				63E3EC551DA2519100AEA8C3 /* NSRange+CollectionType.swift in Sources */,
-				63FE427B1DA25951002E45C8 /* PersistenceController+SwiftFrontendCrashesWithOptimizationAndEmittingDebugInfo.m in Sources */,
 				63E3EC541DA2519100AEA8C3 /* NSRange+Utilities.swift in Sources */,
 				63E3EC9D1DA251A900AEA8C3 /* ObjCSelfAwareSwizzleRecipe.swift in Sources */,
 				63E3EC9F1DA251A900AEA8C3 /* ObjCBridgeable.swift in Sources */,
@@ -1107,7 +1100,6 @@
 				63FE428A1DA265A0002E45C8 /* LaunchTask.m in Sources */,
 				63E3ECD11DA251A900AEA8C3 /* ObjCSelfAwareSwizzle+Utilities.swift in Sources */,
 				63FE42851DA2657D002E45C8 /* QuartzCore+ObjCBridgeable.swift in Sources */,
-				63FE42791DA25951002E45C8 /* PersistenceController+SwiftFrontendCrashesWithOptimizationAndEmittingDebugInfo.m in Sources */,
 				63E3ECC81DA251A900AEA8C3 /* ObjCCodingBase+Internal.m in Sources */,
 				63E3EC6D1DA2519200AEA8C3 /* NSManagedObject+InitWithContext.swift in Sources */,
 				63E3EC671DA2519200AEA8C3 /* NSRange+CollectionType.swift in Sources */,
@@ -1174,7 +1166,6 @@
 				63E3EC641DA2519100AEA8C3 /* NSManagedObject+InitWithContext.swift in Sources */,
 				63E3ECB91DA251A900AEA8C3 /* ObjCSelfAwareSwizzle.m in Sources */,
 				63E3EC5E1DA2519100AEA8C3 /* NSRange+CollectionType.swift in Sources */,
-				63FE427A1DA25951002E45C8 /* PersistenceController+SwiftFrontendCrashesWithOptimizationAndEmittingDebugInfo.m in Sources */,
 				63E3ED0F1DA2537300AEA8C3 /* ObjCKeyValueStore-CoreGraphics.m in Sources */,
 				63E3EC5D1DA2519100AEA8C3 /* NSRange+Utilities.swift in Sources */,
 				63E3ECB81DA251A900AEA8C3 /* ObjCSelfAwareSwizzleRecipe.swift in Sources */,
@@ -1223,7 +1214,6 @@
 				63E3EC721DA251A800AEA8C3 /* ObjCKeyValueStore+Internal.m in Sources */,
 				63E3ED151DA2537400AEA8C3 /* ObjCKeyValueStore-CoreGraphics.m in Sources */,
 				63E3EC751DA251A800AEA8C3 /* ObjCCodingBase.m in Sources */,
-				63FE427C1DA25951002E45C8 /* PersistenceController+SwiftFrontendCrashesWithOptimizationAndEmittingDebugInfo.m in Sources */,
 				63E3ECED1DA252A000AEA8C3 /* LaunchTask-UIKit.m in Sources */,
 				63E3ECF31DA2535100AEA8C3 /* ObjCCodingPrimitive-UIKit.swift in Sources */,
 				63E3EC7C1DA251A800AEA8C3 /* ObjCProtocolMessageIntercepting.swift in Sources */,

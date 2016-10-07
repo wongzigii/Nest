@@ -213,7 +213,10 @@ open class PersistentController: NSObject {
         }
     }
     
-    public func perform(_ transaction: @escaping Transaction) {
+    public func perform(
+        _ transaction: @escaping (NSManagedObjectContext) -> Void
+        )
+    {
         switch _state {
         case .ready:
             let context = _fetchingContext
@@ -233,32 +236,52 @@ open class PersistentController: NSObject {
         }
     }
     
-    #if SWIFT_FONTEND_CRASHES_WITH_OPTIMIZATION_AND_EMITTING_DEBUG_INFO
-    @objc(performBlockAndWait:)
-    public func performAndWait(_ transaction: @escaping Transaction) {
-        // Swift 3 compiler crash in production configuration workaround.
-        // Use method swizzle to replace this function with an Objective-C
-        // implementation.
-    }
-    #else
-    public func performAndWait(_ transaction: @escaping Transaction) {
-        switch _state {
-        case .ready:
-            let context = _fetchingContext
-            _fetchingContext.performAndWait {
-                transaction(context)
+    public func performAndWait<R>(
+        _ transaction: @escaping (NSManagedObjectContext) -> R
+        ) -> R
+    {
+        #if SWIFT_FONTEND_CRASHES_WITH_OPTIMIZATION_AND_EMITTING_DEBUG_INFO
+            let isReady = _state == .ready
+            let go = { () -> R in
+                let context = self._fetchingContext
+                var returnValue: R!
+                self._fetchingContext.performAndWait {
+                    returnValue = transaction(context)
+                }
+                return returnValue
             }
-        case .notPrepared:
-            while _state == .preparing || _state == .notPrepared {}
-            performAndWait(transaction)
-        case .preparing:
-            while _state == .preparing {}
-            performAndWait(transaction)
-        case .failed:
-            assertionFailure("Persistence controller initialization failed")
-        }
+            if isReady {
+                return go()
+            }
+            if _state == .notPrepared {
+                while _state == .preparing || _state == .notPrepared {}
+                return performAndWait(transaction)
+            } else if _state == .preparing {
+                while _state == .preparing {}
+                return performAndWait(transaction)
+            } else {
+                fatalError("Persistence controller initialization failed")
+            }
+        #else
+            switch _state {
+            case .ready:
+                let context = _fetchingContext
+                var returnValue: R!
+                _fetchingContext.performAndWait {
+                    returnValue = transaction(context)
+                }
+                return returnValue
+            case .notPrepared:
+                while _state == .preparing || _state == .notPrepared {}
+                return performAndWait(transaction)
+            case .preparing:
+                while _state == .preparing {}
+                return performAndWait(transaction)
+            case .failed:
+                fatalError("Persistence controller initialization failed")
+            }
+        #endif
     }
-    #endif
     
     fileprivate func _launch() { /* Do nothing here */ }
     
@@ -355,20 +378,6 @@ open class PersistentController: NSObject {
         )
     }
     
-    // MARK: Computed Properties
-    #if SWIFT_FONTEND_CRASHES_WITH_OPTIMIZATION_AND_EMITTING_DEBUG_INFO
-    @objc(state)
-    private var _swift3CopmilerCrashWorkaround_state: State {
-        return _state
-    }
-    
-    @objc(fetchingContext)
-    private var _swift3CopmilerCrashWorkaround_fetchingContext
-        : NSManagedObjectContext {
-        return _fetchingContext
-    }
-    #endif
-    
     // MARK: Stored Properties
     
     // Managed object context used for fetching and update. Not fully
@@ -399,29 +408,9 @@ open class PersistentController: NSObject {
     public typealias ManagedObjectChanges
         = [NSManagedObjectChangeKey: Set<NSManagedObject>]
     
-    public typealias Transaction =
-        (_ context: NSManagedObjectContext) -> Void
-    
-    #if SWIFT_FONTEND_CRASHES_WITH_OPTIMIZATION_AND_EMITTING_DEBUG_INFO
-    @objc(PersistentControllerState)
     public enum State: Int {
-        @objc(PersistentControllerStateNotPrepared)
-        case notPrepared
-        @objc(PersistentControllerStatePreparing)
-        case preparing
-        @objc(PersistentControllerStateReady)
-        case ready
-        @objc(PersistentControllerStateFailed)
-        case failed
+        case notPrepared, preparing, ready, failed
     }
-    #else
-    public enum State: Int {
-        case notPrepared
-        case preparing
-        case ready
-        case failed
-    }
-    #endif
 }
 
 extension Notification {
@@ -493,15 +482,18 @@ extension SingletonPersistentController where
         shared.save(with: comletionHandler)
     }
     
-    public static func perform(_ transaction: @escaping Transaction) {
+    public static func perform(
+        _ transaction: @escaping (NSManagedObjectContext) -> Void
+        )
+    {
         shared.perform(transaction)
     }
     
-    public static func performAndWait(
-        _ transaction: @escaping Transaction
-        )
+    public static func performAndWait<R>(
+        _ transaction: @escaping (NSManagedObjectContext) -> R
+        ) -> R
     {
-        shared.performAndWait(transaction)
+        return shared.performAndWait(transaction)
     }
     
     public static func fetchRequestFromTemplate(
