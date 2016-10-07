@@ -4,14 +4,14 @@
 
   },
   "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
-    "7FF1D30454BC8EF6CAC00BB60EB0FA85BC7F9836" : 0,
+    "8E631C557413E2560FED5A9EFA36B046EA89C01A" : 9223372036854775807,
     "11101EC5714C721D5CF04F765BEE97BF334E60D2" : 0,
     "FDC3533F588D0DD46901A9C5B7342846A9091653" : 0
   },
   "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "7BAD0A43-7006-4113-B30C-1153AAFD4FE3",
   "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
-    "7FF1D30454BC8EF6CAC00BB60EB0FA85BC7F9836" : "..",
-    "11101EC5714C721D5CF04F765BEE97BF334E60D2" : "Nest\/Frameworks\/SwiftExt\/",
+    "8E631C557413E2560FED5A9EFA36B046EA89C01A" : "..",
+    "11101EC5714C721D5CF04F765BEE97BF334E60D2" : "SwiftExt\/",
     "FDC3533F588D0DD46901A9C5B7342846A9091653" : "Nest\/"
   },
   "DVTSourceControlWorkspaceBlueprintNameKey" : "Nest",
@@ -26,7 +26,7 @@
     {
       "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "git.wezzard.com:Dictatron.git",
       "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
-      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "7FF1D30454BC8EF6CAC00BB60EB0FA85BC7F9836"
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "8E631C557413E2560FED5A9EFA36B046EA89C01A"
     },
     {
       "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "github.com:WeZZard\/Nest.git",

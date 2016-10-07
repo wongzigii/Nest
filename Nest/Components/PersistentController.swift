@@ -241,7 +241,6 @@ open class PersistentController: NSObject {
         ) -> R
     {
         #if SWIFT_FONTEND_CRASHES_WITH_OPTIMIZATION_AND_EMITTING_DEBUG_INFO
-            let isReady = _state == .ready
             let go = { () -> R in
                 let context = self._fetchingContext
                 var returnValue: R!
@@ -250,6 +249,7 @@ open class PersistentController: NSObject {
                 }
                 return returnValue
             }
+            let isReady = _state == .ready
             if isReady {
                 return go()
             }
