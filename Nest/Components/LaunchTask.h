@@ -234,4 +234,10 @@ typedef NS_ENUM(NSInteger, NSMainBundleCategory) {
 FOUNDATION_EXPORT void LTPerformLaunchTasksIfNeeded(void)
 NS_SWIFT_NAME(performLaunchTasksIfNeeded());
 
+#if DEBUG
+/// Toggles launch task. Only available in `DEBUG` build.
+FOUNDATION_EXPORT void LTSetLaunchTaskEnabled(BOOL)
+NS_SWIFT_NAME(setLaunchTaskEnabled(_:));
+#endif
+
 NS_ASSUME_NONNULL_END

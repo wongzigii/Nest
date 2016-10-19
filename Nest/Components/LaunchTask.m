@@ -63,6 +63,9 @@ static CFMutableDictionaryRef
 kLTLaunchTasksPerformerAppDelegateImpSwizzleMap = NULL;
 static BOOL kHasLaunchTasksPerformerInjected = NO;
 static BOOL kIsLaunchTasksPerformerInjectionSucceeded = NO;
+#if DEBUG
+static BOOL kIsLaunchTaskEnabled = YES;
+#endif
 
 #pragma mark - Constants
 #define ExtensionBundlePathSuffix       @"appex"
@@ -370,6 +373,7 @@ void LTPerformLaunchTasksIfNeeded() {
 }
 
 void LTPerformLaunchTasksOnLoadedClasses(const id firstArg, ...) {
+    
     NSMutableArray * args = [[NSMutableArray alloc] init];
     
     id argToEnlist = firstArg;
@@ -385,6 +389,11 @@ void LTPerformLaunchTasksOnLoadedClasses(const id firstArg, ...) {
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
 #if DEBUG
+        if (!kIsLaunchTaskEnabled) {
+            NSLog(@"Launch Task was disabled.");
+            return;
+        }
+        
         NSTimeInterval start = [NSDate date].timeIntervalSinceReferenceDate;
 #endif
         CFIndex scannedClassCount = 0;
@@ -998,6 +1007,15 @@ id LTLaunchTasksPerformerExtensionPrincipalClass(
     );
 }
 @end
+
+#pragma mark - Managed Launch Task
+#if DEBUG
+void LTSetLaunchTaskEnabled(BOOL enabled) {
+    if (kIsLaunchTaskEnabled != enabled) {
+        kIsLaunchTaskEnabled = enabled;
+    }
+}
+#endif
 
 #pragma mark - NSBundle Utilities
 @implementation NSBundle (Category)

@@ -21,7 +21,7 @@ open class PersistentController: NSObject {
         modelExtension: String = "momd"
         )
     {
-        _state = .preparing
+        _state = try! MutexLocked<State>(locked: .preparing)
         
         _fetchingContext = NSManagedObjectContext(
             concurrencyType: .mainQueueConcurrencyType
@@ -49,7 +49,9 @@ open class PersistentController: NSObject {
             forResource: modelName, withExtension:modelExtension
             ) else
         {
-            _state = .failed
+            _state.withMutableContentAndWait { (locked) in
+                locked = .failed
+            }
             fatalError("Error loading model from bundle: \(bundle)")
         }
         
@@ -57,7 +59,9 @@ open class PersistentController: NSObject {
             contentsOf: modelURL
             ) else
         {
-            _state = .failed
+            _state.withMutableContentAndWait { (locked) in
+                locked = .failed
+            }
             fatalError("Error initializing model from: \(modelURL)")
         }
         
@@ -66,7 +70,7 @@ open class PersistentController: NSObject {
         super.init()
         
         _preparationQueue.async {
-            let persistenStoreCoordinator = NSPersistentStoreCoordinator(
+            let persistentStoreCoordinator = NSPersistentStoreCoordinator(
                 managedObjectModel: managedObjectModel
             )
             
@@ -79,7 +83,7 @@ open class PersistentController: NSObject {
                     attributes: nil
                 )
                 
-                try persistenStoreCoordinator.addPersistentStore(
+                try persistentStoreCoordinator.addPersistentStore(
                     ofType: type.primitiveValue,
                     configurationName: nil,
                     at: storeURL,
@@ -90,14 +94,18 @@ open class PersistentController: NSObject {
                     ]
                 )
             } catch {
-                self._state = .failed
+                self._state.withMutableContentAndWait { (locked) in
+                    locked = .failed
+                }
                 fatalError("Error migrating store: \(error)")
             }
             
             self._savingContext.persistentStoreCoordinator
-                = persistenStoreCoordinator
+                = persistentStoreCoordinator
             
-            self._state = .ready
+            self._state.withMutableContentAndWait { (locked) in
+                locked = .ready
+            }
         }
         
         NotificationCenter.default.addObserver(
@@ -217,7 +225,7 @@ open class PersistentController: NSObject {
         _ transaction: @escaping (NSManagedObjectContext) -> Void
         )
     {
-        switch _state {
+        switch _state.withContentAndWait(closure: { return $0}) {
         case .ready:
             let context = _fetchingContext
             _fetchingContext.perform {
@@ -240,50 +248,15 @@ open class PersistentController: NSObject {
         _ transaction: @escaping (NSManagedObjectContext) -> R
         ) -> R
     {
-        #if SWIFT_FONTEND_CRASHES_WITH_OPTIMIZATION_AND_EMITTING_DEBUG_INFO
-            let go = { () -> R in
-                let context = self._fetchingContext
-                var returnValue: R!
-                self._fetchingContext.performAndWait {
-                    returnValue = transaction(context)
-                }
-                return returnValue
-            }
-            let isReady = _state == .ready
-            if isReady {
-                return go()
-            }
-            if _state == .notPrepared {
-                while _state == .preparing || _state == .notPrepared {}
-                return performAndWait(transaction)
-            } else if _state == .preparing {
-                while _state == .preparing {}
-                return performAndWait(transaction)
-            } else {
-                fatalError("Persistence controller initialization failed")
-            }
-        #else
-            switch _state {
-            case .ready:
-                let context = _fetchingContext
-                var returnValue: R!
-                _fetchingContext.performAndWait {
-                    returnValue = transaction(context)
-                }
-                return returnValue
-            case .notPrepared:
-                while _state == .preparing || _state == .notPrepared {}
-                return performAndWait(transaction)
-            case .preparing:
-                while _state == .preparing {}
-                return performAndWait(transaction)
-            case .failed:
-                fatalError("Persistence controller initialization failed")
-            }
-        #endif
+        while _state.withContentAndWait(closure: { $0 != .ready }) {}
+        
+        var returnValue: R!
+        _fetchingContext.performAndWait {
+            returnValue = transaction(self._fetchingContext)
+        }
+        
+        return returnValue
     }
-    
-    fileprivate func _launch() { /* Do nothing here */ }
     
     @objc(_handleFetchingContextDidChange:)
     private func _handleFetchingContextObjects(didChange: Notification) {
@@ -391,13 +364,13 @@ open class PersistentController: NSObject {
     
     public private(set) var saving: Bool = false
     
-    private var _state: State = .notPrepared
+    private var _state: MutexLocked<State>
     
     private var _preparationQueue: DispatchQueue = DispatchQueue(
         label: "com.WeZZard.Nest.PersistentController.PreparationQueue"
     )
     
-    private let _managedObjectModel: NSManagedObjectModel
+    private unowned let _managedObjectModel: NSManagedObjectModel
     
     // MARK: Nested Type
     public enum Context {
@@ -408,7 +381,7 @@ open class PersistentController: NSObject {
     public typealias ManagedObjectChanges
         = [NSManagedObjectChangeKey: Set<NSManagedObject>]
     
-    public enum State: Int {
+    private enum State: Int {
         case notPrepared, preparing, ready, failed
     }
 }
@@ -444,36 +417,14 @@ extension Notification {
     }
 }
 
-public protocol FetchRequestTemplating {
-    associatedtype Name
-    associatedtype Variable: Hashable
-    
-    func toPrimitives() -> (
-        templateName: Name,
-        substitutionVariables: [Variable : Any]
-    )
-}
-
 public protocol SingletonPersistentController: class {
     static var shared: Self { get }
-}
-
-public protocol TemplatedFetchRequestGenerating: class {
-    associatedtype FetchRequestTemplate: FetchRequestTemplating
-    
-    func fetchRequestFromTemplate(
-        _ template: FetchRequestTemplate
-        ) -> NSFetchRequest<NSFetchRequestResult>
-    
-    static func fetchRequestFromTemplate(
-        _ template: FetchRequestTemplate
-        ) -> NSFetchRequest<NSFetchRequestResult>
 }
 
 extension SingletonPersistentController where
     Self: PersistentController
 {
-    public static func launch() { shared._launch() }
+    public static func launch() { _ = shared }
     
     public static func save(
         with comletionHandler: ((_ error: Error?) -> Void)? = nil
@@ -506,48 +457,3 @@ extension SingletonPersistentController where
     }
 }
 
-extension TemplatedFetchRequestGenerating where
-    Self: PersistentController,
-    Self.FetchRequestTemplate.Name: RawRepresentable,
-    Self.FetchRequestTemplate.Name.RawValue == String,
-    Self.FetchRequestTemplate.Variable: RawRepresentable,
-    Self.FetchRequestTemplate.Variable.RawValue == String
-{
-    public func fetchRequestFromTemplate(
-        _ template: FetchRequestTemplate
-        ) -> NSFetchRequest<NSFetchRequestResult>
-    {
-        let (name, vars) = template.toPrimitives()
-        var primitiveVars = [String : Any]()
-        for (name, value) in vars {
-            primitiveVars[name.rawValue] = value
-        }
-        return fetchRequestFromTemplate(
-            named: name.rawValue, substitutionVariables: primitiveVars
-            )!
-    }
-}
-
-
-extension TemplatedFetchRequestGenerating where
-    Self: PersistentController,
-    Self: SingletonPersistentController,
-    Self.FetchRequestTemplate.Name: RawRepresentable,
-    Self.FetchRequestTemplate.Name.RawValue == String,
-    Self.FetchRequestTemplate.Variable: RawRepresentable,
-    Self.FetchRequestTemplate.Variable.RawValue == String
-{
-    public static func fetchRequestFromTemplate(
-        _ template: FetchRequestTemplate
-        ) -> NSFetchRequest<NSFetchRequestResult>
-    {
-        let (name, vars) = template.toPrimitives()
-        var primitiveVars = [String : Any]()
-        for (name, value) in vars {
-            primitiveVars[name.rawValue] = value
-        }
-        return fetchRequestFromTemplate(
-            named: name.rawValue, substitutionVariables: primitiveVars
-            )!
-    }
-}
