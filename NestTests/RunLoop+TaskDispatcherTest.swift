@@ -49,8 +49,4 @@ class NSRunLoop_TaskDispatcherTest: XCTestCase {
             }
         }
     }
-    
-    private func doNothing() {
-        print("Fuck")
-    }
 }

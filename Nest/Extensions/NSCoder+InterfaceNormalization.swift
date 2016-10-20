@@ -97,6 +97,24 @@ extension NSCoder {
         self.encode(value?._bridgeToObjectiveC(), forKey: key)
     }
     
+    //MARK: ObjCBridgeable & _ObjectiveCBridgeable Swift Value Types
+    public func encode<T: ObjCBridgeable & _ObjectiveCBridgeable>(
+        _ value: T?, for key: String
+        )
+    {
+        self.encode(value?._bridgeToObjectiveC(), forKey: key)
+    }
+    
+    //MARK: NSCoding Conformed ObjCBridgeable & _ObjectiveCBridgeable Dedicated Swift Objects
+    public func encode<T: AnyObject & ObjCBridgeable & _ObjectiveCBridgeable>(
+        _ value: T?, for key: String
+        ) where
+        T._ObjectiveCType: NSCoding
+        
+    {
+        self.encode(value?._bridgeToObjectiveC(), forKey: key)
+    }
+    
     //MARK: NSObject and Its Descendants
     public func encode<T: NSObject>(_ value: T?, for key: String) {
         self.encode(value, forKey: key)
@@ -297,6 +315,78 @@ extension NSCoder {
         return bridgedValue
     }
     
+    
+    public func decodeOrThrow<
+        T: ObjCBridgeable & _ObjectiveCBridgeable
+        >(
+        for key: String
+        ) throws -> T!
+    {
+        guard containsValue(forKey: key) else {
+            throw NSCoderDecodingError.noValueForKey(key: key)
+        }
+        
+        guard let object = decodeObject(forKey: key) else {
+            throw NSCoderDecodingError.internalInconsistency(
+                key: key,
+                explanation: "The decoder hints it contains value for key(\"\(key)\") but resulted in a nil decoded value."
+            )
+        }
+        
+        var value: T?
+        
+        T._forceBridgeFromObjectiveC(
+            object as! T._ObjectiveCType,
+            result: &value
+        )
+        
+        guard let bridgedValue = value  else {
+            throw NSCoderDecodingError.bridgingFailed(
+                key: key,
+                value: object,
+                type: T.self
+            )
+        }
+        
+        return bridgedValue
+    }
+    
+    public func decodeOrThrow<
+        T: AnyObject & ObjCBridgeable & _ObjectiveCBridgeable
+        >(
+        for key: String
+        ) throws -> T! where
+        T._ObjectiveCType: NSCoding
+    {
+        guard containsValue(forKey: key) else {
+            throw NSCoderDecodingError.noValueForKey(key: key)
+        }
+        
+        guard let object = decodeObject(forKey: key) else {
+            throw NSCoderDecodingError.internalInconsistency(
+                key: key,
+                explanation: "The decoder hints it contains value for key(\"\(key)\") but resulted in a nil decoded value."
+            )
+        }
+        
+        var value: T?
+        
+        T._forceBridgeFromObjectiveC(
+            object as! T._ObjectiveCType,
+            result: &value
+        )
+        
+        guard let bridgedValue = value  else {
+            throw NSCoderDecodingError.bridgingFailed(
+                key: key,
+                value: object,
+                type: T.self
+            )
+        }
+        
+        return bridgedValue
+    }
+    
     public func decodeOrThrow<T: AnyObject>(for key: String)
         throws
         -> T!
@@ -384,18 +474,41 @@ extension NSCoder {
         return try? decodeOrThrow(for: key)
     }
     
+    public func decode<
+        T: AnyObject & _ObjectiveCBridgeable
+        >(
+        for key: String
+        ) -> T?  where
+        T._ObjectiveCType: NSCoding
+    {
+        return try? decodeOrThrow(for: key)
+    }
+    
     public func decode<T: ObjCBridgeable>(for key: String) -> T? {
         return try? decodeOrThrow(for: key)
     }
     
     public func decode<
-        T: AnyObject>(
+        T: AnyObject & ObjCBridgeable
+        >(
         for key: String
-        )
-        -> T? where
-        T: _ObjectiveCBridgeable,
+        ) -> T?
+        where T._ObjectiveCType: NSCoding
+    {
+        return try? decodeOrThrow(for: key)
+    }
+    
+    public func decode<T: ObjCBridgeable & _ObjectiveCBridgeable>(
+        for key: String
+        ) -> T?
+    {
+        return try? decodeOrThrow(for: key)
+    }
+    
+    public func decode<T: AnyObject & ObjCBridgeable & _ObjectiveCBridgeable>(
+        for key: String
+        ) -> T? where
         T._ObjectiveCType: NSCoding
-        
     {
         return try? decodeOrThrow(for: key)
     }
@@ -496,6 +609,34 @@ extension NSCoder {
     
     public func decode<
         T: AnyObject & ObjCBridgeable
+        >(
+        for key: String, fallback: T
+        )
+        -> T where
+        T._ObjectiveCType: NSCoding
+    {
+        do {
+            return try decodeOrThrow(for: key)
+        } catch _ {
+            return fallback
+        }
+    }
+    
+    public func decode<T: ObjCBridgeable & _ObjectiveCBridgeable>(
+        for key: String,
+        fallback: T
+        )
+        -> T
+    {
+        do {
+            return try decodeOrThrow(for: key)
+        } catch _ {
+            return fallback
+        }
+    }
+    
+    public func decode<
+        T: AnyObject & ObjCBridgeable & _ObjectiveCBridgeable
         >(
         for key: String, fallback: T
         )

@@ -8,11 +8,9 @@
 
 import Foundation
 import CoreData
-import SwiftExt
 
 @available(iOS 3.0, *)
-@objc
-open class PersistentController: NSObject {
+open class PersistentController {
     public init(
         bundle: Bundle,
         storeURL: URL,
@@ -21,8 +19,6 @@ open class PersistentController: NSObject {
         modelExtension: String = "momd"
         )
     {
-        _state = try! MutexLocked<State>(locked: .preparing)
-        
         _fetchingContext = NSManagedObjectContext(
             concurrencyType: .mainQueueConcurrencyType
         )
@@ -30,8 +26,6 @@ open class PersistentController: NSObject {
         _savingContext = NSManagedObjectContext(
             concurrencyType: .privateQueueConcurrencyType
         )
-        
-        _fetchingContext.parent = _savingContext
         
         #if DEBUG
             if #available(
@@ -49,31 +43,27 @@ open class PersistentController: NSObject {
             forResource: modelName, withExtension:modelExtension
             ) else
         {
-            _state.withMutableContentAndWait { (locked) in
-                locked = .failed
-            }
-            fatalError("Error loading model from bundle: \(bundle)")
+            fatalError("Cannot get managed object model file from bundle: \(bundle)")
         }
         
         guard let managedObjectModel = NSManagedObjectModel(
             contentsOf: modelURL
             ) else
         {
-            _state.withMutableContentAndWait { (locked) in
-                locked = .failed
-            }
-            fatalError("Error initializing model from: \(modelURL)")
+            fatalError("Cannot initialize managed object model from: \(modelURL)")
         }
         
         _managedObjectModel = managedObjectModel
         
-        super.init()
+        let persistentStoreCoordinator = NSPersistentStoreCoordinator(
+            managedObjectModel: managedObjectModel
+        )
         
-        _preparationQueue.async {
-            let persistentStoreCoordinator = NSPersistentStoreCoordinator(
-                managedObjectModel: managedObjectModel
-            )
-            
+        _savingContext.persistentStoreCoordinator = persistentStoreCoordinator
+        
+        _fetchingContext.parent = _savingContext
+        
+        _operationQueue.async {
             do {
                 let containingDir = storeURL.deletingLastPathComponent()
                 
@@ -83,6 +73,11 @@ open class PersistentController: NSObject {
                     attributes: nil
                 )
                 
+            } catch let error {
+                fatalError("Cannot create persistent store's containing directory: \(error)")
+            }
+            
+            do {
                 try persistentStoreCoordinator.addPersistentStore(
                     ofType: type.primitiveValue,
                     configurationName: nil,
@@ -93,18 +88,8 @@ open class PersistentController: NSObject {
                         NSSQLitePragmasOption: ["journal_mode":"DELETE"]
                     ]
                 )
-            } catch {
-                self._state.withMutableContentAndWait { (locked) in
-                    locked = .failed
-                }
-                fatalError("Error migrating store: \(error)")
-            }
-            
-            self._savingContext.persistentStoreCoordinator
-                = persistentStoreCoordinator
-            
-            self._state.withMutableContentAndWait { (locked) in
-                locked = .ready
+            } catch let error {
+                fatalError("Cannot migrate persistent store: \(error)")
             }
         }
         
@@ -186,34 +171,31 @@ open class PersistentController: NSObject {
     {
         var errorOrNil: Error?
         
-        performAndWait { (fetchingContext) -> Void in
-            self.saving = true
-            
-            if fetchingContext.hasChanges {
-                do {
-                    try fetchingContext.save()
-                } catch let error {
-                    errorOrNil = error
+        _operationQueue.sync {
+            _fetchingContext.performAndWait {
+                if self._fetchingContext.hasChanges {
+                    do {
+                        try self._fetchingContext.save()
+                    } catch let error {
+                        errorOrNil = error
+                    }
                 }
             }
             
             if errorOrNil != nil {
                 completionHandler?(errorOrNil)
             } else {
-                self._savingContext.perform { _ in
+                _savingContext.perform { _ in
                     if self._savingContext.hasChanges {
                         do {
                             try self._savingContext.save()
-                            self.saving = false
                             
                             completionHandler?(nil)
                         } catch let error {
-                            self.saving = false
                             errorOrNil = error
                             completionHandler?(errorOrNil)
                         }
                     } else {
-                        self.saving = false
                         completionHandler?(nil)
                     }
                 }
@@ -225,22 +207,11 @@ open class PersistentController: NSObject {
         _ transaction: @escaping (NSManagedObjectContext) -> Void
         )
     {
-        switch _state.withContentAndWait(closure: { return $0}) {
-        case .ready:
-            let context = _fetchingContext
-            _fetchingContext.perform {
+        let context = _fetchingContext
+        _operationQueue.async {
+            context.perform {
                 transaction(context)
             }
-        case .notPrepared:
-            _preparationQueue.async {
-                self.perform(transaction)
-            }
-        case .preparing:
-            _preparationQueue.async {
-                self.perform(transaction)
-            }
-        case .failed:
-            assertionFailure("Persistence controller initialization failed")
         }
     }
     
@@ -248,14 +219,14 @@ open class PersistentController: NSObject {
         _ transaction: @escaping (NSManagedObjectContext) -> R
         ) -> R
     {
-        while _state.withContentAndWait(closure: { $0 != .ready }) {}
-        
         var returnValue: R!
-        _fetchingContext.performAndWait {
-            returnValue = transaction(self._fetchingContext)
+        _operationQueue.sync {
+            _fetchingContext.performAndWait {
+                returnValue = transaction(self._fetchingContext)
+            }
         }
-        
         return returnValue
+        
     }
     
     @objc(_handleFetchingContextDidChange:)
@@ -354,7 +325,7 @@ open class PersistentController: NSObject {
     // MARK: Stored Properties
     
     // Managed object context used for fetching and update. Not fully
-    // initialized simultaneously with the object
+    // initialized simultaneously with the object.
     private let _fetchingContext: NSManagedObjectContext
     
     // Managed object context used for saving. Corresponds to the
@@ -362,12 +333,12 @@ open class PersistentController: NSObject {
     // object.
     private let _savingContext: NSManagedObjectContext
     
-    public private(set) var saving: Bool = false
-    
-    private var _state: MutexLocked<State>
-    
-    private var _preparationQueue: DispatchQueue = DispatchQueue(
-        label: "com.WeZZard.Nest.PersistentController.PreparationQueue"
+    /// All operations happen in this serial queue.
+    ///
+    /// - Notes: Dispatching all operations in one queue could simply make them
+    /// synchronized.
+    private var _operationQueue: DispatchQueue = DispatchQueue(
+        label: "com.WeZZard.Nest.PersistentController.OperationQueue"
     )
     
     private unowned let _managedObjectModel: NSManagedObjectModel
@@ -380,10 +351,6 @@ open class PersistentController: NSObject {
     
     public typealias ManagedObjectChanges
         = [NSManagedObjectChangeKey: Set<NSManagedObject>]
-    
-    private enum State: Int {
-        case notPrepared, preparing, ready, failed
-    }
 }
 
 extension Notification {
@@ -392,9 +359,7 @@ extension Notification {
     fileprivate typealias ManagedObjectChangeKey
         = NSManagedObjectChangeKey
     
-    fileprivate func _extractManagedObjectChanges()
-        -> ManagedObjectChanges
-    {
+    fileprivate func _extractManagedObjectChanges() -> ManagedObjectChanges {
         assert(name == .NSManagedObjectContextDidSave
             || name == .NSManagedObjectContextWillSave
             || name == .NSManagedObjectContextObjectsDidChange

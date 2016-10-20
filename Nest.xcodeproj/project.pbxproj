@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		630B4D531B48473600830454 /* Nest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 634711491B22D91B00FA2C76 /* Nest.framework */; };
 		630B4D541B48473C00830454 /* Nest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 634711681B22D92600FA2C76 /* Nest.framework */; };
+		6314D40A1DB90C610037AF13 /* ObjCBridgeable-QuartzCore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6314D4091DB90C610037AF13 /* ObjCBridgeable-QuartzCore.swift */; };
+		6314D40B1DB90C610037AF13 /* ObjCBridgeable-QuartzCore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6314D4091DB90C610037AF13 /* ObjCBridgeable-QuartzCore.swift */; };
+		6314D40C1DB90C610037AF13 /* ObjCBridgeable-QuartzCore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6314D4091DB90C610037AF13 /* ObjCBridgeable-QuartzCore.swift */; };
 		632313141B65D8A700AEA8EF /* SwiftExt.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 632313131B65D8A700AEA8EF /* SwiftExt.framework */; };
 		632313161B65D8B100AEA8EF /* SwiftExt.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 632313151B65D8B100AEA8EF /* SwiftExt.framework */; };
 		632313181B65D8B600AEA8EF /* SwiftExt.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 632313171B65D8B600AEA8EF /* SwiftExt.framework */; };
@@ -271,6 +274,7 @@
 		630B4D661B48DC5800830454 /* SwiftExt.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftExt.framework; path = "../../../Library/Developer/Xcode/DerivedData/Nest-cpwynrnxekfpgteqxqbichddezav/Build/Products/Debug/SwiftExt.framework"; sourceTree = "<group>"; };
 		630B4D701B48DD2F00830454 /* Nest.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Nest.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		630B4DC11B48FF4C00830454 /* SwiftExt.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftExt.framework; path = "../../../Library/Developer/Xcode/DerivedData/Nest-bzfrrjnuqyhzlggnfhrwoghdkynv/Build/Products/Debug/SwiftExt.framework"; sourceTree = "<group>"; };
+		6314D4091DB90C610037AF13 /* ObjCBridgeable-QuartzCore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ObjCBridgeable-QuartzCore.swift"; sourceTree = "<group>"; };
 		6315CB4A1BFD8745003A5840 /* ObjCSelfAwareSwizzle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ObjCSelfAwareSwizzle.m; sourceTree = "<group>"; };
 		632313131B65D8A700AEA8EF /* SwiftExt.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftExt.framework; path = "Frameworks/SwiftExt/build/Debug-iphoneos/SwiftExt.framework"; sourceTree = "<group>"; };
 		632313151B65D8B100AEA8EF /* SwiftExt.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftExt.framework; path = Frameworks/SwiftExt/build/Debug/SwiftExt.framework; sourceTree = "<group>"; };
@@ -688,6 +692,7 @@
 			isa = PBXGroup;
 			children = (
 				637A56391C883F59001A178A /* ObjCKeyValueStore-QuartzCore.m */,
+				6314D4091DB90C610037AF13 /* ObjCBridgeable-QuartzCore.swift */,
 			);
 			path = QuartzCore;
 			sourceTree = "<group>";
@@ -1080,6 +1085,7 @@
 				63FCD5651DB77EB20074AA3C /* FetchRequestTemplating.swift in Sources */,
 				63FE42861DA26580002E45C8 /* ObjCCodingPrimitive-CoreGraphics.swift in Sources */,
 				63FE427F1DA26576002E45C8 /* ObjCKeyValueStore-UIKit.m in Sources */,
+				6314D40A1DB90C610037AF13 /* ObjCBridgeable-QuartzCore.swift in Sources */,
 				63E3EC6C1DA2519200AEA8C3 /* Bundle.swift in Sources */,
 				63FE42801DA26576002E45C8 /* ObjCCodingBase-UIKit.m in Sources */,
 				63FE42871DA26580002E45C8 /* ObjCKeyValueStore-CoreGraphics.m in Sources */,
@@ -1156,6 +1162,7 @@
 				63E3ECB71DA251A900AEA8C3 /* ObjCSelfAwareSwizzleImplSource.swift in Sources */,
 				63E3EC611DA2519100AEA8C3 /* NSObject+That.swift in Sources */,
 				63E3ECB11DA251A900AEA8C3 /* ObjCMultiCastDelegating.swift in Sources */,
+				6314D40B1DB90C610037AF13 /* ObjCBridgeable-QuartzCore.swift in Sources */,
 				63E3ECA81DA251A900AEA8C3 /* ObjCKeyValueStore+Internal.m in Sources */,
 				63E3ED011DA2536200AEA8C3 /* ObjCCodingBase-AVFoundation.m in Sources */,
 				63E3ECAB1DA251A900AEA8C3 /* ObjCCodingBase.m in Sources */,
@@ -1228,6 +1235,7 @@
 				63E3EC521DA2519000AEA8C3 /* NSManagedObject+InitWithContext.swift in Sources */,
 				63E3EC831DA251A800AEA8C3 /* ObjCSelfAwareSwizzle.m in Sources */,
 				63E3EC4C1DA2519000AEA8C3 /* NSRange+CollectionType.swift in Sources */,
+				6314D40C1DB90C610037AF13 /* ObjCBridgeable-QuartzCore.swift in Sources */,
 				63E3EC4B1DA2519000AEA8C3 /* NSRange+Utilities.swift in Sources */,
 				63E3EC821DA251A800AEA8C3 /* ObjCSelfAwareSwizzleRecipe.swift in Sources */,
 				63E3EC841DA251A800AEA8C3 /* ObjCBridgeable.swift in Sources */,

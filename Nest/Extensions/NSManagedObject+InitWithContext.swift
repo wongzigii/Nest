@@ -16,7 +16,7 @@ extension NSManagedObject {
     @available(tvOSApplicationExtension, introduced: 9.0, obsoleted: 10.0)
     @available(watchOSApplicationExtension, introduced: 2.0, obsoleted: 3.0)
     @available(OSXApplicationExtension, introduced: 10.10, obsoleted: 10.12)
-    public class var nest_entityName: String {
+    open class var nest_entityName: String {
         return String(describing: self)
     }
     
