@@ -29,6 +29,13 @@
 		633ECED31C157BD10082D870 /* NSCoderInterfaceNormalizationTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 633ECED01C157BD10082D870 /* NSCoderInterfaceNormalizationTest.swift */; };
 		635F11341BFAFD00004982B4 /* Nest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 635F112A1BFAFCFF004982B4 /* Nest.framework */; };
 		635F12DA1BFB229E004982B4 /* SwiftExt.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 635F12D91BFB229E004982B4 /* SwiftExt.framework */; };
+		638018FA1DBB59F700968738 /* ObjCGraftProtocolImplementation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 638018F91DBB59F700968738 /* ObjCGraftProtocolImplementation.swift */; };
+		638018FB1DBB59F700968738 /* ObjCGraftProtocolImplementation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 638018F91DBB59F700968738 /* ObjCGraftProtocolImplementation.swift */; };
+		638018FC1DBB59F700968738 /* ObjCGraftProtocolImplementation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 638018F91DBB59F700968738 /* ObjCGraftProtocolImplementation.swift */; };
+		638018FD1DBB59F700968738 /* ObjCGraftProtocolImplementation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 638018F91DBB59F700968738 /* ObjCGraftProtocolImplementation.swift */; };
+		638018FF1DBB630A00968738 /* ObjCGraftProtocolImplementationTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 638018FE1DBB630A00968738 /* ObjCGraftProtocolImplementationTest.swift */; };
+		638019001DBB630A00968738 /* ObjCGraftProtocolImplementationTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 638018FE1DBB630A00968738 /* ObjCGraftProtocolImplementationTest.swift */; };
+		638019011DBB630A00968738 /* ObjCGraftProtocolImplementationTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 638018FE1DBB630A00968738 /* ObjCGraftProtocolImplementationTest.swift */; };
 		63C886371C7F15F300F5677F /* LegacyUtilities.h in Headers */ = {isa = PBXBuildFile; fileRef = 63C886351C7F15F300F5677F /* LegacyUtilities.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		63C886381C7F15F300F5677F /* LegacyUtilities.h in Headers */ = {isa = PBXBuildFile; fileRef = 63C886351C7F15F300F5677F /* LegacyUtilities.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		63C886391C7F15F300F5677F /* LegacyUtilities.h in Headers */ = {isa = PBXBuildFile; fileRef = 63C886351C7F15F300F5677F /* LegacyUtilities.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -333,6 +340,9 @@
 		637A56391C883F59001A178A /* ObjCKeyValueStore-QuartzCore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ObjCKeyValueStore-QuartzCore.m"; sourceTree = "<group>"; };
 		637A56431C88451E001A178A /* ObjCKeyValueStore-AVFoundation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ObjCKeyValueStore-AVFoundation.m"; sourceTree = "<group>"; };
 		637A564D1C8845A6001A178A /* ObjCKeyValueStore-UIKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ObjCKeyValueStore-UIKit.m"; sourceTree = "<group>"; };
+		638018F91DBB59F700968738 /* ObjCGraftProtocolImplementation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObjCGraftProtocolImplementation.swift; sourceTree = "<group>"; };
+		638018FE1DBB630A00968738 /* ObjCGraftProtocolImplementationTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObjCGraftProtocolImplementationTest.swift; sourceTree = "<group>"; };
+		638019021DBB645F00968738 /* ObjCGraftImplementationTest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ObjCGraftImplementationTest.h; sourceTree = "<group>"; };
 		639D63EE1BE8404400B30F67 /* SwiftExt.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftExt.framework; path = "../SwiftExt/build/Debug-iphoneos/SwiftExt.framework"; sourceTree = "<group>"; };
 		639D63F01BE8404E00B30F67 /* SwiftExt.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftExt.framework; path = ../SwiftExt/build/Debug/SwiftExt.framework; sourceTree = "<group>"; };
 		63B98A1F1D78417100753FE5 /* ObjCBridgeable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObjCBridgeable.swift; sourceTree = "<group>"; };
@@ -492,11 +502,13 @@
 		633ECE891C1542820082D870 /* NestTests */ = {
 			isa = PBXGroup;
 			children = (
-				63DCC6A31C64E3CC001949C9 /* ObjCCodingBaseTest.swift */,
-				633ECE8C1C1542820082D870 /* ObjCProtocolMessageInterceptorTest.swift */,
 				633ECE8E1C1542820082D870 /* RunLoop+TaskDispatcherTest.swift */,
 				633ECED01C157BD10082D870 /* NSCoderInterfaceNormalizationTest.swift */,
 				633ECE8F1C1542820082D870 /* ObjectiveCTest.swift */,
+				63DCC6A31C64E3CC001949C9 /* ObjCCodingBaseTest.swift */,
+				633ECE8C1C1542820082D870 /* ObjCProtocolMessageInterceptorTest.swift */,
+				638018FE1DBB630A00968738 /* ObjCGraftProtocolImplementationTest.swift */,
+				638019021DBB645F00968738 /* ObjCGraftImplementationTest.h */,
 				6371F2311C7FF5EE00837BB7 /* NestTests-Bridging-Header.h */,
 			);
 			path = NestTests;
@@ -566,6 +578,7 @@
 				63BEA8751C79904A002171C2 /* ObjCSelfAwareSwizzleImplSource.swift */,
 				63BEA8771C799951002171C2 /* ObjCSelfAwareSwizzleRecipe.swift */,
 				6315CB4A1BFD8745003A5840 /* ObjCSelfAwareSwizzle.m */,
+				638018F91DBB59F700968738 /* ObjCGraftProtocolImplementation.swift */,
 				63B98A1F1D78417100753FE5 /* ObjCBridgeable.swift */,
 				63F0B5221C11D6DB00710C41 /* LaunchTask.h */,
 				63F0B5231C11D6DB00710C41 /* LaunchTask.m */,
@@ -1041,6 +1054,7 @@
 				63E3EC591DA2519100AEA8C3 /* ObjectiveC.swift in Sources */,
 				63E3EC9A1DA251A900AEA8C3 /* ObjCSelfAwareSwizzle.swift in Sources */,
 				63E3ED111DA2537300AEA8C3 /* ObjCCodingPrimitive-CoreGraphics.swift in Sources */,
+				638018FC1DBB59F700968738 /* ObjCGraftProtocolImplementation.swift in Sources */,
 				63E3ECFB1DA2535A00AEA8C3 /* ObjCCodingBase-UIKit.m in Sources */,
 				63E3EC981DA251A900AEA8C3 /* ObjCProtocolMessageInterceptor.swift in Sources */,
 				63E3EC8E1DA251A900AEA8C3 /* ObjCKeyValueStore+DefaultAccessors.m in Sources */,
@@ -1118,6 +1132,7 @@
 				63FE427E1DA26576002E45C8 /* ObjCCodingPrimitive-UIKit.swift in Sources */,
 				63E3ECD51DA251A900AEA8C3 /* ObjCBridgeable.swift in Sources */,
 				63E3ECC01DA251A900AEA8C3 /* ObjCKeyValueStore.m in Sources */,
+				638018FA1DBB59F700968738 /* ObjCGraftProtocolImplementation.swift in Sources */,
 				63E3EC691DA2519200AEA8C3 /* NSCoder+InterfaceNormalization.swift in Sources */,
 				63E3ECCB1DA251A900AEA8C3 /* ObjCAssociated.swift in Sources */,
 				63E3ECE21DA251FA00AEA8C3 /* NSPersistentStoreType.swift in Sources */,
@@ -1130,6 +1145,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				638018FF1DBB630A00968738 /* ObjCGraftProtocolImplementationTest.swift in Sources */,
 				633ECEBA1C1543130082D870 /* ObjCProtocolMessageInterceptorTest.swift in Sources */,
 				63DCC6A41C64E3CC001949C9 /* ObjCCodingBaseTest.swift in Sources */,
 				633ECEBC1C1543130082D870 /* ObjectiveCTest.swift in Sources */,
@@ -1182,6 +1198,7 @@
 				63E3ECA51DA251A900AEA8C3 /* ObjCKeyValueStore.m in Sources */,
 				63E3EC601DA2519100AEA8C3 /* NSCoder+InterfaceNormalization.swift in Sources */,
 				63E3ECB01DA251A900AEA8C3 /* ObjCAssociated.swift in Sources */,
+				638018FB1DBB59F700968738 /* ObjCGraftProtocolImplementation.swift in Sources */,
 				63E3ECE41DA251FA00AEA8C3 /* NSPersistentStoreType.swift in Sources */,
 				63E3EC5F1DA2519100AEA8C3 /* RunLoop+TaskDispatcher.swift in Sources */,
 				63E3ECAE1DA251A900AEA8C3 /* ObjCCodingPrimitive.swift in Sources */,
@@ -1192,6 +1209,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				638019001DBB630A00968738 /* ObjCGraftProtocolImplementationTest.swift in Sources */,
 				633ECEB41C1543120082D870 /* ObjCProtocolMessageInterceptorTest.swift in Sources */,
 				63DCC6A51C64E3CC001949C9 /* ObjCCodingBaseTest.swift in Sources */,
 				633ECEB61C1543120082D870 /* ObjectiveCTest.swift in Sources */,
@@ -1238,6 +1256,7 @@
 				6314D40C1DB90C610037AF13 /* ObjCBridgeable-QuartzCore.swift in Sources */,
 				63E3EC4B1DA2519000AEA8C3 /* NSRange+Utilities.swift in Sources */,
 				63E3EC821DA251A800AEA8C3 /* ObjCSelfAwareSwizzleRecipe.swift in Sources */,
+				638018FD1DBB59F700968738 /* ObjCGraftProtocolImplementation.swift in Sources */,
 				63E3EC841DA251A800AEA8C3 /* ObjCBridgeable.swift in Sources */,
 				63E3EC6F1DA251A800AEA8C3 /* ObjCKeyValueStore.m in Sources */,
 				63E3EC4E1DA2519000AEA8C3 /* NSCoder+InterfaceNormalization.swift in Sources */,
@@ -1256,6 +1275,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				638019011DBB630A00968738 /* ObjCGraftProtocolImplementationTest.swift in Sources */,
 				633ECEAD1C15430E0082D870 /* ObjCProtocolMessageInterceptorTest.swift in Sources */,
 				63DCC6A61C64E3CC001949C9 /* ObjCCodingBaseTest.swift in Sources */,
 				633ECEAF1C15430E0082D870 /* ObjectiveCTest.swift in Sources */,
@@ -1416,6 +1436,7 @@
 				MODULEMAP_FILE = "$(PROJECT_DIR)/SupportingFiles/module.modulemap";
 				MODULEMAP_PRIVATE_FILE = "$(PROJECT_DIR)/SupportingFiles/module.private.modulemap";
 				ONLY_ACTIVE_ARCH = YES;
+				OTHER_SWIFT_FLAGS = "-D DEBUG";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
 			};

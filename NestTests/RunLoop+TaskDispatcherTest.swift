@@ -11,7 +11,7 @@ import Nest
 
 private typealias TimingSymbols = RunLoop.ScheduleTiming
 
-class NSRunLoop_TaskDispatcherTest: XCTestCase {
+class RunLoop_TaskDispatcherTest: XCTestCase {
     private var timingSymbols: [TimingSymbols] = []
     
     /// Malfunctioned

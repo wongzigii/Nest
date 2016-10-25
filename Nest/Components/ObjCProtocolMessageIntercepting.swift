@@ -66,13 +66,28 @@ extension ObjCProtocolMessageIntercepting {
         -> AnyObject?
     {
         if let target = _dispatchAndCacheMessage(aSelector) {
+            #if DEBUG
+                if isDebugLoggingEnabled {
+                    NSLog("\(self): Forwarding-Target for \(NSStringFromSelector(aSelector)): \(target).")
+                }
+            #endif
             return target
         }
         
         if class_respondsToSelector(type(of: self), aSelector) {
+            #if DEBUG
+                if isDebugLoggingEnabled {
+                    NSLog("\(self): Forwarding-Target for \(NSStringFromSelector(aSelector)): self.")
+                }
+            #endif
             return self
         }
         
+        #if DEBUG
+            if isDebugLoggingEnabled {
+                NSLog("\(self): Forwarding-Target for \(NSStringFromSelector(aSelector)): nil.")
+            }
+        #endif
         return nil
     }
     
@@ -87,10 +102,25 @@ extension ObjCProtocolMessageIntercepting {
     /// extend new members and never override existed members.
     public func nest_responds(to aSelector: Selector) -> Bool {
         if _dispatchAndCacheMessage(aSelector) != nil {
+            #if DEBUG
+                if isDebugLoggingEnabled {
+                    NSLog("\(self): Responds to \(NSStringFromSelector(aSelector)).")
+                }
+            #endif
             return true
         }
         
-        return class_respondsToSelector(type(of: self), aSelector)
+        let superSuggestion = class_respondsToSelector(type(of: self), aSelector)
+        #if DEBUG
+            if isDebugLoggingEnabled {
+                if superSuggestion {
+                    NSLog("\(self): Responds to \(NSStringFromSelector(aSelector)).")
+                } else {
+                    NSLog("\(self): NOT Responds to \(NSStringFromSelector(aSelector)).")
+                }
+            }
+        #endif
+        return superSuggestion
     }
     
     /// Add an intercepted protocol.
@@ -203,8 +233,18 @@ extension ObjCProtocolMessageIntercepting {
             
             if let cachedDest = _dispatchTable.object(forKey: selString) {
                 if cachedDest is NSNull {
+                    #if DEBUG
+                        if isDebugLoggingEnabled {
+                            NSLog("\(self): Dispatch \(selString) to nil.")
+                        }
+                    #endif
                     return nil
                 }
+                #if DEBUG
+                    if isDebugLoggingEnabled {
+                        NSLog("\(self): Dispatch \(selString) to \(cachedDest).")
+                    }
+                #endif
                 return cachedDest
             }
             
@@ -212,6 +252,11 @@ extension ObjCProtocolMessageIntercepting {
                 if let dest = destWrapper.value {
                     if dest.responds(to: message) {
                         _dispatchTable.setObject(dest, forKey: selString)
+                        #if DEBUG
+                            if isDebugLoggingEnabled {
+                                NSLog("\(self): Dispatch \(selString) to \(dest).")
+                            }
+                        #endif
                         return dest
                     }
                 } else {
@@ -221,10 +266,20 @@ extension ObjCProtocolMessageIntercepting {
             
             if class_respondsToSelector(type(of: self), message) {
                 _dispatchTable.setObject(self, forKey: selString)
+                #if DEBUG
+                    if isDebugLoggingEnabled {
+                        NSLog("\(self): Dispatch \(selString) to self.")
+                    }
+                #endif
                 return self
             }
             
             _dispatchTable.setObject(NSNull(), forKey: selString)
+            #if DEBUG
+                if isDebugLoggingEnabled {
+                    NSLog("\(self): Dispatch \(selString) to nil.")
+                }
+            #endif
             return nil
         }
         
@@ -383,7 +438,34 @@ extension ObjCProtocolMessageIntercepting {
     }
 }
 
-private var interceptedProtocolsKey = "dispatchedProtocols"
+#if DEBUG
+    extension ObjCProtocolMessageIntercepting {
+        public var isDebugLoggingEnabled: Bool {
+            get {
+                if let rawFlag = objc_getAssociatedObject(
+                    self, &isDebugLoggingEnabledKey
+                    ) as? Bool
+                {
+                    return rawFlag
+                }
+                return false
+            }
+            set {
+                
+                objc_setAssociatedObject(
+                    self,
+                    &isDebugLoggingEnabledKey,
+                    newValue,
+                    .OBJC_ASSOCIATION_RETAIN_NONATOMIC
+                )
+            }
+        }
+    }
+    
+    private var isDebugLoggingEnabledKey = "isDebugLoggingEnabled"
+#endif
+
+private var interceptedProtocolsKey = "interceptedProtocols"
 private var destinationsKey = "destinations"
 private var dispatchTableKey = "dispatchTable"
 private var needsInvalidateDispatchTableKey = "needsInvalidateDispatchTable"

@@ -50,7 +50,7 @@ typedef id (* LTLaunchTasksPerformerStoryboardRef)(
 );
 
 typedef id (* LTLaunchTasksPerformerExtensionPrincipalClassRef)(
-    const id, const SEL, const NSString *, const NSBundle *
+    const id, const SEL
 );
 
 #if DEBUG
@@ -116,9 +116,7 @@ static BOOL LTInjectsToExtensionPrincipalClass(void);
 static LTLaunchTasksPerformerExtensionPrincipalClassRef
     LTLaunchTasksPerformerExtensionPrincipalClassReplaced;
 
-static id LTLaunchTasksPerformerExtensionPrincipalClass(
-    const id, const SEL, const NSString *, const NSBundle *
-);
+static id LTLaunchTasksPerformerExtensionPrincipalClass(const id, const SEL);
 
 static LTLaunchTasksPerformerStoryboardRef
     LTLaunchTasksPerformerStoryboardReplaced;
@@ -804,26 +802,24 @@ BOOL LTInjectsToExtensionPrincipalClass() {
     Class extensionPrincipalClass
         = NSClassFromString(extensionPrincipalClassName);
     
-    SEL extensionPrincipalClassUserCodeEntryPointSelector
-        = @selector(initWithNibName:bundle:);
+    SEL extensionPrincipalClassUserCodeEntryPointSelector = @selector(init);
     
     LTLaunchTasksPerformerExtensionPrincipalClassReplaced
-        = (LTLaunchTasksPerformerExtensionPrincipalClassRef)
-        class_replaceMethod(
+        = (LTLaunchTasksPerformerExtensionPrincipalClassRef)class_replaceMethod(
             extensionPrincipalClass,
             extensionPrincipalClassUserCodeEntryPointSelector,
             (IMP)&LTLaunchTasksPerformerExtensionPrincipalClass,
-            "@:@@"
+            "@:"
         );
     
     NSCAssert(
         LTLaunchTasksPerformerExtensionPrincipalClassReplaced,
-        @"Cannot inject launch tasks performer to %@'s selector: %@",
+        @"Extension pricipal class(%@)'s selector -%@ was not implemented. UIKit count on initializing extension's initial view controller from this selector. Please implemente it!",
         NSStringFromClass(extensionPrincipalClass),
         NSStringFromSelector(extensionPrincipalClassUserCodeEntryPointSelector)
     );
     
-    return LTLaunchTasksPerformerExtensionPrincipalClassReplaced != NULL;
+    return YES;
 }
 
 BOOL LTInjectsAsApplication() {
@@ -977,12 +973,7 @@ id LTLaunchTasksPerformerXcodeAgents(const id self, const SEL _cmd) {
 }
 #endif
 
-id LTLaunchTasksPerformerExtensionPrincipalClass(
-    const id self,
-    const SEL _cmd,
-    const NSString * nibNameOrNil,
-    const NSBundle * bundleOrNil
-    )
+id LTLaunchTasksPerformerExtensionPrincipalClass(const id self, const SEL _cmd)
 {
     LTPerformLaunchTasksOnLoadedClasses(nil);
     
@@ -991,9 +982,7 @@ id LTLaunchTasksPerformerExtensionPrincipalClass(
         @"No original implementation found."
     );
     
-    return LTLaunchTasksPerformerExtensionPrincipalClassReplaced(
-        self, _cmd, nibNameOrNil, bundleOrNil
-    );
+    return LTLaunchTasksPerformerExtensionPrincipalClassReplaced(self, _cmd);
 }
 
 @implementation NSObject(LaunchTask)
