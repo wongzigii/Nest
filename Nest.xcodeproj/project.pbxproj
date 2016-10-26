@@ -230,6 +230,7 @@
 		63F1FDFC1C80AA6C00A271B9 /* Nest.h in Headers */ = {isa = PBXBuildFile; fileRef = 63C8862F1C7F146400F5677F /* Nest.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		63F1FDFD1C80AA6D00A271B9 /* Nest.h in Headers */ = {isa = PBXBuildFile; fileRef = 63C8862F1C7F146400F5677F /* Nest.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		63F1FDFE1C80AA6D00A271B9 /* Nest.h in Headers */ = {isa = PBXBuildFile; fileRef = 63C8862F1C7F146400F5677F /* Nest.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		63F295581DBF7D57001A52F3 /* ObjCSelfAwareSwizzle.m in Sources */ = {isa = PBXBuildFile; fileRef = 6315CB4A1BFD8745003A5840 /* ObjCSelfAwareSwizzle.m */; };
 		63FCD5651DB77EB20074AA3C /* FetchRequestTemplating.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63FCD5641DB77EB20074AA3C /* FetchRequestTemplating.swift */; };
 		63FCD5661DB77EB20074AA3C /* FetchRequestTemplating.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63FCD5641DB77EB20074AA3C /* FetchRequestTemplating.swift */; };
 		63FCD5671DB77EB20074AA3C /* FetchRequestTemplating.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63FCD5641DB77EB20074AA3C /* FetchRequestTemplating.swift */; };
@@ -1124,6 +1125,7 @@
 				63E3ECD11DA251A900AEA8C3 /* ObjCSelfAwareSwizzle+Utilities.swift in Sources */,
 				63E3ECC81DA251A900AEA8C3 /* ObjCCodingBase+Internal.m in Sources */,
 				63E3EC6D1DA2519200AEA8C3 /* NSManagedObject+InitWithContext.swift in Sources */,
+				63F295581DBF7D57001A52F3 /* ObjCSelfAwareSwizzle.m in Sources */,
 				63E3EC671DA2519200AEA8C3 /* NSRange+CollectionType.swift in Sources */,
 				63FE42811DA2657A002E45C8 /* ObjCCodingPrimitive-AVFoundation.swift in Sources */,
 				63E3EC661DA2519200AEA8C3 /* NSRange+Utilities.swift in Sources */,

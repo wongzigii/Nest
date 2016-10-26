@@ -366,6 +366,9 @@ NSString * ObjCSelfAwareSwizzleDescription(ObjCSelfAwareSwizzle * swizzle) {
 #endif
 
 #pragma mark - Register Self-Aware Swizzle as A Launch Task
+@interface NSObject(SelfAwareSwizzle)
+@end
+
 @implementation NSObject(SelfAwareSwizzle)
 + (void)load {
     // Create a clean task cotnext

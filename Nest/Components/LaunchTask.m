@@ -423,6 +423,10 @@ void LTPerformLaunchTasksOnLoadedClasses(const id firstArg, ...) {
                 LTLaunchTaskInfo * info = (LTLaunchTaskInfo *)
                     CFArrayGetValueAtIndex(kLTRegisteredLaunchTaskInfo, infoIdx);
                 
+#if DEBUG
+                NSLog(@"Performing launch task: %s", info -> selectorPrefix);
+#endif
+                
                 if (!isClassBufferReady) {
                     unsigned int imgCount = 0;
                     
@@ -636,8 +640,7 @@ BOOL LTLaunchTaskInfoEqualToInfo(
 
 #pragma mark Find User Code Entry Point and Inject Launch Tasks Performer
 BOOL LTFindUserCodeEntryPointAndInjectLaunchTasksPerformer() {
-    NSMainBundleCategory mainBundleCategory
-        = [[NSBundle mainBundle] category];
+    NSMainBundleCategory mainBundleCategory = [[NSBundle mainBundle] category];
     
     switch (mainBundleCategory) {
         case NSMainBundleCategoryApplication:
@@ -670,7 +673,11 @@ BOOL LTFindUserCodeEntryPointAndInjectLaunchTasksPerformer() {
             }
             break;
 #endif
-        default: break;
+        default:
+#if DEBUG
+            NSLog(@"Doesn't found user code entry point and the launch tasks performer was not injected.");
+#endif
+            break;
     }
     
     return NO;
@@ -739,7 +746,9 @@ BOOL LTInjectsToAppDelegate() {
                 );
             
             if (isPotentialUserCodeEntryPoint) {
+#if DEBUG
                 NSLog(@"Swizzle the user code entry point.");
+#endif
                 /* Swizzle */
                 
                 IMP originalImp = class_replaceMethod(
@@ -754,11 +763,11 @@ BOOL LTInjectsToAppDelegate() {
                     originalImp
                 );
                 
-                NSLog(@"hehe");
-                
                 success = success || YES;
             } else {
+#if DEBUG
                 NSLog(@"Inject the user code entry point.");
+#endif
                 /* Inject */
                 
                 class_addMethod(
@@ -826,10 +835,10 @@ BOOL LTInjectsAsApplication() {
     __block BOOL success = NO;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        LTApplicationUserInterfaceCreationApproach UserInterfaceCreationApproach
+        LTApplicationUserInterfaceCreationApproach userInterfaceCreationApproach
             = LTGetApplicationUserInterfaceCreationApproach();
         
-        switch (UserInterfaceCreationApproach) {
+        switch (userInterfaceCreationApproach) {
             case LTApplicationUserInterfaceCreationApproachStoryboard:
                 success = LTInjectsToStoryboard();
                 break;
