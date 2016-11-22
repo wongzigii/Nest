@@ -1,5 +1,5 @@
 //
-//  NSPersistentStoreType.swift
+//  NSPersistentStoreKind.swift
 //  Nest
 //
 //  Created by Manfred on 11/9/15.

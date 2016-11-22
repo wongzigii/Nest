@@ -63,7 +63,7 @@ static void ObjCSelfAwareSwizzlePerformSwizzles(
 );
 
 #if DEBUG
-static BOOL ObjCSelfAwareSwizzleDoesClassHostSelfAwareSelectorOnClass(
+static BOOL ObjCSelfAwareSwizzleDoesSelfAwareSelectorHostClassEqualToTargetClass(
     const Class, const Class
 );
 
@@ -120,7 +120,7 @@ void ObjCSelfAwareSwizzleSelectorHandler(
 }
 
 #if DEBUG
-BOOL ObjCSelfAwareSwizzleDoesClassHostSelfAwareSelectorOnClass(
+BOOL ObjCSelfAwareSwizzleDoesSelfAwareSelectorHostClassEqualToTargetClass(
     Class hostClass,
     Class targetClass
     )
@@ -183,7 +183,7 @@ void ObjCSelfAwareSwizzlePerformSwizzle(
     SEL targetSelector = swizzle.targetSelector;
     
 #if DEBUG
-    if (!ObjCSelfAwareSwizzleDoesClassHostSelfAwareSelectorOnClass(aClass, targetClass)) {
+    if (!ObjCSelfAwareSwizzleDoesSelfAwareSelectorHostClassEqualToTargetClass(aClass, targetClass)) {
         NSLog(@"Class to be swizzled %@ is not the Self-Aware Swizzle selector's containing class %@.",
               NSStringFromClass(targetClass),
               NSStringFromClass(aClass));

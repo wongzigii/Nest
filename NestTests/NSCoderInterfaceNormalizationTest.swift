@@ -36,7 +36,7 @@ private class CustomView: View {
         for each in outletCollectionEntity { addSubview(each) }
     }
     
-    private required init?(coder aDecoder: NSCoder) {
+    fileprivate required init?(coder aDecoder: NSCoder) {
         outletEntity = aDecoder.decode(for: "outletEntity")!
         outletCollectionEntity = aDecoder.decode(for: "outletCollectionEntity")!
         scalarEntity = aDecoder.decode(for: "scalarEntity")!
@@ -44,7 +44,7 @@ private class CustomView: View {
         super.init(coder: aDecoder)
     }
     
-    private override func encode(with aCoder: NSCoder) {
+    fileprivate override func encode(with aCoder: NSCoder) {
         super.encode(with: aCoder)
         aCoder.encode(outletEntity, for: "outletEntity")
         aCoder.encode(outletCollectionEntity, for: "outletCollectionEntity")

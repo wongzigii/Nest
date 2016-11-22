@@ -424,7 +424,7 @@ void LTPerformLaunchTasksOnLoadedClasses(const id firstArg, ...) {
                     CFArrayGetValueAtIndex(kLTRegisteredLaunchTaskInfo, infoIdx);
                 
 #if DEBUG
-                NSLog(@"Performing launch task: %s", info -> selectorPrefix);
+                NSLog(@"Performing launch task: %s\n", info -> selectorPrefix);
 #endif
                 
                 if (!isClassBufferReady) {

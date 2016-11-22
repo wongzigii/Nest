@@ -1,5 +1,5 @@
 //
-//  NSRange+CollectionType.swift
+//  NSRange+Collection.swift
 //  Nest
 //
 //  Created by Manfred on 3/3/16.

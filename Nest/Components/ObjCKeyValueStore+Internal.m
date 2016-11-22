@@ -55,7 +55,7 @@ static NSString * ObjCKeyValueStoreAccessorCapitalizedPropertyName(const char *)
 static ObjCKeyValueStoreAccessor * ObjCKeyValueStoreAccessorForType(const char *);
 
 #pragma mark - Variables
-static CFArrayCallBacks ObjCKeyValueStoreAccessorArrayCallBacks = {
+static CFArrayCallBacks kObjCKeyValueStoreAccessorArrayCallBacks = {
     0,
     NULL,
     NULL,
@@ -67,6 +67,9 @@ static CFMutableArrayRef kRegisteredAccessors = NULL;
 
 static CFMutableDictionaryRef kPropertyNameForGetterForClass = NULL;
 static CFMutableDictionaryRef kPropertyNameForSetterForClass = NULL;
+
+static const char * kAssertAccessorGetterDescription = "Getter";
+static const char * kAssertAccessorSetterDescription = "Setter";
 
 #pragma mark - Function Implmentation
 #pragma mark Synthesize
@@ -464,7 +467,7 @@ BOOL ObjCKeyValueStoreRegisterAccessor(
         kRegisteredAccessors = CFArrayCreateMutable(
             kCFAllocatorDefault,
             0,
-            &ObjCKeyValueStoreAccessorArrayCallBacks
+            &kObjCKeyValueStoreAccessorArrayCallBacks
         );
         NSCAssert(
             kRegisteredAccessors != NULL,
@@ -483,7 +486,7 @@ BOOL ObjCKeyValueStoreRegisterAccessor(
     {
 #if DEBUG
         NSLog(
-            @"Duplicate ObjCKeyValueStore accessor registration for property of type %s",
+            @"Ignored duplicate ObjCKeyValueStore accessor registration for property of type \"%s\"",
             typeIdentifier
         );
 #endif
@@ -524,7 +527,7 @@ void ObjCKeyValueStoreAssertAccessor(
     NSString * * r_propertyName,
     const char * * r_propertyType,
     const char * description,
-    const char * firstAllowedTypeEncoding,
+    const char * allowedTypeEncoding1,
     ...
     )
 {
@@ -567,19 +570,19 @@ void ObjCKeyValueStoreAssertAccessor(
     // Iterate allowed type encodings
     va_list args;
 
-    if (firstAllowedTypeEncoding) {
+    if (allowedTypeEncoding1) {
         // Calculate allowed type encodings
         char * allowedTypeEncodings = NULL;
         size_t allocatedAllowedTypeEncodingsSize = 0;
 
         // Check the first allowed type encoding
         size_t firstAllowedTypeEncodingLength
-        = strlen(firstAllowedTypeEncoding);
+        = strlen(allowedTypeEncoding1);
 
         BOOL isFirstAllowedTypeEncodingViable
         = strncmp(
             propertyTypeEncoding,
-            firstAllowedTypeEncoding,
+            allowedTypeEncoding1,
             firstAllowedTypeEncodingLength
         ) == 0;
 
@@ -600,12 +603,12 @@ void ObjCKeyValueStoreAssertAccessor(
 
         memcpy(
             allowedTypeEncodings,
-            firstAllowedTypeEncoding,
+            allowedTypeEncoding1,
             firstAllowedTypeEncodingSize
         );
 
         // Check each allowed type encoding
-        va_start(args, firstAllowedTypeEncoding);
+        va_start(args, allowedTypeEncoding1);
         const char * eachAllowedTypeEncoding = NULL;
         while ((eachAllowedTypeEncoding = va_arg(args, const char *))) {
 
@@ -658,17 +661,15 @@ void ObjCKeyValueStoreAssertAccessor(
         va_end(args);
 
         // Calculate accessor kind description
-        static const char * getterKindDescription = "Getter";
-        static const char * setterKindDescription = "Setter";
 
         const char * accessorKindDescription = NULL;
 
         switch (kind) {
             case ObjCKeyValueStoreAccessorKindGetter:
-                accessorKindDescription = getterKindDescription;
+                accessorKindDescription = kAssertAccessorGetterDescription;
                 break;
             case ObjCKeyValueStoreAccessorKindSetter:
-                accessorKindDescription = setterKindDescription;
+                accessorKindDescription = kAssertAccessorSetterDescription;
                 break;
         }
 
@@ -703,49 +704,50 @@ NSString * ObjCKeyValueStoreAccessorCapitalizedPropertyName(
 {
     NSString * propertyName = [NSString stringWithUTF8String:rawPropertyName];
     
-    NSString * capitalizedPropertyName = nil;
-
     NSUInteger propertyNameLength = [propertyName length];
     
-    if (propertyNameLength > 1) {
-        NSRange propertyNameRange = NSMakeRange(0, propertyNameLength);
-        
-        NSMutableString * capitalizedBase = [[NSMutableString alloc] init];
-        __block NSRange firstSubstringRange;
-        [propertyName enumerateSubstringsInRange:propertyNameRange
-                                         options:NSStringEnumerationByComposedCharacterSequences
-                                      usingBlock:
-         ^(NSString * _Nullable substring,
-            NSRange substringRange,
-            NSRange enclosingRange,
-            BOOL * _Nonnull stop
-           )
-         {
-             if (substringRange.location == 0) {
-                 [capitalizedBase appendString: substring.capitalizedString];
-                 firstSubstringRange = substringRange;
-             } else {
-                 * stop = YES;
-             }
-         }];
-        
-        NSUInteger firstSubstringEnd = NSMaxRange(firstSubstringRange);
-        NSUInteger restSubstringLength
-        = propertyNameLength - firstSubstringRange.length;
+    NSRange propertyNameRange = NSMakeRange(0, propertyNameLength);
+    
+    NSMutableString * capitalizedString = [[NSMutableString alloc] init];
+    
+    __block NSRange firstGraphemeClusterRange;
+    
+    [propertyName enumerateSubstringsInRange:propertyNameRange
+                                     options:NSStringEnumerationByComposedCharacterSequences
+                                  usingBlock:
+     ^(NSString * _Nullable substring,
+       NSRange substringRange,
+       NSRange enclosingRange,
+       BOOL * _Nonnull stop
+       )
+     {
+         if (substringRange.location == 0) {
+             [capitalizedString appendString: substring.capitalizedString];
+             firstGraphemeClusterRange = substringRange;
+         } else {
+             * stop = YES;
+         }
+     }];
+    
+    NSUInteger firstGraphemeClusterEnd
+    = NSMaxRange(firstGraphemeClusterRange);
+    
+    NSUInteger restSubstringLength
+    = propertyNameLength - firstGraphemeClusterRange.length;
+    
+    NSCAssert(restSubstringLength >= 0, @"Rest substring of a property name by clipping the first extended grapheme cluster shall be greater than or equal to 0.");
+    
+    if (restSubstringLength > 0) {
         NSRange restSubstringRange
-        = NSMakeRange(firstSubstringEnd, restSubstringLength);
-        NSString * restString
+        = NSMakeRange(firstGraphemeClusterEnd, restSubstringLength);
+        
+        NSString * restSubstring
         = [propertyName substringWithRange:restSubstringRange];
         
-        [capitalizedBase appendString:restString];
-        
-        capitalizedPropertyName = capitalizedBase;
-    } else {
-        capitalizedPropertyName
-        = [NSString stringWithCString:rawPropertyName
-                             encoding:NSUTF8StringEncoding]
-        .capitalizedString;
+        [capitalizedString appendString:restSubstring];
     }
+    
+    NSString * capitalizedPropertyName = capitalizedString;
 
     return capitalizedPropertyName;
 }

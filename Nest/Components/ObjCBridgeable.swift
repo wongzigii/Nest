@@ -10,7 +10,7 @@
 /// objects with `ObjCBridgeable`.
 ///
 /// - Notes: Since Swift 3 forbids implementing `_ObjectiveCBridgeable` 
-/// outside the module defined the conforming type and Apple did forgot to
+/// outside the module defined the conforming type and Apple did forget to
 /// make some types as `_ObjectiveCBridgeable`, Nest uses this protocol to 
 /// convert those forgot types.
 public protocol ObjCBridgeable {

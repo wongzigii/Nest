@@ -41,7 +41,6 @@ extension NSRange {
             length: (string as NSString).length)
     }
     
-    
     public init(_ attriutedString: NSAttributedString) {
         self = NSRange(
             location: 0,

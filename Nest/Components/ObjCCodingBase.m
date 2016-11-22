@@ -28,6 +28,9 @@ static NSString *  kObjCCodingBaseVersionKey
                 from:(NSInteger)fromVersion
                   to:(NSInteger)toVersion
 {
+#if DEBUG
+    NSLog(@"Trying to migrate value(\"%@\") for key \"%@\" but does nothing with it. You might override %@ to migrate.", [*value description], [*key description], NSStringFromSelector(_cmd));
+#endif
     return NO;
 }
 
@@ -143,13 +146,4 @@ static NSString *  kObjCCodingBaseVersionKey
         (* encode)([self class], coder, key, value);
     }
 }
-
-- (void)_encodeObject:(id)object forKey:(NSString *)key to:(NSCoder *)coder {
-    [coder encodeObject:object forKey:key];
-}
-
-- (id)_encodeObjectForKey:(NSString *)key from:(NSCoder *)coder {
-    return [coder decodeObjectForKey:key];
-}
-
 @end

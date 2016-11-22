@@ -181,7 +181,7 @@ public final class ObjCProtocolMessageInterceptor: NSObject {
         let target = super.forwardingTarget(for: aSelector)
         #if DEBUG
             if shouldLogMessageForwarding {
-                print(#function, aSelector, "->", target)
+                print(#function, aSelector, "->", target ?? "nil")
             }
         #endif
         return target
@@ -200,13 +200,13 @@ public final class ObjCProtocolMessageInterceptor: NSObject {
             return true
         }
         
-        let isRespond = super.responds(to: aSelector)
+        let doesRespond = super.responds(to: aSelector)
         #if DEBUG
             if shouldLogMessageResponding {
-                print(#function, aSelector, "->", isRespond)
+                print(#function, aSelector, "->", doesRespond)
             }
         #endif
-        return isRespond
+        return doesRespond
     }
     
     //MARK: Manage Middle Men

@@ -12,9 +12,8 @@ import CoreData
 @available(iOS 3.0, *)
 open class PersistentController {
     public init(
-        bundle: Bundle,
-        storeURL: URL,
-        type: NSPersistentStoreType,
+        store: PersistentStore,
+        modelBundle: Bundle,
         modelName: String,
         modelExtension: String = "momd"
         )
@@ -39,11 +38,11 @@ open class PersistentController {
             }
         #endif
         
-        guard let modelURL = bundle.url(
+        guard let modelURL = modelBundle.url(
             forResource: modelName, withExtension:modelExtension
             ) else
         {
-            fatalError("Cannot get managed object model file from bundle: \(bundle)")
+            fatalError("Cannot get managed object model file from bundle: \(modelBundle)")
         }
         
         guard let managedObjectModel = NSManagedObjectModel(
@@ -64,29 +63,32 @@ open class PersistentController {
         _fetchingContext.parent = _savingContext
         
         _operationQueue.async {
-            do {
-                let containingDir = storeURL.deletingLastPathComponent()
-                
-                try FileManager.default.createDirectory(
-                    at: containingDir,
-                    withIntermediateDirectories: true,
-                    attributes: nil
-                )
-                
-            } catch let error {
-                fatalError("Cannot create persistent store's containing directory: \(error)")
+            let (persistentStoreType, persistentStoreURL)
+                = store._toPrimitives()
+            
+            if let url = persistentStoreURL {
+                do {
+                    let containingDir = url.deletingLastPathComponent()
+                    
+                    try FileManager.default.createDirectory(
+                        at: containingDir,
+                        withIntermediateDirectories: true,
+                        attributes: nil
+                    )
+                    
+                } catch let error {
+                    fatalError("Cannot create persistent store's containing directory: \(error)")
+                }
             }
             
             do {
                 try persistentStoreCoordinator.addPersistentStore(
-                    ofType: type.primitiveValue,
+                    ofType: persistentStoreType,
                     configurationName: nil,
-                    at: storeURL,
-                    options: [
-                        NSMigratePersistentStoresAutomaticallyOption: true,
-                        NSInferMappingModelAutomaticallyOption: true,
-                        NSSQLitePragmasOption: ["journal_mode":"DELETE"]
-                    ]
+                    at: persistentStoreURL,
+                    options: NSPersistentStoreCoordinator._options(
+                        for: store
+                    )
                 )
             } catch let error {
                 fatalError("Cannot migrate persistent store: \(error)")
@@ -169,10 +171,10 @@ open class PersistentController {
         with completionHandler: ((_ error: Error?) -> Void)? = nil
         )
     {
-        var errorOrNil: Error?
-        
-        _operationQueue.sync {
-            _fetchingContext.performAndWait {
+        performAndWait { (ctx) in
+            var errorOrNil: Error?
+            
+            self._fetchingContext.performAndWait {
                 if self._fetchingContext.hasChanges {
                     do {
                         try self._fetchingContext.save()
@@ -185,11 +187,10 @@ open class PersistentController {
             if errorOrNil != nil {
                 completionHandler?(errorOrNil)
             } else {
-                _savingContext.perform { _ in
+                self._savingContext.perform { _ in
                     if self._savingContext.hasChanges {
                         do {
                             try self._savingContext.save()
-                            
                             completionHandler?(nil)
                         } catch let error {
                             errorOrNil = error
@@ -220,11 +221,21 @@ open class PersistentController {
         ) -> R
     {
         var returnValue: R!
-        _operationQueue.sync {
+        
+        let currentQueueLabel = DispatchQueue.currentQueueLabel
+        
+        if currentQueueLabel == _operationQueue.label {
             _fetchingContext.performAndWait {
                 returnValue = transaction(self._fetchingContext)
             }
+        } else {
+            _operationQueue.sync {
+                _fetchingContext.performAndWait {
+                    returnValue = transaction(self._fetchingContext)
+                }
+            }
         }
+        
         return returnValue
         
     }
@@ -343,6 +354,9 @@ open class PersistentController {
     
     private unowned let _managedObjectModel: NSManagedObjectModel
     
+    /// Could be used for debugging.
+    public var name: String = ""
+    
     // MARK: Nested Type
     public enum Context {
         case forFetching(NSManagedObjectContext)
@@ -351,34 +365,32 @@ open class PersistentController {
     
     public typealias ManagedObjectChanges
         = [NSManagedObjectChangeKey: Set<NSManagedObject>]
-}
-
-extension Notification {
-    fileprivate typealias ManagedObjectChanges
-        = PersistentController.ManagedObjectChanges
-    fileprivate typealias ManagedObjectChangeKey
-        = NSManagedObjectChangeKey
     
-    fileprivate func _extractManagedObjectChanges() -> ManagedObjectChanges {
-        assert(name == .NSManagedObjectContextDidSave
-            || name == .NSManagedObjectContextWillSave
-            || name == .NSManagedObjectContextObjectsDidChange
-        )
+    public enum PersistentStore {
+        case sqlite(url: URL)
+        case binary(url: URL)
+        case inMemory
         
-        var changes = ManagedObjectChanges()
-        
-        for (k, v) in userInfo ?? [:] {
-            guard let managedObjects = v as? Set<NSManagedObject> else {
-                continue
+        public var nsPersistentStoreType: String {
+            switch self {
+            case .binary:   return NSBinaryStoreType
+            case .sqlite:   return NSSQLiteStoreType
+            case .inMemory: return NSInMemoryStoreType
             }
-            
-            let changeKey = NSManagedObjectChangeKey(
-                rawValue: k.base as! String
-            )
-            changes[changeKey] = managedObjects
         }
         
-        return changes
+        fileprivate func _toPrimitives()
+            -> (persistentStoreType: String, url: URL?)
+        {
+            switch self {
+            case let .binary(url):
+                return (NSBinaryStoreType, url)
+            case let .sqlite(url):
+                return (NSSQLiteStoreType, url)
+            case .inMemory:
+                return (NSInMemoryStoreType, nil)
+            }
+        }
     }
 }
 
@@ -419,6 +431,33 @@ extension SingletonPersistentController where
         return shared.fetchRequestFromTemplate(
             named: name, substitutionVariables: substitutionVariables
         )
+    }
+}
+
+extension NSPersistentStoreCoordinator {
+    fileprivate static func _options(
+        for persistentStore: PersistentController.PersistentStore
+        )
+        -> [AnyHashable : Any]
+    {
+        switch persistentStore {
+        case .binary:
+            return [
+                NSMigratePersistentStoresAutomaticallyOption: true,
+                NSInferMappingModelAutomaticallyOption: true
+            ]
+        case .sqlite:
+            return [
+                NSMigratePersistentStoresAutomaticallyOption: true,
+                NSInferMappingModelAutomaticallyOption: true,
+                NSSQLitePragmasOption: ["journal_mode":"DELETE"]
+            ]
+        case .inMemory:
+            return [
+                NSMigratePersistentStoresAutomaticallyOption: true,
+                NSInferMappingModelAutomaticallyOption: true
+            ]
+        }
     }
 }
 
