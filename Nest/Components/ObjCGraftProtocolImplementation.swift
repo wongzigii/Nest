@@ -395,5 +395,5 @@ public func ObjCUngraftProtocolImplementationsAll<Grafted: AnyObject>(
 }
 
 //MARK: - Constant
-private let _getterSelector = NSString(format: "C").utf8String!
+private let _getterSelector = NSString(format: "G").utf8String!
 private let _setterSelector = NSString(format: "S").utf8String!

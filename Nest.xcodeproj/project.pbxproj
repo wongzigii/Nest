@@ -63,7 +63,6 @@
 		63E3EC4C1DA2519000AEA8C3 /* NSRange+Collection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 637A560B1C8830E8001A178A /* NSRange+Collection.swift */; };
 		63E3EC4D1DA2519000AEA8C3 /* RunLoop+TaskDispatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F10A51BFAFABB004982B4 /* RunLoop+TaskDispatcher.swift */; };
 		63E3EC4E1DA2519000AEA8C3 /* NSCoder+InterfaceNormalization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 633ECEBE1C1547900082D870 /* NSCoder+InterfaceNormalization.swift */; };
-		63E3EC4F1DA2519000AEA8C3 /* NSObject+That.swift in Sources */ = {isa = PBXBuildFile; fileRef = 630457301D8A882A007EA6A3 /* NSObject+That.swift */; };
 		63E3EC501DA2519000AEA8C3 /* ObjectiveC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F11031BFAFB4D004982B4 /* ObjectiveC.swift */; };
 		63E3EC511DA2519000AEA8C3 /* Bundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 632681161D6BA1E1005E2F5C /* Bundle.swift */; };
 		63E3EC521DA2519000AEA8C3 /* NSManagedObject+InitWithContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6366D0CA1D69817400A4D01C /* NSManagedObject+InitWithContext.swift */; };
@@ -72,7 +71,6 @@
 		63E3EC551DA2519100AEA8C3 /* NSRange+Collection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 637A560B1C8830E8001A178A /* NSRange+Collection.swift */; };
 		63E3EC561DA2519100AEA8C3 /* RunLoop+TaskDispatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F10A51BFAFABB004982B4 /* RunLoop+TaskDispatcher.swift */; };
 		63E3EC571DA2519100AEA8C3 /* NSCoder+InterfaceNormalization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 633ECEBE1C1547900082D870 /* NSCoder+InterfaceNormalization.swift */; };
-		63E3EC581DA2519100AEA8C3 /* NSObject+That.swift in Sources */ = {isa = PBXBuildFile; fileRef = 630457301D8A882A007EA6A3 /* NSObject+That.swift */; };
 		63E3EC591DA2519100AEA8C3 /* ObjectiveC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F11031BFAFB4D004982B4 /* ObjectiveC.swift */; };
 		63E3EC5A1DA2519100AEA8C3 /* Bundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 632681161D6BA1E1005E2F5C /* Bundle.swift */; };
 		63E3EC5B1DA2519100AEA8C3 /* NSManagedObject+InitWithContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6366D0CA1D69817400A4D01C /* NSManagedObject+InitWithContext.swift */; };
@@ -81,7 +79,6 @@
 		63E3EC5E1DA2519100AEA8C3 /* NSRange+Collection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 637A560B1C8830E8001A178A /* NSRange+Collection.swift */; };
 		63E3EC5F1DA2519100AEA8C3 /* RunLoop+TaskDispatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F10A51BFAFABB004982B4 /* RunLoop+TaskDispatcher.swift */; };
 		63E3EC601DA2519100AEA8C3 /* NSCoder+InterfaceNormalization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 633ECEBE1C1547900082D870 /* NSCoder+InterfaceNormalization.swift */; };
-		63E3EC611DA2519100AEA8C3 /* NSObject+That.swift in Sources */ = {isa = PBXBuildFile; fileRef = 630457301D8A882A007EA6A3 /* NSObject+That.swift */; };
 		63E3EC621DA2519100AEA8C3 /* ObjectiveC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F11031BFAFB4D004982B4 /* ObjectiveC.swift */; };
 		63E3EC631DA2519100AEA8C3 /* Bundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 632681161D6BA1E1005E2F5C /* Bundle.swift */; };
 		63E3EC641DA2519100AEA8C3 /* NSManagedObject+InitWithContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6366D0CA1D69817400A4D01C /* NSManagedObject+InitWithContext.swift */; };
@@ -90,7 +87,6 @@
 		63E3EC671DA2519200AEA8C3 /* NSRange+Collection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 637A560B1C8830E8001A178A /* NSRange+Collection.swift */; };
 		63E3EC681DA2519200AEA8C3 /* RunLoop+TaskDispatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F10A51BFAFABB004982B4 /* RunLoop+TaskDispatcher.swift */; };
 		63E3EC691DA2519200AEA8C3 /* NSCoder+InterfaceNormalization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 633ECEBE1C1547900082D870 /* NSCoder+InterfaceNormalization.swift */; };
-		63E3EC6A1DA2519200AEA8C3 /* NSObject+That.swift in Sources */ = {isa = PBXBuildFile; fileRef = 630457301D8A882A007EA6A3 /* NSObject+That.swift */; };
 		63E3EC6B1DA2519200AEA8C3 /* ObjectiveC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F11031BFAFB4D004982B4 /* ObjectiveC.swift */; };
 		63E3EC6C1DA2519200AEA8C3 /* Bundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 632681161D6BA1E1005E2F5C /* Bundle.swift */; };
 		63E3EC6D1DA2519200AEA8C3 /* NSManagedObject+InitWithContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6366D0CA1D69817400A4D01C /* NSManagedObject+InitWithContext.swift */; };
@@ -107,7 +103,6 @@
 		63E3EC781DA251A800AEA8C3 /* ObjCCodingPrimitive.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F10911BFAFABB004982B4 /* ObjCCodingPrimitive.swift */; };
 		63E3EC791DA251A800AEA8C3 /* ObjCTypeEncoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 633ECDA31C14487A0082D870 /* ObjCTypeEncoding.swift */; };
 		63E3EC7A1DA251A800AEA8C3 /* ObjCAssociated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F10931BFAFABB004982B4 /* ObjCAssociated.swift */; };
-		63E3EC7B1DA251A800AEA8C3 /* ObjCMultiCastDelegating.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F10941BFAFABB004982B4 /* ObjCMultiCastDelegating.swift */; };
 		63E3EC7C1DA251A800AEA8C3 /* ObjCProtocolMessageIntercepting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F10951BFAFABB004982B4 /* ObjCProtocolMessageIntercepting.swift */; };
 		63E3EC7D1DA251A800AEA8C3 /* ObjCProtocolMessageInterceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F10961BFAFABB004982B4 /* ObjCProtocolMessageInterceptor.swift */; };
 		63E3EC7E1DA251A800AEA8C3 /* ObjCSelectorMessageInterceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C1D9FA1C3164E700D0F548 /* ObjCSelectorMessageInterceptor.swift */; };
@@ -133,7 +128,6 @@
 		63E3EC931DA251A900AEA8C3 /* ObjCCodingPrimitive.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F10911BFAFABB004982B4 /* ObjCCodingPrimitive.swift */; };
 		63E3EC941DA251A900AEA8C3 /* ObjCTypeEncoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 633ECDA31C14487A0082D870 /* ObjCTypeEncoding.swift */; };
 		63E3EC951DA251A900AEA8C3 /* ObjCAssociated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F10931BFAFABB004982B4 /* ObjCAssociated.swift */; };
-		63E3EC961DA251A900AEA8C3 /* ObjCMultiCastDelegating.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F10941BFAFABB004982B4 /* ObjCMultiCastDelegating.swift */; };
 		63E3EC971DA251A900AEA8C3 /* ObjCProtocolMessageIntercepting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F10951BFAFABB004982B4 /* ObjCProtocolMessageIntercepting.swift */; };
 		63E3EC981DA251A900AEA8C3 /* ObjCProtocolMessageInterceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F10961BFAFABB004982B4 /* ObjCProtocolMessageInterceptor.swift */; };
 		63E3EC991DA251A900AEA8C3 /* ObjCSelectorMessageInterceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C1D9FA1C3164E700D0F548 /* ObjCSelectorMessageInterceptor.swift */; };
@@ -159,7 +153,6 @@
 		63E3ECAE1DA251A900AEA8C3 /* ObjCCodingPrimitive.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F10911BFAFABB004982B4 /* ObjCCodingPrimitive.swift */; };
 		63E3ECAF1DA251A900AEA8C3 /* ObjCTypeEncoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 633ECDA31C14487A0082D870 /* ObjCTypeEncoding.swift */; };
 		63E3ECB01DA251A900AEA8C3 /* ObjCAssociated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F10931BFAFABB004982B4 /* ObjCAssociated.swift */; };
-		63E3ECB11DA251A900AEA8C3 /* ObjCMultiCastDelegating.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F10941BFAFABB004982B4 /* ObjCMultiCastDelegating.swift */; };
 		63E3ECB21DA251A900AEA8C3 /* ObjCProtocolMessageIntercepting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F10951BFAFABB004982B4 /* ObjCProtocolMessageIntercepting.swift */; };
 		63E3ECB31DA251A900AEA8C3 /* ObjCProtocolMessageInterceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F10961BFAFABB004982B4 /* ObjCProtocolMessageInterceptor.swift */; };
 		63E3ECB41DA251A900AEA8C3 /* ObjCSelectorMessageInterceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C1D9FA1C3164E700D0F548 /* ObjCSelectorMessageInterceptor.swift */; };
@@ -185,7 +178,6 @@
 		63E3ECC91DA251A900AEA8C3 /* ObjCCodingPrimitive.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F10911BFAFABB004982B4 /* ObjCCodingPrimitive.swift */; };
 		63E3ECCA1DA251A900AEA8C3 /* ObjCTypeEncoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 633ECDA31C14487A0082D870 /* ObjCTypeEncoding.swift */; };
 		63E3ECCB1DA251A900AEA8C3 /* ObjCAssociated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F10931BFAFABB004982B4 /* ObjCAssociated.swift */; };
-		63E3ECCC1DA251A900AEA8C3 /* ObjCMultiCastDelegating.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F10941BFAFABB004982B4 /* ObjCMultiCastDelegating.swift */; };
 		63E3ECCD1DA251A900AEA8C3 /* ObjCProtocolMessageIntercepting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F10951BFAFABB004982B4 /* ObjCProtocolMessageIntercepting.swift */; };
 		63E3ECCE1DA251A900AEA8C3 /* ObjCProtocolMessageInterceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F10961BFAFABB004982B4 /* ObjCProtocolMessageInterceptor.swift */; };
 		63E3ECCF1DA251A900AEA8C3 /* ObjCSelectorMessageInterceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C1D9FA1C3164E700D0F548 /* ObjCSelectorMessageInterceptor.swift */; };
@@ -261,6 +253,10 @@
 		63FCD5661DB77EB20074AA3C /* FetchRequestTemplating.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63FCD5641DB77EB20074AA3C /* FetchRequestTemplating.swift */; };
 		63FCD5671DB77EB20074AA3C /* FetchRequestTemplating.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63FCD5641DB77EB20074AA3C /* FetchRequestTemplating.swift */; };
 		63FCD5681DB77EB20074AA3C /* FetchRequestTemplating.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63FCD5641DB77EB20074AA3C /* FetchRequestTemplating.swift */; };
+		63FD11921DFA735400C46962 /* NSObject+That.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63FD11911DFA735400C46962 /* NSObject+That.swift */; };
+		63FD11931DFA735400C46962 /* NSObject+That.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63FD11911DFA735400C46962 /* NSObject+That.swift */; };
+		63FD11941DFA735400C46962 /* NSObject+That.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63FD11911DFA735400C46962 /* NSObject+That.swift */; };
+		63FD11951DFA735400C46962 /* NSObject+That.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63FD11911DFA735400C46962 /* NSObject+That.swift */; };
 		63FE427E1DA26576002E45C8 /* ObjCCodingPrimitive-UIKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 633ECED91C158EF90082D870 /* ObjCCodingPrimitive-UIKit.swift */; };
 		63FE427F1DA26576002E45C8 /* ObjCKeyValueStore-UIKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 637A564D1C8845A6001A178A /* ObjCKeyValueStore-UIKit.m */; };
 		63FE42801DA26576002E45C8 /* ObjCCodingBase-UIKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 6371F2121C7F829C00837BB7 /* ObjCCodingBase-UIKit.m */; };
@@ -302,7 +298,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		630457301D8A882A007EA6A3 /* NSObject+That.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSObject+That.swift"; sourceTree = "<group>"; };
 		6304575D1D8AE0F2007EA6A3 /* ObjCKeyValueStore+Subclass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ObjCKeyValueStore+Subclass.h"; sourceTree = "<group>"; };
 		63050CA51C018C9300EDFEAD /* ObjCSelfAwareSwizzle+Utilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ObjCSelfAwareSwizzle+Utilities.swift"; sourceTree = "<group>"; };
 		630B4D661B48DC5800830454 /* SwiftExt.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftExt.framework; path = "../../../Library/Developer/Xcode/DerivedData/Nest-cpwynrnxekfpgteqxqbichddezav/Build/Products/Debug/SwiftExt.framework"; sourceTree = "<group>"; };
@@ -333,7 +328,6 @@
 		635C250C1C2015CB00B0263F /* NSRange+Utilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSRange+Utilities.swift"; sourceTree = "<group>"; };
 		635F10911BFAFABB004982B4 /* ObjCCodingPrimitive.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObjCCodingPrimitive.swift; sourceTree = "<group>"; };
 		635F10931BFAFABB004982B4 /* ObjCAssociated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObjCAssociated.swift; sourceTree = "<group>"; };
-		635F10941BFAFABB004982B4 /* ObjCMultiCastDelegating.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObjCMultiCastDelegating.swift; sourceTree = "<group>"; };
 		635F10951BFAFABB004982B4 /* ObjCProtocolMessageIntercepting.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObjCProtocolMessageIntercepting.swift; sourceTree = "<group>"; };
 		635F10961BFAFABB004982B4 /* ObjCProtocolMessageInterceptor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObjCProtocolMessageInterceptor.swift; sourceTree = "<group>"; };
 		635F10971BFAFABB004982B4 /* PersistentController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PersistentController.swift; sourceTree = "<group>"; };
@@ -402,6 +396,7 @@
 		63F0B5361C11D8F000710C41 /* LaunchTask-WatchKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "LaunchTask-WatchKit.h"; sourceTree = "<group>"; };
 		63F0B5371C11D8F000710C41 /* LaunchTask-WatchKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "LaunchTask-WatchKit.m"; sourceTree = "<group>"; };
 		63FCD5641DB77EB20074AA3C /* FetchRequestTemplating.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FetchRequestTemplating.swift; sourceTree = "<group>"; };
+		63FD11911DFA735400C46962 /* NSObject+That.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSObject+That.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -605,7 +600,6 @@
 				635F10911BFAFABB004982B4 /* ObjCCodingPrimitive.swift */,
 				633ECDA31C14487A0082D870 /* ObjCTypeEncoding.swift */,
 				635F10931BFAFABB004982B4 /* ObjCAssociated.swift */,
-				635F10941BFAFABB004982B4 /* ObjCMultiCastDelegating.swift */,
 				635F10951BFAFABB004982B4 /* ObjCProtocolMessageIntercepting.swift */,
 				635F10961BFAFABB004982B4 /* ObjCProtocolMessageInterceptor.swift */,
 				63C1D9FA1C3164E700D0F548 /* ObjCSelectorMessageInterceptor.swift */,
@@ -636,8 +630,8 @@
 				637A560B1C8830E8001A178A /* NSRange+Collection.swift */,
 				635F10A51BFAFABB004982B4 /* RunLoop+TaskDispatcher.swift */,
 				633ECEBE1C1547900082D870 /* NSCoder+InterfaceNormalization.swift */,
-				630457301D8A882A007EA6A3 /* NSObject+That.swift */,
 				63B55A361DCF90A3008A8E2C /* NSManagedObject+Transient.swift */,
+				63FD11911DFA735400C46962 /* NSObject+That.swift */,
 				635F11031BFAFB4D004982B4 /* ObjectiveC.swift */,
 				632681161D6BA1E1005E2F5C /* Bundle.swift */,
 				6366D0CA1D69817400A4D01C /* NSManagedObject+InitWithContext.swift */,
@@ -1103,11 +1097,9 @@
 				63E3EC8E1DA251A900AEA8C3 /* ObjCKeyValueStore+DefaultAccessors.m in Sources */,
 				63E3EC9C1DA251A900AEA8C3 /* ObjCSelfAwareSwizzleImplSource.swift in Sources */,
 				63E3ECEF1DA2534300AEA8C3 /* LaunchTask-WatchKit.m in Sources */,
-				63E3EC581DA2519100AEA8C3 /* NSObject+That.swift in Sources */,
 				63B55A391DCF90A3008A8E2C /* NSManagedObject+Transient.swift in Sources */,
 				63FCD5671DB77EB20074AA3C /* FetchRequestTemplating.swift in Sources */,
 				63E3ECFA1DA2535A00AEA8C3 /* ObjCKeyValueStore-UIKit.m in Sources */,
-				63E3EC961DA251A900AEA8C3 /* ObjCMultiCastDelegating.swift in Sources */,
 				63ED9D4C1DCAE7B500C59DDB /* NSManagedObjectContextChangesImporter.swift in Sources */,
 				63E3EC8D1DA251A900AEA8C3 /* ObjCKeyValueStore+Internal.m in Sources */,
 				63E3EC901DA251A900AEA8C3 /* ObjCCodingBase.m in Sources */,
@@ -1129,6 +1121,7 @@
 				63E3EC571DA2519100AEA8C3 /* NSCoder+InterfaceNormalization.swift in Sources */,
 				63E3EC951DA251A900AEA8C3 /* ObjCAssociated.swift in Sources */,
 				63E3ECE61DA251FB00AEA8C3 /* NSPersistentStoreKind.swift in Sources */,
+				63FD11941DFA735400C46962 /* NSObject+That.swift in Sources */,
 				63E3ED181DA2538A00AEA8C3 /* PersistentController.swift in Sources */,
 				63E3EC561DA2519100AEA8C3 /* RunLoop+TaskDispatcher.swift in Sources */,
 				63E3EC931DA251A900AEA8C3 /* ObjCCodingPrimitive.swift in Sources */,
@@ -1161,11 +1154,10 @@
 				63E3ED271DA254A700AEA8C3 /* PersistentController.swift in Sources */,
 				63ED9D461DCAE7B500C59DDB /* NSManagedObjectContextChangesExporter.swift in Sources */,
 				63FE42831DA2657A002E45C8 /* ObjCCodingBase-AVFoundation.m in Sources */,
-				63E3EC6A1DA2519200AEA8C3 /* NSObject+That.swift in Sources */,
 				63314AD51DCB7E18004A2B7B /* DispatchQueue.swift in Sources */,
-				63E3ECCC1DA251A900AEA8C3 /* ObjCMultiCastDelegating.swift in Sources */,
 				63E3ECC31DA251A900AEA8C3 /* ObjCKeyValueStore+Internal.m in Sources */,
 				63E3ECC61DA251A900AEA8C3 /* ObjCCodingBase.m in Sources */,
+				63FD11921DFA735400C46962 /* NSObject+That.swift in Sources */,
 				63E3ECCD1DA251A900AEA8C3 /* ObjCProtocolMessageIntercepting.swift in Sources */,
 				63E3EC651DA2519200AEA8C3 /* CFRunLoopActivity+CustomDebugStringConvertible.swift in Sources */,
 				63E3ECCF1DA251A900AEA8C3 /* ObjCSelectorMessageInterceptor.swift in Sources */,
@@ -1233,8 +1225,7 @@
 				63E3ECA91DA251A900AEA8C3 /* ObjCKeyValueStore+DefaultAccessors.m in Sources */,
 				63E3ED191DA2538B00AEA8C3 /* PersistentController.swift in Sources */,
 				63E3ECB71DA251A900AEA8C3 /* ObjCSelfAwareSwizzleImplSource.swift in Sources */,
-				63E3EC611DA2519100AEA8C3 /* NSObject+That.swift in Sources */,
-				63E3ECB11DA251A900AEA8C3 /* ObjCMultiCastDelegating.swift in Sources */,
+				63FD11931DFA735400C46962 /* NSObject+That.swift in Sources */,
 				6314D40B1DB90C610037AF13 /* ObjCBridgeable-QuartzCore.swift in Sources */,
 				63E3ECA81DA251A900AEA8C3 /* ObjCKeyValueStore+Internal.m in Sources */,
 				63E3ED011DA2536200AEA8C3 /* ObjCCodingBase-AVFoundation.m in Sources */,
@@ -1296,9 +1287,7 @@
 				63E3EC731DA251A800AEA8C3 /* ObjCKeyValueStore+DefaultAccessors.m in Sources */,
 				63E3EC811DA251A800AEA8C3 /* ObjCSelfAwareSwizzleImplSource.swift in Sources */,
 				63ED9D4D1DCAE7B500C59DDB /* NSManagedObjectContextChangesImporter.swift in Sources */,
-				63E3EC4F1DA2519000AEA8C3 /* NSObject+That.swift in Sources */,
 				63E3ED141DA2537400AEA8C3 /* ObjCCodingPrimitive-CoreGraphics.swift in Sources */,
-				63E3EC7B1DA251A800AEA8C3 /* ObjCMultiCastDelegating.swift in Sources */,
 				63E3ECF41DA2535100AEA8C3 /* ObjCKeyValueStore-UIKit.m in Sources */,
 				63E3ED171DA2538A00AEA8C3 /* PersistentController.swift in Sources */,
 				63E3EC721DA251A800AEA8C3 /* ObjCKeyValueStore+Internal.m in Sources */,
@@ -1310,6 +1299,7 @@
 				63E3ECF31DA2535100AEA8C3 /* ObjCCodingPrimitive-UIKit.swift in Sources */,
 				63E3EC7C1DA251A800AEA8C3 /* ObjCProtocolMessageIntercepting.swift in Sources */,
 				63E3EC4A1DA2519000AEA8C3 /* CFRunLoopActivity+CustomDebugStringConvertible.swift in Sources */,
+				63FD11951DFA735400C46962 /* NSObject+That.swift in Sources */,
 				63E3EC7E1DA251A800AEA8C3 /* ObjCSelectorMessageInterceptor.swift in Sources */,
 				63E3EC801DA251A800AEA8C3 /* ObjCSelfAwareSwizzle+Utilities.swift in Sources */,
 				63FCD5681DB77EB20074AA3C /* FetchRequestTemplating.swift in Sources */,

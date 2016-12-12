@@ -11,8 +11,8 @@
 ///
 /// - Notes: Since Swift 3 forbids implementing `_ObjectiveCBridgeable` 
 /// outside the module defined the conforming type and Apple did forget to
-/// make some types as `_ObjectiveCBridgeable`, Nest uses this protocol to 
-/// convert those forgot types.
+/// make some types conformed to `_ObjectiveCBridgeable`, Nest uses this 
+/// protocol to convert those forgot types.
 public protocol ObjCBridgeable {
     associatedtype _ObjectiveCType: AnyObject
     

@@ -10,7 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ObjCKeyValueStore : NSObject
+@interface ObjCKeyValueStore : NSObject<NSCopying>
 /** Primitive methods give access to the internal storage to implement 
  explicit accessors like -setName:/-name.
  */

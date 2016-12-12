@@ -2,17 +2,13 @@
 //  NSObject+That.swift
 //  Nest
 //
-//  Created by Manfred on 9/15/16.
+//  Created by Manfred on 09/12/2016.
 //
 //
 
-import SwiftExt
 import Foundation
+import SwiftExt
 
 extension NSObject: That {
-    public typealias InstanceType = NSObject
-}
-
-extension OperationQueue {
-    public typealias InstanceType = OperationQueue
+    
 }

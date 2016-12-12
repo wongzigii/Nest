@@ -20,7 +20,6 @@ typedef struct _ObjCCodingBaseCodingCallBack {
 } ObjCCodingBaseCodingCallBack;
 
 #pragma mark - Function Prototypes
-/// Returns true when their `typeIdentifier` is same.
 static const ObjCCodingBaseCodingCallBack * ObjCCodingBaseCodingCallBackCreate(
     const char *,
     const ObjCCodingBaseDecodeCallBack,
@@ -29,6 +28,7 @@ static const ObjCCodingBaseCodingCallBack * ObjCCodingBaseCodingCallBackCreate(
 
 static void ObjCCodingBaseCodingCallBackRelease(ObjCCodingBaseCodingCallBack *);
 
+/// Returns true when their `typeIdentifier`s are same.
 static Boolean ObjCCodingBaseCodingCallBackEqual(const void *, const void *);
 
 #pragma mark Coding

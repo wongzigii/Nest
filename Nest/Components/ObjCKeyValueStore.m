@@ -24,6 +24,10 @@
     return self;
 }
 
+- (void)_setInternalStorage:(NSMutableDictionary *)internalStorage {
+    _internalStorage = internalStorage;
+}
+
 - (id)primitiveValueForKey:(NSString *)key {
     return _internalStorage[key];
 }
@@ -56,6 +60,12 @@
     } else {
         return [super resolveInstanceMethod:selector];
     }
+}
+
+- (id)copyWithZone:(NSZone *)zone {
+    ObjCKeyValueStore * copied = [[[self class] allocWithZone:zone] init];
+    [copied _setInternalStorage:[self.internalStorage mutableCopy]];
+    return copied;
 }
 
 @end
