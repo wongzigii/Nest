@@ -13,7 +13,7 @@ import SwiftExt
 extension RunLoop {
     // MARK: Task Schedulers
     /// Schedule a task on the run-loop in the specified mode at the 
-    /// specified time.
+    /// specified time. This function is not thread safe.
     ///
     /// - Parameter mode: The run-loop mode that the run-loop is in which
     /// can excute this task. `.defaultRunLoopMode` by default.
@@ -24,7 +24,7 @@ extension RunLoop {
     /// - Parameter closure: The task
     public func schedule(
         in mode: RunLoopMode = .defaultRunLoopMode,
-        when timing: ScheduleTiming = .nextLoopBegan,
+        when timing: Timing = .nextLoopBegan,
         do closure: @escaping ()->Void
         )
     {
@@ -32,7 +32,7 @@ extension RunLoop {
     }
     
     /// Schedule a task on the run-loop in the specified modes at the
-    /// specified time.
+    /// specified time. This function is not thread safe.
     ///
     /// - Parameter mode: The run-loop modes that the run-loop is in which
     /// can excute this task.
@@ -43,7 +43,7 @@ extension RunLoop {
     /// - Parameter closure: The task
     public func schedule(
         in modes: RunLoopMode...,
-        when timing: ScheduleTiming = .nextLoopBegan,
+        when timing: Timing = .nextLoopBegan,
         do closure: @escaping ()->Void
         )
     {
@@ -51,7 +51,7 @@ extension RunLoop {
     }
     
     /// Schedule a task on the run-loop in the specified modes at the
-    /// specified time.
+    /// specified time. This function is not thread safe.
     ///
     /// - Parameter mode: The run-loop modes that the run-loop is in which
     /// can excute this task.
@@ -62,190 +62,174 @@ extension RunLoop {
     /// - Parameter closure: The task
     public func schedule<Modes: Sequence>(
         in modes: Modes,
-        when timing: ScheduleTiming = .nextLoopBegan,
+        when timing: Timing = .nextLoopBegan,
         do closure: @escaping ()->Void
         ) where
         Modes.Iterator.Element == RunLoopMode
     {
-        objc_sync_enter(self)
-        _loadDispatchObserverIfNeeded()
-        let task = _Task(self, Array(modes), timing, closure)
-        _taskQueue.append(task)
-        objc_sync_exit(self)
+        let task = _Task(timing: timing, closure: closure)
+        
+        for eachMode in modes {
+            if _isSchedulerExisted(for: eachMode) {
+                _retainScheduler(for: eachMode)
+            } else {
+                _createScheduler(for: eachMode)
+            }
+            _schedule(task, for: eachMode)
+        }
     }
     
     // MARK: Utilities
-    private var _isDispatchObserverLoaded: Bool {
-        return objc_getAssociatedObject(self, &dispatchObserverKey) != nil
-    }
+    private typealias Schedulers = [RunLoopMode : Unmanaged<_RunLoopScheduler>]
     
-    private func _loadDispatchObserverIfNeeded() {
-        if !_isDispatchObserverLoaded {
-            let invokeTimings: [ScheduleTiming] = [
-                .currentLoopEnded, .nextLoopBegan, .idle
-            ]
-            let activities = CFRunLoopActivity(
-                invokeTimings.map {CFRunLoopActivity($0)}
-            )
-            
-            let observer = CFRunLoopObserverCreateWithHandler(
-                kCFAllocatorDefault,
-                activities.rawValue,
-                true, 0,
-                _handleRunLoopActivity
-            )
-            
-            let modes = CFRunLoopMode.commonModes
-            
-            CFRunLoopAddObserver(CFRunLoopGetCurrent(), observer, modes)
-            
-            let wrappedObserver = ObjCAssociated<CFRunLoopObserver>(
-                observer!
-            )
-            
-            objc_setAssociatedObject(self,
-                &dispatchObserverKey,
-                wrappedObserver,
-                .OBJC_ASSOCIATION_RETAIN_NONATOMIC
-            )
-        }
-    }
-    
-    fileprivate var _dispatchObserver: CFRunLoopObserver {
-        _loadDispatchObserverIfNeeded()
-        let associatedObserver = objc_getAssociatedObject(
-            self, &dispatchObserverKey
-            ) as! ObjCAssociated<CFRunLoopObserver>
-        return associatedObserver.value
-    }
-    
-    private var _taskQueue: [_Task] {
+    private var _schedulers: Schedulers {
         get {
-            if let taskQueue = objc_getAssociatedObject(
-                self,
-                &taskQueueKey
-                ) as? [_Task]
-            {
-                return taskQueue
+            if let assocObj = objc_getAssociatedObject(self, &schedulersKey) {
+                return (assocObj as! ObjCAssociated<Schedulers>).value
             } else {
-                let initialValue = [_Task]()
-                
-                objc_setAssociatedObject(
-                    self,
-                    &taskQueueKey,
-                    initialValue,
-                    .OBJC_ASSOCIATION_RETAIN_NONATOMIC
-                )
-                
-                return initialValue
+                return [:]
             }
         }
         set {
-            objc_setAssociatedObject(self,
-                &taskQueueKey,
-                newValue,
-                .OBJC_ASSOCIATION_RETAIN_NONATOMIC
-            )
+            if let assocObj = objc_getAssociatedObject(self, &schedulersKey) {
+                (assocObj as! ObjCAssociated<Schedulers>).value = newValue
+            } else {
+                objc_setAssociatedObject(
+                    self,
+                    &schedulersKey,
+                    ObjCAssociated(newValue),
+                    .OBJC_ASSOCIATION_RETAIN_NONATOMIC
+                )
+            }
         }
     }
     
-    private func _handleRunLoopActivity(
-        with observer: CFRunLoopObserver?,
-        activity: CFRunLoopActivity
-        )
-        -> Void
-    {
-        var removedIndices = [Int]()
-        
-        let runLoopMode = currentMode
-        
-        for (index, eachTask) in _taskQueue.enumerated() {
-            let expectedRunLoopModes = eachTask.modes
-            let expectedActivitiy = CFRunLoopActivity(
-                eachTask.timing
-            )
-            
-            let isInCommonModes = runLoopMode == .commonModes
-            let isCommonMode = expectedRunLoopModes.contains(.commonModes)
-            let isInExpectedMode = runLoopMode.map{
-                expectedRunLoopModes.contains($0)
-            } ?? false
-            
-            let isInMode = isCommonMode || isInCommonModes
-                || isInExpectedMode
-            
-            let inActivity = activity.contains(expectedActivitiy)
-            
-            if isInMode && inActivity {
-                eachTask.closure()
-                removedIndices.append(index)
-            }
-        }
-        
-        _taskQueue.remove(indices: removedIndices)
+    private func _isSchedulerExisted(for mode: RunLoopMode) -> Bool {
+        return _schedulers[mode] != nil
+    }
+    
+    private func _createScheduler(for mode: RunLoopMode) {
+        assert(_schedulers[mode] == nil)
+        let scheduler = _RunLoopScheduler(runLoop: self, mode: mode)
+        let unmanagedScheduler = Unmanaged.passRetained(scheduler)
+        _schedulers[mode] = unmanagedScheduler
+    }
+    
+    private func _retainScheduler(for mode: RunLoopMode) {
+        assert(_schedulers[mode] != nil)
+        _ = _schedulers[mode]!.retain()
+    }
+    
+    private func _releaseScheduler(for mode: RunLoopMode) {
+        assert(_schedulers[mode] != nil)
+        _schedulers[mode]!.release()
+    }
+    
+    private func _schedule(_ task: _Task, for mode: RunLoopMode) {
+        assert(_schedulers[mode] != nil)
+        _schedulers[mode]!.takeUnretainedValue().schedule(task)
     }
     
     // MARK: Method Swizzling
-    @objc
-    private class func _ObjCSelfAwareSwizzle_dealloc()
-        -> ObjCSelfAwareSwizzle
-    {
-        return swizzle(
-            instanceSelector: NSSelectorFromString("dealloc"),
-            on: self,
-            recipe: _DeallocSwizzleRecipe.self
-        )
-    }
     
     // MARK: Nested Types
-    public enum ScheduleTiming: Int {
+    public enum Timing: Int {
         case nextLoopBegan
         case currentLoopEnded
         case idle
     }
     
-    private struct _Task {
-        fileprivate var timing: ScheduleTiming
+    private class _Task {
+        fileprivate let timing: Timing
         
-        fileprivate var modes: [RunLoopMode]
+        fileprivate let main: () -> Void
         
-        fileprivate let closure: () -> Void
+        fileprivate var isExecuted: Bool = false
         
-        fileprivate init(
-            _ runLoop: RunLoop,
-            _ modes: [RunLoopMode],
-            _ timing: ScheduleTiming,
-            _ aClosure: @escaping () -> Void
-            )
-        {
+        fileprivate init(timing: Timing, closure: @escaping () -> Void) {
             self.timing = timing
-            self.modes = modes
-            closure = aClosure
+            main = closure
         }
     }
     
-    private struct _DeallocSwizzleRecipe: ObjCSelfAwareSwizzleRecipe {
-        fileprivate typealias FunctionPointer =
-            @convention(c) (Unmanaged<RunLoop>, Selector) -> Void
-        fileprivate static var original: FunctionPointer!
-        fileprivate static let swizzled: FunctionPointer =  {
-            (aSelf, aSelector) -> Void in
+    private class _RunLoopScheduler {
+        private unowned let _runLoop: RunLoop
+        private let _mode: RunLoopMode
+        private var _observer: CFRunLoopObserver!
+        private var _tasks: [_Task] = []
+        
+        fileprivate init(runLoop: RunLoop, mode: RunLoopMode) {
+            _runLoop = runLoop
+            _mode = mode
             
-            let unretainedSelf = aSelf.takeUnretainedValue()
+            let allTimings: [Timing] =
+                [.currentLoopEnded, .nextLoopBegan, .idle]
+            let neededActivities = CFRunLoopActivity(
+                allTimings.map {CFRunLoopActivity(runLoopTiming: $0)}
+            )
+            _observer = CFRunLoopObserverCreateWithHandler(
+                kCFAllocatorDefault,
+                neededActivities.rawValue,
+                true,
+                0,
+                _handleRunLoopActivity
+            )
+            CFRunLoopAddObserver(
+                runLoop.getCFRunLoop(),
+                _observer,
+                CFRunLoopMode(runLoopMode: mode)
+            )
+        }
+        
+        deinit {
+            CFRunLoopRemoveObserver(
+                _runLoop.getCFRunLoop(),
+                _observer,
+                CFRunLoopMode(runLoopMode: _mode)
+            )
+        }
+        
+        fileprivate func schedule(_ task: _Task) {
+            _tasks.append(task)
+        }
+        
+        private func _handleRunLoopActivity(
+            with observer: CFRunLoopObserver?,
+            activity: CFRunLoopActivity
+            )
+            -> Void
+        {
+            var removedIndices = [Int]()
             
-            if unretainedSelf._isDispatchObserverLoaded {
-                let observer = unretainedSelf._dispatchObserver
-                CFRunLoopObserverInvalidate(observer)
+            for (index, task) in _tasks.enumerated() {
+                
+                if !task.isExecuted {
+                    let taskActivity = CFRunLoopActivity(
+                        runLoopTiming: task.timing
+                    )
+                    
+                    let isActive = !activity.intersection(taskActivity).isEmpty
+                    
+                    if isActive {
+                        task.main()
+                        task.isExecuted = true
+                    }
+                }
+                
+                if task.isExecuted {
+                    removedIndices.append(index)
+                    _runLoop._releaseScheduler(for: _mode)
+                }
             }
             
-            original(aSelf, aSelector)
+            _tasks.remove(indices: removedIndices)
         }
     }
 }
 
 extension CFRunLoopActivity {
-    fileprivate init(_ invokeTiming: RunLoop.ScheduleTiming) {
-        switch invokeTiming {
+    fileprivate init(runLoopTiming: RunLoop.Timing) {
+        switch runLoopTiming {
         case .nextLoopBegan:        self = .afterWaiting
         case .currentLoopEnded:     self = .beforeWaiting
         case .idle:                 self = .exit
@@ -253,10 +237,12 @@ extension CFRunLoopActivity {
     }
 }
 
+extension CFRunLoopMode {
+    fileprivate init(runLoopMode: RunLoopMode) {
+        self.rawValue = runLoopMode.rawValue as CFString
+    }
+}
 
 // MARK: - Constants
-private var dispatchObserverKey =
-"com.WeZZard.Nest.RunLoop.TaskDispatcher.DispatchObserver"
-
-private var taskQueueKey =
-"com.WeZZard.Nest.RunLoop.TaskDispatcher.TaskQueue"
+private var schedulersKey =
+"com.WeZZard.Nest.RunLoop.TaskDispatcher._schedulers"

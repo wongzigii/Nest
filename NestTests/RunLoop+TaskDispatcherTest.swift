@@ -9,7 +9,7 @@
 import XCTest
 import Nest
 
-private typealias TimingSymbols = RunLoop.ScheduleTiming
+private typealias TimingSymbols = RunLoop.Timing
 
 class RunLoop_TaskDispatcherTest: XCTestCase {
     private var timingSymbols: [TimingSymbols] = []
@@ -41,7 +41,7 @@ class RunLoop_TaskDispatcherTest: XCTestCase {
             }
         }
         
-        RunLoop.current.run(until: Date(timeIntervalSinceNow: 1))
+        RunLoop.current.run(until: Date(timeIntervalSinceNow: 3))
         
         waitForExpectations(timeout: 3) { (error) -> Void in
             if let error = error {

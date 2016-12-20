@@ -11,6 +11,8 @@ import XCTest
 @testable
 import Nest
 
+import CoreData
+
 internal class ManagedObject: NSManagedObject {
     @NSManaged
     internal var id: Int32
