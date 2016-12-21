@@ -14,3 +14,7 @@ static NSString * kStringNo = @"NO";
 NSString * NSStringFromBOOL(BOOL booleanValue) {
     return booleanValue ? kStringYes : kStringNo;
 }
+
+NSRange NSRangeMake(NSUInteger location, NSUInteger length) {
+    return NSMakeRange(location, length);
+}

@@ -22,6 +22,10 @@ extension NSRange {
     public var max: Int {
         return NSMaxRange(self)
     }
+    
+    public static var zero: NSRange {
+        return NSRange(location: 0, length: 0)
+    }
 }
 
 extension NSRange {
@@ -35,19 +39,25 @@ extension NSRange {
 }
 
 extension NSRange {
-    public init(_ string: String) {
+    public init(string: String) {
         self = NSRange(
             location: 0,
             length: (string as NSString).length)
     }
     
-    public init(_ attriutedString: NSAttributedString) {
+    public init(attributedString: NSAttributedString) {
         self = NSRange(
             location: 0,
-            length: attriutedString.length)
+            length: attributedString.length)
     }
 }
 
 public func == (lhs: NSRange, rhs: NSRange) -> Bool {
     return lhs.location == rhs.location && lhs.length == rhs.length
+}
+
+extension NSRange: CustomStringConvertible {
+    public var description: String {
+        return "<\(type(of: self)); location = \(location); length = \(length)>"
+    }
 }
