@@ -64,23 +64,23 @@ extension RunLoop {
         in modes: Modes,
         when timing: Timing = .nextLoopBegan,
         do closure: @escaping ()->Void
-        ) where
-        Modes.Iterator.Element == RunLoopMode
+        ) where Modes.Iterator.Element == RunLoopMode
     {
         let task = _Task(timing: timing, closure: closure)
         
-        for eachMode in modes {
-            if _isSchedulerExisted(for: eachMode) {
-                _retainScheduler(for: eachMode)
-            } else {
-                _createScheduler(for: eachMode)
+        // Use Set to ensure uniqueness, which avoiding redundant retaining.
+        for mode in Set(modes) {
+            if _schedulers[mode] == nil {
+                let scheduler = _Scheduler(runLoop: self, mode: mode)
+                let unmanagedScheduler = Unmanaged.passUnretained(scheduler)
+                _schedulers[mode] = unmanagedScheduler
             }
-            _schedule(task, for: eachMode)
+            _schedulers[mode]!.takeUnretainedValue().schedule(task)
         }
     }
     
     // MARK: Utilities
-    private typealias Schedulers = [RunLoopMode : Unmanaged<_RunLoopScheduler>]
+    private typealias Schedulers = [RunLoopMode : Unmanaged<_Scheduler>]
     
     private var _schedulers: Schedulers {
         get {
@@ -104,39 +104,14 @@ extension RunLoop {
         }
     }
     
-    private func _isSchedulerExisted(for mode: RunLoopMode) -> Bool {
-        return _schedulers[mode] != nil
-    }
-    
-    private func _createScheduler(for mode: RunLoopMode) {
-        assert(_schedulers[mode] == nil)
-        let scheduler = _RunLoopScheduler(runLoop: self, mode: mode)
-        let unmanagedScheduler = Unmanaged.passRetained(scheduler)
-        _schedulers[mode] = unmanagedScheduler
-    }
-    
-    private func _retainScheduler(for mode: RunLoopMode) {
-        assert(_schedulers[mode] != nil)
-        _ = _schedulers[mode]!.retain()
-    }
-    
-    private func _releaseScheduler(for mode: RunLoopMode) {
-        assert(_schedulers[mode] != nil)
-        _schedulers[mode]!.release()
-    }
-    
-    private func _schedule(_ task: _Task, for mode: RunLoopMode) {
-        assert(_schedulers[mode] != nil)
-        _schedulers[mode]!.takeUnretainedValue().schedule(task)
-    }
-    
-    // MARK: Method Swizzling
-    
     // MARK: Nested Types
     public enum Timing: Int {
         case nextLoopBegan
         case currentLoopEnded
         case idle
+        
+        fileprivate static let _all: [Timing] =
+            [.currentLoopEnded, .nextLoopBegan, .idle]
     }
     
     private class _Task {
@@ -144,41 +119,57 @@ extension RunLoop {
         
         fileprivate let main: () -> Void
         
-        fileprivate var isExecuted: Bool = false
+        fileprivate var isExecuted: Bool
         
         fileprivate init(timing: Timing, closure: @escaping () -> Void) {
             self.timing = timing
             main = closure
+            isExecuted = false
         }
     }
     
-    private class _RunLoopScheduler {
+    private class _Scheduler {
         private unowned let _runLoop: RunLoop
-        private let _mode: RunLoopMode
-        private var _observer: CFRunLoopObserver!
         private var _tasks: [_Task] = []
+        private let _mode: RunLoopMode
+        
+        private var _context: CFRunLoopObserverContext!
+        private var _observer: CFRunLoopObserver!
+        
+        private var _retainedSelf: _Scheduler?
         
         fileprivate init(runLoop: RunLoop, mode: RunLoopMode) {
             _runLoop = runLoop
             _mode = mode
             
-            let allTimings: [Timing] =
-                [.currentLoopEnded, .nextLoopBegan, .idle]
-            let neededActivities = CFRunLoopActivity(
-                allTimings.map {CFRunLoopActivity(runLoopTiming: $0)}
+            _context = CFRunLoopObserverContext(
+                version: 0,
+                info: Unmanaged.passUnretained(self).toOpaque(),
+                retain: nil,
+                release: nil,
+                copyDescription: nil
             )
-            _observer = CFRunLoopObserverCreateWithHandler(
+            
+            let requiredActivities = CFRunLoopActivity(
+                Timing._all.map({CFRunLoopActivity(runLoopTiming: $0)})
+            )
+            
+            _observer = CFRunLoopObserverCreate(
                 kCFAllocatorDefault,
-                neededActivities.rawValue,
+                requiredActivities.rawValue,
                 true,
                 0,
-                _handleRunLoopActivity
+                _Scheduler._handleRunLoopActivity,
+                withUnsafeMutablePointer(to: &_context!, {$0})
             )
+            
             CFRunLoopAddObserver(
                 runLoop.getCFRunLoop(),
                 _observer,
                 CFRunLoopMode(runLoopMode: mode)
             )
+            
+            _retainedSelf = self
         }
         
         deinit {
@@ -187,18 +178,14 @@ extension RunLoop {
                 _observer,
                 CFRunLoopMode(runLoopMode: _mode)
             )
+            _runLoop._schedulers[_mode] = nil
         }
         
         fileprivate func schedule(_ task: _Task) {
             _tasks.append(task)
         }
         
-        private func _handleRunLoopActivity(
-            with observer: CFRunLoopObserver?,
-            activity: CFRunLoopActivity
-            )
-            -> Void
-        {
+        private func _runTasks(activity: CFRunLoopActivity) {
             var removedIndices = [Int]()
             
             for (index, task) in _tasks.enumerated() {
@@ -218,13 +205,28 @@ extension RunLoop {
                 
                 if task.isExecuted {
                     removedIndices.append(index)
-                    _runLoop._releaseScheduler(for: _mode)
                 }
             }
             
             _tasks.remove(indices: removedIndices)
+            
+            if _tasks.count == 0 {
+                _retainedSelf = nil
+            }
+        }
+        
+        private static let _handleRunLoopActivity: CFRunLoopObserverCallBack = {
+            (observer, activity, info) -> Void in
+            
+            let unmanagedScheduler: Unmanaged<RunLoop._Scheduler> =
+                .fromOpaque(UnsafeRawPointer(info)!)
+            
+            let scheduler = unmanagedScheduler.takeUnretainedValue()
+            
+            scheduler._runTasks(activity: activity)
         }
     }
+    
 }
 
 extension CFRunLoopActivity {
