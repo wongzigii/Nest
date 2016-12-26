@@ -16,17 +16,16 @@ class RunLoop_TaskDispatcherTest: XCTestCase {
     
     /// Malfunctioned
     func testDispatchInvokeTiming() {
-        
         let expectation = self.expectation(
             description: "testDispatchInvokeTiming"
         )
         
-        RunLoop.current.schedule(in: .commonModes, when: .nextLoopBegan) {
-            self.timingSymbols.append(.nextLoopBegan)
-        }
-        
         RunLoop.current.schedule(in: .commonModes, when: .idle) {
             self.timingSymbols.append(.idle)
+        }
+        
+        RunLoop.current.schedule(in: .commonModes, when: .nextLoopBegan) {
+            self.timingSymbols.append(.nextLoopBegan)
         }
         
         RunLoop.current.schedule(in: .commonModes, when: .currentLoopEnded) {

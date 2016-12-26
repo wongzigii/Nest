@@ -1,5 +1,5 @@
 //
-//  ObjCCodingBase-UIKit.c
+//  ObjCDynamicCoding-UIKit.c
 //  Nest
 //
 //  Created by Manfred on 2/26/16.
@@ -9,8 +9,8 @@
 @import UIKit;
 @import ObjectiveC;
 
-#import <Nest/ObjCCodingBase.h>
-#import "ObjCCodingBase+Internal.h"
+#import <Nest/MacroUtilities.h>
+#import "ObjCDynamicCoding.h"
 
 static id DecodeUIOffset (Class, NSCoder *, NSString *);
 
@@ -21,21 +21,20 @@ static id DecodeUIEdgeInsets (Class, NSCoder *, NSString *);
 static void EncodeUIEdgeInsets (Class, NSCoder *, NSString *, id);
 
 #pragma mark - Register
-@implementation ObjCCodingBase(UIKitAccessors)
-+ (void)load {
-    ObjCCodingBaseRegisterCodingCallBacks(
+_NEST_MODULE_CONSTRUCTOR_HIGH_PRIORITY
+static void ObjCDynamicCodingLoadCustomCallBacks() {
+    ObjCDynamicCodingRegisterCodingCallBacks(
         @encode(UIOffset),
         &DecodeUIOffset,
         &EncodeUIOffset
     );
     
-    ObjCCodingBaseRegisterCodingCallBacks(
+    ObjCDynamicCodingRegisterCodingCallBacks(
         @encode(UIEdgeInsets),
         &DecodeUIEdgeInsets,
         &EncodeUIEdgeInsets
     );
 }
-@end
 
 id DecodeUIOffset (Class aClass, NSCoder * decoder, NSString * key) {
     UIOffset offset = [decoder decodeUIOffsetForKey:key];

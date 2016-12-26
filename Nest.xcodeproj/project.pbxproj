@@ -81,9 +81,9 @@
 		6362CF121E10E77E00610F77 /* MacroUtilities.h in Headers */ = {isa = PBXBuildFile; fileRef = 6362CF0A1E10E77E00610F77 /* MacroUtilities.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6362CF131E10E77E00610F77 /* MacroUtilities.h in Headers */ = {isa = PBXBuildFile; fileRef = 6362CF0A1E10E77E00610F77 /* MacroUtilities.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6362CF141E10E77E00610F77 /* MacroUtilities.h in Headers */ = {isa = PBXBuildFile; fileRef = 6362CF0A1E10E77E00610F77 /* MacroUtilities.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		6362CF151E10E77E00610F77 /* Metamacros.h in Headers */ = {isa = PBXBuildFile; fileRef = 6362CF0B1E10E77E00610F77 /* Metamacros.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		6362CF161E10E77E00610F77 /* Metamacros.h in Headers */ = {isa = PBXBuildFile; fileRef = 6362CF0B1E10E77E00610F77 /* Metamacros.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		6362CF171E10E77E00610F77 /* Metamacros.h in Headers */ = {isa = PBXBuildFile; fileRef = 6362CF0B1E10E77E00610F77 /* Metamacros.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6362CF151E10E77E00610F77 /* metamacros.h in Headers */ = {isa = PBXBuildFile; fileRef = 6362CF0B1E10E77E00610F77 /* metamacros.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6362CF161E10E77E00610F77 /* metamacros.h in Headers */ = {isa = PBXBuildFile; fileRef = 6362CF0B1E10E77E00610F77 /* metamacros.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6362CF171E10E77E00610F77 /* metamacros.h in Headers */ = {isa = PBXBuildFile; fileRef = 6362CF0B1E10E77E00610F77 /* metamacros.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6362CF1A1E10F9CB00610F77 /* ObjCDynamicObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 6362CF181E10F9CB00610F77 /* ObjCDynamicObject.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6362CF1B1E10F9CB00610F77 /* ObjCDynamicObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 6362CF181E10F9CB00610F77 /* ObjCDynamicObject.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6362CF1C1E10F9CB00610F77 /* ObjCDynamicObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 6362CF181E10F9CB00610F77 /* ObjCDynamicObject.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -149,9 +149,6 @@
 		63CB03EE1E0D5A73009ABA2B /* LaunchTask-macOS.m in Sources */ = {isa = PBXBuildFile; fileRef = 63CB03EC1E0D5A70009ABA2B /* LaunchTask-macOS.m */; };
 		63CB03F01E0D5A7E009ABA2B /* LaunchTask-tvOS.m in Sources */ = {isa = PBXBuildFile; fileRef = 63CB03EF1E0D5A7E009ABA2B /* LaunchTask-tvOS.m */; };
 		63CB03F21E0D5A88009ABA2B /* LaunchTask-watchOS.m in Sources */ = {isa = PBXBuildFile; fileRef = 63CB03F11E0D5A88009ABA2B /* LaunchTask-watchOS.m */; };
-		63DCC6A41C64E3CC001949C9 /* ObjCCodingBaseTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63DCC6A31C64E3CC001949C9 /* ObjCCodingBaseTest.swift */; };
-		63DCC6A51C64E3CC001949C9 /* ObjCCodingBaseTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63DCC6A31C64E3CC001949C9 /* ObjCCodingBaseTest.swift */; };
-		63DCC6A61C64E3CC001949C9 /* ObjCCodingBaseTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63DCC6A31C64E3CC001949C9 /* ObjCCodingBaseTest.swift */; };
 		63E3EC4A1DA2519000AEA8C3 /* CFRunLoopActivity+CustomDebugStringConvertible.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F109B1BFAFABB004982B4 /* CFRunLoopActivity+CustomDebugStringConvertible.swift */; };
 		63E3EC4B1DA2519000AEA8C3 /* NSRange+Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635C250C1C2015CB00B0263F /* NSRange+Utilities.swift */; };
 		63E3EC4C1DA2519000AEA8C3 /* NSRange+RandomAccessCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 637A560B1C8830E8001A178A /* NSRange+RandomAccessCollection.swift */; };
@@ -180,16 +177,8 @@
 		63E3EC6B1DA2519200AEA8C3 /* ObjectiveC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F11031BFAFB4D004982B4 /* ObjectiveC.swift */; };
 		63E3EC6C1DA2519200AEA8C3 /* Bundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 632681161D6BA1E1005E2F5C /* Bundle.swift */; };
 		63E3EC6D1DA2519200AEA8C3 /* NSManagedObject+InitWithContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6366D0CA1D69817400A4D01C /* NSManagedObject+InitWithContext.swift */; };
-		63E3EC6E1DA251A800AEA8C3 /* ObjCKeyValueStore.h in Headers */ = {isa = PBXBuildFile; fileRef = 637A56101C88348F001A178A /* ObjCKeyValueStore.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		63E3EC6F1DA251A800AEA8C3 /* ObjCKeyValueStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 637A56111C88348F001A178A /* ObjCKeyValueStore.m */; };
-		63E3EC701DA251A800AEA8C3 /* ObjCKeyValueStore+Subclass.h in Headers */ = {isa = PBXBuildFile; fileRef = 6304575D1D8AE0F2007EA6A3 /* ObjCKeyValueStore+Subclass.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		63E3EC711DA251A800AEA8C3 /* ObjCKeyValueStore+Internal.h in Headers */ = {isa = PBXBuildFile; fileRef = 637A561A1C88358B001A178A /* ObjCKeyValueStore+Internal.h */; };
-		63E3EC721DA251A800AEA8C3 /* ObjCKeyValueStore+Internal.m in Sources */ = {isa = PBXBuildFile; fileRef = 637A561B1C88358B001A178A /* ObjCKeyValueStore+Internal.m */; };
-		63E3EC731DA251A800AEA8C3 /* ObjCKeyValueStore+DefaultAccessors.m in Sources */ = {isa = PBXBuildFile; fileRef = 637A56251C883AF0001A178A /* ObjCKeyValueStore+DefaultAccessors.m */; };
-		63E3EC741DA251A800AEA8C3 /* ObjCCodingBase.h in Headers */ = {isa = PBXBuildFile; fileRef = 63DCC6991C64D753001949C9 /* ObjCCodingBase.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		63E3EC751DA251A800AEA8C3 /* ObjCCodingBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 63DCC69A1C64D753001949C9 /* ObjCCodingBase.m */; };
-		63E3EC761DA251A800AEA8C3 /* ObjCCodingBase+Internal.h in Headers */ = {isa = PBXBuildFile; fileRef = 6371F1F91C7F35FC00837BB7 /* ObjCCodingBase+Internal.h */; };
-		63E3EC771DA251A800AEA8C3 /* ObjCCodingBase+Internal.m in Sources */ = {isa = PBXBuildFile; fileRef = 6371F1FA1C7F35FC00837BB7 /* ObjCCodingBase+Internal.m */; };
+		63E3EC761DA251A800AEA8C3 /* ObjCDynamicCoding.h in Headers */ = {isa = PBXBuildFile; fileRef = 6371F1F91C7F35FC00837BB7 /* ObjCDynamicCoding.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		63E3EC771DA251A800AEA8C3 /* ObjCDynamicCoding.m in Sources */ = {isa = PBXBuildFile; fileRef = 6371F1FA1C7F35FC00837BB7 /* ObjCDynamicCoding.m */; };
 		63E3EC781DA251A800AEA8C3 /* ObjCNormalizedCoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F10911BFAFABB004982B4 /* ObjCNormalizedCoding.swift */; };
 		63E3EC791DA251A800AEA8C3 /* ObjCTypeEncoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 633ECDA31C14487A0082D870 /* ObjCTypeEncoding.swift */; };
 		63E3EC7A1DA251A800AEA8C3 /* ObjCAssociated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F10931BFAFABB004982B4 /* ObjCAssociated.swift */; };
@@ -204,16 +193,8 @@
 		63E3EC851DA251A800AEA8C3 /* LaunchTask.h in Headers */ = {isa = PBXBuildFile; fileRef = 63F0B5221C11D6DB00710C41 /* LaunchTask.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		63E3EC861DA251A800AEA8C3 /* LaunchTask.m in Sources */ = {isa = PBXBuildFile; fileRef = 63F0B5231C11D6DB00710C41 /* LaunchTask.m */; };
 		63E3EC871DA251A800AEA8C3 /* LaunchTask+Internal.h in Headers */ = {isa = PBXBuildFile; fileRef = 63ED3B291C12056E008B8A5C /* LaunchTask+Internal.h */; };
-		63E3EC891DA251A900AEA8C3 /* ObjCKeyValueStore.h in Headers */ = {isa = PBXBuildFile; fileRef = 637A56101C88348F001A178A /* ObjCKeyValueStore.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		63E3EC8A1DA251A900AEA8C3 /* ObjCKeyValueStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 637A56111C88348F001A178A /* ObjCKeyValueStore.m */; };
-		63E3EC8B1DA251A900AEA8C3 /* ObjCKeyValueStore+Subclass.h in Headers */ = {isa = PBXBuildFile; fileRef = 6304575D1D8AE0F2007EA6A3 /* ObjCKeyValueStore+Subclass.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		63E3EC8C1DA251A900AEA8C3 /* ObjCKeyValueStore+Internal.h in Headers */ = {isa = PBXBuildFile; fileRef = 637A561A1C88358B001A178A /* ObjCKeyValueStore+Internal.h */; };
-		63E3EC8D1DA251A900AEA8C3 /* ObjCKeyValueStore+Internal.m in Sources */ = {isa = PBXBuildFile; fileRef = 637A561B1C88358B001A178A /* ObjCKeyValueStore+Internal.m */; };
-		63E3EC8E1DA251A900AEA8C3 /* ObjCKeyValueStore+DefaultAccessors.m in Sources */ = {isa = PBXBuildFile; fileRef = 637A56251C883AF0001A178A /* ObjCKeyValueStore+DefaultAccessors.m */; };
-		63E3EC8F1DA251A900AEA8C3 /* ObjCCodingBase.h in Headers */ = {isa = PBXBuildFile; fileRef = 63DCC6991C64D753001949C9 /* ObjCCodingBase.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		63E3EC901DA251A900AEA8C3 /* ObjCCodingBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 63DCC69A1C64D753001949C9 /* ObjCCodingBase.m */; };
-		63E3EC911DA251A900AEA8C3 /* ObjCCodingBase+Internal.h in Headers */ = {isa = PBXBuildFile; fileRef = 6371F1F91C7F35FC00837BB7 /* ObjCCodingBase+Internal.h */; };
-		63E3EC921DA251A900AEA8C3 /* ObjCCodingBase+Internal.m in Sources */ = {isa = PBXBuildFile; fileRef = 6371F1FA1C7F35FC00837BB7 /* ObjCCodingBase+Internal.m */; };
+		63E3EC911DA251A900AEA8C3 /* ObjCDynamicCoding.h in Headers */ = {isa = PBXBuildFile; fileRef = 6371F1F91C7F35FC00837BB7 /* ObjCDynamicCoding.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		63E3EC921DA251A900AEA8C3 /* ObjCDynamicCoding.m in Sources */ = {isa = PBXBuildFile; fileRef = 6371F1FA1C7F35FC00837BB7 /* ObjCDynamicCoding.m */; };
 		63E3EC931DA251A900AEA8C3 /* ObjCNormalizedCoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F10911BFAFABB004982B4 /* ObjCNormalizedCoding.swift */; };
 		63E3EC941DA251A900AEA8C3 /* ObjCTypeEncoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 633ECDA31C14487A0082D870 /* ObjCTypeEncoding.swift */; };
 		63E3EC951DA251A900AEA8C3 /* ObjCAssociated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F10931BFAFABB004982B4 /* ObjCAssociated.swift */; };
@@ -228,16 +209,8 @@
 		63E3ECA01DA251A900AEA8C3 /* LaunchTask.h in Headers */ = {isa = PBXBuildFile; fileRef = 63F0B5221C11D6DB00710C41 /* LaunchTask.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		63E3ECA11DA251A900AEA8C3 /* LaunchTask.m in Sources */ = {isa = PBXBuildFile; fileRef = 63F0B5231C11D6DB00710C41 /* LaunchTask.m */; };
 		63E3ECA21DA251A900AEA8C3 /* LaunchTask+Internal.h in Headers */ = {isa = PBXBuildFile; fileRef = 63ED3B291C12056E008B8A5C /* LaunchTask+Internal.h */; };
-		63E3ECA41DA251A900AEA8C3 /* ObjCKeyValueStore.h in Headers */ = {isa = PBXBuildFile; fileRef = 637A56101C88348F001A178A /* ObjCKeyValueStore.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		63E3ECA51DA251A900AEA8C3 /* ObjCKeyValueStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 637A56111C88348F001A178A /* ObjCKeyValueStore.m */; };
-		63E3ECA61DA251A900AEA8C3 /* ObjCKeyValueStore+Subclass.h in Headers */ = {isa = PBXBuildFile; fileRef = 6304575D1D8AE0F2007EA6A3 /* ObjCKeyValueStore+Subclass.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		63E3ECA71DA251A900AEA8C3 /* ObjCKeyValueStore+Internal.h in Headers */ = {isa = PBXBuildFile; fileRef = 637A561A1C88358B001A178A /* ObjCKeyValueStore+Internal.h */; };
-		63E3ECA81DA251A900AEA8C3 /* ObjCKeyValueStore+Internal.m in Sources */ = {isa = PBXBuildFile; fileRef = 637A561B1C88358B001A178A /* ObjCKeyValueStore+Internal.m */; };
-		63E3ECA91DA251A900AEA8C3 /* ObjCKeyValueStore+DefaultAccessors.m in Sources */ = {isa = PBXBuildFile; fileRef = 637A56251C883AF0001A178A /* ObjCKeyValueStore+DefaultAccessors.m */; };
-		63E3ECAA1DA251A900AEA8C3 /* ObjCCodingBase.h in Headers */ = {isa = PBXBuildFile; fileRef = 63DCC6991C64D753001949C9 /* ObjCCodingBase.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		63E3ECAB1DA251A900AEA8C3 /* ObjCCodingBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 63DCC69A1C64D753001949C9 /* ObjCCodingBase.m */; };
-		63E3ECAC1DA251A900AEA8C3 /* ObjCCodingBase+Internal.h in Headers */ = {isa = PBXBuildFile; fileRef = 6371F1F91C7F35FC00837BB7 /* ObjCCodingBase+Internal.h */; };
-		63E3ECAD1DA251A900AEA8C3 /* ObjCCodingBase+Internal.m in Sources */ = {isa = PBXBuildFile; fileRef = 6371F1FA1C7F35FC00837BB7 /* ObjCCodingBase+Internal.m */; };
+		63E3ECAC1DA251A900AEA8C3 /* ObjCDynamicCoding.h in Headers */ = {isa = PBXBuildFile; fileRef = 6371F1F91C7F35FC00837BB7 /* ObjCDynamicCoding.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		63E3ECAD1DA251A900AEA8C3 /* ObjCDynamicCoding.m in Sources */ = {isa = PBXBuildFile; fileRef = 6371F1FA1C7F35FC00837BB7 /* ObjCDynamicCoding.m */; };
 		63E3ECAE1DA251A900AEA8C3 /* ObjCNormalizedCoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F10911BFAFABB004982B4 /* ObjCNormalizedCoding.swift */; };
 		63E3ECAF1DA251A900AEA8C3 /* ObjCTypeEncoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 633ECDA31C14487A0082D870 /* ObjCTypeEncoding.swift */; };
 		63E3ECB01DA251A900AEA8C3 /* ObjCAssociated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F10931BFAFABB004982B4 /* ObjCAssociated.swift */; };
@@ -252,16 +225,8 @@
 		63E3ECBB1DA251A900AEA8C3 /* LaunchTask.h in Headers */ = {isa = PBXBuildFile; fileRef = 63F0B5221C11D6DB00710C41 /* LaunchTask.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		63E3ECBC1DA251A900AEA8C3 /* LaunchTask.m in Sources */ = {isa = PBXBuildFile; fileRef = 63F0B5231C11D6DB00710C41 /* LaunchTask.m */; };
 		63E3ECBD1DA251A900AEA8C3 /* LaunchTask+Internal.h in Headers */ = {isa = PBXBuildFile; fileRef = 63ED3B291C12056E008B8A5C /* LaunchTask+Internal.h */; };
-		63E3ECBF1DA251A900AEA8C3 /* ObjCKeyValueStore.h in Headers */ = {isa = PBXBuildFile; fileRef = 637A56101C88348F001A178A /* ObjCKeyValueStore.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		63E3ECC01DA251A900AEA8C3 /* ObjCKeyValueStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 637A56111C88348F001A178A /* ObjCKeyValueStore.m */; };
-		63E3ECC11DA251A900AEA8C3 /* ObjCKeyValueStore+Subclass.h in Headers */ = {isa = PBXBuildFile; fileRef = 6304575D1D8AE0F2007EA6A3 /* ObjCKeyValueStore+Subclass.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		63E3ECC21DA251A900AEA8C3 /* ObjCKeyValueStore+Internal.h in Headers */ = {isa = PBXBuildFile; fileRef = 637A561A1C88358B001A178A /* ObjCKeyValueStore+Internal.h */; };
-		63E3ECC31DA251A900AEA8C3 /* ObjCKeyValueStore+Internal.m in Sources */ = {isa = PBXBuildFile; fileRef = 637A561B1C88358B001A178A /* ObjCKeyValueStore+Internal.m */; };
-		63E3ECC41DA251A900AEA8C3 /* ObjCKeyValueStore+DefaultAccessors.m in Sources */ = {isa = PBXBuildFile; fileRef = 637A56251C883AF0001A178A /* ObjCKeyValueStore+DefaultAccessors.m */; };
-		63E3ECC51DA251A900AEA8C3 /* ObjCCodingBase.h in Headers */ = {isa = PBXBuildFile; fileRef = 63DCC6991C64D753001949C9 /* ObjCCodingBase.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		63E3ECC61DA251A900AEA8C3 /* ObjCCodingBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 63DCC69A1C64D753001949C9 /* ObjCCodingBase.m */; };
-		63E3ECC71DA251A900AEA8C3 /* ObjCCodingBase+Internal.h in Headers */ = {isa = PBXBuildFile; fileRef = 6371F1F91C7F35FC00837BB7 /* ObjCCodingBase+Internal.h */; };
-		63E3ECC81DA251A900AEA8C3 /* ObjCCodingBase+Internal.m in Sources */ = {isa = PBXBuildFile; fileRef = 6371F1FA1C7F35FC00837BB7 /* ObjCCodingBase+Internal.m */; };
+		63E3ECC71DA251A900AEA8C3 /* ObjCDynamicCoding.h in Headers */ = {isa = PBXBuildFile; fileRef = 6371F1F91C7F35FC00837BB7 /* ObjCDynamicCoding.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		63E3ECC81DA251A900AEA8C3 /* ObjCDynamicCoding.m in Sources */ = {isa = PBXBuildFile; fileRef = 6371F1FA1C7F35FC00837BB7 /* ObjCDynamicCoding.m */; };
 		63E3ECC91DA251A900AEA8C3 /* ObjCNormalizedCoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F10911BFAFABB004982B4 /* ObjCNormalizedCoding.swift */; };
 		63E3ECCA1DA251A900AEA8C3 /* ObjCTypeEncoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 633ECDA31C14487A0082D870 /* ObjCTypeEncoding.swift */; };
 		63E3ECCB1DA251A900AEA8C3 /* ObjCAssociated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F10931BFAFABB004982B4 /* ObjCAssociated.swift */; };
@@ -281,22 +246,13 @@
 		63E3ECE71DA251FB00AEA8C3 /* NSManagedObjectChangeKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 633EE11C1D6D41F20014EB90 /* NSManagedObjectChangeKey.swift */; };
 		63E3ECE81DA251FB00AEA8C3 /* NSPersistentStoreKind.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F10AC1BFAFABB004982B4 /* NSPersistentStoreKind.swift */; };
 		63E3ECE91DA251FB00AEA8C3 /* NSManagedObjectChangeKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 633EE11C1D6D41F20014EB90 /* NSManagedObjectChangeKey.swift */; };
-		63E3ECF41DA2535100AEA8C3 /* ObjCKeyValueStore-UIKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 637A564D1C8845A6001A178A /* ObjCKeyValueStore-UIKit.m */; };
-		63E3ECF51DA2535100AEA8C3 /* ObjCCodingBase-UIKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 6371F2121C7F829C00837BB7 /* ObjCCodingBase-UIKit.m */; };
-		63E3ECFA1DA2535A00AEA8C3 /* ObjCKeyValueStore-UIKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 637A564D1C8845A6001A178A /* ObjCKeyValueStore-UIKit.m */; };
-		63E3ECFB1DA2535A00AEA8C3 /* ObjCCodingBase-UIKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 6371F2121C7F829C00837BB7 /* ObjCCodingBase-UIKit.m */; };
-		63E3ECFD1DA2536100AEA8C3 /* ObjCKeyValueStore-AVFoundation.m in Sources */ = {isa = PBXBuildFile; fileRef = 637A56431C88451E001A178A /* ObjCKeyValueStore-AVFoundation.m */; };
-		63E3ECFE1DA2536100AEA8C3 /* ObjCCodingBase-AVFoundation.m in Sources */ = {isa = PBXBuildFile; fileRef = 63C5BD801C82CCE200A22F27 /* ObjCCodingBase-AVFoundation.m */; };
-		63E3ED001DA2536200AEA8C3 /* ObjCKeyValueStore-AVFoundation.m in Sources */ = {isa = PBXBuildFile; fileRef = 637A56431C88451E001A178A /* ObjCKeyValueStore-AVFoundation.m */; };
-		63E3ED011DA2536200AEA8C3 /* ObjCCodingBase-AVFoundation.m in Sources */ = {isa = PBXBuildFile; fileRef = 63C5BD801C82CCE200A22F27 /* ObjCCodingBase-AVFoundation.m */; };
-		63E3ED071DA2536D00AEA8C3 /* ObjCKeyValueStore-QuartzCore.m in Sources */ = {isa = PBXBuildFile; fileRef = 637A56391C883F59001A178A /* ObjCKeyValueStore-QuartzCore.m */; };
-		63E3ED091DA2536F00AEA8C3 /* ObjCKeyValueStore-QuartzCore.m in Sources */ = {isa = PBXBuildFile; fileRef = 637A56391C883F59001A178A /* ObjCKeyValueStore-QuartzCore.m */; };
-		63E3ED0F1DA2537300AEA8C3 /* ObjCKeyValueStore-CoreGraphics.m in Sources */ = {isa = PBXBuildFile; fileRef = 637A562F1C883E63001A178A /* ObjCKeyValueStore-CoreGraphics.m */; };
-		63E3ED101DA2537300AEA8C3 /* ObjCCodingBase-CoreGraphics.m in Sources */ = {isa = PBXBuildFile; fileRef = 6371F2031C7F57FC00837BB7 /* ObjCCodingBase-CoreGraphics.m */; };
-		63E3ED121DA2537300AEA8C3 /* ObjCKeyValueStore-CoreGraphics.m in Sources */ = {isa = PBXBuildFile; fileRef = 637A562F1C883E63001A178A /* ObjCKeyValueStore-CoreGraphics.m */; };
-		63E3ED131DA2537300AEA8C3 /* ObjCCodingBase-CoreGraphics.m in Sources */ = {isa = PBXBuildFile; fileRef = 6371F2031C7F57FC00837BB7 /* ObjCCodingBase-CoreGraphics.m */; };
-		63E3ED151DA2537400AEA8C3 /* ObjCKeyValueStore-CoreGraphics.m in Sources */ = {isa = PBXBuildFile; fileRef = 637A562F1C883E63001A178A /* ObjCKeyValueStore-CoreGraphics.m */; };
-		63E3ED161DA2537400AEA8C3 /* ObjCCodingBase-CoreGraphics.m in Sources */ = {isa = PBXBuildFile; fileRef = 6371F2031C7F57FC00837BB7 /* ObjCCodingBase-CoreGraphics.m */; };
+		63E3ECF51DA2535100AEA8C3 /* ObjCDynamicCoding-UIKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 6371F2121C7F829C00837BB7 /* ObjCDynamicCoding-UIKit.m */; };
+		63E3ECFB1DA2535A00AEA8C3 /* ObjCDynamicCoding-UIKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 6371F2121C7F829C00837BB7 /* ObjCDynamicCoding-UIKit.m */; };
+		63E3ECFE1DA2536100AEA8C3 /* ObjCDynamicCoding-AVFoundation.m in Sources */ = {isa = PBXBuildFile; fileRef = 63C5BD801C82CCE200A22F27 /* ObjCDynamicCoding-AVFoundation.m */; };
+		63E3ED011DA2536200AEA8C3 /* ObjCDynamicCoding-AVFoundation.m in Sources */ = {isa = PBXBuildFile; fileRef = 63C5BD801C82CCE200A22F27 /* ObjCDynamicCoding-AVFoundation.m */; };
+		63E3ED101DA2537300AEA8C3 /* ObjCDynamicCoding-CoreGraphics.m in Sources */ = {isa = PBXBuildFile; fileRef = 6371F2031C7F57FC00837BB7 /* ObjCDynamicCoding-CoreGraphics.m */; };
+		63E3ED131DA2537300AEA8C3 /* ObjCDynamicCoding-CoreGraphics.m in Sources */ = {isa = PBXBuildFile; fileRef = 6371F2031C7F57FC00837BB7 /* ObjCDynamicCoding-CoreGraphics.m */; };
+		63E3ED161DA2537400AEA8C3 /* ObjCDynamicCoding-CoreGraphics.m in Sources */ = {isa = PBXBuildFile; fileRef = 6371F2031C7F57FC00837BB7 /* ObjCDynamicCoding-CoreGraphics.m */; };
 		63E3ED171DA2538A00AEA8C3 /* PersistentController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F10971BFAFABB004982B4 /* PersistentController.swift */; };
 		63E3ED181DA2538A00AEA8C3 /* PersistentController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F10971BFAFABB004982B4 /* PersistentController.swift */; };
 		63E3ED191DA2538B00AEA8C3 /* PersistentController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 635F10971BFAFABB004982B4 /* PersistentController.swift */; };
@@ -329,13 +285,9 @@
 		63FD11931DFA735400C46962 /* NSObject+That.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63FD11911DFA735400C46962 /* NSObject+That.swift */; };
 		63FD11941DFA735400C46962 /* NSObject+That.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63FD11911DFA735400C46962 /* NSObject+That.swift */; };
 		63FD11951DFA735400C46962 /* NSObject+That.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63FD11911DFA735400C46962 /* NSObject+That.swift */; };
-		63FE427F1DA26576002E45C8 /* ObjCKeyValueStore-UIKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 637A564D1C8845A6001A178A /* ObjCKeyValueStore-UIKit.m */; };
-		63FE42801DA26576002E45C8 /* ObjCCodingBase-UIKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 6371F2121C7F829C00837BB7 /* ObjCCodingBase-UIKit.m */; };
-		63FE42821DA2657A002E45C8 /* ObjCKeyValueStore-AVFoundation.m in Sources */ = {isa = PBXBuildFile; fileRef = 637A56431C88451E001A178A /* ObjCKeyValueStore-AVFoundation.m */; };
-		63FE42831DA2657A002E45C8 /* ObjCCodingBase-AVFoundation.m in Sources */ = {isa = PBXBuildFile; fileRef = 63C5BD801C82CCE200A22F27 /* ObjCCodingBase-AVFoundation.m */; };
-		63FE42841DA2657D002E45C8 /* ObjCKeyValueStore-QuartzCore.m in Sources */ = {isa = PBXBuildFile; fileRef = 637A56391C883F59001A178A /* ObjCKeyValueStore-QuartzCore.m */; };
-		63FE42871DA26580002E45C8 /* ObjCKeyValueStore-CoreGraphics.m in Sources */ = {isa = PBXBuildFile; fileRef = 637A562F1C883E63001A178A /* ObjCKeyValueStore-CoreGraphics.m */; };
-		63FE42881DA26580002E45C8 /* ObjCCodingBase-CoreGraphics.m in Sources */ = {isa = PBXBuildFile; fileRef = 6371F2031C7F57FC00837BB7 /* ObjCCodingBase-CoreGraphics.m */; };
+		63FE42801DA26576002E45C8 /* ObjCDynamicCoding-UIKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 6371F2121C7F829C00837BB7 /* ObjCDynamicCoding-UIKit.m */; };
+		63FE42831DA2657A002E45C8 /* ObjCDynamicCoding-AVFoundation.m in Sources */ = {isa = PBXBuildFile; fileRef = 63C5BD801C82CCE200A22F27 /* ObjCDynamicCoding-AVFoundation.m */; };
+		63FE42881DA26580002E45C8 /* ObjCDynamicCoding-CoreGraphics.m in Sources */ = {isa = PBXBuildFile; fileRef = 6371F2031C7F57FC00837BB7 /* ObjCDynamicCoding-CoreGraphics.m */; };
 		63FE42891DA265A0002E45C8 /* LaunchTask.h in Headers */ = {isa = PBXBuildFile; fileRef = 63F0B5221C11D6DB00710C41 /* LaunchTask.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		63FE428A1DA265A0002E45C8 /* LaunchTask.m in Sources */ = {isa = PBXBuildFile; fileRef = 63F0B5231C11D6DB00710C41 /* LaunchTask.m */; };
 /* End PBXBuildFile section */
@@ -365,7 +317,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		6304575D1D8AE0F2007EA6A3 /* ObjCKeyValueStore+Subclass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ObjCKeyValueStore+Subclass.h"; sourceTree = "<group>"; };
 		63050CA51C018C9300EDFEAD /* ObjCSelfAwareSwizzle+Utilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ObjCSelfAwareSwizzle+Utilities.swift"; sourceTree = "<group>"; };
 		630B4D661B48DC5800830454 /* SwiftExt.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftExt.framework; path = "../../../Library/Developer/Xcode/DerivedData/Nest-cpwynrnxekfpgteqxqbichddezav/Build/Products/Debug/SwiftExt.framework"; sourceTree = "<group>"; };
 		630B4D701B48DD2F00830454 /* Nest.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Nest.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -426,7 +377,7 @@
 		6362CF081E10E77E00610F77 /* fishhook.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = fishhook.c; sourceTree = "<group>"; };
 		6362CF091E10E77E00610F77 /* fishhook.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = fishhook.h; sourceTree = "<group>"; };
 		6362CF0A1E10E77E00610F77 /* MacroUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MacroUtilities.h; sourceTree = "<group>"; };
-		6362CF0B1E10E77E00610F77 /* Metamacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Metamacros.h; sourceTree = "<group>"; };
+		6362CF0B1E10E77E00610F77 /* metamacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = metamacros.h; sourceTree = "<group>"; };
 		6362CF181E10F9CB00610F77 /* ObjCDynamicObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ObjCDynamicObject.h; sourceTree = "<group>"; };
 		6362CF191E10F9CB00610F77 /* ObjCDynamicObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ObjCDynamicObject.m; sourceTree = "<group>"; };
 		6362CF221E10FA5000610F77 /* ObjCDynamicObject+Subclass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ObjCDynamicObject+Subclass.h"; sourceTree = "<group>"; };
@@ -434,21 +385,12 @@
 		6362CF2D1E10FE3500610F77 /* ObjCDynamicCoder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ObjCDynamicCoder.m; sourceTree = "<group>"; };
 		6362CF371E11026800610F77 /* ObjCDynamicCoderTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObjCDynamicCoderTests.swift; sourceTree = "<group>"; };
 		6366D0CA1D69817400A4D01C /* NSManagedObject+InitWithContext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSManagedObject+InitWithContext.swift"; sourceTree = "<group>"; };
-		6371F1F91C7F35FC00837BB7 /* ObjCCodingBase+Internal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ObjCCodingBase+Internal.h"; sourceTree = "<group>"; };
-		6371F1FA1C7F35FC00837BB7 /* ObjCCodingBase+Internal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ObjCCodingBase+Internal.m"; sourceTree = "<group>"; };
-		6371F2031C7F57FC00837BB7 /* ObjCCodingBase-CoreGraphics.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ObjCCodingBase-CoreGraphics.m"; sourceTree = "<group>"; };
-		6371F2121C7F829C00837BB7 /* ObjCCodingBase-UIKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ObjCCodingBase-UIKit.m"; sourceTree = "<group>"; };
+		6371F1F91C7F35FC00837BB7 /* ObjCDynamicCoding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ObjCDynamicCoding.h; sourceTree = "<group>"; };
+		6371F1FA1C7F35FC00837BB7 /* ObjCDynamicCoding.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ObjCDynamicCoding.m; sourceTree = "<group>"; };
+		6371F2031C7F57FC00837BB7 /* ObjCDynamicCoding-CoreGraphics.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ObjCDynamicCoding-CoreGraphics.m"; sourceTree = "<group>"; };
+		6371F2121C7F829C00837BB7 /* ObjCDynamicCoding-UIKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ObjCDynamicCoding-UIKit.m"; sourceTree = "<group>"; };
 		6371F2311C7FF5EE00837BB7 /* NestTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NestTests-Bridging-Header.h"; sourceTree = "<group>"; };
 		637A560B1C8830E8001A178A /* NSRange+RandomAccessCollection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSRange+RandomAccessCollection.swift"; sourceTree = "<group>"; };
-		637A56101C88348F001A178A /* ObjCKeyValueStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ObjCKeyValueStore.h; sourceTree = "<group>"; };
-		637A56111C88348F001A178A /* ObjCKeyValueStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ObjCKeyValueStore.m; sourceTree = "<group>"; };
-		637A561A1C88358B001A178A /* ObjCKeyValueStore+Internal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ObjCKeyValueStore+Internal.h"; sourceTree = "<group>"; };
-		637A561B1C88358B001A178A /* ObjCKeyValueStore+Internal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ObjCKeyValueStore+Internal.m"; sourceTree = "<group>"; };
-		637A56251C883AF0001A178A /* ObjCKeyValueStore+DefaultAccessors.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ObjCKeyValueStore+DefaultAccessors.m"; sourceTree = "<group>"; };
-		637A562F1C883E63001A178A /* ObjCKeyValueStore-CoreGraphics.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ObjCKeyValueStore-CoreGraphics.m"; sourceTree = "<group>"; };
-		637A56391C883F59001A178A /* ObjCKeyValueStore-QuartzCore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ObjCKeyValueStore-QuartzCore.m"; sourceTree = "<group>"; };
-		637A56431C88451E001A178A /* ObjCKeyValueStore-AVFoundation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ObjCKeyValueStore-AVFoundation.m"; sourceTree = "<group>"; };
-		637A564D1C8845A6001A178A /* ObjCKeyValueStore-UIKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ObjCKeyValueStore-UIKit.m"; sourceTree = "<group>"; };
 		638018F91DBB59F700968738 /* ObjCGraftProtocolImplementation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObjCGraftProtocolImplementation.swift; sourceTree = "<group>"; };
 		638018FE1DBB630A00968738 /* ObjCGraftProtocolImplementationTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObjCGraftProtocolImplementationTest.swift; sourceTree = "<group>"; };
 		638019021DBB645F00968738 /* ObjCGraftImplementationTest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ObjCGraftImplementationTest.h; sourceTree = "<group>"; };
@@ -459,7 +401,7 @@
 		63BEA8751C79904A002171C2 /* ObjCSelfAwareSwizzleImplSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObjCSelfAwareSwizzleImplSource.swift; sourceTree = "<group>"; };
 		63BEA8771C799951002171C2 /* ObjCSelfAwareSwizzleRecipe.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObjCSelfAwareSwizzleRecipe.swift; sourceTree = "<group>"; };
 		63C1D9FA1C3164E700D0F548 /* ObjCSelectorMessageInterceptor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObjCSelectorMessageInterceptor.swift; sourceTree = "<group>"; };
-		63C5BD801C82CCE200A22F27 /* ObjCCodingBase-AVFoundation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ObjCCodingBase-AVFoundation.m"; sourceTree = "<group>"; };
+		63C5BD801C82CCE200A22F27 /* ObjCDynamicCoding-AVFoundation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ObjCDynamicCoding-AVFoundation.m"; sourceTree = "<group>"; };
 		63C8862F1C7F146400F5677F /* Nest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Nest.h; sourceTree = "<group>"; };
 		63C886351C7F15F300F5677F /* LegacyUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LegacyUtilities.h; sourceTree = "<group>"; };
 		63C886361C7F15F300F5677F /* LegacyUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LegacyUtilities.m; sourceTree = "<group>"; };
@@ -472,9 +414,6 @@
 		63CB03EF1E0D5A7E009ABA2B /* LaunchTask-tvOS.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "LaunchTask-tvOS.m"; sourceTree = "<group>"; };
 		63CB03F11E0D5A88009ABA2B /* LaunchTask-watchOS.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "LaunchTask-watchOS.m"; sourceTree = "<group>"; };
 		63CB5A131D8DBA1C0043E16F /* module.private.modulemap */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.module-map"; path = module.private.modulemap; sourceTree = "<group>"; };
-		63DCC6991C64D753001949C9 /* ObjCCodingBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ObjCCodingBase.h; sourceTree = "<group>"; };
-		63DCC69A1C64D753001949C9 /* ObjCCodingBase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ObjCCodingBase.m; sourceTree = "<group>"; };
-		63DCC6A31C64E3CC001949C9 /* ObjCCodingBaseTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObjCCodingBaseTest.swift; sourceTree = "<group>"; };
 		63ED3B291C12056E008B8A5C /* LaunchTask+Internal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "LaunchTask+Internal.h"; sourceTree = "<group>"; };
 		63ED9D441DCAE7B500C59DDB /* NSManagedObjectContextChangesExporter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSManagedObjectContextChangesExporter.swift; sourceTree = "<group>"; };
 		63ED9D451DCAE7B500C59DDB /* NSManagedObjectContextChangesImporter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSManagedObjectContextChangesImporter.swift; sourceTree = "<group>"; };
@@ -579,9 +518,8 @@
 			isa = PBXGroup;
 			children = (
 				633ECED91C158EF90082D870 /* ObjCNormalizedCoding-UIKit.swift */,
-				637A564D1C8845A6001A178A /* ObjCKeyValueStore-UIKit.m */,
 				6362CEFA1E10DE1E00610F77 /* ObjCDynamicPropertyAccessors-UIKit.m */,
-				6371F2121C7F829C00837BB7 /* ObjCCodingBase-UIKit.m */,
+				6371F2121C7F829C00837BB7 /* ObjCDynamicCoding-UIKit.m */,
 			);
 			path = UIKit;
 			sourceTree = "<group>";
@@ -606,8 +544,7 @@
 			children = (
 				633ECE531C14B9290082D870 /* ObjCNormalizedCoding-AVFoundation.swift */,
 				6362CF031E10E0F800610F77 /* ObjCDynamicPropertyAccessors-AVFoundation.m */,
-				637A56431C88451E001A178A /* ObjCKeyValueStore-AVFoundation.m */,
-				63C5BD801C82CCE200A22F27 /* ObjCCodingBase-AVFoundation.m */,
+				63C5BD801C82CCE200A22F27 /* ObjCDynamicCoding-AVFoundation.m */,
 			);
 			path = AVFoundation;
 			sourceTree = "<group>";
@@ -615,17 +552,16 @@
 		633ECE891C1542820082D870 /* NestTests */ = {
 			isa = PBXGroup;
 			children = (
-				6362CF371E11026800610F77 /* ObjCDynamicCoderTests.swift */,
-				631303601E0E8CB800E480DA /* ObjCDynamicPropertySynthesizingTests.m */,
 				633ECE8E1C1542820082D870 /* RunLoop+TaskDispatcherTest.swift */,
 				633ECED01C157BD10082D870 /* NSCoderInterfaceNormalizationTest.swift */,
 				63ED9D531DCAF33B00C59DDB /* NSManagedObjectContextChangesExporterImporterTests.swift */,
 				63ED9D571DCAF6E300C59DDB /* NSManagedObjectContextChangesExporterImporterTests.xcdatamodeld */,
 				633ECE8F1C1542820082D870 /* ObjectiveCTest.swift */,
-				63DCC6A31C64E3CC001949C9 /* ObjCCodingBaseTest.swift */,
 				633ECE8C1C1542820082D870 /* ObjCProtocolMessageInterceptorTest.swift */,
 				638018FE1DBB630A00968738 /* ObjCGraftProtocolImplementationTest.swift */,
 				638019021DBB645F00968738 /* ObjCGraftImplementationTest.h */,
+				6362CF371E11026800610F77 /* ObjCDynamicCoderTests.swift */,
+				631303601E0E8CB800E480DA /* ObjCDynamicPropertySynthesizingTests.m */,
 				6371F2311C7FF5EE00837BB7 /* NestTests-Bridging-Header.h */,
 			);
 			path = NestTests;
@@ -684,8 +620,8 @@
 				6362CF221E10FA5000610F77 /* ObjCDynamicObject+Subclass.h */,
 				6362CF2C1E10FE3500610F77 /* ObjCDynamicCoder.h */,
 				6362CF2D1E10FE3500610F77 /* ObjCDynamicCoder.m */,
-				6371F1F91C7F35FC00837BB7 /* ObjCCodingBase+Internal.h */,
-				6371F1FA1C7F35FC00837BB7 /* ObjCCodingBase+Internal.m */,
+				6371F1F91C7F35FC00837BB7 /* ObjCDynamicCoding.h */,
+				6371F1FA1C7F35FC00837BB7 /* ObjCDynamicCoding.m */,
 				635F10911BFAFABB004982B4 /* ObjCNormalizedCoding.swift */,
 				633ECDA31C14487A0082D870 /* ObjCTypeEncoding.swift */,
 				635F10931BFAFABB004982B4 /* ObjCAssociated.swift */,
@@ -706,7 +642,6 @@
 				63ED9D441DCAE7B500C59DDB /* NSManagedObjectContextChangesExporter.swift */,
 				63ED9D4E1DCAE82D00C59DDB /* Notification+ManagedObjectChanges.swift */,
 				63FCD5641DB77EB20074AA3C /* FetchRequestTemplating.swift */,
-				6362CF361E11017800610F77 /* Deprecated */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -820,8 +755,7 @@
 			isa = PBXGroup;
 			children = (
 				6360D33E1C73688900D64CE8 /* ObjCNormalizedCoding-CoreGraphics.swift */,
-				637A562F1C883E63001A178A /* ObjCKeyValueStore-CoreGraphics.m */,
-				6371F2031C7F57FC00837BB7 /* ObjCCodingBase-CoreGraphics.m */,
+				6371F2031C7F57FC00837BB7 /* ObjCDynamicCoding-CoreGraphics.m */,
 				6362CEEB1E10D87800610F77 /* ObjCDynamicPropertyAccessors-CoreGraphics.m */,
 			);
 			path = CoreGraphics;
@@ -830,7 +764,6 @@
 		6360D3391C73686F00D64CE8 /* QuartzCore */ = {
 			isa = PBXGroup;
 			children = (
-				637A56391C883F59001A178A /* ObjCKeyValueStore-QuartzCore.m */,
 				6362CEF01E10DC9F00610F77 /* ObjCDynamicPropertyAccessors-QuartzCore.m */,
 			);
 			path = QuartzCore;
@@ -840,26 +773,11 @@
 			isa = PBXGroup;
 			children = (
 				6362CF0A1E10E77E00610F77 /* MacroUtilities.h */,
-				6362CF0B1E10E77E00610F77 /* Metamacros.h */,
+				6362CF0B1E10E77E00610F77 /* metamacros.h */,
 				6362CF091E10E77E00610F77 /* fishhook.h */,
 				6362CF081E10E77E00610F77 /* fishhook.c */,
 			);
 			path = Miscellaneous;
-			sourceTree = "<group>";
-		};
-		6362CF361E11017800610F77 /* Deprecated */ = {
-			isa = PBXGroup;
-			children = (
-				637A56101C88348F001A178A /* ObjCKeyValueStore.h */,
-				637A56111C88348F001A178A /* ObjCKeyValueStore.m */,
-				6304575D1D8AE0F2007EA6A3 /* ObjCKeyValueStore+Subclass.h */,
-				637A561A1C88358B001A178A /* ObjCKeyValueStore+Internal.h */,
-				637A561B1C88358B001A178A /* ObjCKeyValueStore+Internal.m */,
-				637A56251C883AF0001A178A /* ObjCKeyValueStore+DefaultAccessors.m */,
-				63DCC6991C64D753001949C9 /* ObjCCodingBase.h */,
-				63DCC69A1C64D753001949C9 /* ObjCCodingBase.m */,
-			);
-			name = Deprecated;
 			sourceTree = "<group>";
 		};
 		63C886341C7F15E200F5677F /* Legacy */ = {
@@ -891,16 +809,12 @@
 				63E3ECA01DA251A900AEA8C3 /* LaunchTask.h in Headers */,
 				63F1FDFD1C80AA6D00A271B9 /* Nest.h in Headers */,
 				6313035E1E0E058B00E480DA /* ObjCDynamicPropertySynthesizer.hpp in Headers */,
-				63E3EC8F1DA251A900AEA8C3 /* ObjCCodingBase.h in Headers */,
 				63C886391C7F15F300F5677F /* LegacyUtilities.h in Headers */,
 				631303461E0D9A7000E480DA /* ObjCDynamicPropertySynthesizing.h in Headers */,
-				63E3EC8C1DA251A900AEA8C3 /* ObjCKeyValueStore+Internal.h in Headers */,
-				63E3EC911DA251A900AEA8C3 /* ObjCCodingBase+Internal.h in Headers */,
+				63E3EC911DA251A900AEA8C3 /* ObjCDynamicCoding.h in Headers */,
 				6362CF301E10FE3500610F77 /* ObjCDynamicCoder.h in Headers */,
-				63E3EC8B1DA251A900AEA8C3 /* ObjCKeyValueStore+Subclass.h in Headers */,
 				6362CF261E10FA5000610F77 /* ObjCDynamicObject+Subclass.h in Headers */,
 				63CB03DE1E0D5632009ABA2B /* LaunchTask-watchOS.h in Headers */,
-				63E3EC891DA251A900AEA8C3 /* ObjCKeyValueStore.h in Headers */,
 				63E3ECA21DA251A900AEA8C3 /* LaunchTask+Internal.h in Headers */,
 				631303701E0FA7CD00E480DA /* ObjCDynamicPropertySynthesizer.h in Headers */,
 				6362CF1C1E10F9CB00610F77 /* ObjCDynamicObject.h in Headers */,
@@ -912,21 +826,17 @@
 			buildActionMask = 2147483647;
 			files = (
 				63F1FDFB1C80AA6C00A271B9 /* Nest.h in Headers */,
-				63E3ECC51DA251A900AEA8C3 /* ObjCCodingBase.h in Headers */,
 				6313035C1E0E058B00E480DA /* ObjCDynamicPropertySynthesizer.hpp in Headers */,
 				63FE42891DA265A0002E45C8 /* LaunchTask.h in Headers */,
 				6362CF121E10E77E00610F77 /* MacroUtilities.h in Headers */,
-				6362CF151E10E77E00610F77 /* Metamacros.h in Headers */,
+				6362CF151E10E77E00610F77 /* metamacros.h in Headers */,
 				63C886371C7F15F300F5677F /* LegacyUtilities.h in Headers */,
 				631303441E0D9A7000E480DA /* ObjCDynamicPropertySynthesizing.h in Headers */,
-				63E3ECC21DA251A900AEA8C3 /* ObjCKeyValueStore+Internal.h in Headers */,
 				6362CF241E10FA5000610F77 /* ObjCDynamicObject+Subclass.h in Headers */,
-				63E3ECC71DA251A900AEA8C3 /* ObjCCodingBase+Internal.h in Headers */,
+				63E3ECC71DA251A900AEA8C3 /* ObjCDynamicCoding.h in Headers */,
 				6362CF0F1E10E77E00610F77 /* fishhook.h in Headers */,
-				63E3ECC11DA251A900AEA8C3 /* ObjCKeyValueStore+Subclass.h in Headers */,
 				6362CF1A1E10F9CB00610F77 /* ObjCDynamicObject.h in Headers */,
 				6362CF2E1E10FE3500610F77 /* ObjCDynamicCoder.h in Headers */,
-				63E3ECBF1DA251A900AEA8C3 /* ObjCKeyValueStore.h in Headers */,
 				63E3ECD81DA251A900AEA8C3 /* LaunchTask+Internal.h in Headers */,
 				63CB03E11E0D563B009ABA2B /* LaunchTask-iOS.h in Headers */,
 				631303721E0FA7CE00E480DA /* ObjCDynamicPropertySynthesizer.h in Headers */,
@@ -940,20 +850,16 @@
 				63E3ECBB1DA251A900AEA8C3 /* LaunchTask.h in Headers */,
 				63F1FDFC1C80AA6C00A271B9 /* Nest.h in Headers */,
 				6313035D1E0E058B00E480DA /* ObjCDynamicPropertySynthesizer.hpp in Headers */,
-				63E3ECAA1DA251A900AEA8C3 /* ObjCCodingBase.h in Headers */,
 				6362CF131E10E77E00610F77 /* MacroUtilities.h in Headers */,
-				6362CF161E10E77E00610F77 /* Metamacros.h in Headers */,
+				6362CF161E10E77E00610F77 /* metamacros.h in Headers */,
 				63C886381C7F15F300F5677F /* LegacyUtilities.h in Headers */,
 				631303451E0D9A7000E480DA /* ObjCDynamicPropertySynthesizing.h in Headers */,
-				63E3ECA71DA251A900AEA8C3 /* ObjCKeyValueStore+Internal.h in Headers */,
 				6362CF251E10FA5000610F77 /* ObjCDynamicObject+Subclass.h in Headers */,
-				63E3ECAC1DA251A900AEA8C3 /* ObjCCodingBase+Internal.h in Headers */,
+				63E3ECAC1DA251A900AEA8C3 /* ObjCDynamicCoding.h in Headers */,
 				6362CF101E10E77E00610F77 /* fishhook.h in Headers */,
 				63CB03E01E0D5637009ABA2B /* LaunchTask-macOS.h in Headers */,
 				6362CF1B1E10F9CB00610F77 /* ObjCDynamicObject.h in Headers */,
 				6362CF2F1E10FE3500610F77 /* ObjCDynamicCoder.h in Headers */,
-				63E3ECA61DA251A900AEA8C3 /* ObjCKeyValueStore+Subclass.h in Headers */,
-				63E3ECA41DA251A900AEA8C3 /* ObjCKeyValueStore.h in Headers */,
 				63E3ECBD1DA251A900AEA8C3 /* LaunchTask+Internal.h in Headers */,
 				631303711E0FA7CD00E480DA /* ObjCDynamicPropertySynthesizer.h in Headers */,
 			);
@@ -966,20 +872,16 @@
 				63E3EC851DA251A800AEA8C3 /* LaunchTask.h in Headers */,
 				63F1FDFE1C80AA6D00A271B9 /* Nest.h in Headers */,
 				6313035F1E0E058B00E480DA /* ObjCDynamicPropertySynthesizer.hpp in Headers */,
-				63E3EC741DA251A800AEA8C3 /* ObjCCodingBase.h in Headers */,
 				6362CF141E10E77E00610F77 /* MacroUtilities.h in Headers */,
-				6362CF171E10E77E00610F77 /* Metamacros.h in Headers */,
+				6362CF171E10E77E00610F77 /* metamacros.h in Headers */,
 				63CB03DF1E0D5634009ABA2B /* LaunchTask-tvOS.h in Headers */,
 				631303471E0D9A7000E480DA /* ObjCDynamicPropertySynthesizing.h in Headers */,
 				63C8863A1C7F15F300F5677F /* LegacyUtilities.h in Headers */,
 				6362CF271E10FA5000610F77 /* ObjCDynamicObject+Subclass.h in Headers */,
-				63E3EC711DA251A800AEA8C3 /* ObjCKeyValueStore+Internal.h in Headers */,
 				6362CF111E10E77E00610F77 /* fishhook.h in Headers */,
-				63E3EC761DA251A800AEA8C3 /* ObjCCodingBase+Internal.h in Headers */,
+				63E3EC761DA251A800AEA8C3 /* ObjCDynamicCoding.h in Headers */,
 				6362CF1D1E10F9CB00610F77 /* ObjCDynamicObject.h in Headers */,
 				6362CF311E10FE3500610F77 /* ObjCDynamicCoder.h in Headers */,
-				63E3EC701DA251A800AEA8C3 /* ObjCKeyValueStore+Subclass.h in Headers */,
-				63E3EC6E1DA251A800AEA8C3 /* ObjCKeyValueStore.h in Headers */,
 				63E3EC871DA251A800AEA8C3 /* LaunchTask+Internal.h in Headers */,
 				6313036F1E0FA7CC00E480DA /* ObjCDynamicPropertySynthesizer.h in Headers */,
 			);
@@ -1230,7 +1132,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				63E3ED131DA2537300AEA8C3 /* ObjCCodingBase-CoreGraphics.m in Sources */,
+				63E3ED131DA2537300AEA8C3 /* ObjCDynamicCoding-CoreGraphics.m in Sources */,
 				63E3EC941DA251A900AEA8C3 /* ObjCTypeEncoding.swift in Sources */,
 				63C8863D1C7F15F300F5677F /* LegacyUtilities.m in Sources */,
 				63E3ECA11DA251A900AEA8C3 /* LaunchTask.m in Sources */,
@@ -1244,19 +1146,14 @@
 				63314AD71DCB7E18004A2B7B /* DispatchQueue.swift in Sources */,
 				638018FC1DBB59F700968738 /* ObjCGraftProtocolImplementation.swift in Sources */,
 				6313035A1E0E058B00E480DA /* ObjCDynamicPropertySynthesizer.mm in Sources */,
-				63E3ECFB1DA2535A00AEA8C3 /* ObjCCodingBase-UIKit.m in Sources */,
+				63E3ECFB1DA2535A00AEA8C3 /* ObjCDynamicCoding-UIKit.m in Sources */,
 				63E3EC981DA251A900AEA8C3 /* ObjCProtocolMessageInterceptor.swift in Sources */,
 				63ED9D481DCAE7B500C59DDB /* NSManagedObjectContextChangesExporter.swift in Sources */,
-				63E3EC8E1DA251A900AEA8C3 /* ObjCKeyValueStore+DefaultAccessors.m in Sources */,
 				63E3EC9C1DA251A900AEA8C3 /* ObjCSelfAwareSwizzleImplSource.swift in Sources */,
 				63B55A391DCF90A3008A8E2C /* NSManagedObject+Transient.swift in Sources */,
 				63FCD5671DB77EB20074AA3C /* FetchRequestTemplating.swift in Sources */,
 				6362CF341E10FE3500610F77 /* ObjCDynamicCoder.m in Sources */,
-				63E3ECFA1DA2535A00AEA8C3 /* ObjCKeyValueStore-UIKit.m in Sources */,
 				63ED9D4C1DCAE7B500C59DDB /* NSManagedObjectContextChangesImporter.swift in Sources */,
-				63E3EC8D1DA251A900AEA8C3 /* ObjCKeyValueStore+Internal.m in Sources */,
-				63E3EC901DA251A900AEA8C3 /* ObjCCodingBase.m in Sources */,
-				63E3ED121DA2537300AEA8C3 /* ObjCKeyValueStore-CoreGraphics.m in Sources */,
 				63CB038E1E0D4B9C009ABA2B /* ObjCNormalizedCoding-CoreGraphics.swift in Sources */,
 				63E3EC971DA251A900AEA8C3 /* ObjCProtocolMessageIntercepting.swift in Sources */,
 				6362CF201E10F9CB00610F77 /* ObjCDynamicObject.m in Sources */,
@@ -1264,14 +1161,13 @@
 				63E3EC991DA251A900AEA8C3 /* ObjCSelectorMessageInterceptor.swift in Sources */,
 				63E3EC9B1DA251A900AEA8C3 /* ObjCSelfAwareSwizzle+Utilities.swift in Sources */,
 				63ED9D511DCAE82D00C59DDB /* Notification+ManagedObjectChanges.swift in Sources */,
-				63E3EC921DA251A900AEA8C3 /* ObjCCodingBase+Internal.m in Sources */,
+				63E3EC921DA251A900AEA8C3 /* ObjCDynamicCoding.m in Sources */,
 				63E3EC5B1DA2519100AEA8C3 /* NSManagedObject+InitWithContext.swift in Sources */,
 				63CB03E71E0D57C7009ABA2B /* ObjCNormalizedCoding-UIKit.swift in Sources */,
 				63E3EC9E1DA251A900AEA8C3 /* ObjCSelfAwareSwizzle.m in Sources */,
 				63E3EC551DA2519100AEA8C3 /* NSRange+RandomAccessCollection.swift in Sources */,
 				63E3EC541DA2519100AEA8C3 /* NSRange+Utilities.swift in Sources */,
 				63E3EC9D1DA251A900AEA8C3 /* ObjCSelfAwareSwizzleRecipe.swift in Sources */,
-				63E3EC8A1DA251A900AEA8C3 /* ObjCKeyValueStore.m in Sources */,
 				63E3EC951DA251A900AEA8C3 /* ObjCAssociated.swift in Sources */,
 				63E3ECE61DA251FB00AEA8C3 /* NSPersistentStoreKind.swift in Sources */,
 				63FD11941DFA735400C46962 /* NSObject+That.swift in Sources */,
@@ -1294,41 +1190,34 @@
 				63ED9D4F1DCAE82D00C59DDB /* Notification+ManagedObjectChanges.swift in Sources */,
 				6362CF321E10FE3500610F77 /* ObjCDynamicCoder.m in Sources */,
 				63FCD5651DB77EB20074AA3C /* FetchRequestTemplating.swift in Sources */,
-				63FE427F1DA26576002E45C8 /* ObjCKeyValueStore-UIKit.m in Sources */,
 				63E3EC6C1DA2519200AEA8C3 /* Bundle.swift in Sources */,
-				63FE42801DA26576002E45C8 /* ObjCCodingBase-UIKit.m in Sources */,
-				63FE42871DA26580002E45C8 /* ObjCKeyValueStore-CoreGraphics.m in Sources */,
+				63FE42801DA26576002E45C8 /* ObjCDynamicCoding-UIKit.m in Sources */,
 				63E3EC6B1DA2519200AEA8C3 /* ObjectiveC.swift in Sources */,
 				63ED9D4A1DCAE7B500C59DDB /* NSManagedObjectContextChangesImporter.swift in Sources */,
 				63E3ECD01DA251A900AEA8C3 /* ObjCSelfAwareSwizzle.swift in Sources */,
 				63E3ECCE1DA251A900AEA8C3 /* ObjCProtocolMessageInterceptor.swift in Sources */,
-				63E3ECC41DA251A900AEA8C3 /* ObjCKeyValueStore+DefaultAccessors.m in Sources */,
-				63FE42821DA2657A002E45C8 /* ObjCKeyValueStore-AVFoundation.m in Sources */,
 				63CB03EB1E0D5A68009ABA2B /* LaunchTask-iOS.m in Sources */,
 				6362CEFB1E10DE1E00610F77 /* ObjCDynamicPropertyAccessors-UIKit.m in Sources */,
 				63E3ECD21DA251A900AEA8C3 /* ObjCSelfAwareSwizzleImplSource.swift in Sources */,
-				63FE42881DA26580002E45C8 /* ObjCCodingBase-CoreGraphics.m in Sources */,
+				63FE42881DA26580002E45C8 /* ObjCDynamicCoding-CoreGraphics.m in Sources */,
 				63CB03E51E0D57BF009ABA2B /* ObjCNormalizedCoding-AVFoundation.swift in Sources */,
 				6362CEF11E10DC9F00610F77 /* ObjCDynamicPropertyAccessors-QuartzCore.m in Sources */,
 				6362CEEC1E10D87800610F77 /* ObjCDynamicPropertyAccessors-CoreGraphics.m in Sources */,
 				631303481E0D9A7000E480DA /* ObjCDynamicPropertySynthesizing.mm in Sources */,
 				63E3ED271DA254A700AEA8C3 /* PersistentController.swift in Sources */,
 				63ED9D461DCAE7B500C59DDB /* NSManagedObjectContextChangesExporter.swift in Sources */,
-				63FE42831DA2657A002E45C8 /* ObjCCodingBase-AVFoundation.m in Sources */,
+				63FE42831DA2657A002E45C8 /* ObjCDynamicCoding-AVFoundation.m in Sources */,
 				63314AD51DCB7E18004A2B7B /* DispatchQueue.swift in Sources */,
-				63E3ECC31DA251A900AEA8C3 /* ObjCKeyValueStore+Internal.m in Sources */,
 				6362CF041E10E0F800610F77 /* ObjCDynamicPropertyAccessors-AVFoundation.m in Sources */,
-				63E3ECC61DA251A900AEA8C3 /* ObjCCodingBase.m in Sources */,
 				6313038A1E10064200E480DA /* ObjCDynamicPropertyAccessors.m in Sources */,
 				63FD11921DFA735400C46962 /* NSObject+That.swift in Sources */,
 				63E3ECCD1DA251A900AEA8C3 /* ObjCProtocolMessageIntercepting.swift in Sources */,
 				63E3EC651DA2519200AEA8C3 /* CFRunLoopActivity+CustomDebugStringConvertible.swift in Sources */,
 				63E3ECCF1DA251A900AEA8C3 /* ObjCSelectorMessageInterceptor.swift in Sources */,
 				631303581E0E058B00E480DA /* ObjCDynamicPropertySynthesizer.mm in Sources */,
-				63FE42841DA2657D002E45C8 /* ObjCKeyValueStore-QuartzCore.m in Sources */,
 				63FE428A1DA265A0002E45C8 /* LaunchTask.m in Sources */,
 				63E3ECD11DA251A900AEA8C3 /* ObjCSelfAwareSwizzle+Utilities.swift in Sources */,
-				63E3ECC81DA251A900AEA8C3 /* ObjCCodingBase+Internal.m in Sources */,
+				63E3ECC81DA251A900AEA8C3 /* ObjCDynamicCoding.m in Sources */,
 				6362CF1E1E10F9CB00610F77 /* ObjCDynamicObject.m in Sources */,
 				63B3766E1E0D20E00058FA90 /* NSCoder+InterfaceNormalization.swift in Sources */,
 				63E3EC6D1DA2519200AEA8C3 /* NSManagedObject+InitWithContext.swift in Sources */,
@@ -1336,7 +1225,6 @@
 				63E3EC671DA2519200AEA8C3 /* NSRange+RandomAccessCollection.swift in Sources */,
 				63E3EC661DA2519200AEA8C3 /* NSRange+Utilities.swift in Sources */,
 				63E3ECD31DA251A900AEA8C3 /* ObjCSelfAwareSwizzleRecipe.swift in Sources */,
-				63E3ECC01DA251A900AEA8C3 /* ObjCKeyValueStore.m in Sources */,
 				638018FA1DBB59F700968738 /* ObjCGraftProtocolImplementation.swift in Sources */,
 				63CB038C1E0D4B9B009ABA2B /* ObjCNormalizedCoding-CoreGraphics.swift in Sources */,
 				63CB03E61E0D57C5009ABA2B /* ObjCNormalizedCoding-UIKit.swift in Sources */,
@@ -1355,7 +1243,6 @@
 				63314ACF1DCB1741004A2B7B /* NSManagedObjectContextChangesExporterImporterTests.xcdatamodeld in Sources */,
 				638018FF1DBB630A00968738 /* ObjCGraftProtocolImplementationTest.swift in Sources */,
 				633ECEBA1C1543130082D870 /* ObjCProtocolMessageInterceptorTest.swift in Sources */,
-				63DCC6A41C64E3CC001949C9 /* ObjCCodingBaseTest.swift in Sources */,
 				633ECEBC1C1543130082D870 /* ObjectiveCTest.swift in Sources */,
 				633ECED11C157BD10082D870 /* NSCoderInterfaceNormalizationTest.swift in Sources */,
 				63ED9D541DCAF33B00C59DDB /* NSManagedObjectContextChangesExporterImporterTests.swift in Sources */,
@@ -1374,9 +1261,8 @@
 				6362CF1F1E10F9CB00610F77 /* ObjCDynamicObject.m in Sources */,
 				63E3ECAF1DA251A900AEA8C3 /* ObjCTypeEncoding.swift in Sources */,
 				63B55A381DCF90A3008A8E2C /* NSManagedObject+Transient.swift in Sources */,
-				63E3ED101DA2537300AEA8C3 /* ObjCCodingBase-CoreGraphics.m in Sources */,
+				63E3ED101DA2537300AEA8C3 /* ObjCDynamicCoding-CoreGraphics.m in Sources */,
 				63B3766F1E0D20E10058FA90 /* NSCoder+InterfaceNormalization.swift in Sources */,
-				63E3ED071DA2536D00AEA8C3 /* ObjCKeyValueStore-QuartzCore.m in Sources */,
 				63CB03EE1E0D5A73009ABA2B /* LaunchTask-macOS.m in Sources */,
 				63C8863C1C7F15F300F5677F /* LegacyUtilities.m in Sources */,
 				63FCD5661DB77EB20074AA3C /* FetchRequestTemplating.swift in Sources */,
@@ -1386,37 +1272,31 @@
 				631303591E0E058B00E480DA /* ObjCDynamicPropertySynthesizer.mm in Sources */,
 				6362CEED1E10D87800610F77 /* ObjCDynamicPropertyAccessors-CoreGraphics.m in Sources */,
 				63CB03E41E0D57BE009ABA2B /* ObjCNormalizedCoding-AVFoundation.swift in Sources */,
-				63E3ED001DA2536200AEA8C3 /* ObjCKeyValueStore-AVFoundation.m in Sources */,
 				63E3ECBC1DA251A900AEA8C3 /* LaunchTask.m in Sources */,
 				63E3ECE51DA251FA00AEA8C3 /* NSManagedObjectChangeKey.swift in Sources */,
 				63E3EC631DA2519100AEA8C3 /* Bundle.swift in Sources */,
 				63E3EC621DA2519100AEA8C3 /* ObjectiveC.swift in Sources */,
 				63E3ECB51DA251A900AEA8C3 /* ObjCSelfAwareSwizzle.swift in Sources */,
 				63E3ECB31DA251A900AEA8C3 /* ObjCProtocolMessageInterceptor.swift in Sources */,
-				63E3ECA91DA251A900AEA8C3 /* ObjCKeyValueStore+DefaultAccessors.m in Sources */,
 				63E3ED191DA2538B00AEA8C3 /* PersistentController.swift in Sources */,
 				63E3ECB71DA251A900AEA8C3 /* ObjCSelfAwareSwizzleImplSource.swift in Sources */,
 				63FD11931DFA735400C46962 /* NSObject+That.swift in Sources */,
 				63CB03E91E0D57CF009ABA2B /* ObjCNormalizedCoding-AppKit.swift in Sources */,
-				63E3ECA81DA251A900AEA8C3 /* ObjCKeyValueStore+Internal.m in Sources */,
-				63E3ED011DA2536200AEA8C3 /* ObjCCodingBase-AVFoundation.m in Sources */,
-				63E3ECAB1DA251A900AEA8C3 /* ObjCCodingBase.m in Sources */,
+				63E3ED011DA2536200AEA8C3 /* ObjCDynamicCoding-AVFoundation.m in Sources */,
 				63E3ECB21DA251A900AEA8C3 /* ObjCProtocolMessageIntercepting.swift in Sources */,
 				63CB038D1E0D4B9B009ABA2B /* ObjCNormalizedCoding-CoreGraphics.swift in Sources */,
 				63E3EC5C1DA2519100AEA8C3 /* CFRunLoopActivity+CustomDebugStringConvertible.swift in Sources */,
 				63E3ECB41DA251A900AEA8C3 /* ObjCSelectorMessageInterceptor.swift in Sources */,
 				63E3ECB61DA251A900AEA8C3 /* ObjCSelfAwareSwizzle+Utilities.swift in Sources */,
 				631303891E10064200E480DA /* ObjCDynamicPropertyAccessors.m in Sources */,
-				63E3ECAD1DA251A900AEA8C3 /* ObjCCodingBase+Internal.m in Sources */,
+				63E3ECAD1DA251A900AEA8C3 /* ObjCDynamicCoding.m in Sources */,
 				63E3EC641DA2519100AEA8C3 /* NSManagedObject+InitWithContext.swift in Sources */,
 				6362CF0D1E10E77E00610F77 /* fishhook.c in Sources */,
 				63E3ECB91DA251A900AEA8C3 /* ObjCSelfAwareSwizzle.m in Sources */,
 				63E3EC5E1DA2519100AEA8C3 /* NSRange+RandomAccessCollection.swift in Sources */,
 				63314AD61DCB7E18004A2B7B /* DispatchQueue.swift in Sources */,
-				63E3ED0F1DA2537300AEA8C3 /* ObjCKeyValueStore-CoreGraphics.m in Sources */,
 				63E3EC5D1DA2519100AEA8C3 /* NSRange+Utilities.swift in Sources */,
 				63E3ECB81DA251A900AEA8C3 /* ObjCSelfAwareSwizzleRecipe.swift in Sources */,
-				63E3ECA51DA251A900AEA8C3 /* ObjCKeyValueStore.m in Sources */,
 				63E3ECB01DA251A900AEA8C3 /* ObjCAssociated.swift in Sources */,
 				63ED9D501DCAE82D00C59DDB /* Notification+ManagedObjectChanges.swift in Sources */,
 				638018FB1DBB59F700968738 /* ObjCGraftProtocolImplementation.swift in Sources */,
@@ -1434,7 +1314,6 @@
 				63314ACE1DCB1740004A2B7B /* NSManagedObjectContextChangesExporterImporterTests.xcdatamodeld in Sources */,
 				638019001DBB630A00968738 /* ObjCGraftProtocolImplementationTest.swift in Sources */,
 				633ECEB41C1543120082D870 /* ObjCProtocolMessageInterceptorTest.swift in Sources */,
-				63DCC6A51C64E3CC001949C9 /* ObjCCodingBaseTest.swift in Sources */,
 				633ECEB61C1543120082D870 /* ObjectiveCTest.swift in Sources */,
 				633ECED21C157BD10082D870 /* NSCoderInterfaceNormalizationTest.swift in Sources */,
 				63ED9D551DCAF33B00C59DDB /* NSManagedObjectContextChangesExporterImporterTests.swift in Sources */,
@@ -1458,23 +1337,18 @@
 				63E3EC511DA2519000AEA8C3 /* Bundle.swift in Sources */,
 				63E3EC501DA2519000AEA8C3 /* ObjectiveC.swift in Sources */,
 				63E3EC7F1DA251A800AEA8C3 /* ObjCSelfAwareSwizzle.swift in Sources */,
-				63E3ECF51DA2535100AEA8C3 /* ObjCCodingBase-UIKit.m in Sources */,
+				63E3ECF51DA2535100AEA8C3 /* ObjCDynamicCoding-UIKit.m in Sources */,
 				63E3EC7D1DA251A800AEA8C3 /* ObjCProtocolMessageInterceptor.swift in Sources */,
-				63E3EC731DA251A800AEA8C3 /* ObjCKeyValueStore+DefaultAccessors.m in Sources */,
 				63E3EC811DA251A800AEA8C3 /* ObjCSelfAwareSwizzleImplSource.swift in Sources */,
 				63ED9D4D1DCAE7B500C59DDB /* NSManagedObjectContextChangesImporter.swift in Sources */,
-				63E3ECF41DA2535100AEA8C3 /* ObjCKeyValueStore-UIKit.m in Sources */,
 				63E3ED171DA2538A00AEA8C3 /* PersistentController.swift in Sources */,
 				63CB03F01E0D5A7E009ABA2B /* LaunchTask-tvOS.m in Sources */,
 				6362CEFE1E10DE1E00610F77 /* ObjCDynamicPropertyAccessors-UIKit.m in Sources */,
-				63E3EC721DA251A800AEA8C3 /* ObjCKeyValueStore+Internal.m in Sources */,
-				63E3ED151DA2537400AEA8C3 /* ObjCKeyValueStore-CoreGraphics.m in Sources */,
 				63CB03E31E0D57BE009ABA2B /* ObjCNormalizedCoding-AVFoundation.swift in Sources */,
 				6362CEF41E10DC9F00610F77 /* ObjCDynamicPropertyAccessors-QuartzCore.m in Sources */,
 				6362CEEF1E10D87800610F77 /* ObjCDynamicPropertyAccessors-CoreGraphics.m in Sources */,
 				6313034B1E0D9A7000E480DA /* ObjCDynamicPropertySynthesizing.mm in Sources */,
 				63ED9D491DCAE7B500C59DDB /* NSManagedObjectContextChangesExporter.swift in Sources */,
-				63E3EC751DA251A800AEA8C3 /* ObjCCodingBase.m in Sources */,
 				63314AD81DCB7E18004A2B7B /* DispatchQueue.swift in Sources */,
 				63E3EC7C1DA251A800AEA8C3 /* ObjCProtocolMessageIntercepting.swift in Sources */,
 				63E3EC4A1DA2519000AEA8C3 /* CFRunLoopActivity+CustomDebugStringConvertible.swift in Sources */,
@@ -1484,7 +1358,7 @@
 				63E3EC7E1DA251A800AEA8C3 /* ObjCSelectorMessageInterceptor.swift in Sources */,
 				63E3EC801DA251A800AEA8C3 /* ObjCSelfAwareSwizzle+Utilities.swift in Sources */,
 				63FCD5681DB77EB20074AA3C /* FetchRequestTemplating.swift in Sources */,
-				63E3EC771DA251A800AEA8C3 /* ObjCCodingBase+Internal.m in Sources */,
+				63E3EC771DA251A800AEA8C3 /* ObjCDynamicCoding.m in Sources */,
 				6313035B1E0E058B00E480DA /* ObjCDynamicPropertySynthesizer.mm in Sources */,
 				63E3EC521DA2519000AEA8C3 /* NSManagedObject+InitWithContext.swift in Sources */,
 				63E3EC831DA251A800AEA8C3 /* ObjCSelfAwareSwizzle.m in Sources */,
@@ -1494,16 +1368,13 @@
 				63E3EC4B1DA2519000AEA8C3 /* NSRange+Utilities.swift in Sources */,
 				63E3EC821DA251A800AEA8C3 /* ObjCSelfAwareSwizzleRecipe.swift in Sources */,
 				638018FD1DBB59F700968738 /* ObjCGraftProtocolImplementation.swift in Sources */,
-				63E3EC6F1DA251A800AEA8C3 /* ObjCKeyValueStore.m in Sources */,
-				63E3ECFD1DA2536100AEA8C3 /* ObjCKeyValueStore-AVFoundation.m in Sources */,
 				63E3EC7A1DA251A800AEA8C3 /* ObjCAssociated.swift in Sources */,
 				63E3ECE81DA251FB00AEA8C3 /* NSPersistentStoreKind.swift in Sources */,
 				63E3EC4D1DA2519000AEA8C3 /* RunLoop+TaskDispatcher.swift in Sources */,
 				63CB038F1E0D4B9C009ABA2B /* ObjCNormalizedCoding-CoreGraphics.swift in Sources */,
 				63CB03E81E0D57C9009ABA2B /* ObjCNormalizedCoding-UIKit.swift in Sources */,
-				63E3ECFE1DA2536100AEA8C3 /* ObjCCodingBase-AVFoundation.m in Sources */,
-				63E3ED091DA2536F00AEA8C3 /* ObjCKeyValueStore-QuartzCore.m in Sources */,
-				63E3ED161DA2537400AEA8C3 /* ObjCCodingBase-CoreGraphics.m in Sources */,
+				63E3ECFE1DA2536100AEA8C3 /* ObjCDynamicCoding-AVFoundation.m in Sources */,
+				63E3ED161DA2537400AEA8C3 /* ObjCDynamicCoding-CoreGraphics.m in Sources */,
 				63B55A3A1DCF90A3008A8E2C /* NSManagedObject+Transient.swift in Sources */,
 				63E3EC781DA251A800AEA8C3 /* ObjCNormalizedCoding.swift in Sources */,
 			);
@@ -1516,7 +1387,6 @@
 				63314ACD1DCB173F004A2B7B /* NSManagedObjectContextChangesExporterImporterTests.xcdatamodeld in Sources */,
 				638019011DBB630A00968738 /* ObjCGraftProtocolImplementationTest.swift in Sources */,
 				633ECEAD1C15430E0082D870 /* ObjCProtocolMessageInterceptorTest.swift in Sources */,
-				63DCC6A61C64E3CC001949C9 /* ObjCCodingBaseTest.swift in Sources */,
 				633ECEAF1C15430E0082D870 /* ObjectiveCTest.swift in Sources */,
 				633ECED31C157BD10082D870 /* NSCoderInterfaceNormalizationTest.swift in Sources */,
 				63ED9D561DCAF33B00C59DDB /* NSManagedObjectContextChangesExporterImporterTests.swift in Sources */,

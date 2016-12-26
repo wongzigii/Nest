@@ -8,7 +8,7 @@
 
 #import <Nest/ObjCDynamicObject+Subclass.h>
 
-#import "ObjCCodingBase+Internal.h"
+#import "ObjCDynamicCoding.h"
 
 #import "ObjCDynamicCoder.h"
 
@@ -85,8 +85,8 @@ static NSString *  kObjCDynamicCoderVersionKey
                     = [NSString stringWithCString:rawPropertyName
                                          encoding:NSUTF8StringEncoding];
                     
-                    ObjCCodingBaseDecodeCallBack decode
-                    = ObjCCodingBaseDecodeCallBackForProperty([self class], propertyName);
+                    ObjCDynamicCodingDecodeCallBack decode
+                    = ObjCDynamicCodingDecodeCallBackForProperty([self class], propertyName);
                     
                     id value = (* decode)([self class], aDecoder, propertyName);
                     
@@ -135,8 +135,8 @@ static NSString *  kObjCDynamicCoderVersionKey
     for (NSString * key in self.internalStorage) {
         id value = self.internalStorage[key];
         
-        ObjCCodingBaseEncodeCallBack encode
-        = ObjCCodingBaseEncodeCallBackForProperty([self class], key);
+        ObjCDynamicCodingEncodeCallBack encode
+        = ObjCDynamicCodingEncodeCallBackForProperty([self class], key);
         
         (* encode)([self class], coder, key, value);
     }

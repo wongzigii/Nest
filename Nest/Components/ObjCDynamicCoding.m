@@ -1,5 +1,5 @@
 //
-//  ObjCCodingBase+Internal.m
+//  ObjCDynamicCoding.m
 //  Nest
 //
 //  Created by Manfred on 2/25/16.
@@ -8,67 +8,66 @@
 
 @import ObjectiveC;
 
-#import <Nest/ObjCCodingBase.h>
-#import "ObjCCodingBase+Internal.h"
+#import "ObjCDynamicCoding.h"
 
 #pragma mark - Type
-typedef struct _ObjCCodingBaseCodingCallBack {
+typedef struct _ObjCDynamicCodingCodingCallBack {
     const char * typeIdentifier;
     const size_t typeIdentifierLength;
-    const ObjCCodingBaseDecodeCallBack decodeCallBack;
-    const ObjCCodingBaseEncodeCallBack encodeCallBack;
-} ObjCCodingBaseCodingCallBack;
+    const ObjCDynamicCodingDecodeCallBack decodeCallBack;
+    const ObjCDynamicCodingEncodeCallBack encodeCallBack;
+} ObjCDynamicCodingCodingCallBack;
 
 #pragma mark - Function Prototypes
-static const ObjCCodingBaseCodingCallBack * ObjCCodingBaseCodingCallBackCreate(
+static const ObjCDynamicCodingCodingCallBack * ObjCDynamicCodingCodingCallBackCreate(
     const char *,
-    const ObjCCodingBaseDecodeCallBack,
-    const ObjCCodingBaseEncodeCallBack
+    const ObjCDynamicCodingDecodeCallBack,
+    const ObjCDynamicCodingEncodeCallBack
 );
 
-static void ObjCCodingBaseCodingCallBackRelease(ObjCCodingBaseCodingCallBack *);
+static void ObjCDynamicCodingCodingCallBackRelease(ObjCDynamicCodingCodingCallBack *);
 
 /// Returns true when their `typeIdentifier`s are same.
-static Boolean ObjCCodingBaseCodingCallBackEqual(const void *, const void *);
+static Boolean ObjCDynamicCodingCodingCallBackEqual(const void *, const void *);
 
 #pragma mark Coding
-static id ObjCCodingBaseDefaultDecodeCallBack (Class, NSCoder *, NSString *);
-static void ObjCCodingBaseDefaultEncodeCallBack (Class, NSCoder *, NSString *, id);
+static id ObjCDynamicCodingDefaultDecodeCallBack (Class, NSCoder *, NSString *);
+static void ObjCDynamicCodingDefaultEncodeCallBack (Class, NSCoder *, NSString *, id);
 
 #pragma mark Internal Utilities
-static ObjCCodingBaseCodingCallBack * ObjCCodingBaseCodingCallBackForType(
+static ObjCDynamicCodingCodingCallBack * ObjCDynamicCodingCodingCallBackForType(
     const char *
 );
 
 #pragma mark - Variables
-static CFArrayCallBacks ObjCCodingBaseCodingCallBackArrayCallBacks = {
+static CFArrayCallBacks ObjCDynamicCodingCodingCallBackArrayCallBacks = {
     0,
     NULL,
     NULL,
     NULL,
-    &ObjCCodingBaseCodingCallBackEqual
+    &ObjCDynamicCodingCodingCallBackEqual
 };
 
 static CFMutableArrayRef kRegisteredCodingCallBacks = NULL;
 
-const ObjCCodingBaseDecodeCallBack kObjCCodingBaseDefaultDecodeCallBack
-= &ObjCCodingBaseDefaultDecodeCallBack;
+const ObjCDynamicCodingDecodeCallBack kObjCDynamicCodingDefaultDecodeCallBack
+= &ObjCDynamicCodingDefaultDecodeCallBack;
 
-const ObjCCodingBaseEncodeCallBack kObjCCodingBaseDefaultEncodeCallBack
-= &ObjCCodingBaseDefaultEncodeCallBack;
+const ObjCDynamicCodingEncodeCallBack kObjCDynamicCodingDefaultEncodeCallBack
+= &ObjCDynamicCodingDefaultEncodeCallBack;
 
 #pragma mark - Function Implmentation
 #pragma mark Register Coding Call-Back
-const ObjCCodingBaseCodingCallBack * ObjCCodingBaseCodingCallBackCreate(
+const ObjCDynamicCodingCodingCallBack * ObjCDynamicCodingCodingCallBackCreate(
     const char * typeIdentifier,
-    const ObjCCodingBaseDecodeCallBack decodeCallBack,
-    const ObjCCodingBaseEncodeCallBack encodeCallback
+    const ObjCDynamicCodingDecodeCallBack decodeCallBack,
+    const ObjCDynamicCodingEncodeCallBack encodeCallback
     )
 {
     size_t typeIdentifierLength = strlen(typeIdentifier);
 
-    ObjCCodingBaseCodingCallBack * codingCallBack
-    = malloc(sizeof(ObjCCodingBaseCodingCallBack));
+    ObjCDynamicCodingCodingCallBack * codingCallBack
+    = malloc(sizeof(ObjCDynamicCodingCodingCallBack));
 
     size_t typeIdentifierSize = sizeof(char) * typeIdentifierLength;
 
@@ -76,7 +75,7 @@ const ObjCCodingBaseCodingCallBack * ObjCCodingBaseCodingCallBackCreate(
 
     memcpy(copiedTypeIdentifier, typeIdentifier, typeIdentifierSize);
 
-    * codingCallBack = (ObjCCodingBaseCodingCallBack){
+    * codingCallBack = (ObjCDynamicCodingCodingCallBack){
         copiedTypeIdentifier,
         typeIdentifierLength,
         decodeCallBack,
@@ -86,39 +85,39 @@ const ObjCCodingBaseCodingCallBack * ObjCCodingBaseCodingCallBackCreate(
     return codingCallBack;
 }
 
-void ObjCCodingBaseCodingCallBackRelease(
-    ObjCCodingBaseCodingCallBack * callBack
+void ObjCDynamicCodingCodingCallBackRelease(
+    ObjCDynamicCodingCodingCallBack * callBack
     )
 {
     free((void *)callBack -> typeIdentifier);
     free(callBack);
 }
 
-Boolean ObjCCodingBaseCodingCallBackEqual(
+Boolean ObjCDynamicCodingCodingCallBackEqual(
     const void * value1,
     const void * value2
     )
 {
-    ObjCCodingBaseCodingCallBack * lhs
-    = (ObjCCodingBaseCodingCallBack *)value1;
-    ObjCCodingBaseCodingCallBack * rhs
-    = (ObjCCodingBaseCodingCallBack *)value2;
+    ObjCDynamicCodingCodingCallBack * lhs
+    = (ObjCDynamicCodingCodingCallBack *)value1;
+    ObjCDynamicCodingCodingCallBack * rhs
+    = (ObjCDynamicCodingCodingCallBack *)value2;
 
     return lhs -> typeIdentifierLength == rhs -> typeIdentifierLength &&
         strcmp(lhs -> typeIdentifier, rhs -> typeIdentifier) == 0;
 }
 
-BOOL ObjCCodingBaseRegisterCodingCallBacks(
+BOOL ObjCDynamicCodingRegisterCodingCallBacks(
     const char * typeIdentifier,
-    const ObjCCodingBaseDecodeCallBack decodeCallBack,
-    const ObjCCodingBaseEncodeCallBack encodeCallBack
+    const ObjCDynamicCodingDecodeCallBack decodeCallBack,
+    const ObjCDynamicCodingEncodeCallBack encodeCallBack
     )
 {
     NSCAssert(decodeCallBack != NULL, @"decode call-back cannot be NULL");
     NSCAssert(encodeCallBack != NULL, @"encode call-back cannot be NULL");
     
-    const ObjCCodingBaseCodingCallBack * codingCallBack
-    = ObjCCodingBaseCodingCallBackCreate(
+    const ObjCDynamicCodingCodingCallBack * codingCallBack
+    = ObjCDynamicCodingCodingCallBackCreate(
         typeIdentifier,
         decodeCallBack,
         encodeCallBack
@@ -128,7 +127,7 @@ BOOL ObjCCodingBaseRegisterCodingCallBacks(
         kRegisteredCodingCallBacks = CFArrayCreateMutable(
             kCFAllocatorDefault,
             0,
-            &ObjCCodingBaseCodingCallBackArrayCallBacks
+            &ObjCDynamicCodingCodingCallBackArrayCallBacks
         );
         NSCAssert(
             kRegisteredCodingCallBacks != NULL,
@@ -147,11 +146,11 @@ BOOL ObjCCodingBaseRegisterCodingCallBacks(
     {
 #if DEBUG
         NSLog(
-            @"Duplicate ObjCCodingBase coding call back registration for property of type %s",
+            @"Duplicate ObjCDynamicCoding coding call back registration for property of type %s",
             typeIdentifier
         );
 #endif
-        ObjCCodingBaseCodingCallBackRelease((void *)codingCallBack);
+        ObjCDynamicCodingCodingCallBackRelease((void *)codingCallBack);
         return NO;
     } else {
         CFArrayAppendValue(kRegisteredCodingCallBacks, codingCallBack);
@@ -160,7 +159,7 @@ BOOL ObjCCodingBaseRegisterCodingCallBacks(
 }
 
 #pragma mark Coding
-id ObjCCodingBaseDefaultDecodeCallBack (
+id ObjCDynamicCodingDefaultDecodeCallBack (
     Class aClass,
     NSCoder * coder,
     NSString * key
@@ -261,7 +260,7 @@ id ObjCCodingBaseDefaultDecodeCallBack (
     return decodedValue;
 }
 
-void ObjCCodingBaseDefaultEncodeCallBack (
+void ObjCDynamicCodingDefaultEncodeCallBack (
     Class aClass,
     NSCoder * coder,
     NSString * key,
@@ -289,7 +288,7 @@ void ObjCCodingBaseDefaultEncodeCallBack (
     }
 }
 
-ObjCCodingBaseEncodeCallBack ObjCCodingBaseEncodeCallBackForProperty(
+ObjCDynamicCodingEncodeCallBack ObjCDynamicCodingEncodeCallBackForProperty(
     const Class aClass,
     const NSString * propertyName
     )
@@ -302,19 +301,19 @@ ObjCCodingBaseEncodeCallBack ObjCCodingBaseEncodeCallBackForProperty(
     const char * propertyTypeEncoding
     = property_copyAttributeValue(property, "T");
 
-    ObjCCodingBaseCodingCallBack * targetedCodingCallBack
-    = ObjCCodingBaseCodingCallBackForType(propertyTypeEncoding);
+    ObjCDynamicCodingCodingCallBack * targetedCodingCallBack
+    = ObjCDynamicCodingCodingCallBackForType(propertyTypeEncoding);
 
     free((char *)propertyTypeEncoding);
 
     if (targetedCodingCallBack == NULL) {
-        return kObjCCodingBaseDefaultEncodeCallBack;
+        return kObjCDynamicCodingDefaultEncodeCallBack;
     } else {
         return targetedCodingCallBack -> encodeCallBack;
     }
 }
 
-ObjCCodingBaseDecodeCallBack ObjCCodingBaseDecodeCallBackForProperty(
+ObjCDynamicCodingDecodeCallBack ObjCDynamicCodingDecodeCallBackForProperty(
     const Class aClass,
     const NSString * propertyName
     )
@@ -327,13 +326,13 @@ ObjCCodingBaseDecodeCallBack ObjCCodingBaseDecodeCallBackForProperty(
     const char * propertyTypeEncoding
     = property_copyAttributeValue(property, "T");
 
-    ObjCCodingBaseCodingCallBack * targetedCodingCallBack
-    = ObjCCodingBaseCodingCallBackForType(propertyTypeEncoding);
+    ObjCDynamicCodingCodingCallBack * targetedCodingCallBack
+    = ObjCDynamicCodingCodingCallBackForType(propertyTypeEncoding);
 
     free((char *)propertyTypeEncoding);
 
     if (targetedCodingCallBack == NULL) {
-        return kObjCCodingBaseDefaultDecodeCallBack;
+        return kObjCDynamicCodingDefaultDecodeCallBack;
     } else {
         return targetedCodingCallBack -> decodeCallBack;
     }
@@ -341,13 +340,13 @@ ObjCCodingBaseDecodeCallBack ObjCCodingBaseDecodeCallBackForProperty(
 
 
 #pragma mark Internal Utilities
-ObjCCodingBaseCodingCallBack * ObjCCodingBaseCodingCallBackForType(
+ObjCDynamicCodingCodingCallBack * ObjCDynamicCodingCodingCallBackForType(
     const char * typeEncoding
     )
 {
     CFIndex count = CFArrayGetCount(kRegisteredCodingCallBacks);
 
-    ObjCCodingBaseCodingCallBack * targetedCodingCallBack = NULL;
+    ObjCDynamicCodingCodingCallBack * targetedCodingCallBack = NULL;
 
     for (CFIndex index = 0; index < count; index ++) {
         const void * value = CFArrayGetValueAtIndex(
@@ -355,7 +354,7 @@ ObjCCodingBaseCodingCallBack * ObjCCodingBaseCodingCallBackForType(
             index
         );
 
-        const ObjCCodingBaseCodingCallBack * codingCallBack = value;
+        const ObjCDynamicCodingCodingCallBack * codingCallBack = value;
 
         if (strncmp(
                 codingCallBack -> typeIdentifier,
@@ -365,7 +364,7 @@ ObjCCodingBaseCodingCallBack * ObjCCodingBaseCodingCallBackForType(
             )
         {
             targetedCodingCallBack
-            = (ObjCCodingBaseCodingCallBack *)codingCallBack;
+            = (ObjCDynamicCodingCodingCallBack *)codingCallBack;
         }
 
         if (targetedCodingCallBack != NULL) {

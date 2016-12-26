@@ -6,8 +6,8 @@
  * Released under the MIT license
  */
 
-#ifndef Metamacros_h
-#define Metamacros_h
+#ifndef metamacros_h
+#define metamacros_h
 
 /**
  * Executes one or more expressions (which may have a void type, such as a call
@@ -663,4 +663,4 @@ metamacro_concat(metamacro_if_eq_recursive0_, VALUE)
 #define metamacro_drop19(...) metamacro_drop18(metamacro_tail(__VA_ARGS__))
 #define metamacro_drop20(...) metamacro_drop19(metamacro_tail(__VA_ARGS__))
 
-#endif /* Metamacros_h */
+#endif /* metamacros_h */

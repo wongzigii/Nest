@@ -6,6 +6,4 @@
 //
 //
 
-#import <Nest/ObjCCodingBase.h>
-
 #import "ObjCGraftImplementationTest.h"

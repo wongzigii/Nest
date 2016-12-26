@@ -1,5 +1,5 @@
 //
-//  ObjCCodingBase-CoreGraphics.c
+//  ObjCDynamicCoding-CoreGraphics.c
 //  Nest
 //
 //  Created by Manfred on 2/25/16.
@@ -16,8 +16,8 @@
 @import AppKit;
 #endif
 
-#import <Nest/ObjCCodingBase.h>
-#import "ObjCCodingBase+Internal.h"
+#import <Nest/MacroUtilities.h>
+#import "ObjCDynamicCoding.h"
 
 /// Represents `CGPoint`, `CGVector` and `CGSize`
 typedef struct _CGFloat2 {
@@ -45,43 +45,42 @@ static void EncodeCGAffineTransform (Class, NSCoder *, NSString *, id);
 #endif
 
 #pragma mark - Register
-@implementation ObjCCodingBase(CoreGraphicsAccessors)
-+ (void)load {
-    ObjCCodingBaseRegisterCodingCallBacks(
+_NEST_MODULE_CONSTRUCTOR_HIGH_PRIORITY
+static void ObjCDynamicCodingLoadCustomCallBacks() {
+    ObjCDynamicCodingRegisterCodingCallBacks(
         @encode(CGPoint),
         &DecodeCGPoint,
         &EncodeCGPoint
     );
     
-    ObjCCodingBaseRegisterCodingCallBacks(
+    ObjCDynamicCodingRegisterCodingCallBacks(
         @encode(CGSize),
         &DecodeCGSize,
         &EncodeCGSize
     );
     
 #if TARGET_OS_IOS || TARGET_OS_TV || TARGET_OS_WATCH
-    ObjCCodingBaseRegisterCodingCallBacks(
+    ObjCDynamicCodingRegisterCodingCallBacks(
         @encode(CGVector),
         &DecodeCGVector,
         &EncodeCGVector
     );
 #endif
     
-    ObjCCodingBaseRegisterCodingCallBacks(
+    ObjCDynamicCodingRegisterCodingCallBacks(
         @encode(CGRect),
         &DecodeCGRect,
         &EncodeCGRect
     );
     
 #if TARGET_OS_IOS || TARGET_OS_TV || TARGET_OS_WATCH
-    ObjCCodingBaseRegisterCodingCallBacks(
+    ObjCDynamicCodingRegisterCodingCallBacks(
         @encode(CGAffineTransform),
         &DecodeCGAffineTransform,
         &EncodeCGAffineTransform
     );
 #endif
 }
-@end
 
 #pragma mark Coding
 id DecodeCGPoint (Class aClass, NSCoder * decoder, NSString * key) {

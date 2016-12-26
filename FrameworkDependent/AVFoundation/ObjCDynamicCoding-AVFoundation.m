@@ -1,5 +1,5 @@
 //
-//  ObjCCodingBase-AVFoundation.m
+//  ObjCDynamicCoding-AVFoundation.m
 //  Nest
 //
 //  Created by Manfred on 2/28/16.
@@ -10,8 +10,8 @@
 @import ObjectiveC;
 @import AVFoundation;
 
-#import <Nest/ObjCCodingBase.h>
-#import "ObjCCodingBase+Internal.h"
+#import <Nest/MacroUtilities.h>
+#import "ObjCDynamicCoding.h"
 
 static id DecodeCMTime (Class, NSCoder *, NSString *);
 
@@ -26,27 +26,26 @@ static id DecodeCMTimeMapping (Class, NSCoder *, NSString *);
 static void EncodeCMTimeMapping (Class, NSCoder *, NSString *, id);
 
 #pragma mark - Register
-@implementation ObjCCodingBase(AVFoundationAccessors)
-+ (void)load {
-    ObjCCodingBaseRegisterCodingCallBacks(
+_NEST_MODULE_CONSTRUCTOR_HIGH_PRIORITY
+static void ObjCDynamicCodingLoadCustomCallBacks() {
+    ObjCDynamicCodingRegisterCodingCallBacks(
         @encode(CMTime),
         &DecodeCMTime,
         &EncodeCMTime
     );
     
-    ObjCCodingBaseRegisterCodingCallBacks(
+    ObjCDynamicCodingRegisterCodingCallBacks(
         @encode(CMTimeRange),
         &DecodeCMTimeRange,
         &EncodeCMTimeRange
     );
     
-    ObjCCodingBaseRegisterCodingCallBacks(
+    ObjCDynamicCodingRegisterCodingCallBacks(
         @encode(CMTimeMapping),
         &DecodeCMTimeMapping,
         &EncodeCMTimeMapping
     );
 }
-@end
 
 id DecodeCMTime (Class aClass, NSCoder * decoder, NSString * key) {
     CMTime time = [decoder decodeCMTimeForKey: key];
