@@ -105,6 +105,7 @@ nest::ObjCDynamicPropertySynthesizer::ClassDescription::ClassDescription(Class c
     pending_property_attributes_ = std::unique_ptr<std::forward_list<std::unique_ptr<PropertyAttributes>>>(new std::forward_list<std::unique_ptr<PropertyAttributes>>());
     processed_property_attributes_ = std::unique_ptr<std::vector<std::unique_ptr<PropertyAttributes>>>(new std::vector<std::unique_ptr<PropertyAttributes>>());
     dedicated_implementation_center_ = std::unique_ptr<ImplementationCenter>();
+    parent_ = nullptr;
     
     unsigned int property_count = 0;
     auto properties = class_copyPropertyList(cls, &property_count);
@@ -122,25 +123,87 @@ nest::ObjCDynamicPropertySynthesizer::ClassDescription::ClassDescription(Class c
     free(properties);
 }
 
-nest::ObjCDynamicPropertySynthesizer::ImplementationCenter * nest::ObjCDynamicPropertySynthesizer::ClassDescription::implementationCenter() {
+nest::ObjCDynamicPropertySynthesizer::ClassDescription * nest::ObjCDynamicPropertySynthesizer::ClassDescription::parent() {
+    return parent_;
+}
+
+void nest::ObjCDynamicPropertySynthesizer::ClassDescription::set_parent(ClassDescription * parent) {
+    assert(parent_ == nullptr);
+    parent_ = parent;
+}
+
+bool nest::ObjCDynamicPropertySynthesizer::ClassDescription::isParent(ClassDescription * parent) {
+    return parent_ == parent;
+}
+
+bool nest::ObjCDynamicPropertySynthesizer::ClassDescription::has_parent() {
+    return parent_ != nullptr;
+}
+
+nest::ObjCDynamicPropertySynthesizer::ImplementationCenter * nest::ObjCDynamicPropertySynthesizer::ClassDescription::_implementationCenter() {
     if (dedicated_implementation_center_ == nullptr) {
         dedicated_implementation_center_.reset(new ImplementationCenter());
     }
     return dedicated_implementation_center_.get();
 }
 
+IMP nest::ObjCDynamicPropertySynthesizer::ClassDescription::getImplementation(AccessorDescription * accessor_description) {
+    IMP implementation = _getImplementationInClassHierarchy(accessor_description);
+    
+    if (implementation == nullptr) {
+        if (has_parent()) {
+            return parent() -> _getImplementationInClassHierarchy(accessor_description);
+        }
+    }
+    
+    return implementation;
+}
+
+IMP nest::ObjCDynamicPropertySynthesizer::ClassDescription::_getImplementationInClassHierarchy(AccessorDescription * accessor_description) {
+    if (dedicated_implementation_center_ == nullptr) {
+        return nil;
+    } else {
+        return dedicated_implementation_center_ -> getImplementation(accessor_description);
+    }
+}
+
+void nest::ObjCDynamicPropertySynthesizer::ClassDescription::setImplementation(IMP imp, AccessorKind kind, const char * type_encoding, bool is_copy, bool is_retain, bool is_nonatomic, bool is_weak) {
+    _implementationCenter() -> setImplementation(imp, kind, type_encoding, is_copy, is_retain, is_nonatomic, is_weak);
+}
+
 nest::ObjCDynamicPropertySynthesizer::AccessorDescription * nest::ObjCDynamicPropertySynthesizer::ClassDescription::getAccessorDescription(SEL selector) {
     auto raw_selector_name = sel_getName(selector);
     std::unique_ptr<std::string> selector_name (new std::string(raw_selector_name));
+    return _getAccessorDescriptionInClassHierarchy(selector_name);
+}
+
+nest::ObjCDynamicPropertySynthesizer::AccessorDescription * nest::ObjCDynamicPropertySynthesizer::ClassDescription::getAccessorDescription(NSString * key) {
+    std::unique_ptr<std::string> getter_name (new std::string([key UTF8String]));
+    return _getAccessorDescriptionInClassHierarchy(getter_name);
+}
+
+nest::ObjCDynamicPropertySynthesizer::AccessorDescription * nest::ObjCDynamicPropertySynthesizer::ClassDescription::_getAccessorDescriptionInClassHierarchy(std::unique_ptr<std::string> &selector_name) {
+    auto accessor_description = _getAccessorDescriptionInClass(selector_name);
+    
+    if (accessor_description == nullptr) {
+        if (has_parent()) {
+            return parent() -> _getAccessorDescriptionInClassHierarchy(selector_name);
+        }
+    }
+    
+    return accessor_description;
+}
+
+nest::ObjCDynamicPropertySynthesizer::AccessorDescription * nest::ObjCDynamicPropertySynthesizer::ClassDescription::_getAccessorDescriptionInClass(std::unique_ptr<std::string> &selector_name) {
     auto matches = accessor_descriptions_ -> find(selector_name.get());
     if (matches != accessor_descriptions_ -> end()) {
         return matches -> second.get();
     }
 #if DEBUG
-        std::cout << "Missing accessor description for selector: " << * selector_name << std::endl;
-        for (auto &each : * accessor_descriptions_) {
-            std::cout << "Existed accessor description setter: -" << * each.second -> property_attributes -> setter_name << ", getter: -" << * each.second -> property_attributes -> getter_name  << std::endl;
-        }
+    std::cout << "Missing accessor description for selector: " << * selector_name << std::endl;
+    for (auto &each : * accessor_descriptions_) {
+        std::cout << "Existed accessor description setter: -" << * each.second -> property_attributes -> setter_name << ", getter: -" << * each.second -> property_attributes -> getter_name  << std::endl;
+    }
 #endif
     return nullptr;
 }
@@ -350,7 +413,6 @@ IMP nest::ObjCDynamicPropertySynthesizer::ImplementationCenter::getImplementatio
     
     auto identifier = _implemenationIdentifier(property_attributes -> type_encoding -> c_str(), property_attributes -> is_copy, property_attributes -> is_retain, property_attributes -> is_nonatomic, property_attributes -> is_weak);
     
-    
     switch (accessor_description -> kind) {
         case AccessorKind::getter: {
             auto matches = getter_implementations_ -> find(identifier);
@@ -409,12 +471,18 @@ nest::ObjCDynamicPropertySynthesizer::ObjCDynamicPropertySynthesizer() {
 bool nest::ObjCDynamicPropertySynthesizer::isClassPrepared(Class cls) {
     auto class_raw_name = class_getName(cls);
     std::unique_ptr<std::string> class_name (new std::string(class_raw_name));
-    auto matched = class_descriptions_->find(class_name.get());
-    if (matched != class_descriptions_->end()) {
+    auto matched = class_descriptions_ -> find(class_name.get());
+    if (matched != class_descriptions_ -> end()) {
         auto class_description = matched -> second.get();
         return class_description -> is_prepared();
     }
     return false;
+}
+
+bool nest::ObjCDynamicPropertySynthesizer::isDynamicProperty(Class cls, NSString * key) {
+    auto class_description = _prepareClassIfNeeded(cls);
+    auto accessor_description = class_description -> getAccessorDescription(key);
+    return accessor_description != nullptr;
 }
 
 void nest::ObjCDynamicPropertySynthesizer::classDidAddProperty(Class cls, const char * name, const objc_property_attribute_t * attributes, unsigned int attribute_count) {
@@ -433,6 +501,17 @@ bool nest::ObjCDynamicPropertySynthesizer::synthesizeProperty(Class cls, SEL sel
     auto accessor_description = class_description -> getAccessorDescription(selector);
     
     if (accessor_description) {
+        // First, find class specific implementation.
+        IMP class_specific_implementation = class_description -> getImplementation(accessor_description);
+        
+        if (class_specific_implementation != nil) {
+            auto types = accessor_description -> accessor_type_encodings -> c_str();
+            return class_addMethod(cls, selector, class_specific_implementation, types);
+        }
+        
+        // Second, find protocol specific implementation.
+        
+        // Then, find global implementation.
         IMP implementation = ImplementationCenter::shared().getImplementation(accessor_description);
         
         if (implementation) {
@@ -447,6 +526,7 @@ bool nest::ObjCDynamicPropertySynthesizer::synthesizeProperty(Class cls, SEL sel
             }
 #endif
         }
+        
     } else {
 #if DEBUG
         if (class_isMetaClass(cls)) {
@@ -477,19 +557,41 @@ bool nest::ObjCDynamicPropertySynthesizer::addImplementation(IMP imp, AccessorKi
 
 void nest::ObjCDynamicPropertySynthesizer::setClassSpecificImplementation(Class cls, IMP imp, AccessorKind kind, const char * type_encoding, bool is_copy, bool is_retain, bool is_nonatomic, bool is_weak) {
     auto class_description = shared()._prepareClassIfNeeded(cls);
-    class_description -> implementationCenter() -> setImplementation(imp, kind, type_encoding, is_copy, is_retain, is_nonatomic, is_weak);
+    class_description -> setImplementation(imp, kind, type_encoding, is_copy, is_retain, is_nonatomic, is_weak);
 }
 
 nest::ObjCDynamicPropertySynthesizer::ClassDescription * nest::ObjCDynamicPropertySynthesizer::_prepareClassIfNeeded(Class cls) {
-    auto class_raw_name = class_getName(cls);
-    std::unique_ptr<std::string> class_name (new std::string(class_raw_name));
-    auto matched = class_descriptions_ -> find(class_name.get());
-    if(matched == class_descriptions_ -> end()) {
-        std::unique_ptr<ClassDescription> class_description (new ClassDescription(cls));
-        auto emplaced = class_descriptions_ -> emplace(std::make_pair(class_description -> name(), std::move(class_description)));
-        return emplaced.first -> second.get();
-    } else {
-        matched -> second -> prepareIfNeeded();
-        return matched -> second.get();
+    ClassDescription * first_prepared_class_description = nil;
+    
+    ClassDescription * last_prepared_class_description = nil;
+    
+    auto current_class = cls;
+    
+    while (current_class != nil) {
+        auto current_class_raw_name = class_getName(cls);
+        std::unique_ptr<std::string> current_class_name (new std::string(current_class_raw_name));
+        auto matched = class_descriptions_ -> find(current_class_name.get());
+        
+        if(matched == class_descriptions_ -> end()) {
+            auto class_description = std::unique_ptr<ClassDescription>(new ClassDescription(current_class));
+            auto emplaced = class_descriptions_ -> emplace(std::make_pair(class_description -> name(), std::move(class_description)));
+            auto emplaced_class_description = emplaced.first -> second.get();
+            if (!emplaced_class_description -> isParent(last_prepared_class_description)) {
+                last_prepared_class_description -> set_parent(emplaced_class_description);
+            }
+            last_prepared_class_description = emplaced_class_description;
+        } else {
+            auto class_description = matched -> second.get();
+            class_description -> prepareIfNeeded();
+            last_prepared_class_description = class_description;
+        }
+        
+        if (first_prepared_class_description == nil) {
+            first_prepared_class_description = last_prepared_class_description;
+        }
+        
+        current_class = class_getSuperclass(current_class);
     }
+    
+    return first_prepared_class_description;
 }

@@ -9,12 +9,15 @@
 #ifndef ObjCDynamicPropertySynthesizer_hpp
 #define ObjCDynamicPropertySynthesizer_hpp
 
+#import <Foundation/Foundation.h>
+
 #include <objc/runtime.h>
 
 #include <string>
 #include <vector>
 #include <forward_list>
 #include <unordered_map>
+#include <type_traits>
 
 namespace nest {
 #pragma mark - nest::ObjCDynamicPropertySynthesizer
@@ -55,6 +58,7 @@ namespace nest {
             }
         };
         
+    public:
 #pragma mark PropertyAttributes
         struct PropertyAttributes {
         public:
@@ -81,7 +85,6 @@ namespace nest {
             void _init(const char * raw_name, const objc_property_attribute_t * attributes, unsigned int attribute_count);
         };
         
-    public:
 #pragma mark AccessorKind
         enum class AccessorKind: int {
             getter,
@@ -139,13 +142,37 @@ namespace nest {
             
             bool is_prepared() { return is_prepared_; }
             
+            /* Gets accessor description, searches parents */
             AccessorDescription * getAccessorDescription(SEL selector);
+            
+            /* Gets accessor description, searches parents */
+            AccessorDescription * getAccessorDescription(NSString * key);
             
             std::string * name() { return name_.get(); }
             
-            ImplementationCenter * implementationCenter();
+            /* Gets class specific implementation, searches parents */
+            IMP getImplementation(AccessorDescription * accessor_description);
+            
+            /* Sets class specific implementation */
+            void setImplementation(IMP imp, AccessorKind kind, const char * type_encoding, bool is_copy, bool is_retain, bool is_nonatomic, bool is_weak);
+            
+            ClassDescription * parent();
+            
+            void set_parent(ClassDescription * parent);
+            
+            bool isParent(ClassDescription * parent);
+            
+            bool has_parent();
             
         private:
+            ImplementationCenter * _implementationCenter();
+            
+            IMP _getImplementationInClassHierarchy(AccessorDescription * accessor_description);
+            
+            AccessorDescription * _getAccessorDescriptionInClassHierarchy(std::unique_ptr<std::string>& selector_name);
+            
+            AccessorDescription * _getAccessorDescriptionInClass(std::unique_ptr<std::string>& selector_name);
+            
             bool _processPropertyAttributesIfNeeded(std::unique_ptr<PropertyAttributes>& property_attributes);
             
             void _processPropertyAttributes(std::unique_ptr<PropertyAttributes>& property_attributes);
@@ -167,6 +194,8 @@ namespace nest {
             std::unique_ptr<std::unordered_map<std::string *, std::unique_ptr<AccessorDescription>, GlobalUniqueStringPointerHashFunc, IsGlobalUniqueStringPointerEqualFunc>> accessor_descriptions_;
             
             std::unique_ptr<ImplementationCenter> dedicated_implementation_center_;
+            
+            ClassDescription * parent_;
         };
         
 #pragma mark - Member Functions
@@ -177,6 +206,8 @@ namespace nest {
         }
         
         bool isClassPrepared(Class cls);
+        
+        bool isDynamicProperty(Class cls, NSString * key);
         
         void classDidAddProperty(Class cls, const char * name, const objc_property_attribute_t * attributes, unsigned int attribute_count);
         

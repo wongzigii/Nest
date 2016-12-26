@@ -105,13 +105,35 @@ extension RunLoop {
     }
     
     // MARK: Nested Types
-    public enum Timing: Int {
+    public enum Timing: Int, CustomStringConvertible, CustomDebugStringConvertible {
         case nextLoopBegan
         case currentLoopEnded
         case idle
         
         fileprivate static let _all: [Timing] =
             [.currentLoopEnded, .nextLoopBegan, .idle]
+        
+        public var description: String {
+            switch self {
+            case .nextLoopBegan:
+                return "Next Loop Began"
+            case .currentLoopEnded:
+                return "Current Loop Ended"
+            case .idle:
+                return "Idle"
+            }
+        }
+        
+        public var debugDescription: String {
+            switch self {
+            case .nextLoopBegan:
+                return "<\(type(of: self)); Next Loop Began>"
+            case .currentLoopEnded:
+                return "<\(type(of: self)); Current Loop Ended>"
+            case .idle:
+                return "<\(type(of: self)); Idle>"
+            }
+        }
     }
     
     private class _Task {
@@ -232,9 +254,9 @@ extension RunLoop {
 extension CFRunLoopActivity {
     fileprivate init(runLoopTiming: RunLoop.Timing) {
         switch runLoopTiming {
-        case .nextLoopBegan:        self = .afterWaiting
-        case .currentLoopEnded:     self = .beforeWaiting
-        case .idle:                 self = .exit
+        case .nextLoopBegan:        self = .beforeTimers
+        case .currentLoopEnded:     self = .afterWaiting
+        case .idle:                 self = .beforeWaiting
         }
     }
 }

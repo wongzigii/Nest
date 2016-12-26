@@ -21,10 +21,6 @@ class RunLoop_TaskDispatcherTest: XCTestCase {
             description: "testDispatchInvokeTiming"
         )
         
-        RunLoop.current.schedule(in: .commonModes, when: .currentLoopEnded) {
-            self.timingSymbols.append(.currentLoopEnded)
-        }
-        
         RunLoop.current.schedule(in: .commonModes, when: .nextLoopBegan) {
             self.timingSymbols.append(.nextLoopBegan)
         }
@@ -33,19 +29,23 @@ class RunLoop_TaskDispatcherTest: XCTestCase {
             self.timingSymbols.append(.idle)
         }
         
-        RunLoop.current.schedule(in: .commonModes, when: .idle) {
-            if self.timingSymbols
-                == [.currentLoopEnded, .nextLoopBegan, .idle]
-            {
-                expectation.fulfill()
+        RunLoop.current.schedule(in: .commonModes, when: .currentLoopEnded) {
+            self.timingSymbols.append(.currentLoopEnded)
+            
+            RunLoop.current.schedule(in: .commonModes, when: .nextLoopBegan) {
+                if self.timingSymbols
+                    == [.nextLoopBegan, .idle, .currentLoopEnded]
+                {
+                    expectation.fulfill()
+                } else {
+                    print(self.timingSymbols)
+                }
             }
         }
         
-        RunLoop.current.run(until: Date(timeIntervalSinceNow: 3))
-        
-        waitForExpectations(timeout: 3) { (error) -> Void in
+        waitForExpectations(timeout: 1) { (error) -> Void in
             if let error = error {
-                XCTFail("Dispatch invoke timing test failed with error: \(error)")
+                XCTFail("Dispatch invoke timing(\(self.timingSymbols)) test failed with error: \(error)")
             }
         }
     }

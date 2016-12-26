@@ -1,6 +1,11 @@
-explicit module Nest.ObjCKeyValueStoreSubclass {
-    header "ObjCKeyValueStore+Subclass.h"
-}
 explicit module Nest.ObjCDynamicPropertySynthesizer {
     header "ObjCDynamicPropertySynthesizer.h"
+}
+explicit module Nest.ObjCDynamicObjectSubclass {
+    header "ObjCDynamicObject+Subclass.h"
+}
+
+// Depredicated
+explicit module Nest.ObjCKeyValueStoreSubclass {
+    header "ObjCKeyValueStore+Subclass.h"
 }

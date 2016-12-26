@@ -17,14 +17,6 @@
 		631303491E0D9A7000E480DA /* ObjCDynamicPropertySynthesizing.mm in Sources */ = {isa = PBXBuildFile; fileRef = 631303431E0D9A7000E480DA /* ObjCDynamicPropertySynthesizing.mm */; };
 		6313034A1E0D9A7000E480DA /* ObjCDynamicPropertySynthesizing.mm in Sources */ = {isa = PBXBuildFile; fileRef = 631303431E0D9A7000E480DA /* ObjCDynamicPropertySynthesizing.mm */; };
 		6313034B1E0D9A7000E480DA /* ObjCDynamicPropertySynthesizing.mm in Sources */ = {isa = PBXBuildFile; fileRef = 631303431E0D9A7000E480DA /* ObjCDynamicPropertySynthesizing.mm */; };
-		6313034E1E0D9ADA00E480DA /* fishhook.c in Sources */ = {isa = PBXBuildFile; fileRef = 6313034C1E0D9ADA00E480DA /* fishhook.c */; };
-		6313034F1E0D9ADA00E480DA /* fishhook.c in Sources */ = {isa = PBXBuildFile; fileRef = 6313034C1E0D9ADA00E480DA /* fishhook.c */; };
-		631303501E0D9ADA00E480DA /* fishhook.c in Sources */ = {isa = PBXBuildFile; fileRef = 6313034C1E0D9ADA00E480DA /* fishhook.c */; };
-		631303511E0D9ADA00E480DA /* fishhook.c in Sources */ = {isa = PBXBuildFile; fileRef = 6313034C1E0D9ADA00E480DA /* fishhook.c */; };
-		631303521E0D9ADA00E480DA /* fishhook.h in Headers */ = {isa = PBXBuildFile; fileRef = 6313034D1E0D9ADA00E480DA /* fishhook.h */; };
-		631303531E0D9ADA00E480DA /* fishhook.h in Headers */ = {isa = PBXBuildFile; fileRef = 6313034D1E0D9ADA00E480DA /* fishhook.h */; };
-		631303541E0D9ADA00E480DA /* fishhook.h in Headers */ = {isa = PBXBuildFile; fileRef = 6313034D1E0D9ADA00E480DA /* fishhook.h */; };
-		631303551E0D9ADA00E480DA /* fishhook.h in Headers */ = {isa = PBXBuildFile; fileRef = 6313034D1E0D9ADA00E480DA /* fishhook.h */; };
 		631303581E0E058B00E480DA /* ObjCDynamicPropertySynthesizer.mm in Sources */ = {isa = PBXBuildFile; fileRef = 631303561E0E058B00E480DA /* ObjCDynamicPropertySynthesizer.mm */; };
 		631303591E0E058B00E480DA /* ObjCDynamicPropertySynthesizer.mm in Sources */ = {isa = PBXBuildFile; fileRef = 631303561E0E058B00E480DA /* ObjCDynamicPropertySynthesizer.mm */; };
 		6313035A1E0E058B00E480DA /* ObjCDynamicPropertySynthesizer.mm in Sources */ = {isa = PBXBuildFile; fileRef = 631303561E0E058B00E480DA /* ObjCDynamicPropertySynthesizer.mm */; };
@@ -40,14 +32,6 @@
 		631303701E0FA7CD00E480DA /* ObjCDynamicPropertySynthesizer.h in Headers */ = {isa = PBXBuildFile; fileRef = 6313036E1E0FA7AB00E480DA /* ObjCDynamicPropertySynthesizer.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		631303711E0FA7CD00E480DA /* ObjCDynamicPropertySynthesizer.h in Headers */ = {isa = PBXBuildFile; fileRef = 6313036E1E0FA7AB00E480DA /* ObjCDynamicPropertySynthesizer.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		631303721E0FA7CE00E480DA /* ObjCDynamicPropertySynthesizer.h in Headers */ = {isa = PBXBuildFile; fileRef = 6313036E1E0FA7AB00E480DA /* ObjCDynamicPropertySynthesizer.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		631303741E0FADD100E480DA /* MacroUtilities.h in Headers */ = {isa = PBXBuildFile; fileRef = 631303731E0FADCB00E480DA /* MacroUtilities.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		631303751E0FADD100E480DA /* MacroUtilities.h in Headers */ = {isa = PBXBuildFile; fileRef = 631303731E0FADCB00E480DA /* MacroUtilities.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		631303761E0FADD200E480DA /* MacroUtilities.h in Headers */ = {isa = PBXBuildFile; fileRef = 631303731E0FADCB00E480DA /* MacroUtilities.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		631303771E0FADD200E480DA /* MacroUtilities.h in Headers */ = {isa = PBXBuildFile; fileRef = 631303731E0FADCB00E480DA /* MacroUtilities.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		631303791E0FC85B00E480DA /* Metamacros.h in Headers */ = {isa = PBXBuildFile; fileRef = 631303781E0FC82100E480DA /* Metamacros.h */; };
-		6313037A1E0FC85C00E480DA /* Metamacros.h in Headers */ = {isa = PBXBuildFile; fileRef = 631303781E0FC82100E480DA /* Metamacros.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		6313037B1E0FC85C00E480DA /* Metamacros.h in Headers */ = {isa = PBXBuildFile; fileRef = 631303781E0FC82100E480DA /* Metamacros.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		6313037C1E0FC85D00E480DA /* Metamacros.h in Headers */ = {isa = PBXBuildFile; fileRef = 631303781E0FC82100E480DA /* Metamacros.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		631303871E10064100E480DA /* ObjCDynamicPropertyAccessors.m in Sources */ = {isa = PBXBuildFile; fileRef = 631303651E0F009100E480DA /* ObjCDynamicPropertyAccessors.m */; };
 		631303881E10064100E480DA /* ObjCDynamicPropertyAccessors.m in Sources */ = {isa = PBXBuildFile; fileRef = 631303651E0F009100E480DA /* ObjCDynamicPropertyAccessors.m */; };
 		631303891E10064200E480DA /* ObjCDynamicPropertyAccessors.m in Sources */ = {isa = PBXBuildFile; fileRef = 631303651E0F009100E480DA /* ObjCDynamicPropertyAccessors.m */; };
@@ -88,6 +72,41 @@
 		6362CF041E10E0F800610F77 /* ObjCDynamicPropertyAccessors-AVFoundation.m in Sources */ = {isa = PBXBuildFile; fileRef = 6362CF031E10E0F800610F77 /* ObjCDynamicPropertyAccessors-AVFoundation.m */; };
 		6362CF051E10E0F800610F77 /* ObjCDynamicPropertyAccessors-AVFoundation.m in Sources */ = {isa = PBXBuildFile; fileRef = 6362CF031E10E0F800610F77 /* ObjCDynamicPropertyAccessors-AVFoundation.m */; };
 		6362CF061E10E0F800610F77 /* ObjCDynamicPropertyAccessors-AVFoundation.m in Sources */ = {isa = PBXBuildFile; fileRef = 6362CF031E10E0F800610F77 /* ObjCDynamicPropertyAccessors-AVFoundation.m */; };
+		6362CF0C1E10E77E00610F77 /* fishhook.c in Sources */ = {isa = PBXBuildFile; fileRef = 6362CF081E10E77E00610F77 /* fishhook.c */; };
+		6362CF0D1E10E77E00610F77 /* fishhook.c in Sources */ = {isa = PBXBuildFile; fileRef = 6362CF081E10E77E00610F77 /* fishhook.c */; };
+		6362CF0E1E10E77E00610F77 /* fishhook.c in Sources */ = {isa = PBXBuildFile; fileRef = 6362CF081E10E77E00610F77 /* fishhook.c */; };
+		6362CF0F1E10E77E00610F77 /* fishhook.h in Headers */ = {isa = PBXBuildFile; fileRef = 6362CF091E10E77E00610F77 /* fishhook.h */; };
+		6362CF101E10E77E00610F77 /* fishhook.h in Headers */ = {isa = PBXBuildFile; fileRef = 6362CF091E10E77E00610F77 /* fishhook.h */; };
+		6362CF111E10E77E00610F77 /* fishhook.h in Headers */ = {isa = PBXBuildFile; fileRef = 6362CF091E10E77E00610F77 /* fishhook.h */; };
+		6362CF121E10E77E00610F77 /* MacroUtilities.h in Headers */ = {isa = PBXBuildFile; fileRef = 6362CF0A1E10E77E00610F77 /* MacroUtilities.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6362CF131E10E77E00610F77 /* MacroUtilities.h in Headers */ = {isa = PBXBuildFile; fileRef = 6362CF0A1E10E77E00610F77 /* MacroUtilities.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6362CF141E10E77E00610F77 /* MacroUtilities.h in Headers */ = {isa = PBXBuildFile; fileRef = 6362CF0A1E10E77E00610F77 /* MacroUtilities.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6362CF151E10E77E00610F77 /* Metamacros.h in Headers */ = {isa = PBXBuildFile; fileRef = 6362CF0B1E10E77E00610F77 /* Metamacros.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6362CF161E10E77E00610F77 /* Metamacros.h in Headers */ = {isa = PBXBuildFile; fileRef = 6362CF0B1E10E77E00610F77 /* Metamacros.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6362CF171E10E77E00610F77 /* Metamacros.h in Headers */ = {isa = PBXBuildFile; fileRef = 6362CF0B1E10E77E00610F77 /* Metamacros.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6362CF1A1E10F9CB00610F77 /* ObjCDynamicObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 6362CF181E10F9CB00610F77 /* ObjCDynamicObject.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6362CF1B1E10F9CB00610F77 /* ObjCDynamicObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 6362CF181E10F9CB00610F77 /* ObjCDynamicObject.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6362CF1C1E10F9CB00610F77 /* ObjCDynamicObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 6362CF181E10F9CB00610F77 /* ObjCDynamicObject.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6362CF1D1E10F9CB00610F77 /* ObjCDynamicObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 6362CF181E10F9CB00610F77 /* ObjCDynamicObject.h */; };
+		6362CF1E1E10F9CB00610F77 /* ObjCDynamicObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 6362CF191E10F9CB00610F77 /* ObjCDynamicObject.m */; };
+		6362CF1F1E10F9CB00610F77 /* ObjCDynamicObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 6362CF191E10F9CB00610F77 /* ObjCDynamicObject.m */; };
+		6362CF201E10F9CB00610F77 /* ObjCDynamicObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 6362CF191E10F9CB00610F77 /* ObjCDynamicObject.m */; };
+		6362CF211E10F9CB00610F77 /* ObjCDynamicObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 6362CF191E10F9CB00610F77 /* ObjCDynamicObject.m */; };
+		6362CF241E10FA5000610F77 /* ObjCDynamicObject+Subclass.h in Headers */ = {isa = PBXBuildFile; fileRef = 6362CF221E10FA5000610F77 /* ObjCDynamicObject+Subclass.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		6362CF251E10FA5000610F77 /* ObjCDynamicObject+Subclass.h in Headers */ = {isa = PBXBuildFile; fileRef = 6362CF221E10FA5000610F77 /* ObjCDynamicObject+Subclass.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		6362CF261E10FA5000610F77 /* ObjCDynamicObject+Subclass.h in Headers */ = {isa = PBXBuildFile; fileRef = 6362CF221E10FA5000610F77 /* ObjCDynamicObject+Subclass.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		6362CF271E10FA5000610F77 /* ObjCDynamicObject+Subclass.h in Headers */ = {isa = PBXBuildFile; fileRef = 6362CF221E10FA5000610F77 /* ObjCDynamicObject+Subclass.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		6362CF2E1E10FE3500610F77 /* ObjCDynamicCoder.h in Headers */ = {isa = PBXBuildFile; fileRef = 6362CF2C1E10FE3500610F77 /* ObjCDynamicCoder.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6362CF2F1E10FE3500610F77 /* ObjCDynamicCoder.h in Headers */ = {isa = PBXBuildFile; fileRef = 6362CF2C1E10FE3500610F77 /* ObjCDynamicCoder.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6362CF301E10FE3500610F77 /* ObjCDynamicCoder.h in Headers */ = {isa = PBXBuildFile; fileRef = 6362CF2C1E10FE3500610F77 /* ObjCDynamicCoder.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6362CF311E10FE3500610F77 /* ObjCDynamicCoder.h in Headers */ = {isa = PBXBuildFile; fileRef = 6362CF2C1E10FE3500610F77 /* ObjCDynamicCoder.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6362CF321E10FE3500610F77 /* ObjCDynamicCoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 6362CF2D1E10FE3500610F77 /* ObjCDynamicCoder.m */; };
+		6362CF331E10FE3500610F77 /* ObjCDynamicCoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 6362CF2D1E10FE3500610F77 /* ObjCDynamicCoder.m */; };
+		6362CF341E10FE3500610F77 /* ObjCDynamicCoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 6362CF2D1E10FE3500610F77 /* ObjCDynamicCoder.m */; };
+		6362CF351E10FE3500610F77 /* ObjCDynamicCoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 6362CF2D1E10FE3500610F77 /* ObjCDynamicCoder.m */; };
+		6362CF381E11026800610F77 /* ObjCDynamicCoderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6362CF371E11026800610F77 /* ObjCDynamicCoderTests.swift */; };
+		6362CF391E11026800610F77 /* ObjCDynamicCoderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6362CF371E11026800610F77 /* ObjCDynamicCoderTests.swift */; };
+		6362CF3A1E11026800610F77 /* ObjCDynamicCoderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6362CF371E11026800610F77 /* ObjCDynamicCoderTests.swift */; };
 		638018FA1DBB59F700968738 /* ObjCGraftProtocolImplementation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 638018F91DBB59F700968738 /* ObjCGraftProtocolImplementation.swift */; };
 		638018FB1DBB59F700968738 /* ObjCGraftProtocolImplementation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 638018F91DBB59F700968738 /* ObjCGraftProtocolImplementation.swift */; };
 		638018FC1DBB59F700968738 /* ObjCGraftProtocolImplementation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 638018F91DBB59F700968738 /* ObjCGraftProtocolImplementation.swift */; };
@@ -353,15 +372,11 @@
 		630B4DC11B48FF4C00830454 /* SwiftExt.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftExt.framework; path = "../../../Library/Developer/Xcode/DerivedData/Nest-bzfrrjnuqyhzlggnfhrwoghdkynv/Build/Products/Debug/SwiftExt.framework"; sourceTree = "<group>"; };
 		631303421E0D9A7000E480DA /* ObjCDynamicPropertySynthesizing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ObjCDynamicPropertySynthesizing.h; sourceTree = "<group>"; };
 		631303431E0D9A7000E480DA /* ObjCDynamicPropertySynthesizing.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ObjCDynamicPropertySynthesizing.mm; sourceTree = "<group>"; };
-		6313034C1E0D9ADA00E480DA /* fishhook.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = fishhook.c; sourceTree = "<group>"; };
-		6313034D1E0D9ADA00E480DA /* fishhook.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = fishhook.h; sourceTree = "<group>"; };
 		631303561E0E058B00E480DA /* ObjCDynamicPropertySynthesizer.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ObjCDynamicPropertySynthesizer.mm; sourceTree = "<group>"; };
 		631303571E0E058B00E480DA /* ObjCDynamicPropertySynthesizer.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ObjCDynamicPropertySynthesizer.hpp; sourceTree = "<group>"; };
 		631303601E0E8CB800E480DA /* ObjCDynamicPropertySynthesizingTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ObjCDynamicPropertySynthesizingTests.m; sourceTree = "<group>"; };
 		631303651E0F009100E480DA /* ObjCDynamicPropertyAccessors.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ObjCDynamicPropertyAccessors.m; sourceTree = "<group>"; };
 		6313036E1E0FA7AB00E480DA /* ObjCDynamicPropertySynthesizer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ObjCDynamicPropertySynthesizer.h; sourceTree = "<group>"; };
-		631303731E0FADCB00E480DA /* MacroUtilities.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MacroUtilities.h; sourceTree = "<group>"; };
-		631303781E0FC82100E480DA /* Metamacros.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Metamacros.h; sourceTree = "<group>"; };
 		6315CB4A1BFD8745003A5840 /* ObjCSelfAwareSwizzle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ObjCSelfAwareSwizzle.m; sourceTree = "<group>"; };
 		632313131B65D8A700AEA8EF /* SwiftExt.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftExt.framework; path = "Frameworks/SwiftExt/build/Debug-iphoneos/SwiftExt.framework"; sourceTree = "<group>"; };
 		632313151B65D8B100AEA8EF /* SwiftExt.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftExt.framework; path = Frameworks/SwiftExt/build/Debug/SwiftExt.framework; sourceTree = "<group>"; };
@@ -408,6 +423,16 @@
 		6362CEF01E10DC9F00610F77 /* ObjCDynamicPropertyAccessors-QuartzCore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ObjCDynamicPropertyAccessors-QuartzCore.m"; sourceTree = "<group>"; };
 		6362CEFA1E10DE1E00610F77 /* ObjCDynamicPropertyAccessors-UIKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ObjCDynamicPropertyAccessors-UIKit.m"; sourceTree = "<group>"; };
 		6362CF031E10E0F800610F77 /* ObjCDynamicPropertyAccessors-AVFoundation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ObjCDynamicPropertyAccessors-AVFoundation.m"; sourceTree = "<group>"; };
+		6362CF081E10E77E00610F77 /* fishhook.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = fishhook.c; sourceTree = "<group>"; };
+		6362CF091E10E77E00610F77 /* fishhook.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = fishhook.h; sourceTree = "<group>"; };
+		6362CF0A1E10E77E00610F77 /* MacroUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MacroUtilities.h; sourceTree = "<group>"; };
+		6362CF0B1E10E77E00610F77 /* Metamacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Metamacros.h; sourceTree = "<group>"; };
+		6362CF181E10F9CB00610F77 /* ObjCDynamicObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ObjCDynamicObject.h; sourceTree = "<group>"; };
+		6362CF191E10F9CB00610F77 /* ObjCDynamicObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ObjCDynamicObject.m; sourceTree = "<group>"; };
+		6362CF221E10FA5000610F77 /* ObjCDynamicObject+Subclass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ObjCDynamicObject+Subclass.h"; sourceTree = "<group>"; };
+		6362CF2C1E10FE3500610F77 /* ObjCDynamicCoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ObjCDynamicCoder.h; sourceTree = "<group>"; };
+		6362CF2D1E10FE3500610F77 /* ObjCDynamicCoder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ObjCDynamicCoder.m; sourceTree = "<group>"; };
+		6362CF371E11026800610F77 /* ObjCDynamicCoderTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObjCDynamicCoderTests.swift; sourceTree = "<group>"; };
 		6366D0CA1D69817400A4D01C /* NSManagedObject+InitWithContext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSManagedObject+InitWithContext.swift"; sourceTree = "<group>"; };
 		6371F1F91C7F35FC00837BB7 /* ObjCCodingBase+Internal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ObjCCodingBase+Internal.h"; sourceTree = "<group>"; };
 		6371F1FA1C7F35FC00837BB7 /* ObjCCodingBase+Internal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ObjCCodingBase+Internal.m"; sourceTree = "<group>"; };
@@ -590,6 +615,7 @@
 		633ECE891C1542820082D870 /* NestTests */ = {
 			isa = PBXGroup;
 			children = (
+				6362CF371E11026800610F77 /* ObjCDynamicCoderTests.swift */,
 				631303601E0E8CB800E480DA /* ObjCDynamicPropertySynthesizingTests.m */,
 				633ECE8E1C1542820082D870 /* RunLoop+TaskDispatcherTest.swift */,
 				633ECED01C157BD10082D870 /* NSCoderInterfaceNormalizationTest.swift */,
@@ -638,7 +664,7 @@
 				63C886341C7F15E200F5677F /* Legacy */,
 				635F108E1BFAFABB004982B4 /* Components */,
 				635F109A1BFAFABB004982B4 /* Extensions */,
-				635F10A91BFAFABB004982B4 /* Miscellaneous */,
+				6362CF071E10E77E00610F77 /* Miscellaneous */,
 				635F10AB1BFAFABB004982B4 /* Swiftifized */,
 			);
 			path = Nest;
@@ -653,14 +679,11 @@
 				6313036E1E0FA7AB00E480DA /* ObjCDynamicPropertySynthesizer.h */,
 				631303571E0E058B00E480DA /* ObjCDynamicPropertySynthesizer.hpp */,
 				631303561E0E058B00E480DA /* ObjCDynamicPropertySynthesizer.mm */,
-				637A56101C88348F001A178A /* ObjCKeyValueStore.h */,
-				637A56111C88348F001A178A /* ObjCKeyValueStore.m */,
-				6304575D1D8AE0F2007EA6A3 /* ObjCKeyValueStore+Subclass.h */,
-				637A561A1C88358B001A178A /* ObjCKeyValueStore+Internal.h */,
-				637A561B1C88358B001A178A /* ObjCKeyValueStore+Internal.m */,
-				637A56251C883AF0001A178A /* ObjCKeyValueStore+DefaultAccessors.m */,
-				63DCC6991C64D753001949C9 /* ObjCCodingBase.h */,
-				63DCC69A1C64D753001949C9 /* ObjCCodingBase.m */,
+				6362CF181E10F9CB00610F77 /* ObjCDynamicObject.h */,
+				6362CF191E10F9CB00610F77 /* ObjCDynamicObject.m */,
+				6362CF221E10FA5000610F77 /* ObjCDynamicObject+Subclass.h */,
+				6362CF2C1E10FE3500610F77 /* ObjCDynamicCoder.h */,
+				6362CF2D1E10FE3500610F77 /* ObjCDynamicCoder.m */,
 				6371F1F91C7F35FC00837BB7 /* ObjCCodingBase+Internal.h */,
 				6371F1FA1C7F35FC00837BB7 /* ObjCCodingBase+Internal.m */,
 				635F10911BFAFABB004982B4 /* ObjCNormalizedCoding.swift */,
@@ -683,6 +706,7 @@
 				63ED9D441DCAE7B500C59DDB /* NSManagedObjectContextChangesExporter.swift */,
 				63ED9D4E1DCAE82D00C59DDB /* Notification+ManagedObjectChanges.swift */,
 				63FCD5641DB77EB20074AA3C /* FetchRequestTemplating.swift */,
+				6362CF361E11017800610F77 /* Deprecated */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -703,13 +727,6 @@
 				63314AD41DCB7E18004A2B7B /* DispatchQueue.swift */,
 			);
 			path = Extensions;
-			sourceTree = "<group>";
-		};
-		635F10A91BFAFABB004982B4 /* Miscellaneous */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Miscellaneous;
 			sourceTree = "<group>";
 		};
 		635F10AB1BFAFABB004982B4 /* Swiftifized */ = {
@@ -819,11 +836,35 @@
 			path = QuartzCore;
 			sourceTree = "<group>";
 		};
+		6362CF071E10E77E00610F77 /* Miscellaneous */ = {
+			isa = PBXGroup;
+			children = (
+				6362CF0A1E10E77E00610F77 /* MacroUtilities.h */,
+				6362CF0B1E10E77E00610F77 /* Metamacros.h */,
+				6362CF091E10E77E00610F77 /* fishhook.h */,
+				6362CF081E10E77E00610F77 /* fishhook.c */,
+			);
+			path = Miscellaneous;
+			sourceTree = "<group>";
+		};
+		6362CF361E11017800610F77 /* Deprecated */ = {
+			isa = PBXGroup;
+			children = (
+				637A56101C88348F001A178A /* ObjCKeyValueStore.h */,
+				637A56111C88348F001A178A /* ObjCKeyValueStore.m */,
+				6304575D1D8AE0F2007EA6A3 /* ObjCKeyValueStore+Subclass.h */,
+				637A561A1C88358B001A178A /* ObjCKeyValueStore+Internal.h */,
+				637A561B1C88358B001A178A /* ObjCKeyValueStore+Internal.m */,
+				637A56251C883AF0001A178A /* ObjCKeyValueStore+DefaultAccessors.m */,
+				63DCC6991C64D753001949C9 /* ObjCCodingBase.h */,
+				63DCC69A1C64D753001949C9 /* ObjCCodingBase.m */,
+			);
+			name = Deprecated;
+			sourceTree = "<group>";
+		};
 		63C886341C7F15E200F5677F /* Legacy */ = {
 			isa = PBXGroup;
 			children = (
-				631303781E0FC82100E480DA /* Metamacros.h */,
-				631303731E0FADCB00E480DA /* MacroUtilities.h */,
 				63C886351C7F15F300F5677F /* LegacyUtilities.h */,
 				63C886361C7F15F300F5677F /* LegacyUtilities.m */,
 			);
@@ -833,8 +874,6 @@
 		63DCC6A71C64E400001949C9 /* SupportingFiles */ = {
 			isa = PBXGroup;
 			children = (
-				6313034D1E0D9ADA00E480DA /* fishhook.h */,
-				6313034C1E0D9ADA00E480DA /* fishhook.c */,
 				63C8862F1C7F146400F5677F /* Nest.h */,
 				634A45A41D8AE3C4000989F0 /* module.modulemap */,
 				63CB5A131D8DBA1C0043E16F /* module.private.modulemap */,
@@ -853,18 +892,18 @@
 				63F1FDFD1C80AA6D00A271B9 /* Nest.h in Headers */,
 				6313035E1E0E058B00E480DA /* ObjCDynamicPropertySynthesizer.hpp in Headers */,
 				63E3EC8F1DA251A900AEA8C3 /* ObjCCodingBase.h in Headers */,
-				631303761E0FADD200E480DA /* MacroUtilities.h in Headers */,
-				6313037A1E0FC85C00E480DA /* Metamacros.h in Headers */,
 				63C886391C7F15F300F5677F /* LegacyUtilities.h in Headers */,
 				631303461E0D9A7000E480DA /* ObjCDynamicPropertySynthesizing.h in Headers */,
 				63E3EC8C1DA251A900AEA8C3 /* ObjCKeyValueStore+Internal.h in Headers */,
 				63E3EC911DA251A900AEA8C3 /* ObjCCodingBase+Internal.h in Headers */,
+				6362CF301E10FE3500610F77 /* ObjCDynamicCoder.h in Headers */,
 				63E3EC8B1DA251A900AEA8C3 /* ObjCKeyValueStore+Subclass.h in Headers */,
+				6362CF261E10FA5000610F77 /* ObjCDynamicObject+Subclass.h in Headers */,
 				63CB03DE1E0D5632009ABA2B /* LaunchTask-watchOS.h in Headers */,
 				63E3EC891DA251A900AEA8C3 /* ObjCKeyValueStore.h in Headers */,
 				63E3ECA21DA251A900AEA8C3 /* LaunchTask+Internal.h in Headers */,
-				631303541E0D9ADA00E480DA /* fishhook.h in Headers */,
 				631303701E0FA7CD00E480DA /* ObjCDynamicPropertySynthesizer.h in Headers */,
+				6362CF1C1E10F9CB00610F77 /* ObjCDynamicObject.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -876,17 +915,20 @@
 				63E3ECC51DA251A900AEA8C3 /* ObjCCodingBase.h in Headers */,
 				6313035C1E0E058B00E480DA /* ObjCDynamicPropertySynthesizer.hpp in Headers */,
 				63FE42891DA265A0002E45C8 /* LaunchTask.h in Headers */,
-				631303741E0FADD100E480DA /* MacroUtilities.h in Headers */,
-				6313037C1E0FC85D00E480DA /* Metamacros.h in Headers */,
+				6362CF121E10E77E00610F77 /* MacroUtilities.h in Headers */,
+				6362CF151E10E77E00610F77 /* Metamacros.h in Headers */,
 				63C886371C7F15F300F5677F /* LegacyUtilities.h in Headers */,
 				631303441E0D9A7000E480DA /* ObjCDynamicPropertySynthesizing.h in Headers */,
 				63E3ECC21DA251A900AEA8C3 /* ObjCKeyValueStore+Internal.h in Headers */,
+				6362CF241E10FA5000610F77 /* ObjCDynamicObject+Subclass.h in Headers */,
 				63E3ECC71DA251A900AEA8C3 /* ObjCCodingBase+Internal.h in Headers */,
+				6362CF0F1E10E77E00610F77 /* fishhook.h in Headers */,
 				63E3ECC11DA251A900AEA8C3 /* ObjCKeyValueStore+Subclass.h in Headers */,
+				6362CF1A1E10F9CB00610F77 /* ObjCDynamicObject.h in Headers */,
+				6362CF2E1E10FE3500610F77 /* ObjCDynamicCoder.h in Headers */,
 				63E3ECBF1DA251A900AEA8C3 /* ObjCKeyValueStore.h in Headers */,
 				63E3ECD81DA251A900AEA8C3 /* LaunchTask+Internal.h in Headers */,
 				63CB03E11E0D563B009ABA2B /* LaunchTask-iOS.h in Headers */,
-				631303521E0D9ADA00E480DA /* fishhook.h in Headers */,
 				631303721E0FA7CE00E480DA /* ObjCDynamicPropertySynthesizer.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -899,17 +941,20 @@
 				63F1FDFC1C80AA6C00A271B9 /* Nest.h in Headers */,
 				6313035D1E0E058B00E480DA /* ObjCDynamicPropertySynthesizer.hpp in Headers */,
 				63E3ECAA1DA251A900AEA8C3 /* ObjCCodingBase.h in Headers */,
-				631303751E0FADD100E480DA /* MacroUtilities.h in Headers */,
-				6313037B1E0FC85C00E480DA /* Metamacros.h in Headers */,
+				6362CF131E10E77E00610F77 /* MacroUtilities.h in Headers */,
+				6362CF161E10E77E00610F77 /* Metamacros.h in Headers */,
 				63C886381C7F15F300F5677F /* LegacyUtilities.h in Headers */,
 				631303451E0D9A7000E480DA /* ObjCDynamicPropertySynthesizing.h in Headers */,
 				63E3ECA71DA251A900AEA8C3 /* ObjCKeyValueStore+Internal.h in Headers */,
+				6362CF251E10FA5000610F77 /* ObjCDynamicObject+Subclass.h in Headers */,
 				63E3ECAC1DA251A900AEA8C3 /* ObjCCodingBase+Internal.h in Headers */,
+				6362CF101E10E77E00610F77 /* fishhook.h in Headers */,
 				63CB03E01E0D5637009ABA2B /* LaunchTask-macOS.h in Headers */,
+				6362CF1B1E10F9CB00610F77 /* ObjCDynamicObject.h in Headers */,
+				6362CF2F1E10FE3500610F77 /* ObjCDynamicCoder.h in Headers */,
 				63E3ECA61DA251A900AEA8C3 /* ObjCKeyValueStore+Subclass.h in Headers */,
 				63E3ECA41DA251A900AEA8C3 /* ObjCKeyValueStore.h in Headers */,
 				63E3ECBD1DA251A900AEA8C3 /* LaunchTask+Internal.h in Headers */,
-				631303531E0D9ADA00E480DA /* fishhook.h in Headers */,
 				631303711E0FA7CD00E480DA /* ObjCDynamicPropertySynthesizer.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -922,17 +967,20 @@
 				63F1FDFE1C80AA6D00A271B9 /* Nest.h in Headers */,
 				6313035F1E0E058B00E480DA /* ObjCDynamicPropertySynthesizer.hpp in Headers */,
 				63E3EC741DA251A800AEA8C3 /* ObjCCodingBase.h in Headers */,
-				631303771E0FADD200E480DA /* MacroUtilities.h in Headers */,
-				631303791E0FC85B00E480DA /* Metamacros.h in Headers */,
+				6362CF141E10E77E00610F77 /* MacroUtilities.h in Headers */,
+				6362CF171E10E77E00610F77 /* Metamacros.h in Headers */,
 				63CB03DF1E0D5634009ABA2B /* LaunchTask-tvOS.h in Headers */,
 				631303471E0D9A7000E480DA /* ObjCDynamicPropertySynthesizing.h in Headers */,
 				63C8863A1C7F15F300F5677F /* LegacyUtilities.h in Headers */,
+				6362CF271E10FA5000610F77 /* ObjCDynamicObject+Subclass.h in Headers */,
 				63E3EC711DA251A800AEA8C3 /* ObjCKeyValueStore+Internal.h in Headers */,
+				6362CF111E10E77E00610F77 /* fishhook.h in Headers */,
 				63E3EC761DA251A800AEA8C3 /* ObjCCodingBase+Internal.h in Headers */,
+				6362CF1D1E10F9CB00610F77 /* ObjCDynamicObject.h in Headers */,
+				6362CF311E10FE3500610F77 /* ObjCDynamicCoder.h in Headers */,
 				63E3EC701DA251A800AEA8C3 /* ObjCKeyValueStore+Subclass.h in Headers */,
 				63E3EC6E1DA251A800AEA8C3 /* ObjCKeyValueStore.h in Headers */,
 				63E3EC871DA251A800AEA8C3 /* LaunchTask+Internal.h in Headers */,
-				631303551E0D9ADA00E480DA /* fishhook.h in Headers */,
 				6313036F1E0FA7CC00E480DA /* ObjCDynamicPropertySynthesizer.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1203,14 +1251,15 @@
 				63E3EC9C1DA251A900AEA8C3 /* ObjCSelfAwareSwizzleImplSource.swift in Sources */,
 				63B55A391DCF90A3008A8E2C /* NSManagedObject+Transient.swift in Sources */,
 				63FCD5671DB77EB20074AA3C /* FetchRequestTemplating.swift in Sources */,
+				6362CF341E10FE3500610F77 /* ObjCDynamicCoder.m in Sources */,
 				63E3ECFA1DA2535A00AEA8C3 /* ObjCKeyValueStore-UIKit.m in Sources */,
-				631303501E0D9ADA00E480DA /* fishhook.c in Sources */,
 				63ED9D4C1DCAE7B500C59DDB /* NSManagedObjectContextChangesImporter.swift in Sources */,
 				63E3EC8D1DA251A900AEA8C3 /* ObjCKeyValueStore+Internal.m in Sources */,
 				63E3EC901DA251A900AEA8C3 /* ObjCCodingBase.m in Sources */,
 				63E3ED121DA2537300AEA8C3 /* ObjCKeyValueStore-CoreGraphics.m in Sources */,
 				63CB038E1E0D4B9C009ABA2B /* ObjCNormalizedCoding-CoreGraphics.swift in Sources */,
 				63E3EC971DA251A900AEA8C3 /* ObjCProtocolMessageIntercepting.swift in Sources */,
+				6362CF201E10F9CB00610F77 /* ObjCDynamicObject.m in Sources */,
 				63E3EC531DA2519100AEA8C3 /* CFRunLoopActivity+CustomDebugStringConvertible.swift in Sources */,
 				63E3EC991DA251A900AEA8C3 /* ObjCSelectorMessageInterceptor.swift in Sources */,
 				63E3EC9B1DA251A900AEA8C3 /* ObjCSelfAwareSwizzle+Utilities.swift in Sources */,
@@ -1239,9 +1288,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				63E3ECCA1DA251A900AEA8C3 /* ObjCTypeEncoding.swift in Sources */,
+				6362CF0C1E10E77E00610F77 /* fishhook.c in Sources */,
 				63C8863B1C7F15F300F5677F /* LegacyUtilities.m in Sources */,
 				63E3ECE31DA251FA00AEA8C3 /* NSManagedObjectChangeKey.swift in Sources */,
 				63ED9D4F1DCAE82D00C59DDB /* Notification+ManagedObjectChanges.swift in Sources */,
+				6362CF321E10FE3500610F77 /* ObjCDynamicCoder.m in Sources */,
 				63FCD5651DB77EB20074AA3C /* FetchRequestTemplating.swift in Sources */,
 				63FE427F1DA26576002E45C8 /* ObjCKeyValueStore-UIKit.m in Sources */,
 				63E3EC6C1DA2519200AEA8C3 /* Bundle.swift in Sources */,
@@ -1278,6 +1329,7 @@
 				63FE428A1DA265A0002E45C8 /* LaunchTask.m in Sources */,
 				63E3ECD11DA251A900AEA8C3 /* ObjCSelfAwareSwizzle+Utilities.swift in Sources */,
 				63E3ECC81DA251A900AEA8C3 /* ObjCCodingBase+Internal.m in Sources */,
+				6362CF1E1E10F9CB00610F77 /* ObjCDynamicObject.m in Sources */,
 				63B3766E1E0D20E00058FA90 /* NSCoder+InterfaceNormalization.swift in Sources */,
 				63E3EC6D1DA2519200AEA8C3 /* NSManagedObject+InitWithContext.swift in Sources */,
 				63F295581DBF7D57001A52F3 /* ObjCSelfAwareSwizzle.m in Sources */,
@@ -1290,7 +1342,6 @@
 				63CB03E61E0D57C5009ABA2B /* ObjCNormalizedCoding-UIKit.swift in Sources */,
 				63E3ECCB1DA251A900AEA8C3 /* ObjCAssociated.swift in Sources */,
 				63E3ECE21DA251FA00AEA8C3 /* NSPersistentStoreKind.swift in Sources */,
-				6313034E1E0D9ADA00E480DA /* fishhook.c in Sources */,
 				63E3EC681DA2519200AEA8C3 /* RunLoop+TaskDispatcher.swift in Sources */,
 				63B55A371DCF90A3008A8E2C /* NSManagedObject+Transient.swift in Sources */,
 				63E3ECC91DA251A900AEA8C3 /* ObjCNormalizedCoding.swift in Sources */,
@@ -1310,6 +1361,7 @@
 				63ED9D541DCAF33B00C59DDB /* NSManagedObjectContextChangesExporterImporterTests.swift in Sources */,
 				633ECEAA1C1542FF0082D870 /* RunLoop+TaskDispatcherTest.swift in Sources */,
 				631303611E0E8CB800E480DA /* ObjCDynamicPropertySynthesizingTests.m in Sources */,
+				6362CF381E11026800610F77 /* ObjCDynamicCoderTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1319,6 +1371,7 @@
 			files = (
 				63ED9D471DCAE7B500C59DDB /* NSManagedObjectContextChangesExporter.swift in Sources */,
 				6362CF051E10E0F800610F77 /* ObjCDynamicPropertyAccessors-AVFoundation.m in Sources */,
+				6362CF1F1E10F9CB00610F77 /* ObjCDynamicObject.m in Sources */,
 				63E3ECAF1DA251A900AEA8C3 /* ObjCTypeEncoding.swift in Sources */,
 				63B55A381DCF90A3008A8E2C /* NSManagedObject+Transient.swift in Sources */,
 				63E3ED101DA2537300AEA8C3 /* ObjCCodingBase-CoreGraphics.m in Sources */,
@@ -1343,7 +1396,6 @@
 				63E3ECA91DA251A900AEA8C3 /* ObjCKeyValueStore+DefaultAccessors.m in Sources */,
 				63E3ED191DA2538B00AEA8C3 /* PersistentController.swift in Sources */,
 				63E3ECB71DA251A900AEA8C3 /* ObjCSelfAwareSwizzleImplSource.swift in Sources */,
-				6313034F1E0D9ADA00E480DA /* fishhook.c in Sources */,
 				63FD11931DFA735400C46962 /* NSObject+That.swift in Sources */,
 				63CB03E91E0D57CF009ABA2B /* ObjCNormalizedCoding-AppKit.swift in Sources */,
 				63E3ECA81DA251A900AEA8C3 /* ObjCKeyValueStore+Internal.m in Sources */,
@@ -1357,6 +1409,7 @@
 				631303891E10064200E480DA /* ObjCDynamicPropertyAccessors.m in Sources */,
 				63E3ECAD1DA251A900AEA8C3 /* ObjCCodingBase+Internal.m in Sources */,
 				63E3EC641DA2519100AEA8C3 /* NSManagedObject+InitWithContext.swift in Sources */,
+				6362CF0D1E10E77E00610F77 /* fishhook.c in Sources */,
 				63E3ECB91DA251A900AEA8C3 /* ObjCSelfAwareSwizzle.m in Sources */,
 				63E3EC5E1DA2519100AEA8C3 /* NSRange+RandomAccessCollection.swift in Sources */,
 				63314AD61DCB7E18004A2B7B /* DispatchQueue.swift in Sources */,
@@ -1367,6 +1420,7 @@
 				63E3ECB01DA251A900AEA8C3 /* ObjCAssociated.swift in Sources */,
 				63ED9D501DCAE82D00C59DDB /* Notification+ManagedObjectChanges.swift in Sources */,
 				638018FB1DBB59F700968738 /* ObjCGraftProtocolImplementation.swift in Sources */,
+				6362CF331E10FE3500610F77 /* ObjCDynamicCoder.m in Sources */,
 				63E3ECE41DA251FA00AEA8C3 /* NSPersistentStoreKind.swift in Sources */,
 				63E3EC5F1DA2519100AEA8C3 /* RunLoop+TaskDispatcher.swift in Sources */,
 				63E3ECAE1DA251A900AEA8C3 /* ObjCNormalizedCoding.swift in Sources */,
@@ -1386,6 +1440,7 @@
 				63ED9D551DCAF33B00C59DDB /* NSManagedObjectContextChangesExporterImporterTests.swift in Sources */,
 				633ECEA91C1542FE0082D870 /* RunLoop+TaskDispatcherTest.swift in Sources */,
 				631303621E0E8CB800E480DA /* ObjCDynamicPropertySynthesizingTests.m in Sources */,
+				6362CF391E11026800610F77 /* ObjCDynamicCoderTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1394,9 +1449,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				63E3EC791DA251A800AEA8C3 /* ObjCTypeEncoding.swift in Sources */,
+				6362CF0E1E10E77E00610F77 /* fishhook.c in Sources */,
 				63C8863E1C7F15F300F5677F /* LegacyUtilities.m in Sources */,
 				63E3EC861DA251A800AEA8C3 /* LaunchTask.m in Sources */,
 				63ED9D521DCAE82D00C59DDB /* Notification+ManagedObjectChanges.swift in Sources */,
+				6362CF351E10FE3500610F77 /* ObjCDynamicCoder.m in Sources */,
 				63E3ECE91DA251FB00AEA8C3 /* NSManagedObjectChangeKey.swift in Sources */,
 				63E3EC511DA2519000AEA8C3 /* Bundle.swift in Sources */,
 				63E3EC501DA2519000AEA8C3 /* ObjectiveC.swift in Sources */,
@@ -1433,6 +1490,7 @@
 				63E3EC831DA251A800AEA8C3 /* ObjCSelfAwareSwizzle.m in Sources */,
 				63E3EC4C1DA2519000AEA8C3 /* NSRange+RandomAccessCollection.swift in Sources */,
 				63B376711E0D20E20058FA90 /* NSCoder+InterfaceNormalization.swift in Sources */,
+				6362CF211E10F9CB00610F77 /* ObjCDynamicObject.m in Sources */,
 				63E3EC4B1DA2519000AEA8C3 /* NSRange+Utilities.swift in Sources */,
 				63E3EC821DA251A800AEA8C3 /* ObjCSelfAwareSwizzleRecipe.swift in Sources */,
 				638018FD1DBB59F700968738 /* ObjCGraftProtocolImplementation.swift in Sources */,
@@ -1445,7 +1503,6 @@
 				63CB03E81E0D57C9009ABA2B /* ObjCNormalizedCoding-UIKit.swift in Sources */,
 				63E3ECFE1DA2536100AEA8C3 /* ObjCCodingBase-AVFoundation.m in Sources */,
 				63E3ED091DA2536F00AEA8C3 /* ObjCKeyValueStore-QuartzCore.m in Sources */,
-				631303511E0D9ADA00E480DA /* fishhook.c in Sources */,
 				63E3ED161DA2537400AEA8C3 /* ObjCCodingBase-CoreGraphics.m in Sources */,
 				63B55A3A1DCF90A3008A8E2C /* NSManagedObject+Transient.swift in Sources */,
 				63E3EC781DA251A800AEA8C3 /* ObjCNormalizedCoding.swift in Sources */,
@@ -1465,6 +1522,7 @@
 				63ED9D561DCAF33B00C59DDB /* NSManagedObjectContextChangesExporterImporterTests.swift in Sources */,
 				633ECEA81C1542FD0082D870 /* RunLoop+TaskDispatcherTest.swift in Sources */,
 				631303631E0E8CB800E480DA /* ObjCDynamicPropertySynthesizingTests.m in Sources */,
+				6362CF3A1E11026800610F77 /* ObjCDynamicCoderTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -67,6 +67,15 @@ NS_ASSUME_NONNULL_BEGIN
     self.dynamicObject = nil;
 }
 
+- (void)testKVCAccessors {
+    NSString * sampleString = [[NSString alloc] initWithFormat:@"sample string"];
+    self.dynamicObject.object = sampleString;
+    XCTAssert([self.dynamicObject valueForKey:@"object"] == sampleString);
+    
+    self.dynamicObject.intValue = 6;
+    XCTAssert([[self.dynamicObject valueForKey:@"intValue"] isEqual:@(6)]);
+}
+
 - (void)testAtomicObjectAccessors {
     NSString * sampleString = [[NSString alloc] initWithFormat:@"sample string"];
     

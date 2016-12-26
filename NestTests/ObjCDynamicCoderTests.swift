@@ -1,8 +1,8 @@
 //
-//  ObjCCodingBaseTest.swift
+//  ObjCDynamicCoderTests.swift
 //  Nest
 //
-//  Created by Manfred on 2/5/16.
+//  Created by Manfred on 26/12/2016.
 //
 //
 
@@ -47,7 +47,7 @@ private enum ArchivableEnum {
     #endif
 }
 
-class ObjCCodingBaseTest: XCTestCase {
+class ObjCDynamicCoderTests: XCTestCase {
     func testIntegerAccessor() {
         let anEnumCase: ArchivableEnum = .integerAccessor(
             1,
@@ -55,10 +55,10 @@ class ObjCCodingBaseTest: XCTestCase {
             8,
             4,
             1,
-            9, 
+            9,
             8,
             4,
-            true
+            false
         )
         
         let anObject = ArchivableObject(anEnumCase)
@@ -79,7 +79,7 @@ class ObjCCodingBaseTest: XCTestCase {
                     int16Original,
                     int32Original,
                     int64Original,
-                    uint8Original, 
+                    uint8Original,
                     uint16Original,
                     uint32Original,
                     uint64Original,
@@ -98,15 +98,15 @@ class ObjCCodingBaseTest: XCTestCase {
                 )
                 ):
                 
-                XCTAssert(int8Original == int8Unarchived)
-                XCTAssert(int16Original == int16Unarchived)
-                XCTAssert(int32Original == int32Unarchived)
-                XCTAssert(int64Original == int64Unarchived)
-                XCTAssert(uint8Original == uint8Unarchived)
-                XCTAssert(uint16Original == uint16Unarchived)
-                XCTAssert(uint32Original == uint32Unarchived)
-                XCTAssert(uint64Original == uint64Unarchived)
-                XCTAssert(booleanOriginal == booleanUnarchived)
+                XCTAssert(int8Original == int8Unarchived, "\(int8Unarchived)")
+                XCTAssert(int16Original == int16Unarchived, "\(int16Unarchived)")
+                XCTAssert(int32Original == int32Unarchived, "\(int32Unarchived)")
+                XCTAssert(int64Original == int64Unarchived, "\(int64Unarchived)")
+                XCTAssert(uint8Original == uint8Unarchived, "\(uint8Unarchived)")
+                XCTAssert(uint16Original == uint16Unarchived, "\(uint16Unarchived)")
+                XCTAssert(uint32Original == uint32Unarchived, "\(uint32Unarchived)")
+                XCTAssert(uint64Original == uint64Unarchived, "\(uint64Unarchived)")
+                XCTAssert(booleanOriginal == booleanUnarchived, "\(booleanUnarchived)")
                 
                 break
             default:
@@ -260,7 +260,7 @@ class ObjCCodingBaseTest: XCTestCase {
             CGPoint(x: 1, y: 1),
             CGVector(dx: 2, dy: 2),
             CGSize(width: 3, height: 3),
-            CGRect(x: 4, y: 4, width: 4, height: 4), 
+            CGRect(x: 4, y: 4, width: 4, height: 4),
             CGAffineTransform.identity
         )
         
@@ -300,38 +300,38 @@ class ObjCCodingBaseTest: XCTestCase {
     
     func testUIKitAccessors() {
         #if os(iOS) || os(watchOS) || os(tvOS)
-        let anEnumCase: ArchivableEnum = .uiKitAccessor(
-            UIOffset(horizontal: 1, vertical: 1),
-            UIEdgeInsets(top: 1, left: 2, bottom: 3, right: 4)
-        )
-        
-        let anObject = ArchivableObject(anEnumCase)
-        
-        let archivedArbitraryObject = NSKeyedArchiver
-            .archivedData(withRootObject: anObject)
-        
-        let unarchivedArbitraryObject = NSKeyedUnarchiver
-            .unarchiveObject(with: archivedArbitraryObject)
-        
-        if let unarchivedArbitraryObject
-            = unarchivedArbitraryObject as? ArchivableObject
-        {
-            switch (anEnumCase, unarchivedArbitraryObject.archivableEnum) {
-            case let (
-                .uiKitAccessor(
-                    offsetOriginal, edgeInsetsOriginal
-                ),
-                .uiKitAccessor(
-                    offsetUnarchived, edgeInsetsUnarchived
-                )
-                ):
-                
-                XCTAssert(offsetOriginal == offsetUnarchived)
-                XCTAssert(edgeInsetsOriginal == edgeInsetsUnarchived)
-                break
-            default:
-                XCTFail()
-            }
+            let anEnumCase: ArchivableEnum = .uiKitAccessor(
+                UIOffset(horizontal: 1, vertical: 1),
+                UIEdgeInsets(top: 1, left: 2, bottom: 3, right: 4)
+            )
+            
+            let anObject = ArchivableObject(anEnumCase)
+            
+            let archivedArbitraryObject = NSKeyedArchiver
+                .archivedData(withRootObject: anObject)
+            
+            let unarchivedArbitraryObject = NSKeyedUnarchiver
+                .unarchiveObject(with: archivedArbitraryObject)
+            
+            if let unarchivedArbitraryObject
+                = unarchivedArbitraryObject as? ArchivableObject
+            {
+                switch (anEnumCase, unarchivedArbitraryObject.archivableEnum) {
+                case let (
+                    .uiKitAccessor(
+                        offsetOriginal, edgeInsetsOriginal
+                    ),
+                    .uiKitAccessor(
+                        offsetUnarchived, edgeInsetsUnarchived
+                    )
+                    ):
+                    
+                    XCTAssert(offsetOriginal == offsetUnarchived)
+                    XCTAssert(edgeInsetsOriginal == edgeInsetsUnarchived)
+                    break
+                default:
+                    XCTFail()
+                }
             }
         #endif
     }
@@ -339,32 +339,32 @@ class ObjCCodingBaseTest: XCTestCase {
     
     func testQuartzCoreAccessors() {
         #if os(iOS) || os(OSX) || os(tvOS)
-        let anEnumCase: ArchivableEnum = .quartzCoreAccessor(
-            CATransform3DIdentity
-        )
-        
-        let anObject = ArchivableObject(anEnumCase)
-        
-        let archivedArbitraryObject = NSKeyedArchiver
-            .archivedData(withRootObject: anObject)
-        
-        let unarchivedArbitraryObject = NSKeyedUnarchiver
-            .unarchiveObject(with: archivedArbitraryObject)
-        
-        if let unarchivedArbitraryObject
-            = unarchivedArbitraryObject as? ArchivableObject
-        {
-            switch (anEnumCase, unarchivedArbitraryObject.archivableEnum) {
-            case let (
-                .quartzCoreAccessor(transform3DOriginal),
-                .quartzCoreAccessor(transform3DUnarchived)
-                ):
-                
-                XCTAssert(CATransform3DEqualToTransform(transform3DOriginal, transform3DUnarchived))
-                break
-            default:
-                XCTFail()
-            }
+            let anEnumCase: ArchivableEnum = .quartzCoreAccessor(
+                CATransform3DIdentity
+            )
+            
+            let anObject = ArchivableObject(anEnumCase)
+            
+            let archivedArbitraryObject = NSKeyedArchiver
+                .archivedData(withRootObject: anObject)
+            
+            let unarchivedArbitraryObject = NSKeyedUnarchiver
+                .unarchiveObject(with: archivedArbitraryObject)
+            
+            if let unarchivedArbitraryObject
+                = unarchivedArbitraryObject as? ArchivableObject
+            {
+                switch (anEnumCase, unarchivedArbitraryObject.archivableEnum) {
+                case let (
+                    .quartzCoreAccessor(transform3DOriginal),
+                    .quartzCoreAccessor(transform3DUnarchived)
+                    ):
+                    
+                    XCTAssert(CATransform3DEqualToTransform(transform3DOriginal, transform3DUnarchived))
+                    break
+                default:
+                    XCTFail()
+                }
             }
         #endif
     }
@@ -405,12 +405,12 @@ class ObjCCodingBaseTest: XCTestCase {
                 case let (
                     .avFoundationAccessor(
                         timeOriginal,
-                        timeRangeOriginal, 
+                        timeRangeOriginal,
                         timeMappingOriginal
                     ),
                     .avFoundationAccessor(
-                        timeUnarchived, 
-                        timeRangeUnarchived, 
+                        timeUnarchived,
+                        timeRangeUnarchived,
                         timeMappingUnarchived)
                     ):
                     
@@ -418,7 +418,7 @@ class ObjCCodingBaseTest: XCTestCase {
                     XCTAssert(timeRangeOriginal == timeRangeUnarchived)
                     XCTAssert(
                         timeMappingOriginal.source == timeMappingUnarchived.source
-                        && timeMappingOriginal.target == timeMappingUnarchived.target
+                            && timeMappingOriginal.target == timeMappingUnarchived.target
                     )
                     break
                 default:
@@ -664,7 +664,7 @@ extension ArchivableEnum: _ObjectiveCBridgeable {
     }
 }
 
-private class _ArchivableEnumObjCBridged: ObjCCodingBase {
+private class _ArchivableEnumObjCBridged: ObjCDynamicCoder {
     
 }
 
@@ -681,16 +681,16 @@ private final class _ArchivableEnumIntegerAccessorObjCBridged:
     @NSManaged
     fileprivate var Int8Value: Int8
     
-    @NSManaged 
+    @NSManaged
     fileprivate var Int16Value: Int16
     
     @NSManaged
     fileprivate var Int32Value: Int32
     
-    @NSManaged 
+    @NSManaged
     fileprivate var Int64Value: Int64
     
-    @NSManaged 
+    @NSManaged
     fileprivate var UInt8Value: UInt8
     
     @NSManaged
@@ -699,17 +699,17 @@ private final class _ArchivableEnumIntegerAccessorObjCBridged:
     @NSManaged
     fileprivate var UInt32Value: UInt32
     
-    @NSManaged 
+    @NSManaged
     fileprivate var UInt64Value: UInt64
     
-    @NSManaged 
+    @NSManaged
     fileprivate var BoolValue: Bool
 }
 
 private final class _ArchivableEnumSelectorAccessorObjCBridged:
     _ArchivableEnumObjCBridged
 {
-    @NSManaged 
+    @NSManaged
     fileprivate var selector: Selector
 }
 
@@ -719,7 +719,7 @@ private final class _ArchivableEnumFloatingPointAccessorObjCBridged:
     @NSManaged
     fileprivate var doubleValue: Double
     
-    @NSManaged 
+    @NSManaged
     fileprivate var floatValue: Float
 }
 
