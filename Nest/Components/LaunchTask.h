@@ -6,8 +6,8 @@
 //
 //
 
-@import Foundation;
-@import ObjectiveC;
+#import <Foundation/Foundation.h>
+#import <objc/runtime.h>
 
 NS_ASSUME_NONNULL_BEGIN
 

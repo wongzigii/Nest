@@ -1,12 +1,12 @@
 //
-//  LaunchTask+WatchKit.m
+//  LaunchTask-watchOS.m
 //  Nest
 //
-//  Created by Manfred on 12/4/15.
+//  Created by Manfred on 23/12/2016.
 //
 //
 
-#import "LaunchTask-WatchKit.h"
+#import "LaunchTask-watchOS.h"
 #import "LaunchTask+Internal.h"
 
 void LTLaunchTasksPerformerAppDelegateSwizzled(id<WKExtensionDelegate> self, SEL _cmd) {
@@ -15,7 +15,7 @@ void LTLaunchTasksPerformerAppDelegateSwizzled(id<WKExtensionDelegate> self, SEL
     Class class = [self class];
     
     LTLaunchTasksPerformerAppDelegate * originalImp =
-        LTGetAppDelegateLaunchTasksPerformerOriginalImpForClass(class);
+    LTGetAppDelegateLaunchTasksPerformerOriginalImpForClass(class);
     
     if (originalImp != NULL) {
         originalImp(self, _cmd);
@@ -30,3 +30,4 @@ void LTLaunchTasksPerformerAppDelegateSwizzled(id<WKExtensionDelegate> self, SEL
 void LTLaunchTasksPerformerAppDelegateInjected(id<WKExtensionDelegate> self, SEL _cmd) {
     LTPerformLaunchTasksOnLoadedClasses(nil);
 }
+

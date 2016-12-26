@@ -21,6 +21,7 @@ typedef struct _LTLaunchTaskInfo {
     int priority; // 0 by default
 } LTLaunchTaskInfo;
 
+#if TARGET_OS_IOS || TARGET_OS_OSX || TARGET_OS_TV
 typedef NS_ENUM(NSInteger, LTApplicationUserInterfaceCreationApproach) {
     LTApplicationUserInterfaceCreationApproachNib,
     LTApplicationUserInterfaceCreationApproachStoryboard,
@@ -31,6 +32,7 @@ typedef NS_ENUM(NSInteger, LTExtensionUserInterfaceCreationApproach) {
     LTExtensionUserInterfaceCreationApproachStoryboard,
     LTExtensionUserInterfaceCreationApproachExtensionPrincipalClass,
 };
+#endif
 
 typedef NS_OPTIONS(NSUInteger, LTLaunchTaskSelectorMatchResult) {
     LTLaunchTaskSelectorUnmatched           = 0,
@@ -74,9 +76,6 @@ static BOOL kIsLaunchTaskEnabled = YES;
 #define PlaygroundBundleIDPrefix        @"com.apple.dt.playground"
 #endif
 #define ExtensionKey                    @"NSExtension"
-#define ExtensionPrincipalClassKey      @"NSExtensionPrincipalClass"
-#define ExtensionMainStoryboardKey      @"NSExtensionMainStoryboard"
-#define MainNibFileKey                  @"NSMainNibFile"
 
 #pragma mark - Function Prototypes
 static LTLaunchTaskInfo * LTLaunchTaskInfoCreate(
@@ -87,19 +86,23 @@ static LTLaunchTaskInfo * LTLaunchTaskInfoCreate(
     int
 );
 
+#if TARGET_OS_IOS || TARGET_OS_OSX || TARGET_OS_TV
 static LTApplicationUserInterfaceCreationApproach LTGetApplicationUserInterfaceCreationApproach();
 
 static LTExtensionUserInterfaceCreationApproach LTGetExtensionUserInterfaceCreationApproach();
+#endif
 
 static BOOL LTRegisterLaunchTaskInfo(const LTLaunchTaskInfo *);
 
 static BOOL LTFindUserCodeEntryPointAndInjectLaunchTasksPerformer(void);
 
+#if TARGET_OS_IOS || TARGET_OS_OSX || TARGET_OS_TV
 static BOOL LTInjectsAsApplication(void);
 
 static BOOL LTInjectsAsExtension(void);
 
 static BOOL LTInjectsToStoryboard(void);
+#endif
 
 #if DEBUG
 static BOOL LTInjectsAsXcodeAgents(void);
@@ -107,10 +110,13 @@ static BOOL LTInjectsAsXcodeAgents(void);
 static BOOL LTInjectsAsPlaygroundPage(void);
 #endif
 
+#if TARGET_OS_IOS || TARGET_OS_OSX || TARGET_OS_TV
 static BOOL LTInjectsToNib(void);
+#endif
 
 static BOOL LTInjectsToAppDelegate(void);
 
+#if TARGET_OS_IOS || TARGET_OS_OSX || TARGET_OS_TV
 static BOOL LTInjectsToExtensionPrincipalClass(void);
 
 static LTLaunchTasksPerformerExtensionPrincipalClassRef
@@ -124,6 +130,7 @@ static LTLaunchTasksPerformerStoryboardRef
 static id LTLaunchTasksPerformerStoryboard(
     const id, const SEL, const NSString *, const NSBundle *
 );
+#endif
 
 #if DEBUG
 static LTLaunchTasksPerformerXcodeAgentsRef
@@ -206,21 +213,14 @@ BOOL LTRegisterLaunchTask(
     }
 }
 
+#if TARGET_OS_IOS || TARGET_OS_OSX || TARGET_OS_TV
 LTApplicationUserInterfaceCreationApproach
     LTGetApplicationUserInterfaceCreationApproach()
 {
     NSBundle * mainBundle = [NSBundle mainBundle];
     
     NSString * mainNibFileName
-        = [mainBundle objectForInfoDictionaryKey:MainNibFileKey];
-    
-    NSString * mainStoryboardFileName
-        = [mainBundle objectForInfoDictionaryKey:LTMainStoryboardFileKey];
-    
-    NSCAssert(
-        !(mainNibFileName && mainStoryboardFileName),
-        @"An application cannot have both %@ and %@ at the same time in its info.plist. Remove one of them.", MainNibFileKey, LTMainStoryboardFileKey
-    );
+        = [mainBundle objectForInfoDictionaryKey:LTMainNibFileKey];
     
     if (mainNibFileName) {
 #if DEBUG
@@ -228,6 +228,14 @@ LTApplicationUserInterfaceCreationApproach
 #endif
         return LTApplicationUserInterfaceCreationApproachNib;
     }
+    
+    NSString * mainStoryboardFileName
+        = [mainBundle objectForInfoDictionaryKey:LTMainStoryboardFileKey];
+    
+    NSCAssert(
+        !(mainNibFileName && mainStoryboardFileName),
+        @"An application cannot have both %@ and %@ at the same time in its info.plist. Remove one of them.", LTMainNibFileKey, LTMainStoryboardFileKey
+    );
     
     if (mainStoryboardFileName) {
 #if DEBUG
@@ -257,24 +265,24 @@ LTExtensionUserInterfaceCreationApproach
     
 #if DEBUG
     NSString * extensionPricipalClassName
-        = extensionInfo[ExtensionPrincipalClassKey];
+        = extensionInfo[LTExtensionPrincipalClassKey];
 #endif
     
     NSString * extensionMainStoryboardName
-        = extensionInfo[ExtensionMainStoryboardKey];
+        = extensionInfo[LTExtensionMainStoryboardKey];
     
     NSCAssert(
         !(extensionPricipalClassName && extensionMainStoryboardName),
         @"An extension cannot have both %@ and %@ at the same time in its info.plist. Remove one of them.",
-        ExtensionPrincipalClassKey,
-        ExtensionMainStoryboardKey
+        LTExtensionPrincipalClassKey,
+        LTExtensionMainStoryboardKey
     );
     
     NSCAssert(
         (extensionPricipalClassName || extensionMainStoryboardName),
         @"An extension must have one of %@ and %@ in its info.plist. Add one of them.",
-        ExtensionPrincipalClassKey,
-        ExtensionMainStoryboardKey
+        LTExtensionPrincipalClassKey,
+        LTExtensionMainStoryboardKey
     );
     
     if (extensionMainStoryboardName != nil) {
@@ -289,6 +297,7 @@ LTExtensionUserInterfaceCreationApproach
 #endif
     return LTExtensionUserInterfaceCreationApproachExtensionPrincipalClass;
 }
+#endif
 
 LTLaunchTaskInfo * LTLaunchTaskInfoCreate(
     const char * selectorPrefix,
@@ -643,6 +652,7 @@ BOOL LTFindUserCodeEntryPointAndInjectLaunchTasksPerformer() {
     NSMainBundleCategory mainBundleCategory = [[NSBundle mainBundle] category];
     
     switch (mainBundleCategory) {
+#if TARGET_OS_IOS || TARGET_OS_OSX || TARGET_OS_TV
         case NSMainBundleCategoryApplication:
             if (LTInjectsAsApplication()) {
 #if DEBUG
@@ -659,6 +669,7 @@ BOOL LTFindUserCodeEntryPointAndInjectLaunchTasksPerformer() {
                 return YES;
             }
             break;
+#endif
 #if DEBUG
         case NSMainBundleCategoryPlaygroundPage:
             if (LTInjectsAsPlaygroundPage()) {
@@ -674,7 +685,9 @@ BOOL LTFindUserCodeEntryPointAndInjectLaunchTasksPerformer() {
             break;
 #endif
         default:
-#if DEBUG
+#if TARGET_OS_WATCH
+            return LTInjectsToAppDelegate();
+#elif DEBUG
             NSLog(@"Doesn't found user code entry point and the launch tasks performer was not injected.");
 #endif
             break;
@@ -683,6 +696,7 @@ BOOL LTFindUserCodeEntryPointAndInjectLaunchTasksPerformer() {
     return NO;
 }
 
+#if TARGET_OS_IOS || TARGET_OS_OSX || TARGET_OS_TV
 BOOL LTInjectsToStoryboard() {
     SEL storyboardUserCodeEntryPointSelector
     = @selector(storyboardWithName:bundle:);
@@ -715,6 +729,7 @@ BOOL LTInjectsToNib() {
 #endif
     return NO;
 }
+#endif
 
 BOOL LTInjectsToAppDelegate() {
     BOOL success = NO;
@@ -794,6 +809,7 @@ BOOL LTInjectsToAppDelegate() {
     return success;
 }
 
+#if TARGET_OS_IOS || TARGET_OS_OSX || TARGET_OS_TV
 BOOL LTInjectsToExtensionPrincipalClass() {
     NSDictionary * extensionInfo
         = [[NSBundle mainBundle] objectForInfoDictionaryKey:ExtensionKey];
@@ -801,11 +817,11 @@ BOOL LTInjectsToExtensionPrincipalClass() {
     NSCAssert(extensionInfo, @"No, it's impossible.");
     
     NSString * extensionPrincipalClassName
-        = extensionInfo[ExtensionPrincipalClassKey];
+        = extensionInfo[LTExtensionPrincipalClassKey];
     
     NSCAssert(
         extensionPrincipalClassName,
-        @"Extension's principal class name was not set. Or the extension principal class' key(%@) was changed.", ExtensionPrincipalClassKey
+        @"Extension's principal class name was not set. Or the extension principal class' key(%@) was changed.", LTExtensionPrincipalClassKey
     );
     
     Class extensionPrincipalClass
@@ -872,6 +888,7 @@ BOOL LTInjectsAsExtension() {
     });
     return success;
 }
+#endif
 
 #if DEBUG
 BOOL LTInjectsAsXcodeAgents() {
@@ -950,6 +967,7 @@ void LTSetAppDelegateLaunchTasksPerformerOriginalImpForClass(
     );
 }
 
+#if TARGET_OS_IOS || TARGET_OS_OSX || TARGET_OS_TV
 id LTLaunchTasksPerformerStoryboard(
     const id self,
     const SEL _cmd,
@@ -969,6 +987,19 @@ id LTLaunchTasksPerformerStoryboard(
     );
 }
 
+id LTLaunchTasksPerformerExtensionPrincipalClass(const id self, const SEL _cmd)
+{
+    LTPerformLaunchTasksOnLoadedClasses(nil);
+    
+    NSCAssert(
+        LTLaunchTasksPerformerExtensionPrincipalClassReplaced != NULL,
+        @"No original implementation found."
+    );
+    
+    return LTLaunchTasksPerformerExtensionPrincipalClassReplaced(self, _cmd);
+}
+#endif
+
 #if DEBUG
 id LTLaunchTasksPerformerXcodeAgents(const id self, const SEL _cmd) {
     LTPerformLaunchTasksOnLoadedClasses(nil);
@@ -981,18 +1012,6 @@ id LTLaunchTasksPerformerXcodeAgents(const id self, const SEL _cmd) {
     return (* LTLaunchTasksPerformerXcodeAgentsReplaced)(self, _cmd);
 }
 #endif
-
-id LTLaunchTasksPerformerExtensionPrincipalClass(const id self, const SEL _cmd)
-{
-    LTPerformLaunchTasksOnLoadedClasses(nil);
-    
-    NSCAssert(
-        LTLaunchTasksPerformerExtensionPrincipalClassReplaced != NULL,
-        @"No original implementation found."
-    );
-    
-    return LTLaunchTasksPerformerExtensionPrincipalClassReplaced(self, _cmd);
-}
 
 @implementation NSObject(LaunchTask)
 + (void)load {

@@ -12,7 +12,7 @@
 
 #if TARGET_OS_IOS || TARGET_OS_TV || TARGET_OS_WATCH
 @import UIKit;
-#elif TARGET_OS_MAC
+#elif TARGET_OS_OSX
 @import AppKit;
 #endif
 
@@ -88,7 +88,7 @@ id DecodeCGPoint (Class aClass, NSCoder * decoder, NSString * key) {
 #if TARGET_OS_IOS || TARGET_OS_TV || TARGET_OS_WATCH
     CGPoint point = [decoder decodeCGPointForKey:key];
     return [NSValue valueWithCGPoint:point];
-#elif TARGET_OS_MAC
+#elif TARGET_OS_OSX
     CGPoint point = [decoder decodePointForKey: key];
     return [NSValue valueWithPoint: point];
 #endif
@@ -98,7 +98,7 @@ void EncodeCGPoint (Class aClass, NSCoder * coder, NSString * key, id value) {
 #if TARGET_OS_IOS || TARGET_OS_TV || TARGET_OS_WATCH
     CGPoint point = [value CGPointValue];
     [coder encodeCGPoint:point forKey:key];
-#elif TARGET_OS_MAC
+#elif TARGET_OS_OSX
     CGPoint point = [value pointValue];
     [coder encodePoint:point forKey:key];
 #endif
@@ -120,7 +120,7 @@ id DecodeCGSize (Class aClass, NSCoder * decoder, NSString * key) {
 #if TARGET_OS_IOS || TARGET_OS_TV || TARGET_OS_WATCH
     CGSize size = [decoder decodeCGSizeForKey:key];
     return [NSValue valueWithCGSize:size];
-#elif TARGET_OS_MAC
+#elif TARGET_OS_OSX
     CGSize size = [decoder decodeSizeForKey: key];
     return [NSValue valueWithSize: size];
 #endif
@@ -130,7 +130,7 @@ void EncodeCGSize (Class aClass, NSCoder * coder, NSString * key, id value) {
 #if TARGET_OS_IOS || TARGET_OS_TV || TARGET_OS_WATCH
     CGSize size = [value CGSizeValue];
     [coder encodeCGSize:size forKey:key];
-#elif TARGET_OS_MAC
+#elif TARGET_OS_OSX
     CGSize size = [value sizeValue];
     [coder encodeSize:size forKey:key];
 #endif
@@ -140,7 +140,7 @@ id DecodeCGRect (Class aClass, NSCoder * decoder, NSString * key) {
 #if TARGET_OS_IOS || TARGET_OS_TV || TARGET_OS_WATCH
     CGRect rect = [decoder decodeCGRectForKey:key];
     return [NSValue valueWithCGRect:rect];
-#elif TARGET_OS_MAC
+#elif TARGET_OS_OSX
     CGRect rect = [decoder decodeRectForKey: key];
     return [NSValue valueWithRect: rect];
 #endif
@@ -150,7 +150,7 @@ void EncodeCGRect (Class aClass, NSCoder * coder, NSString * key, id value) {
 #if TARGET_OS_IOS || TARGET_OS_TV || TARGET_OS_WATCH
     CGRect rect = [value CGRectValue];
     [coder encodeCGRect:rect forKey:key];
-#elif TARGET_OS_MAC
+#elif TARGET_OS_OSX
     CGRect rect = [value rectValue];
     [coder encodeRect:rect forKey:key];
 #endif

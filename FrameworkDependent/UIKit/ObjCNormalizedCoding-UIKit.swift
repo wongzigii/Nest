@@ -1,5 +1,5 @@
 //
-//  ObjCCodingPrimitive+UIKit.swift
+//  ObjCNormalizedCoding+UIKit.swift
 //  Nest
 //
 //  Created by Manfred on 12/7/15.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-extension UIEdgeInsets: ObjCCodingPrimitive {
+extension UIEdgeInsets: ObjCNormalizedCoding {
     public func encode(to encoder: NSCoder, for key: String) {
         encoder.encode(self, forKey: key)
     }
@@ -20,7 +20,7 @@ extension UIEdgeInsets: ObjCCodingPrimitive {
     }
 }
 
-extension UIOffset: ObjCCodingPrimitive {
+extension UIOffset: ObjCNormalizedCoding {
     public func encode(to encoder: NSCoder, for key: String) {
         encoder.encode(self, forKey: key)
     }
@@ -33,7 +33,7 @@ extension UIOffset: ObjCCodingPrimitive {
 }
 
 //MARK: CoreGraphics Primitive
-extension CGVector: ObjCCodingPrimitive {
+extension CGVector: ObjCNormalizedCoding {
     public func encode(to encoder: NSCoder, for key: String) {
         encoder.encode(self, forKey: key)
     }
@@ -45,7 +45,7 @@ extension CGVector: ObjCCodingPrimitive {
     }
 }
 
-extension CGPoint: ObjCCodingPrimitive {
+extension CGPoint: ObjCNormalizedCoding {
     public func encode(to encoder: NSCoder, for key: String) {
         encoder.encode(self, forKey: key)
     }
@@ -57,7 +57,7 @@ extension CGPoint: ObjCCodingPrimitive {
     }
 }
 
-extension CGSize: ObjCCodingPrimitive {
+extension CGSize: ObjCNormalizedCoding {
     public func encode(to encoder: NSCoder, for key: String) {
         encoder.encode(self, forKey: key)
     }
@@ -69,7 +69,7 @@ extension CGSize: ObjCCodingPrimitive {
     }
 }
 
-extension CGRect: ObjCCodingPrimitive {
+extension CGRect: ObjCNormalizedCoding {
     public func encode(to encoder: NSCoder, for key: String) {
         encoder.encode(self, forKey: key)
     }
@@ -81,7 +81,7 @@ extension CGRect: ObjCCodingPrimitive {
     }
 }
 
-extension CGAffineTransform: ObjCCodingPrimitive {
+extension CGAffineTransform: ObjCNormalizedCoding {
     public func encode(to encoder: NSCoder, for key: String) {
         encoder.encode(self, forKey: key)
     }

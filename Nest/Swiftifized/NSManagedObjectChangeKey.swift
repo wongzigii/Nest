@@ -30,6 +30,7 @@ public enum NSManagedObjectChangeKey: Hashable {
                 iOSApplicationExtension 10.0,
                 tvOSApplicationExtension 10.0,
                 OSXApplicationExtension 10.12,
+                watchOSApplicationExtension 3.0,
                 *
                 )
             {
@@ -48,6 +49,7 @@ public enum NSManagedObjectChangeKey: Hashable {
             iOSApplicationExtension 10.0,
             tvOSApplicationExtension 10.0,
             OSXApplicationExtension 10.12,
+            watchOSApplicationExtension 3.0,
             *
             )
         {

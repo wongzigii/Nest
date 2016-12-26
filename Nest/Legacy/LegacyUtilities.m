@@ -18,3 +18,7 @@ NSString * NSStringFromBOOL(BOOL booleanValue) {
 NSRange NSRangeMake(NSUInteger location, NSUInteger length) {
     return NSMakeRange(location, length);
 }
+
+BOOL NSRangeEqualToRange(NSRange range1, NSRange range2) {
+    return NSEqualRanges(range1, range2);
+}

@@ -30,10 +30,7 @@ extension NSManagedObject {
     /// `NSManagedObject` subclass' entity name is not the same to its 
     /// class name, there is a fallback - overriding `nest_entityName` and
     /// return your actual entity name in this function.
-    public convenience init(
-        managedObjectContext: NSManagedObjectContext
-        )
-    {
+    public convenience init(managedObjectContext: NSManagedObjectContext) {
         if #available(
             iOSApplicationExtension 10.0,
             tvOSApplicationExtension 10.0,

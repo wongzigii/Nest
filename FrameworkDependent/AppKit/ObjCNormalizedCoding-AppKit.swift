@@ -1,5 +1,5 @@
 //
-//  ObjCCodingPrimitive-AppKit.swift
+//  ObjCNormalizedCoding-AppKit.swift
 //  Nest
 //
 //  Created by Manfred on 12/7/15.
@@ -8,37 +8,37 @@
 
 import AppKit
 
-extension CGPoint: ObjCCodingPrimitive {
+extension NSPoint: ObjCNormalizedCoding {
     public func encode(to encoder: NSCoder, for key: String) {
         encoder.encode(self, forKey: key)
     }
     
     public static func decode(from decoder: NSCoder, for key: String)
-        -> CGPoint
+        -> NSPoint
     {
         return decoder.decodePoint(forKey: key)
     }
 }
 
-extension CGSize: ObjCCodingPrimitive {
+extension NSSize: ObjCNormalizedCoding {
     public func encode(to encoder: NSCoder, for key: String) {
         encoder.encode(self, forKey: key)
     }
     
     public static func decode(from decoder: NSCoder, for key: String)
-        -> CGSize
+        -> NSSize
     {
         return decoder.decodeSize(forKey: key)
     }
 }
 
-extension CGRect: ObjCCodingPrimitive {
+extension NSRect: ObjCNormalizedCoding {
     public func encode(to encoder: NSCoder, for key: String) {
         encoder.encode(self, forKey: key)
     }
     
     public static func decode(from decoder: NSCoder, for key: String)
-        -> CGRect
+        -> NSRect
     {
         return decoder.decodeRect(forKey: key)
     }

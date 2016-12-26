@@ -1,5 +1,5 @@
 //
-//  ObjCCodingPrimitive+AVFoundation.swift
+//  ObjCNormalizedCoding+AVFoundation.swift
 //  Nest
 //
 //  Created by Manfred on 12/7/15.
@@ -10,7 +10,7 @@ import AVFoundation
 import Foundation
 
 // Specialization for CoreMedia types
-extension CMTime: ObjCCodingPrimitive {
+extension CMTime: ObjCNormalizedCoding {
     public func encode(to encoder: NSCoder, for key: String) {
         encoder.encode(self, forKey: key)
     }
@@ -22,7 +22,7 @@ extension CMTime: ObjCCodingPrimitive {
     }
 }
 
-extension CMTimeRange: ObjCCodingPrimitive {
+extension CMTimeRange: ObjCNormalizedCoding {
     public func encode(to encoder: NSCoder, for key: String) {
         encoder.encode(self, forKey: key)
     }
@@ -34,7 +34,7 @@ extension CMTimeRange: ObjCCodingPrimitive {
     }
 }
 
-extension CMTimeMapping: ObjCCodingPrimitive {
+extension CMTimeMapping: ObjCNormalizedCoding {
     public func encode(to encoder: NSCoder, for key: String) {
         encoder.encode(self, forKey: key)
     }

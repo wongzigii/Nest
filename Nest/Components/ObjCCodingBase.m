@@ -138,10 +138,7 @@ static NSString *  kObjCCodingBaseVersionKey
         id value = self.internalStorage[key];
 
         ObjCCodingBaseEncodeCallBack encode
-        = ObjCCodingBaseEncodeCallBackForProperty(
-            [self class],
-            key
-        );
+            = ObjCCodingBaseEncodeCallBackForProperty([self class], key);
 
         (* encode)([self class], coder, key, value);
     }
