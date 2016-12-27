@@ -199,7 +199,14 @@ extension NSCoder {
     }
     
     public func decodeOrThrow<T: NSObject>(
-        for key: String, with classes: [AnyClass]?
+        for key: String, with classes: AnyClass...
+        ) throws -> T! where T: NSCoding
+    {
+        return try decodeOrThrow(for: key, with: classes)
+    }
+    
+    public func decodeOrThrow<T: NSObject>(
+        for key: String, with classes: [AnyClass]
         ) throws -> T! where T: NSCoding
     {
         if containsValue(forKey: key) {
@@ -298,7 +305,14 @@ extension NSCoder {
     }
     
     public func decode<T: NSObject>(
-        for key: String, with classes: [AnyClass]?
+        for key: String, with classes: AnyClass...
+        ) -> T? where T: NSCoding
+    {
+        return try? decodeOrThrow(for: key, with: classes)
+    }
+    
+    public func decode<T: NSObject>(
+        for key: String, with classes: [AnyClass]
         ) -> T? where T: NSCoding
     {
         return try? decodeOrThrow(for: key, with: classes)

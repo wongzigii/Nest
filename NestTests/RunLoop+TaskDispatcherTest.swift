@@ -9,7 +9,7 @@
 import XCTest
 import Nest
 
-private typealias TimingSymbols = RunLoop.Timing
+private typealias TimingSymbols = RunLoop.Timings
 
 class RunLoop_TaskDispatcherTest: XCTestCase {
     private var timingSymbols: [TimingSymbols] = []

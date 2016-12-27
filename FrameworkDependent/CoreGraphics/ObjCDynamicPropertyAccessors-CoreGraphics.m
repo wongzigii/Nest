@@ -24,109 +24,109 @@
 @ObjCDynamicPropertyGetter(CGPoint) {
     CGPoint retVal = CGPointZero;
     @synchronized (self) {
-        retVal = [[self primitiveValueForKey:_key] CGPointValue];
+        retVal = [[self primitiveValueForKey:_prop] CGPointValue];
     }
     return retVal;
 };
 
 @ObjCDynamicPropertySetter(CGPoint) {
     @synchronized (self) {
-        [self setPrimitiveValue:[NSValue valueWithCGPoint:newValue] forKey:_key];
+        [self setPrimitiveValue:[NSValue valueWithCGPoint:newValue] forKey:_prop];
     }
 };
 
 @ObjCDynamicPropertyGetter(CGVector) {
     CGVector retVal = CGVectorMake(0, 0);
     @synchronized (self) {
-        retVal = [[self primitiveValueForKey:_key] CGVectorValue];
+        retVal = [[self primitiveValueForKey:_prop] CGVectorValue];
     }
     return retVal;
 };
 
 @ObjCDynamicPropertySetter(CGVector) {
     @synchronized (self) {
-        [self setPrimitiveValue:[NSValue valueWithCGVector:newValue] forKey:_key];
+        [self setPrimitiveValue:[NSValue valueWithCGVector:newValue] forKey:_prop];
     }
 };
 
 @ObjCDynamicPropertyGetter(CGSize) {
     CGSize retVal = CGSizeZero;
     @synchronized (self) {
-        retVal = [[self primitiveValueForKey:_key] CGSizeValue];
+        retVal = [[self primitiveValueForKey:_prop] CGSizeValue];
     }
     return retVal;
 };
 
 @ObjCDynamicPropertySetter(CGSize) {
     @synchronized (self) {
-        [self setPrimitiveValue:[NSValue valueWithCGSize:newValue] forKey:_key];
+        [self setPrimitiveValue:[NSValue valueWithCGSize:newValue] forKey:_prop];
     }
 };
 
 @ObjCDynamicPropertyGetter(CGRect) {
     CGRect retVal = CGRectZero;
     @synchronized (self) {
-        retVal = [[self primitiveValueForKey:_key] CGRectValue];
+        retVal = [[self primitiveValueForKey:_prop] CGRectValue];
     }
     return retVal;
 };
 
 @ObjCDynamicPropertySetter(CGRect) {
     @synchronized (self) {
-        [self setPrimitiveValue:[NSValue valueWithCGRect:newValue] forKey:_key];
+        [self setPrimitiveValue:[NSValue valueWithCGRect:newValue] forKey:_prop];
     }
 };
 
 @ObjCDynamicPropertyGetter(CGAffineTransform) {
     CGAffineTransform retVal = CGAffineTransformIdentity;
     @synchronized (self) {
-        retVal = [[self primitiveValueForKey:_key] CGAffineTransformValue];
+        retVal = [[self primitiveValueForKey:_prop] CGAffineTransformValue];
     }
     return retVal;
 };
 
 @ObjCDynamicPropertySetter(CGAffineTransform) {
     @synchronized (self) {
-        [self setPrimitiveValue:[NSValue valueWithCGAffineTransform:newValue] forKey:_key];
+        [self setPrimitiveValue:[NSValue valueWithCGAffineTransform:newValue] forKey:_prop];
     }
 };
 
 @ObjCDynamicPropertyGetter(CGPoint, NONATOMIC) {
-    return [[self primitiveValueForKey:_key] CGPointValue];
+    return [[self primitiveValueForKey:_prop] CGPointValue];
 };
 
 @ObjCDynamicPropertySetter(CGPoint, NONATOMIC) {
-    [self setPrimitiveValue:[NSValue valueWithCGPoint:newValue] forKey:_key];
+    [self setPrimitiveValue:[NSValue valueWithCGPoint:newValue] forKey:_prop];
 };
 
 @ObjCDynamicPropertyGetter(CGVector, NONATOMIC) {
-    return [[self primitiveValueForKey:_key] CGVectorValue];
+    return [[self primitiveValueForKey:_prop] CGVectorValue];
 };
 
 @ObjCDynamicPropertySetter(CGVector, NONATOMIC) {
-    [self setPrimitiveValue:[NSValue valueWithCGVector:newValue] forKey:_key];
+    [self setPrimitiveValue:[NSValue valueWithCGVector:newValue] forKey:_prop];
 };
 
 @ObjCDynamicPropertyGetter(CGSize, NONATOMIC) {
-    return [[self primitiveValueForKey:_key] CGSizeValue];
+    return [[self primitiveValueForKey:_prop] CGSizeValue];
 };
 
 @ObjCDynamicPropertySetter(CGSize, NONATOMIC) {
-    [self setPrimitiveValue:[NSValue valueWithCGSize:newValue] forKey:_key];
+    [self setPrimitiveValue:[NSValue valueWithCGSize:newValue] forKey:_prop];
 };
 
 @ObjCDynamicPropertyGetter(CGRect, NONATOMIC) {
-    return [[self primitiveValueForKey:_key] CGRectValue];
+    return [[self primitiveValueForKey:_prop] CGRectValue];
 };
 
 @ObjCDynamicPropertySetter(CGRect, NONATOMIC) {
-    [self setPrimitiveValue:[NSValue valueWithCGRect:newValue] forKey:_key];
+    [self setPrimitiveValue:[NSValue valueWithCGRect:newValue] forKey:_prop];
 };
 
 @ObjCDynamicPropertyGetter(CGAffineTransform, NONATOMIC) {
-    return [[self primitiveValueForKey:_key] CGAffineTransformValue];
+    return [[self primitiveValueForKey:_prop] CGAffineTransformValue];
 };
 
 @ObjCDynamicPropertySetter(CGAffineTransform, NONATOMIC) {
-    [self setPrimitiveValue:[NSValue valueWithCGAffineTransform:newValue] forKey:_key];
+    [self setPrimitiveValue:[NSValue valueWithCGAffineTransform:newValue] forKey:_prop];
 };

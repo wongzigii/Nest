@@ -31,14 +31,17 @@ typedef NS_OPTIONS(NSInteger, ObjCDynamicPropertyAttributes) {
 
 /// Make a dynamic property attributes.
 ///
-/// (_OBJC_DYNAMIC_PROPERTY_ATTRIBUTE_NONE, ##__VA_ARGS__) is a trick
+/// `(_OBJC_DYNAMIC_PROPERTY_ATTRIBUTE_NONE, ##__VA_ARGS__)` is a trick
 /// `20`, which `_OBJC_DYNAMIC_PROPERTY_ATTRIBUTE_NONE` stands for, is
-/// metamacros's largest argument number, `##__VA__ARGS__` eliminates itself
-/// when `__VA__ARGS__` has nothing.
+/// metamacros's the largest argument number and `##__VA__ARGS__` eliminates
+/// itself when `__VA__ARGS__` has nothing. So it means just to resolve
+/// `_OBJC_DYNAMIC_PROPERTY_ATTRIBUTE_NONE` when there is no coming arguments.
 #define ObjCDynamicPropertyAttributesMake(...) \
     metamacro_foreach_concat(,,_ObjCDynamicPropertyAttributeOptions(_OBJC_DYNAMIC_PROPERTY_ATTRIBUTE_NONE, ##__VA_ARGS__))
 
 FOUNDATION_EXTERN NSString * NSStringFromObjCDynamicPropertyAttributes(ObjCDynamicPropertyAttributes attributes);
+
+FOUNDATION_EXTERN NSString * NSStringFromObjCDynamicPropertyTypeEncodingAndAttributes(const char * typeEncoding, ObjCDynamicPropertyAttributes attributes);
 
 /// Defines a global dynamic property getter. Does nothing when there is an
 /// existed one with specified return type and property attributes.
@@ -94,7 +97,7 @@ FOUNDATION_EXTERN NSString * NSStringFromObjCDynamicPropertyAttributes(ObjCDynam
 ///
 /// - Notes:
 /// Only works in dynamic property accessor's implementation.
-#define _key ObjCDynamicPropertySynthesizerPropertyNameForSelectorWithClass(_cmd, [self class])
+#define _prop ObjCDynamicPropertySynthesizerGetPropertyNameForSelectorWithClass(_cmd, [self class])
 
 /// Adds a global dynamic property getter implementation.
 ///
@@ -116,7 +119,7 @@ FOUNDATION_EXTERN void ObjCDynamicPropertySynthesizerSetClassSpecificSetter(Clas
 
 /// Gets the dynamic property's name with its class and selector(whenever the
 /// setter or getter's).
-FOUNDATION_EXTERN NSString * ObjCDynamicPropertySynthesizerPropertyNameForSelectorWithClass(SEL selector, Class cls);
+FOUNDATION_EXTERN NSString * ObjCDynamicPropertySynthesizerGetPropertyNameForSelectorWithClass(SEL selector, Class cls);
 
 #pragma mark - Implementation Details
 /* You shall not write code depends on following things. */

@@ -13,43 +13,43 @@
 @ObjCDynamicPropertyGetter(UIOffset) {
     UIOffset retVal = UIOffsetZero;
     @synchronized (self) {
-        retVal = [[self primitiveValueForKey:_key] UIOffsetValue];
+        retVal = [[self primitiveValueForKey:_prop] UIOffsetValue];
     }
     return retVal;
 };
 
 @ObjCDynamicPropertyGetter(UIOffset, NONATOMIC) {
-    return [[self primitiveValueForKey:_key] UIOffsetValue];
+    return [[self primitiveValueForKey:_prop] UIOffsetValue];
 };
 
 @ObjCDynamicPropertySetter(UIOffset) {
     @synchronized (self) {
-        [self setPrimitiveValue:[NSValue valueWithUIOffset:newValue] forKey:_key];
+        [self setPrimitiveValue:[NSValue valueWithUIOffset:newValue] forKey:_prop];
     }
 };
 
 @ObjCDynamicPropertySetter(UIOffset, NONATOMIC) {
-    [self setPrimitiveValue:[NSValue valueWithUIOffset:newValue] forKey:_key];
+    [self setPrimitiveValue:[NSValue valueWithUIOffset:newValue] forKey:_prop];
 };
 
 @ObjCDynamicPropertyGetter(UIEdgeInsets) {
     UIEdgeInsets retVal = UIEdgeInsetsZero;
     @synchronized (self) {
-        retVal = [[self primitiveValueForKey:_key] UIEdgeInsetsValue];
+        retVal = [[self primitiveValueForKey:_prop] UIEdgeInsetsValue];
     }
     return retVal;
 };
 
 @ObjCDynamicPropertyGetter(UIEdgeInsets, NONATOMIC) {
-    return [[self primitiveValueForKey:_key] UIEdgeInsetsValue];
+    return [[self primitiveValueForKey:_prop] UIEdgeInsetsValue];
 };
 
 @ObjCDynamicPropertySetter(UIEdgeInsets) {
     @synchronized (self) {
-        [self setPrimitiveValue:[NSValue valueWithUIEdgeInsets:newValue] forKey:_key];
+        [self setPrimitiveValue:[NSValue valueWithUIEdgeInsets:newValue] forKey:_prop];
     }
 };
 
 @ObjCDynamicPropertySetter(UIEdgeInsets, NONATOMIC) {
-    [self setPrimitiveValue:[NSValue valueWithUIEdgeInsets:newValue] forKey:_key];
+    [self setPrimitiveValue:[NSValue valueWithUIEdgeInsets:newValue] forKey:_prop];
 };

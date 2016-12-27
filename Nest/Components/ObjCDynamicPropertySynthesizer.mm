@@ -15,44 +15,7 @@
 #include "ObjCDynamicPropertySynthesizer.hpp"
 
 #pragma mark - C Bindings
-NSString * NSStringFromObjCDynamicPropertyAttributes(ObjCDynamicPropertyAttributes attributes) {
-    NSMutableArray<NSString *> * attributeDescriptions = [[NSMutableArray<NSString *> alloc] init];
-    if ((attributes & ObjCDynamicPropertyAttributesCopy) != 0) {
-        [attributeDescriptions addObject:@"COPY"];
-    }
-    if ((attributes & ObjCDynamicPropertyAttributesRetain) != 0) {
-        [attributeDescriptions addObject:@"RETAIN"];
-    }
-    if ((attributes & ObjCDynamicPropertyAttributesNonatomic) != 0) {
-        [attributeDescriptions addObject:@"NONATOMIC"];
-    }
-    if ((attributes & ObjCDynamicPropertyAttributesWeak) != 0) {
-        [attributeDescriptions addObject:@"WEAK"];
-    }
-    return [attributeDescriptions componentsJoinedByString:@" "];
-}
-
-NSString * NSStringFromObjCDynamicPropertyTypeEncodingAndAttributes(const char * typeEncoding, ObjCDynamicPropertyAttributes attributes) {
-    NSMutableArray<NSString *> * descriptions = [[NSMutableArray<NSString *> alloc] init];
-    
-    [descriptions addObject:[NSString stringWithCString:typeEncoding encoding:NSUTF8StringEncoding]];
-    
-    if ((attributes & ObjCDynamicPropertyAttributesCopy) != 0) {
-        [descriptions addObject:@"COPY"];
-    }
-    if ((attributes & ObjCDynamicPropertyAttributesRetain) != 0) {
-        [descriptions addObject:@"RETAIN"];
-    }
-    if ((attributes & ObjCDynamicPropertyAttributesNonatomic) != 0) {
-        [descriptions addObject:@"NONATOMIC"];
-    }
-    if ((attributes & ObjCDynamicPropertyAttributesWeak) != 0) {
-        [descriptions addObject:@"WEAK"];
-    }
-    return [descriptions componentsJoinedByString:@" "];
-}
-
-NSString * ObjCDynamicPropertySynthesizerPropertyNameForSelectorWithClass(SEL selector, Class cls) {
+NSString * ObjCDynamicPropertySynthesizerGetPropertyNameForSelectorWithClass(SEL selector, Class cls) {
     auto property_name = nest::ObjCDynamicPropertySynthesizer::getPropertyName(cls, selector);
     if (property_name) {
         return [NSString stringWithCString:property_name -> c_str() encoding:NSUTF8StringEncoding];
@@ -96,7 +59,44 @@ void ObjCDynamicPropertySynthesizerSetClassSpecificSetter(Class cls, IMP imp, co
     nest::ObjCDynamicPropertySynthesizer::setClassSpecificImplementation(cls, imp, nest::ObjCDynamicPropertySynthesizer::AccessorKind::setter, typeEncoding, (attrs & ObjCDynamicPropertyAttributesCopy) != 0, (attrs & ObjCDynamicPropertyAttributesRetain) != 0, (attrs & ObjCDynamicPropertyAttributesNonatomic) != 0, (attrs & ObjCDynamicPropertyAttributesWeak) != 0);
 }
 
-#pragma mark - nest::ClassDescription
+NSString * NSStringFromObjCDynamicPropertyAttributes(ObjCDynamicPropertyAttributes attributes) {
+    NSMutableArray<NSString *> * attributeDescriptions = [[NSMutableArray<NSString *> alloc] init];
+    if ((attributes & ObjCDynamicPropertyAttributesCopy) != 0) {
+        [attributeDescriptions addObject:@"COPY"];
+    }
+    if ((attributes & ObjCDynamicPropertyAttributesRetain) != 0) {
+        [attributeDescriptions addObject:@"RETAIN"];
+    }
+    if ((attributes & ObjCDynamicPropertyAttributesNonatomic) != 0) {
+        [attributeDescriptions addObject:@"NONATOMIC"];
+    }
+    if ((attributes & ObjCDynamicPropertyAttributesWeak) != 0) {
+        [attributeDescriptions addObject:@"WEAK"];
+    }
+    return [attributeDescriptions componentsJoinedByString:@" "];
+}
+
+NSString * NSStringFromObjCDynamicPropertyTypeEncodingAndAttributes(const char * typeEncoding, ObjCDynamicPropertyAttributes attributes) {
+    NSMutableArray<NSString *> * descriptions = [[NSMutableArray<NSString *> alloc] init];
+    
+    [descriptions addObject:[NSString stringWithCString:typeEncoding encoding:NSUTF8StringEncoding]];
+    
+    if ((attributes & ObjCDynamicPropertyAttributesCopy) != 0) {
+        [descriptions addObject:@"COPY"];
+    }
+    if ((attributes & ObjCDynamicPropertyAttributesRetain) != 0) {
+        [descriptions addObject:@"RETAIN"];
+    }
+    if ((attributes & ObjCDynamicPropertyAttributesNonatomic) != 0) {
+        [descriptions addObject:@"NONATOMIC"];
+    }
+    if ((attributes & ObjCDynamicPropertyAttributesWeak) != 0) {
+        [descriptions addObject:@"WEAK"];
+    }
+    return [descriptions componentsJoinedByString:@" "];
+}
+
+#pragma mark - nest::ObjCDynamicPropertySynthesizer::ClassDescription
 nest::ObjCDynamicPropertySynthesizer::ClassDescription::ClassDescription(Class cls) {
     auto raw_name = class_getName(cls);
     name_ = std::unique_ptr<std::string>(new std::string(raw_name));
@@ -250,27 +250,33 @@ bool nest::ObjCDynamicPropertySynthesizer::ClassDescription::_shouldProcessPrope
     return property_attributes -> is_dynamic;
 }
 
-#pragma mark - nest::PropertyAttributes
+#pragma mark - nest::ObjCDynamicPropertySynthesizer::PropertyAttributes
 std::unique_ptr<std::string> nest::ObjCDynamicPropertySynthesizer::PropertyAttributes::getPropertyDefaultSetterName(const char *raw_property_name) {
     auto property_name = CFStringCreateWithCString(kCFAllocatorDefault, raw_property_name, kCFStringEncodingUTF8);
     auto property_name_length = CFStringGetLength(property_name);
     
     assert(property_name_length > 0);
     
-    auto initial_character_range = CFStringGetRangeOfComposedCharactersAtIndex(property_name, 0);
-    auto rest_substring_range = CFRangeMake(initial_character_range.length, property_name_length - initial_character_range.length);
+    auto first_composed_character_range = CFStringGetRangeOfComposedCharactersAtIndex(property_name, 0);
+    auto rest_substring_range = CFRangeMake(first_composed_character_range.length, property_name_length - first_composed_character_range.length);
     
-    auto first_character = CFStringCreateWithSubstring(kCFAllocatorDefault, property_name, initial_character_range);
-    auto first_character_uppercased = CFStringCreateMutableCopy(kCFAllocatorDefault, 0, first_character);
-    CFStringUppercase(first_character_uppercased, CFLocaleGetSystem());
+    auto first_composed_character = CFStringCreateWithSubstring(kCFAllocatorDefault, property_name, first_composed_character_range);
+    auto first_composed_character_uppercased = CFStringCreateMutableCopy(kCFAllocatorDefault, 0, first_composed_character);
+    CFStringUppercase(first_composed_character_uppercased, CFLocaleGetSystem());
     
     auto rest_substring = CFStringCreateWithSubstring(kCFAllocatorDefault, property_name, rest_substring_range);
     
-    auto default_setter_name_cf = CFStringCreateWithFormat(kCFAllocatorDefault, NULL, CFSTR("set%@%@:"), first_character_uppercased, rest_substring);
+    auto default_setter_name_cf = CFStringCreateWithFormat(kCFAllocatorDefault, NULL, CFSTR("set%@%@:"), first_composed_character_uppercased, rest_substring);
     
     const char * default_setter_name_raw = CFStringGetCStringPtr(default_setter_name_cf, kCFStringEncodingUTF8);
     
     std::unique_ptr<std::string> default_setter_name (new std::string(default_setter_name_raw));
+    
+    CFRelease(first_composed_character);
+    CFRelease(first_composed_character_uppercased);
+    CFRelease(rest_substring);
+    CFRelease(default_setter_name_cf);
+    CFRelease(property_name);
     
     return default_setter_name;
 }
@@ -348,7 +354,7 @@ void nest::ObjCDynamicPropertySynthesizer::PropertyAttributes::_init(const char 
     }
 }
 
-#pragma mark - nest::AccessorDescription
+#pragma mark - nest::ObjCDynamicPropertySynthesizer::AccessorDescription
 nest::ObjCDynamicPropertySynthesizer::AccessorDescription::AccessorDescription(AccessorKind kind, PropertyAttributes * property_attributes) {
     this -> kind = kind;
     this -> property_attributes = property_attributes;
@@ -367,7 +373,7 @@ nest::ObjCDynamicPropertySynthesizer::AccessorDescription::AccessorDescription(A
     }
 }
 
-#pragma mark - nest::ImplementationCenter
+#pragma mark - nest::ObjCDynamicPropertySynthesizer::ImplementationCenter
 nest::ObjCDynamicPropertySynthesizer::ImplementationCenter::ImplementationCenter() {
     getter_implementations_ = std::unique_ptr<std::unordered_map<std::unique_ptr<std::string>, IMP, GlobalUniqueStringUniquePtrHashFunc, IsGlobalUniqueStringUniquePtrEqualFunc>>(new std::unordered_map<std::unique_ptr<std::string>, IMP, GlobalUniqueStringUniquePtrHashFunc, IsGlobalUniqueStringUniquePtrEqualFunc>);
     setter_implementations_ = std::unique_ptr<std::unordered_map<std::unique_ptr<std::string>, IMP, GlobalUniqueStringUniquePtrHashFunc, IsGlobalUniqueStringUniquePtrEqualFunc>>(new std::unordered_map<std::unique_ptr<std::string>, IMP, GlobalUniqueStringUniquePtrHashFunc, IsGlobalUniqueStringUniquePtrEqualFunc>);

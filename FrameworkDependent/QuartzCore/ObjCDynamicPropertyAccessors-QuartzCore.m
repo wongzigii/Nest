@@ -23,21 +23,21 @@
 @ObjCDynamicPropertyGetter(CATransform3D) {
     CATransform3D retVal = CATransform3DIdentity;
     @synchronized (self) {
-        retVal = [[self primitiveValueForKey:_key] CATransform3DValue];
+        retVal = [[self primitiveValueForKey:_prop] CATransform3DValue];
     }
     return retVal;
 };
 
 @ObjCDynamicPropertySetter(CATransform3D) {
     @synchronized (self) {
-        [self setPrimitiveValue:[NSValue valueWithCATransform3D:newValue] forKey:_key];
+        [self setPrimitiveValue:[NSValue valueWithCATransform3D:newValue] forKey:_prop];
     }
 };
 
 @ObjCDynamicPropertyGetter(CATransform3D, NONATOMIC) {
-    return [[self primitiveValueForKey:_key] CATransform3DValue];
+    return [[self primitiveValueForKey:_prop] CATransform3DValue];
 };
 
 @ObjCDynamicPropertySetter(CATransform3D, NONATOMIC) {
-    [self setPrimitiveValue:[NSValue valueWithCATransform3D:newValue] forKey:_key];
+    [self setPrimitiveValue:[NSValue valueWithCATransform3D:newValue] forKey:_prop];
 };

@@ -384,6 +384,7 @@
 		6362CF2C1E10FE3500610F77 /* ObjCDynamicCoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ObjCDynamicCoder.h; sourceTree = "<group>"; };
 		6362CF2D1E10FE3500610F77 /* ObjCDynamicCoder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ObjCDynamicCoder.m; sourceTree = "<group>"; };
 		6362CF371E11026800610F77 /* ObjCDynamicCoderTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObjCDynamicCoderTests.swift; sourceTree = "<group>"; };
+		6362CF451E12606100610F77 /* ObjCDynamicCoding+Internal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ObjCDynamicCoding+Internal.h"; sourceTree = "<group>"; };
 		6366D0CA1D69817400A4D01C /* NSManagedObject+InitWithContext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSManagedObject+InitWithContext.swift"; sourceTree = "<group>"; };
 		6371F1F91C7F35FC00837BB7 /* ObjCDynamicCoding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ObjCDynamicCoding.h; sourceTree = "<group>"; };
 		6371F1FA1C7F35FC00837BB7 /* ObjCDynamicCoding.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ObjCDynamicCoding.m; sourceTree = "<group>"; };
@@ -621,6 +622,7 @@
 				6362CF2C1E10FE3500610F77 /* ObjCDynamicCoder.h */,
 				6362CF2D1E10FE3500610F77 /* ObjCDynamicCoder.m */,
 				6371F1F91C7F35FC00837BB7 /* ObjCDynamicCoding.h */,
+				6362CF451E12606100610F77 /* ObjCDynamicCoding+Internal.h */,
 				6371F1FA1C7F35FC00837BB7 /* ObjCDynamicCoding.m */,
 				635F10911BFAFABB004982B4 /* ObjCNormalizedCoding.swift */,
 				633ECDA31C14487A0082D870 /* ObjCTypeEncoding.swift */,
