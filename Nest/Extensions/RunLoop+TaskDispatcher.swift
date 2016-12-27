@@ -118,6 +118,8 @@ extension RunLoop {
         public static let idle = Timings(rawValue: 1 << 1)
         public static let currentLoopEnded = Timings(rawValue: 1 << 2)
         
+        public static let oncePossible: Timings = all
+        
         public static let all: Timings =
             [.currentLoopEnded, .nextLoopBegan, .idle]
         
